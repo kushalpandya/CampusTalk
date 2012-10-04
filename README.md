@@ -28,4 +28,4 @@ The webapp is single-page and thus makes extensive use of Ajax to show content t
 
 ## Authors
 
-[Kushal Pandya](https://github.com/kushalpandya), [Faishal Saiyed](https://github.com/faishal), [Aaresha Vora](https://github.com/AareshaVora), [Shreeji Patel](https://github.com/shreejipatel), [Darshil Shah](https://github.com/shreejipatel), [Sunny Lalwani](https://github.com/sunny55339).
+[Kushal Pandya](https://github.com/kushalpandya), [Faishal Saiyed](https://github.com/faishal), [Aaresha Vora](https://github.com/AareshaVora), [Shreeji Patel](https://github.com/shreejipatel), [Darshil Shah](https://github.com/shreejipatel), [Sunny Lalwani](https://github.com/sunny55339), [Hiral Shah](https://github.com/hiral31), [Ravi Verma](https://github.com/ravi1990).
