@@ -1,0 +1,86 @@
+/* Main Class for CSS3 Experimental Properties with Vendor Prefix */
+
+.transition(@prop : all, @dur : .2s, @timing: ease) {
+	-webkit-transition: @prop @dur @timing;
+	   -moz-transition: @prop @dur @timing;
+	    -ms-transition: @prop @dur @timing;
+	     -o-transition: @prop @dur @timing;
+	        transition: @prop @dur @timing;
+}
+.simple-linear-gradient(@start,@stop) {
+	background:	-webkit-linear-gradient(top, @start, @stop);
+	background:	   -moz-linear-gradient(top, @start, @stop);
+	background:     -ms-linear-gradient(top, @start, @stop);
+	background:      -o-linear-gradient(top, @start, @stop);
+	background:         linear-gradient(top, @start, @stop);
+}
+.simple-linear-gradient-hor(@begin,@start,@stop) {
+	background:	-webkit-linear-gradient(@begin, @start, @stop);
+	background:	   -moz-linear-gradient(@begin, @start, @stop);
+	background:     -ms-linear-gradient(@begin, @start, @stop);
+	background:      -o-linear-gradient(@begin, @start, @stop);
+	background:         linear-gradient(@begin, @start, @stop);
+}
+.box-shadow-inset(@Hshade,@Vshade,@spread,@color : #000) {
+	-webkit-box-shadow: @Hshade @Vshade @spread @color inset;
+	   -moz-box-shadow: @Hshade @Vshade @spread @color inset;
+	    -ms-box-shadow: @Hshade @Vshade @spread @color inset;
+	     -o-box-shadow: @Hshade @Vshade @spread @color inset;
+	        box-shadow: @Hshade @Vshade @spread @color inset;
+}
+.box-shadow(@Hshade,@Vshade,@spread,@color : #000) {
+	-webkit-box-shadow: @Hshade @Vshade @spread @color;
+	   -moz-box-shadow: @Hshade @Vshade @spread @color;
+	    -ms-box-shadow: @Hshade @Vshade @spread @color;
+	     -o-box-shadow: @Hshade @Vshade @spread @color;
+	        box-shadow: @Hshade @Vshade @spread @color;
+}
+.border-radius(@size) {
+	-webkit-border-radius: @size;
+	   -moz-border-radius: @size;
+	    -ms-border-radius: @size;
+         -o-border-radius: @size;
+            border-radius: @size;
+}
+.css-translate(@Xaxis,@Yaxis) {
+	-webkit-transform: translate(@Xaxis,@Yaxis);
+	   -moz-transform: translate(@Xaxis,@Yaxis);
+	    -ms-transform: translate(@Xaxis,@Yaxis);
+         -o-transform: translate(@Xaxis,@Yaxis);
+            transform: translate(@Xaxis,@Yaxis);
+}
+.css-rotate2d(@degree) {
+	-webkit-transform: rotate(@degree);
+	   -moz-transform: rotate(@degree);
+	    -ms-transform: rotate(@degree);
+         -o-transform: rotate(@degree);
+            transform: rotate(@degree);
+}
+.css-rotate3d-X(@degree) {
+	-webkit-transform: rotateX(@degree);
+	   -moz-transform: rotateX(@degree);
+	    -ms-transform: rotateX(@degree);
+         -o-transform: rotateX(@degree);
+            transform: rotateX(@degree);
+}
+.css-rotate3d-Y(@degree) {
+	-webkit-transform: rotateY(@degree);
+	   -moz-transform: rotateY(@degree);
+	    -ms-transform: rotateY(@degree);
+         -o-transform: rotateY(@degree);
+            transform: rotateY(@degree);
+}
+.css-scale(@Xaxis,@Yaxis) {
+	-webkit-transform: scale(@Xaxis,@Yaxis);
+	   -moz-transform: scale(@Xaxis,@Yaxis);
+	    -ms-transform: scale(@Xaxis,@Yaxis);
+         -o-transform: scale(@Xaxis,@Yaxis);
+            transform: scale(@Xaxis,@Yaxis);
+}
+.css-skew(@Xdeg,@Ydeg) {
+	-webkit-transform: skew(@Xdeg,@Ydeg);
+	   -moz-transform: skew(@Xdeg,@Ydeg);
+	    -ms-transform: skew(@Xdeg,@Ydeg);
+         -o-transform: skew(@Xdeg,@Ydeg);
+            transform: skew(@Xdeg,@Ydeg);
+}
