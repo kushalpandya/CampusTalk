@@ -1,0 +1,29 @@
+/*
+ * CampusTalk v0.1
+ * 
+ * License: GPLv3.
+ */
+
+* {
+	margin: 0;
+	padding: 0;
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", "Droid Sans", sans-serif;
+}
+
+body {
+	background: repeat url("../assets/background.png");
+}
+
+body:before {
+	content: "";
+	position: fixed;
+	top: -10px;
+	left: 0;
+	width: 100%;
+	height: 10px;
+	-webkit-box-shadow: 0px 0px 10px rgba(0,0,0,.8);
+	   -moz-box-shadow: 0px 0px 10px rgba(0,0,0,.8);
+			box-shadow: 0px 0px 10px rgba(0,0,0,.8);
+	
+	z-index: 100;
+}
