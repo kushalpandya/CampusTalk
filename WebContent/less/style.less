@@ -5,3 +5,186 @@
  */
  
 @import "CSS3.less";
+
+@page_bg_color : #E1E1E1;
+@footer_bg_color : #262626;
+@soft_white : #F8F8F8;
+
+@facebook_color : #3B5998; /*Facebook Official Color Code*/
+@twitter_color : #7EB3CD; /*Twitter Official Color Code*/
+@linkedin_color : #4875B4; /*LinkedIn Offical Color Code*/
+
+
+.header {
+	margin-top: 2%;
+	margin-bottom: 2%;
+}
+
+.footer {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	height: 120px;
+	background: @footer_bg_color;
+	.box-shadow-inset(0px,0px,15px, darken(@footer_bg_color, 10%));
+}
+
+.account-block {
+	
+	.account-login, .account-connect {
+		padding-top: 2%;
+	}
+	
+	.account-login {
+		.block-title {
+			padding-left: 20%;
+		}
+	}
+	
+	.account-connect {
+		.social-button-group {
+			margin-top: 10%;
+			margin-left: 5%;
+			
+			.social-button {
+				padding-bottom: 20px;
+			}
+		}
+	}
+	
+	.account-divider {
+		height: 350px;
+		.vertical-border {
+			display: block;
+			margin: auto;
+			width: 1px;
+			height: inherit;
+			background: @footer_bg_color;
+			.box-shadow-inset(0px,0px,2px, @footer_bg_color);
+		}
+	}
+	
+	.login-form {
+		margin-top: 10%;
+		float: right;
+		
+		td {
+			padding: 5px;
+		}
+		
+		a {
+			float: right;
+			margin-bottom: 5px;
+		}
+		
+		.btn-flat {
+			float: right;
+		}
+		
+		input[type="text"], input[type="password"] {
+			.txt-flat();
+		}
+	}
+	
+	.block-title {
+		margin-top: 10%;
+		font-size: 18px;
+		color: lighten(@footer_bg_color, 30%);
+	}
+}
+
+/* Widget Styles */
+
+.btn-flat {
+	display: block;
+	width: 120px;
+	height: 40px;
+	
+	outline: none;
+	background: darken(@page_bg_color, 10%);
+	border: 1px solid darken(@page_bg_color, 25%);
+	.border-radius(0px);
+	.transition();
+	
+	&:hover {
+		background: darken(@page_bg_color, 5%);
+		.transition();
+	}
+	
+	&:active {
+		background: darken(@page_bg_color, 15%);
+		.box-shadow-inset(0px, 0px, 5px, lighten(@footer_bg_color, 30%));
+		.transition();
+	}
+}
+
+.txt-flat {
+	display: block;
+	width: 300px;
+	height: 30px;
+	background: #F5F5F5;
+	
+	font-size: 16px;
+	.border-radius(0px);
+	.transition();
+	
+	&:hover {
+		background: #F9F9F9;
+		.transition();
+	}
+	
+	&:focus {
+		background: #FFFFFF;
+		border: 1px solid @page_bg_color;
+		.box-shadow(0px,0px,0px);
+		.transition();
+	}
+}
+
+.btn-facebook, .btn-twitter, .btn-linkedin {
+	color: @soft_white;
+	font-weight: bold;
+	width: 200px;
+}
+
+.btn-facebook {
+	background: @facebook_color;
+	border: 1px solid darken(@facebook_color, 10%);
+	
+	&:hover {
+		background: lighten(@facebook_color, 5%);
+	}
+	
+	&:active {
+		background: darken(@facebook_color, 5%);
+		.box-shadow-inset(0px, 0px, 5px, darken(@facebook_color, 20%));
+	}
+}
+
+.btn-twitter {
+	background: @twitter_color;
+	border: 1px solid darken(@twitter_color, 10%);
+	
+	&:hover {
+		background: lighten(@twitter_color, 5%);
+	}
+	
+	&:active {
+		background: darken(@twitter_color, 5%);
+		.box-shadow-inset(0px, 0px, 5px, darken(@twitter_color, 20%));
+	}
+}
+
+.btn-linkedin {
+	background: @linkedin_color;
+	border: 1px solid darken(@linkedin_color, 10%);
+	
+	&:hover {
+		background: lighten(@linkedin_color, 5%);
+	}
+	
+	&:active {
+		background: darken(@linkedin_color, 5%);
+		.box-shadow-inset(0px, 0px, 5px, darken(@linkedin_color, 20%));
+	}
+}
