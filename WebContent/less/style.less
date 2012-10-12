@@ -6,6 +6,8 @@
  
 @import "CSS3.less";
 
+/******** Global Constants ********/
+
 @page_bg_color : #E1E1E1;
 @footer_bg_color : #262626;
 @soft_white : #F8F8F8;
@@ -15,9 +17,16 @@
 @linkedin_color : #4875B4; /*LinkedIn Offical Color Code*/
 
 
+/******** Global Styles ********/
+
 .header {
+	margin: auto;
 	margin-top: 2%;
 	margin-bottom: 2%;
+}
+
+.campustalk-logo {
+	float: left;
 }
 
 .footer {
@@ -28,6 +37,8 @@
 	background: @footer_bg_color;
 	.box-shadow-inset(0px,0px,15px, darken(@footer_bg_color, 10%));
 }
+
+/******** index.html Styles ********/
 
 .account-block {
 	
@@ -93,7 +104,51 @@
 	}
 }
 
-/* Widget Styles */
+/******** home.html Styles ********/
+
+.account-tray {
+	display: block;
+	position: absolute;
+
+	width: 600px;
+	height: 600px;
+	top: -68%;
+	right: -34%;
+	background: #6897CC;
+	background: repeat url("../assets/tray_bg.png");
+	.box-shadow(0px, 0px, 8px, @footer_bg_color);
+	.border-radius(600px);
+	.transition(all,.5s);
+	
+	&:hover {
+		top: -30%;
+		right: -15%;
+		cursor: pointer;
+		.transition(all, .5s);
+	}
+}
+
+.search-block {
+	margin: auto;
+	margin-top: 18px;
+	width: 365px;
+		
+	input[type="text"] {
+		.txt-flat();
+		
+		float: left;
+		width: 300px;
+		border-top-left-radius: 4px;
+		border-bottom-left-radius: 4px;
+	}
+	
+	button {
+		float: right;
+		width: 50px;
+	}
+}
+
+/******** Widget Styles ********/
 
 .btn-flat {
 	display: block;
