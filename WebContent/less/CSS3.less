@@ -35,6 +35,13 @@
 	     -o-box-shadow: @Hshade @Vshade @spread @color;
 	        box-shadow: @Hshade @Vshade @spread @color;
 }
+.filter-drop-shadow(@Hshade,@Vshade,@spread,@color : #000) {
+	-webkit-filter: drop-shadow(@Hshade @Vshade @spread @color);
+	   -moz-filter: drop-shadow(@Hshade @Vshade @spread @color);
+	    -ms-filter: drop-shadow(@Hshade @Vshade @spread @color);
+	     -o-filter: drop-shadow(@Hshade @Vshade @spread @color);
+	        filter: drop-shadow(@Hshade @Vshade @spread @color);
+}
 .border-radius(@size) {
 	-webkit-border-radius: @size;
 	   -moz-border-radius: @size;
