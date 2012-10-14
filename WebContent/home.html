@@ -16,6 +16,16 @@
 			$(function() {
 				less.env = "development";
 				less.watch();
+				
+				$("#postBox").on("keypress", function(e) {
+					var postBox = $(this);
+					var boxH = postBox.height();
+					if(e.keyCode == 13 && boxH <= 80)
+					{
+						postBox.height(boxH+20);
+						postBox.css("margin-bottom",(++margin).toString()+"%");
+					}
+				});
 			});
 		</script>
 	</head>
@@ -29,6 +39,38 @@
 		</div>
 		<div class="account-tray">
 			&nbsp;
+		</div>
+		<div class="container feeds-block">
+			<div class="post-card">
+				<div class="post-user-bar">
+					<img src="assets/user_thumb.jpg" class="post-user-img" width="30" />
+					<div class="post-content">
+						<textarea id="postBox" rows="1" cols="30" placeholder="Share something..." class="txt-flat"></textarea>
+						<select class="span2 sel-flat">
+							<option>Private</option>
+							<option>Public</option>
+						</select>
+						<button class="btn btn-flat">Post</button>
+					</div>
+				</div>
+			</div>
+			<div class="feed-card">
+				<div class="feed-user-bar">
+					<a href="#"><img src="assets/user_thumb.jpg" class="feed-user-img" /></a>
+					<span class="feed-user-title"><a href="#">Kushal Pandya</a></span>
+					<div class="dropdown drp-flat feed-card-menu">
+						<a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon-tasks"></i></a>
+						<ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu">
+							<li><a tabindex="-1" href="#">Edit</a></li>
+							<li><a tabindex="-1" href="#">Delete</a></li>
+							<li><a tabindex="-1" href="#">Report as spam/abuse</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="feed-content">
+					<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+				</div>
+			</div>
 		</div>
 		<script type="text/javascript" src="js/script.js"></script>
 	</body>
