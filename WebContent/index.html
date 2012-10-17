@@ -1,121 +1,109 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>CampusTalk</title>
-<link rel="icon" href="assets/favicon.ico" sizes="32x32">
-<link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
-<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"
-	media="all" />
-<link rel="stylesheet" type="text/css"
-	href="css/bootstrap-responsive.min.css" media="all" />
-<link rel="stylesheet" type="text/css" href="css/style.css" media="all" />
-<link rel="stylesheet/less" type="text/css" href="less/style.less"
-	media="all" />
-<script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/less-1.3.0.min.js"></script>
-<script type="text/javascript">
-	$(function() {
-		less.env = "development";
-		less.watch();
-	});
-</script>
-<!-- Linkedin JS API -->
-<script type="text/javascript" src="http://platform.linkedin.com/in.js">
-	api_key: jfg39z3x0y5o
-	authentication: true
-</script>
-<!-- FACEBOOK JS SDK -->
-<script type="text/javascript">
-	window.fbAsyncInit = function() {
-		FB.init({
-			appId : '',
-			// App ID
-			status : true,
-			// check login status
-			cookie : true,
-			// enable cookies to allow the server to access the session
-			xfbml : true
-		// parse XFBML
-		});
+	<head>
+		<meta charset="UTF-8">
+		<title>CampusTalk</title>
+		<link rel="icon" href="assets/favicon.ico" sizes="32x32">
+		<link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" media="all" />
+		<link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.min.css" media="all" />
+		<link rel="stylesheet" type="text/css" href="css/style.css" media="all" />
+		<link rel="stylesheet/less" type="text/css" href="less/style.less" media="all" />
+		<script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
+		<script type="text/javascript" src="js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="js/less-1.3.0.min.js"></script>
+		<script type="text/javascript">
+			$(function() {
+				less.env = "development";
+				less.watch();
+			});
+		</script>
+		<!-- Linkedin JS API -->
+		<script type="text/javascript" src="http://platform.linkedin.com/in.js">
+			api_key: jfg39z3x0y5o
+			authentication: true
+		</script>
+		<!-- FACEBOOK JS SDK -->
+		<script type="text/javascript">
+			window.fbAsyncInit = function() {
+					FB.init({
+						appId : '',
+						// App ID
+						status : true,
+						// check login status
+						cookie : true,
+						// enable cookies to allow the server to access the session
+						xfbml : true
+						// parse XFBML
+					});
+				// Additional initialization code here
+			};
 
-		// Additional initialization code here
-	};
-
-	// Load the SDK Asynchronously
-	(function(d) {
-		var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
-		if (d.getElementById(id)) {
-			return;
-		}
-		js = d.createElement('script');
-		js.id = id;
-		js.async = true;
-		js.src = "//connect.facebook.net/en_US/all.js";
-		ref.parentNode.insertBefore(js, ref);
-	}(document));
-</script>
-
-</head>
-<body>
-	<div class="container header">
-		<img src="assets/logo_small.png" class="campustalk-logo" />
-	</div>
-	<div class="container account-block">
-		<div class="row">
-			<div class="span5 account-login">
-				<span class="block-title">Sign-in using exiting Account...</span>
-				<form class="login-form">
-					<table>
-						<tr>
-							<td colspan="2"><input type="text"
-								placeholder="Your Email ID" class="txt-flat" /></td>
-						</tr>
-						<tr>
-							<td colspan="2"><input type="password"
-								placeholder="Password" class="txt-flat" /></td>
-						</tr>
-						<tr>
-							<td colspan="2" align="center"><span class="login-status"></span>
-						</tr>
-						<tr valign="middle">
-							<td><label class="checkbox"> <input type="checkbox">
-									Remember me
-							</label></td>
-							<td><a href="#">Forgot Password?</a></td>
-						</tr>
-						<tr>
-							<td colspan="2"><button type="submit" class="btn-flat">Sign-in</button></td>
-						</tr>
-					</table>
-
-				</form>
-			</div>
-			<div class="span2 account-divider">
-				<span class="vertical-border">&nbsp;</span>
-			</div>
-			<div class="span5 account-connect">
-				<span class="block-title">New to CampusTalk? Connect with...</span>
-				<div class="social-button-group">
-					<div class="social-button">
-						<button class="btn-flat btn-facebook">Facebook</button>
-					</div>
-					<div class="social-button">
-						<button class="btn-flat btn-twitter">Twitter</button>
-					</div>
-					<div class="social-button">
-						<button class="btn-flat btn-linkedin">LinkedIn</button>
-
+			// Load the SDK Asynchronously
+			(function(d) {
+				var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+				if (d.getElementById(id)) {
+					return;
+				}
+				js = d.createElement('script');
+				js.id = id;
+				js.async = true;
+				js.src = "//connect.facebook.net/en_US/all.js";
+				ref.parentNode.insertBefore(js, ref);
+			}(document));
+		</script>
+	</head>
+	<body>
+		<div class="container header">
+			<img src="assets/logo_small.png" class="campustalk-logo" />
+		</div>
+		<div class="container account-block">
+			<div class="row">
+				<div class="span5 account-login">
+					<span class="block-title">Sign-in using exiting Account...</span>
+					<form class="login-form">
+						<table>
+							<tr>
+								<td colspan="2"><input type="text" placeholder="Your Email ID" class="txt-flat" /></td>
+							</tr>
+							<tr>
+								<td colspan="2"><input type="password" placeholder="Password" class="txt-flat" /></td>
+							</tr>
+							<tr>
+								<td colspan="2" align="center"><span class="login-status"></span>
+							</tr>
+							<tr valign="middle">
+								<td><label class="checkbox"> <input type="checkbox"> Remember me </label></td>
+								<td><a href="#">Forgot Password?</a></td>
+							</tr>
+							<tr>
+								<td colspan="2"><button type="submit" class="btn-flat">Sign-in</button></td>
+							</tr>
+						</table>
+					</form>
+				</div>
+				<div class="span2 account-divider">
+					<span class="vertical-border">&nbsp;</span>
+				</div>
+				<div class="span5 account-connect">
+					<span class="block-title">New to CampusTalk? Connect with...</span>
+					<div class="social-button-group">
+						<div class="social-button">
+							<button class="btn-flat btn-facebook">Facebook</button>
+						</div>
+						<div class="social-button">
+							<button class="btn-flat btn-twitter">Twitter</button>
+						</div>
+						<div class="social-button">
+							<button class="btn-flat btn-linkedin">LinkedIn</button>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="container footer">&nbsp;</div>
-	<div id="fb-root"></div>
-	<script type="text/javascript" src="js/script.js"></script>
-	<script type="text/javascript" src="js/registration.js"></script>
-
-</body>
+		<div class="container footer">&nbsp;</div>
+		<div id="fb-root"></div>
+		<script type="text/javascript" src="js/script.js"></script>
+		<script type="text/javascript" src="js/registration.js"></script>
+	</body>
 </html>
