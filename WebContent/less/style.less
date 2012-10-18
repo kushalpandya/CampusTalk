@@ -271,7 +271,7 @@ textarea.txt-flat {
 .feed-card {
 	position: relative;
 	margin: auto;
-	margin-bottom: 10%;
+	margin-bottom: 12%;
 	width: 70%;
 	
 	/*
@@ -341,11 +341,66 @@ textarea.txt-flat {
 		position: inherit;
 		margin-top: -35px;
 		width: 85%;
-		max-height: 180px;
 		float: right;
 		padding: 5px 10px 5px 10px;
 		background: @soft_white;
 		.border-radius(0px 0px 4px 4px);
+		
+		.feed-comments-block {
+			
+			.feed-comment-reveal {
+				float: left;
+				font-size: 14px;
+				font-weight: bold;
+				color: lighten(@footer_bg_color, 20%);
+				padding: 2px;
+				.border-radius(3px);
+				.transition();
+				
+				&:hover {
+					background: #CACACA;
+					text-decoration: none;
+					.border-radius(3px);
+					.transition();
+				}
+			}
+			
+			.feed-comments {
+				list-style-type: none;
+				margin-left: 0;
+				
+				li {
+					padding: 3px;
+					font-size: 12px;
+					line-height: 12px;
+					
+					span {
+						float: right;
+						width: 91%;
+					}
+					
+					img {
+						margin-right: 10px;
+					}
+				}
+			}
+			
+			.feed-comment-box {
+			
+				img {
+					float: left;
+				}
+			
+				input[type='text'] {
+					.txt-flat();
+					height: 30px;
+					width: 90%;
+					float: right;
+					font-size: 14px;
+					padding: 0 2px 0 2px;
+				}
+			}
+		}
 	}
 }
 
