@@ -19,6 +19,15 @@
 				
 				var margin = 20;
 				
+				$(".feed-comments, .feed-comment-box").hide();
+				
+				$(".feed-comment-reveal").on("click", function(e){
+					e.preventDefault();
+					$(this).parents().eq(2).css("marginBottom", "20%");
+					$(this).hide();
+					$(".feed-comments, .feed-comment-box").slideDown();
+				});
+				
 				$("#postBox").on("keypress", function(e) {
 					var postBox = $(this);
 					var boxH = postBox.height();
@@ -80,6 +89,42 @@
 					</div>
 					<div class="feed-content">
 						<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+						<div class="feed-comments-block">
+							<a href="#" class="feed-comment-reveal" rel="full">4 comments.</a>
+							<ul class="feed-comments">
+								<li><img src="assets/user_thumb.jpg" class="post-user-img" width="30" />Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
+								<li><img src="assets/user_thumb.jpg" class="post-user-img" width="30" />Aliquam tincidunt mauris eu risus.</li>
+								<li><img src="assets/user_thumb.jpg" class="post-user-img" width="30" />Morbi in sem quis dui placerat ornare. Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu. Cras consequat. Morbi in sem quis dui placerat ornare. Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu. Cras consequat.</li>
+								<li><img src="assets/user_thumb.jpg" class="post-user-img" width="30" />Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
+							</ul>
+							<div class="feed-comment-box">
+								<img src="assets/user_thumb.jpg" class="post-user-img" width="30" />
+								<input type="text" class="txt-flat" placeholder= "Leave comment..." />
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="feed-card">
+					<div class="feed-user-bar">
+						<a href="#"><img src="assets/user_thumb.jpg" class="feed-user-img" /></a>
+						<span class="feed-user-title"><a href="#">Kushal Pandya</a></span>
+						<div class="dropdown drp-flat feed-card-menu">
+							<a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon-tasks"></i></a>
+							<ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu">
+								<li><a tabindex="-1" href="#">Edit</a></li>
+								<li><a tabindex="-1" href="#">Delete</a></li>
+								<li><a tabindex="-1" href="#">Report as spam/abuse</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="feed-content">
+						<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+						<div class="feed-comments-block">
+							<div class="feed-comment-box">
+								<img src="assets/user_thumb.jpg" class="post-user-img" width="30" />
+								<input type="text" class="txt-flat" placeholder= "Leave comment..." />
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
