@@ -17,34 +17,15 @@
 				less.env = "development";
 				less.watch();
 				
-				var margin = 20;
-				
-				$(".feed-comments, .feed-comment-box").hide();
-				
-				$(".feed-comment-reveal").on("click", function(e){
-					e.preventDefault();
-					$(this).parents().eq(2).css("marginBottom", "20%");
-					$(this).hide();
-					$(".feed-comments, .feed-comment-box").slideDown();
-				});
-				
-				$("#postBox").on("keypress", function(e) {
-					var postBox = $(this);
-					var boxH = postBox.height();
-					if(e.keyCode == 13 && boxH <= 80)
-					{
-						postBox.height(boxH+20);
-						$(".feeds-list").css("marginTop",(margin+130).toString()+"px");
-					}
-				});
-				
-				$("#postBox").on("blur", function() {
-					if($(this).val().trim() === "")
-					{
-						$(this).val("").height(20);
-						$(".feeds-list").css("marginTop","20px");
-					}
-				});
+				//Iterate over each comment-box and hide comments if they exist.
+				$.each($(".feed-comments"), function(i) {
+					var currfeed = $(this);
+					if(currfeed.find("li").length > 0)
+						currfeed.parent().find(".feed-comment-box").hide();
+					else
+						currfeed.parent().find(".feed-comment-reveal").hide();
+					currfeed.hide();
+				});				
 			});
 		</script>
 	</head>
@@ -90,7 +71,7 @@
 					<div class="feed-content">
 						<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
 						<div class="feed-comments-block">
-							<a href="#" class="feed-comment-reveal" rel="full">4 comments.</a>
+							<a href="#" class="feed-comment-reveal" rel="full">4 comments. &dArr;</a>
 							<ul class="feed-comments">
 								<li><img src="assets/user_thumb.jpg" class="post-user-img" width="30" />Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
 								<li><img src="assets/user_thumb.jpg" class="post-user-img" width="30" />Aliquam tincidunt mauris eu risus.</li>
@@ -99,7 +80,7 @@
 							</ul>
 							<div class="feed-comment-box">
 								<img src="assets/user_thumb.jpg" class="post-user-img" width="30" />
-								<input type="text" class="txt-flat" placeholder= "Leave comment..." />
+								<textarea class="txt-flat" placeholder= "Leave comment..." ></textarea>
 							</div>
 						</div>
 					</div>
@@ -122,7 +103,7 @@
 						<div class="feed-comments-block">
 							<div class="feed-comment-box">
 								<img src="assets/user_thumb.jpg" class="post-user-img" width="30" />
-								<input type="text" class="txt-flat" placeholder= "Leave comment..." />
+								<textarea class="txt-flat" placeholder= "Leave comment..." ></textarea>
 							</div>
 						</div>
 					</div>
