@@ -104,6 +104,33 @@
 	}
 }
 
+/******** signup.html Styles ********/
+
+.signup-block {
+	margin-top: 50px;
+	
+	.signup-form {
+		margin: auto;
+		width: 50%;
+		
+		label {
+			font-size: 18px;
+		}
+		
+		input {
+			.txt-flat();
+			width: 400px;
+		}
+		
+		button {
+			float: right;
+			margin-top: 20px;
+			width: 200px;
+			height: 50px;
+		}
+	}
+}
+
 /******** home.html Styles ********/
 
 .account-tray {
@@ -238,6 +265,8 @@ textarea.txt-flat {
 		.border-radius(4px 4px 0px 4px);
 		
 		.post-user-img {
+			width: 30px;
+			height: 30px;
 			float: left;
 			padding: 5px 5px 5px 10px;
 		}
@@ -291,6 +320,8 @@ textarea.txt-flat {
 		
 		.feed-user-img {
 			position: inherit;
+			width: 50px;
+			height: 50px;
 			float: left;
 			padding: 5px 5px 5px 10px;
 		}
@@ -442,8 +473,10 @@ textarea.txt-flat {
 .btn-facebook {
 	background: @facebook_color;
 	border: 1px solid darken(@facebook_color, 10%);
+	text-shadow: 0 0 0 #000;
 	
 	&:hover {
+		color: @soft_white;
 		background: lighten(@facebook_color, 5%);
 	}
 	
@@ -456,8 +489,10 @@ textarea.txt-flat {
 .btn-twitter {
 	background: @twitter_color;
 	border: 1px solid darken(@twitter_color, 10%);
+	text-shadow: 0 0 0 #000;
 	
 	&:hover {
+		color: @soft_white;
 		background: lighten(@twitter_color, 5%);
 	}
 	
@@ -470,8 +505,10 @@ textarea.txt-flat {
 .btn-linkedin {
 	background: @linkedin_color;
 	border: 1px solid darken(@linkedin_color, 10%);
+	text-shadow: 0 0 0 #000;
 	
 	&:hover {
+		color: @soft_white;
 		background: lighten(@linkedin_color, 5%);
 	}
 	
