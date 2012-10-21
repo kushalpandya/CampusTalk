@@ -4,7 +4,7 @@ $(".feed-comment-reveal").on("click", function(e){
 	e.preventDefault();
 	var commentCount = $(this).parent().find(".feed-comments li").length;
 	
-	$(this).parents().eq(2).css("marginBottom", (commentCount*10).toString()+"%");
+	$(this).parents().eq(2).css("marginBottom", (commentCount*7).toString()+"%");
 	$(this).hide();
 	$(".feed-comments, .feed-comment-box").slideDown();
 });
@@ -25,4 +25,12 @@ $("#postBox").on("blur", function() {
 		$(this).val("").height(20);
 		$(".feeds-list").css("marginTop","20px");
 	}
+});
+
+$(".feed-comments li").on("mouseenter", function() {
+	$(this).find(".comment-action").show();
+});
+
+$(".feed-comments li").on("mouseleave", function() {
+	$(this).find(".comment-action").hide();
 });
