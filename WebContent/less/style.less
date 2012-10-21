@@ -10,6 +10,7 @@
 
 @page_bg_color : #E1E1E1;
 @footer_bg_color : #262626;
+@tray_bg_color: #6897CC;
 @soft_white : #F8F8F8;
 
 @facebook_color : #3B5998; /*Facebook Official Color Code*/
@@ -141,7 +142,7 @@
 	height: 600px;
 	top: -430px;
 	right: -430px;
-	background: #6897CC;
+	background: @tray_bg_color;
 	background: repeat url("../assets/tray_bg.png");
 	z-index: 500;
 	
@@ -155,6 +156,101 @@
 		cursor: pointer;
 		.border-radius(10px);
 		.transition(all, .5s);
+	}
+	
+	&:hover .account-user-img {
+		display: none;
+		.transition(all, .5s);
+	}
+	
+	&:hover .profile-block {
+		display: block;
+		.transition(all, .5s);
+	}
+	
+	.account-user-img {
+		position: absolute;
+		bottom: 100px;
+		left: 100px;
+		border: 3px solid lighten(@tray_bg_color, 10%);
+   		.border-radius(3px);
+		.box-shadow(0px,0px,3px,grey);
+		.transition(all, .5s);
+	}
+	
+	.profile-block {
+		display: none;
+		position: absolute;
+		bottom: 100px;
+		left: 50px;
+		width: 370px;
+		margin: auto;
+		.transition(all, .5s);
+		
+		.profile-details {
+			margin-bottom: 10px;
+			
+			.profile-img {
+				float: left;
+				height: 200px;
+				width: 160px;
+				border: 3px solid lighten(@tray_bg_color, 10%);
+   				.border-radius(3px);
+				.box-shadow(0px,0px,3px,grey);
+			}
+		
+			.profile-options {
+				float: right;
+			
+				label.user-title {
+					font-size: 24px;
+					font-weight: bold;
+					margin-bottom: 20px;
+					padding: 2px;
+				}
+			
+				label.user-group-title {
+					font-size: 20px;
+					margin-bottom: 20px;
+					padding: 2px;
+				}
+
+				a.user-option {
+					font-size: 20px;
+					margin-bottom: 15px; /* Not Working. In-line style added as workaround.*/
+					color: #073159;
+					padding: 2px;
+					.border-radius(3px);
+					.transition();
+
+					&:hover {
+						background: #4979A6;
+						text-decoration: none;
+						.border-radius(3px);
+						.transition();
+					}
+				}
+			}
+		}
+		
+		.profile-actions {
+			position: absolute;
+			bottom: -60px;
+			left: 20px;
+			width: 90%;
+			
+			button {
+				width: 150px;
+			}
+			
+			#btnLogout {
+				float: left;
+			}
+			
+			#btnSettings {
+				float: right;
+			}
+		}
 	}
 }
 
@@ -212,6 +308,27 @@
 		background: darken(@page_bg_color, 15%);
 		.box-shadow-inset(0px, 0px, 5px, lighten(@footer_bg_color, 30%));
 		.transition();
+	}
+}
+
+.btn-blue {
+	@base_color: #2D608F;
+	
+	font-weight: bold;
+	color: @soft_white;
+	text-shadow: 0px 0px 0px;
+	background: @base_color;
+	border: 1px solid @base_color;
+	
+	&:hover {
+		color: @soft_white;
+		background: darken(@base_color, 5%);
+	}
+	
+	&:active {
+		color: @soft_white;
+		background: darken(@base_color, 8%);
+		.box-shadow-inset(0px, 0px, 5px, darken(@base_color, 30%));
 	}
 }
 
