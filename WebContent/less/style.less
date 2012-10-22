@@ -533,18 +533,23 @@ textarea.txt-flat {
 				list-style-type: none;
 				clear: both;
 				margin-left: 0;
+				padding: 5px;
+				background: darken(@soft_white, 5%);
+				.border-radius(3px);
 				
 				li {
 					position: relative;
 					padding: 0 0 10px 50px;
+					margin-bottom: 5px;
 					min-height: 30px;
 					font-size: 12px;
 					line-height: 14px;
+					.border-radius(3px);
 					
 					&:nth-of-type(odd) {
-						background: darken(@soft_white, 2%);
+						background: darken(@soft_white, 10%);
 					}
-										
+															
 					img {
 						position: absolute;
 						top: 0;
@@ -556,6 +561,11 @@ textarea.txt-flat {
 						position: absolute;
 						top: 0;
 						right: 0;
+						
+						&:hover {
+							background: darken(@soft_white, 25%);
+							.border-radius(2px);
+						}
 					}
 				}
 			}
