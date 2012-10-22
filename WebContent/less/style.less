@@ -332,6 +332,22 @@
 	}
 }
 
+.btn-green {
+	@base_color : #87C25C;
+	
+	background: @base_color;
+	border: 1px solid @base_color;
+	
+	&:hover {
+		background: lighten(@base_color, 5%);
+	}
+	
+	&:active {
+		background: darken(@base_color, 3%);
+		.box-shadow-inset(0px, 0px, 5px, darken(@base_color, 30%));
+	}
+}
+
 .txt-flat {
 	display: block;
 	width: 300px;
