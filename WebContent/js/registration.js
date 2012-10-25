@@ -3,36 +3,73 @@ $('.btn-linkedin').click(function() {
 	IN.User.authorize();
 	return false;
 });
-
 // call back fuunction if user is authorised
+var userData;
 IN.Event.on(IN, 'auth', function() {
-	IN.User.isAuthorized(function() {
-	// using js sdk get liked user details.
-		IN.API.Profile("me").fields([ "id" ]).result(function(result) {
-			// After Authentication Process to next step
-			return;
-		});
-	});
+	if(IN.User.isAuthorized()){
+		// using js sdk get liked user details.
+		IN.API.Profile("me").result(function(result) {
+			showEmailDiv(result.values[0],'linkedin');
+	    });
+	};
 });
 
 // Facebook Registration
 $('.btn-facebook').click(function() {
 	FB.login(function(response) {
-		if (response.authResponse)
-		{
+		if (response.authResponse) {
 			// Get User Details
-			FB.api('/me', function(respo) {
-			// After Authentication Process to next step
+			FB.api('/me', function(resp) {
+				var tmpData={
+	            		   'firstName' : resp.first_name,
+	            		   'lastName' : resp.last_name,
+	            		   'pictureUrl' : 'http://graph.facebook.com/' + resp.id + '/picture',
+	            		   'gender' : resp.gender
+	            		   
+	            };
+	               showEmailDiv(tmpData,'facebook');
+				// After Authentication Process to next step
 			});
-		}
-		else
-		{
+		} else {
 			// User close auth window
-			alert('User cancelled login or did not fully authorize.');
+			showPopup('<p>User cancelled login or did not fully authorize.</p>')
+			
 		}
-	},
-	{
+	}, {
 		scope : 'email'
 	});
 });
 
+$('.btn-google').click(function() {
+    var config = {
+      'client_id': '384694029279.apps.googleusercontent.com',
+      'scope': 'https://www.googleapis.com/auth/plus.me'
+    };
+    gapi.auth.authorize(config, function() {
+    	 gapi.client.load('plus', 'v1', function() {
+             var request = gapi.client.plus.people.get({
+               'userId': 'me'
+             });
+             request.execute(function(resp) {
+               var tmpData={
+            		   'firstName' : resp.name.givenName,
+            		   'lastName' : resp.name.familyName,
+            		   'pictureUrl' : resp.image.url,
+            		   'gender' : resp.gender
+            		   
+               };
+               showEmailDiv(tmpData,'google');
+             });
+           });
+    });
+  });
+
+function showEmailDiv(result,registerwith){
+	userData=result;
+	userData['registerWith']= registerwith;
+	$(".account-block").slideUp('slow');
+	$(".signup-block").slideDown('slow');
+}
+$('#btnSignUp').click(function(){
+	
+})
