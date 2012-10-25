@@ -14,7 +14,7 @@
 @soft_white : #F8F8F8;
 
 @facebook_color : #3B5998; /*Facebook Official Color Code*/
-@twitter_color : #7EB3CD; /*Twitter Official Color Code*/
+@google_color : #000; /*Twitter Official Color Code*/
 @linkedin_color : #4875B4; /*LinkedIn Offical Color Code*/
 
 
@@ -109,7 +109,7 @@
 
 .signup-block {
 	margin-top: 50px;
-	
+	display:none;
 	.signup-form {
 		margin: auto;
 		width: 50%;
@@ -607,7 +607,7 @@ textarea.txt-flat {
 	}
 }
 
-.btn-facebook, .btn-twitter, .btn-linkedin {
+.btn-facebook, .btn-google, .btn-linkedin {
 	color: @soft_white;
 	font-weight: bold;
 	width: 200px;
@@ -629,19 +629,19 @@ textarea.txt-flat {
 	}
 }
 
-.btn-twitter {
-	background: @twitter_color;
-	border: 1px solid darken(@twitter_color, 10%);
+.btn-google {
+	background: @google_color;
+	border: 1px solid darken(@google_color, 10%);
 	text-shadow: 0 0 0 #000;
 	
 	&:hover {
 		color: @soft_white;
-		background: lighten(@twitter_color, 5%);
+		background: lighten(@google_color, 5%);
 	}
 	
 	&:active {
-		background: darken(@twitter_color, 5%);
-		.box-shadow-inset(0px, 0px, 5px, darken(@twitter_color, 20%));
+		background: darken(@google_color, 5%);
+		.box-shadow-inset(0px, 0px, 5px, darken(@google_color, 20%));
 	}
 }
 
