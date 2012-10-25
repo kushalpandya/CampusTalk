@@ -286,6 +286,43 @@
 	}
 }
 
+/******** controlpanel.html Styles ********/
+
+.panels-block {
+	width: 60%;
+	
+	.tab-content .tab-pane .input-append {
+		margin: auto;
+		text-align: center;
+	}
+	
+	.nav-tabs {
+		
+		li {
+			a {
+				color: @footer_bg_color;
+				background: darken(@page_bg_color, 25%);
+				
+				&:hover {
+					background: darken(@page_bg_color, 10%);
+				}
+			}
+		}
+		
+		li.active {
+			@border_style : 2px solid lighten(@footer_bg_color, 40%);
+			
+			a {
+				color: @footer_bg_color;
+				background: transparent;
+				border-top: @border_style;
+				border-right: @border_style;
+				border-left: @border_style;
+			}
+		}
+	}
+}
+
 /******** Widget Styles ********/
 
 .btn-flat {
