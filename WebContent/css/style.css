@@ -29,6 +29,10 @@ body:before {
 	
 	z-index: 100;
 }
+/*
+Avgrund Model Close button css
+*/
+
 .avgrund-close {
 	display: block;
 	text-transform: uppercase;
