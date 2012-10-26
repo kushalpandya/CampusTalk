@@ -14,7 +14,7 @@
 @soft_white : #F8F8F8;
 
 @facebook_color : #3B5998; /*Facebook Official Color Code*/
-@google_color : #000; /*Twitter Official Color Code*/
+@google_color : #1B1B1B; /*Google Color Code*/
 @linkedin_color : #4875B4; /*LinkedIn Offical Color Code*/
 
 
@@ -296,28 +296,23 @@
 		text-align: center;
 	}
 	
-	.nav-tabs {
+	.nav-pills {
 		
 		li {
 			a {
 				color: @footer_bg_color;
-				background: darken(@page_bg_color, 25%);
-				
 				&:hover {
 					background: darken(@page_bg_color, 10%);
+					.border-radius(3px);
 				}
 			}
 		}
 		
 		li.active {
-			@border_style : 2px solid lighten(@footer_bg_color, 40%);
-			
 			a {
 				color: @footer_bg_color;
-				background: transparent;
-				border-top: @border_style;
-				border-right: @border_style;
-				border-left: @border_style;
+				background: darken(@page_bg_color, 25%);
+				.border-radius(3px);
 			}
 		}
 	}
@@ -673,7 +668,7 @@ textarea.txt-flat {
 	
 	&:hover {
 		color: @soft_white;
-		background: lighten(@google_color, 5%);
+		background: lighten(@google_color, 10%);
 	}
 	
 	&:active {
