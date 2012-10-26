@@ -294,6 +294,10 @@
 	.tab-content .tab-pane .input-append {
 		margin: auto;
 		text-align: center;
+		
+		a {
+			outline: none;
+		}
 	}
 	
 	.nav-pills {
@@ -690,5 +694,16 @@ textarea.txt-flat {
 	&:active {
 		background: darken(@linkedin_color, 5%);
 		.box-shadow-inset(0px, 0px, 5px, darken(@linkedin_color, 20%));
+	}
+}
+
+.modal {
+	.box-shadow(0px, 0px, 20px, rgba(0, 0, 0, 0.3));
+	
+	button.btn-flat {
+		display: inline-block;
+		width: auto;
+		height: auto;
+		.border-radius(4px);
 	}
 }
