@@ -28,4 +28,7 @@ public class Settings
 	 * URL of database along with user name and password parameters.
 	 */
 	public static final String DATABASEURL = RB.getString("DatabaseURL");
+	public static final String DBUSERNAME= RB.getString("dbUserName");
+	public static final String DBPASSWORD = RB.getString("dbPassword");
+	public static final String APPURL=RB.getString("AppURL"); 
 }
