@@ -21,8 +21,11 @@ public class DatabaseManager
 {
 	private String DRIVER;
 	private String DATABASEURL;
+	private String DbUsername;
+	private String DbPassword;
 	
-	private Connection CON;
+	
+	public Connection CON;
 	
 	/**
 	 * Initializes this DatabaseManager object.
@@ -31,6 +34,9 @@ public class DatabaseManager
 	{
 		DRIVER = Settings.DATABASEDRIVER;
 		DATABASEURL = Settings.DATABASEURL;
+		DbUsername=Settings.DBUSERNAME;
+		DbPassword= Settings.DBPASSWORD;
+		
 	}
 	
 	/**
@@ -41,7 +47,9 @@ public class DatabaseManager
 	public void open() throws SQLException, ClassNotFoundException
 	{
 		Class.forName(DRIVER);
-		this.CON = DriverManager.getConnection(DATABASEURL);
+		System.out.println(DATABASEURL+ " ? " +DbUsername+ " ? " + DbPassword);
+		this.CON = DriverManager.getConnection(DATABASEURL,DbUsername,DbPassword);
+		
 	}
 	
 	/**
