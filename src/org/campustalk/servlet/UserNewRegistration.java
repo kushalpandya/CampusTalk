@@ -2,12 +2,9 @@ package org.campustalk.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
-import java.util.Date;
 
 import javax.mail.MessagingException;
-import javax.mail.internet.AddressException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.campustalk.Settings;
 import org.campustalk.entity.CampusTalkUsers;
-import org.campustalk.security.MD5Hash;
 import org.campustalk.sql.dbUser;
 import org.campustalk.util.FieldValidator;
 import org.campustalk.util.OtherUtil;
@@ -47,6 +43,7 @@ public class UserNewRegistration extends HttpServlet {
 
 	}
 
+	@SuppressWarnings("unused")
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
