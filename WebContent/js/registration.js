@@ -16,44 +16,27 @@ IN.Event.on(IN, 'auth', function() {
 });
 
 // Facebook Registration
-$('.btn-facebook')
-		.click(
-				function() {
-					FB
-							.login(
-									function(response) {
-										if (response.authResponse) {
-											// Get User Details
-											FB
-													.api(
-															'/me',
-															function(resp) {
-																var tmpData = {
-																	'firstName' : resp.first_name,
-																	'lastName' : resp.last_name,
-																	'pictureUrl' : 'http://graph.facebook.com/'
-																			+ resp.id
-																			+ '/picture',
-																	'gender' : resp.gender
-
-																};
-																showEmailDiv(
-																		tmpData,
-																		'facebook');
-																// After
-																// Authentication
-																// Process to
-																// next step
-															});
-										} else {
-											// User close auth window
-											showPopup('<p>User cancelled login or did not fully authorize.</p>')
-
-										}
-									}, {
-										scope : 'email'
-									});
-				});
+$('.btn-facebook').click(function(){
+	FB.login(function(response){
+		if (response.authResponse) {
+		// Get User Details
+			FB.api('/me',function(resp){
+				var tmpData = {
+						'firstName' : resp.first_name,
+						'lastName' : resp.last_name,
+						'pictureUrl' : 'http://graph.facebook.com/'+ resp.id+ '/picture',
+						'gender' : resp.gender
+				};
+				showEmailDiv(tmpData,'facebook');
+			});
+		} else {
+		// User close auth window
+			showPopup('<p>User cancelled login or did not fully authorize.</p>')
+		}
+	},{
+		scope : 'email'
+	});
+});
 
 $('.btn-google').click(function() {
 	var config = {
@@ -103,20 +86,22 @@ $('#frmRegistration').submit(function(e) {
 		type : 'post',
 		data : userData,
 		success : function(data) {
-			if (data.status === 'fail') {
-				// Failed
-				showPopup(data.message);
-			} else {
-				// Sucess
+			if (data.status === 'success') {
+				// Success
 				showPopup(data.message);
 				hideEmailDiv();
+			} else {
+				// Failed
+				showPopup(data.message);
+				
 			}
-		},error:function(){
+		},
+		error : function() {
 			showPopup('Some Error Occured, Please Refresh page');
 		}
 	});
 
-})
+});
 function getParameterByName(name) {
 	name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
 	var regexS = "[\\?&]" + name + "=([^&#]*)";
@@ -136,16 +121,66 @@ if (getParameterByName("q") != "" && getParameterByName("e") != "") {
 			"e" : getParameterByName("e")
 		},
 		success : function(data) {
-			if (data.status === 'fail') {
-				// Failed
+			if (data.status === 'success') {
+				// Success
 				showPopup(data.message);
 			} else {
-				//Sucess
+				// Failed
 				showPopup(data.message);
 
 			}
-		},error:function(){
+		},
+		error : function() {
 			showPopup('Some Error Occured, Please Refresh page');
 		}
 	});
 }
+
+$('#frmLogin').submit(function(e) {
+	e.preventDefault();
+	email = $("#txtLoginEmail").val();
+	password = $("#txtLoginPassword").val();
+	rememberMe= $('#chkbRemember').is(':checked');
+	$.ajax({
+		url : 'User/Login',
+		type : 'post',
+		data : {
+			'email' : email,
+			'password':password,
+			'rememberMe':rememberMe,
+			'type': 'login'
+		},
+		success : function(data) {
+			if (data.status === 'success') {
+				// success
+				successfullLogin();
+			} else {
+				// Failed
+				showPopup(data.message);
+			}
+		},
+		error : function() {
+			showPopup('Some Error Occured, Please Refresh page');
+		}
+	});
+
+})
+
+function successfullLogin() {
+	window.location = "home.html";
+}
+
+
+function doAutoLogin() {
+
+	$("#txtEmail").val(getCookie("CampusTalkEmail"));
+	$.post("User/Login", {
+		type : "sessionlogin"
+	}, function(data) {
+		if (data.status === "success") {
+			successfullLogin();
+		}
+	});
+
+}
+doAutoLogin();
