@@ -127,3 +127,25 @@ function getParameterByName(name) {
 	else
 		return decodeURIComponent(results[1].replace(/\+/g, " "));
 }
+if (getParameterByName("q") != "" && getParameterByName("e") != "") {
+	$.ajax({
+		url : 'User/Registaration/Verify',
+		type : 'post',
+		data : {
+			"q" : getParameterByName("q"),
+			"e" : getParameterByName("e")
+		},
+		success : function(data) {
+			if (data.status === 'fail') {
+				// Failed
+				showPopup(data.message);
+			} else {
+				//Sucess
+				showPopup(data.message);
+
+			}
+		},error:function(){
+			showPopup('Some Error Occured, Please Refresh page');
+		}
+	});
+}
