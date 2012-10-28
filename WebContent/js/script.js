@@ -35,6 +35,49 @@ $(".feed-comments li").on("mouseleave", function() {
 	$(this).find(".comment-action").hide();
 });
 
+$("#groups td a[href='#EditGroup']").on("click", function(e) {
+	var groupId = parseInt($(this).parents().eq(1).find("td:nth-child(1)").text());
+	var groupName = $(this).parents().eq(1).find("td:nth-child(2)").text();
+	
+	$("#EditGroup #dlgLabel").text("Edit Group - "+groupName);
+	$("#EditGroup").find("input[name='txtGroupName']").val(groupName);
+});
+
+$("#users td a[href='#EditUser']").on("click", function(e) {
+	var userId = parseInt($(this).parents().eq(1).find("td:nth-child(1)").text());
+	var userEmail = $(this).parents().eq(1).find("td:nth-child(2)").text();
+	
+	$("#EditUser #dlgLabel").text("Edit User - "+userEmail);
+	$("#EditUser").find("input[name='txtUserEmail']").val(userEmail);
+});
+
+$(".input-append input").on("keyup", function() {
+	if($(this).val().trim().length > 0)
+		$(this).parent().find("a").removeClass("disabled");
+	else
+		$(this).parent().find("a").addClass("disabled");
+});
+
+$("a[href='#CreateGroup']").on("click", function(e) {
+	e.preventDefault();
+	if(!$(this).hasClass("disabled"))
+	{
+		var groupName = $(this).parent().find("input").val();
+		$("#CreateGroup").modal('show');
+		$("#CreateGroup").find("input[name='txtGroupName']").val(groupName);
+	}
+	else
+		$("#CreateGroup").modal('hide');
+});
+
+$("a[href='#CreateUser']").on("click", function(e) {
+	e.preventDefault();
+	if(!$(this).hasClass("disabled"))
+		$("#CreateUser").modal('show');
+	else
+		$("#CreateUser").modal('hide');
+});
+
 //Model Windows Show Function 
 
 function showPopup(templateHTML){
