@@ -1,25 +1,22 @@
 package org.campustalk.sql;
 
 import java.sql.CallableStatement;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Types;
 
 import org.campustalk.entity.CampusTalkUsers;
 
-import com.google.api.server.spi.config.ApiCacheControl.Type;
 
 public class dbUser extends DatabaseManager {
 	public dbUser() {
 		super();
 	}
-
+	public CampusTalkUsers objUser;
 	public CampusTalkUsers getUserDetailFromEmail(String email)
 			throws SQLException, ClassNotFoundException {
 		this.open();
-		CallableStatement pst = CON
+		CallableStatement csSql = CON
 				.prepareCall("{call UserDetailFromEmail(?)}");
 		/**
 		 * UserDetailFromEmail Return Structure
@@ -28,9 +25,9 @@ public class dbUser extends DatabaseManager {
 		 * `lastname
 		 * `,`birthdate`,`gender`,`cityid`,`branchid`,`year`,`pictureurl`
 		 */
-		pst.setString(1, email);
-		ResultSet rs = pst.executeQuery();
-		CampusTalkUsers objUser = new CampusTalkUsers();
+		csSql.setString(1, email);
+		ResultSet rs = csSql.executeQuery();
+		objUser = new CampusTalkUsers();
 		if (rs.next()) {
 			objUser.setId(rs.getInt("id"));
 			objUser.setEmail(email);
@@ -56,8 +53,9 @@ public class dbUser extends DatabaseManager {
 
 	public void registerNewuserDetail(CampusTalkUsers objUser)
 
-			throws SQLException {
-		PreparedStatement pst = CON
+			throws SQLException, ClassNotFoundException {
+		this.open();
+		CallableStatement csSql = CON
 				.prepareCall("{call UserNewRegisteration(?,?,?,?,?,?,?,?)}");
 
 		/**
@@ -66,27 +64,58 @@ public class dbUser extends DatabaseManager {
 		 * passwd VARCHAR(100), IN authstring VARCHAR(100), IN registerwith
 		 * VARCHAR(20)) BEGIN
 		 */
-		pst.setInt(1, objUser.getId());
-		pst.setString(2, objUser.getFirstName());
-		pst.setString(3, objUser.getLastName());
-		pst.setString(4, objUser.getGender());
-		pst.setString(5, objUser.getPassword());
-		pst.setString(6, objUser.getAuthString());
-		pst.setString(7, objUser.getRegisterWith());
-		pst.setString(8, objUser.getPictureUrl());
-		pst.executeUpdate();
-		pst.close();
+		csSql.setInt(1, objUser.getId());
+		csSql.setString(2, objUser.getFirstName());
+		csSql.setString(3, objUser.getLastName());
+		csSql.setString(4, objUser.getGender());
+		csSql.setString(5, objUser.getPassword());
+		csSql.setString(6, objUser.getAuthString());
+		csSql.setString(7, objUser.getRegisterWith());
+		csSql.setString(8, objUser.getPictureUrl());
+		csSql.executeUpdate();
+		csSql.close();
 	}
 	
 	public int verifyNewUser(String email,String aString) throws ClassNotFoundException, SQLException{
 		this.open();
-		CallableStatement pst = CON
+		CallableStatement csSql = CON
 				.prepareCall("{call UserVerifyRegistration(?,?,?)}");
-		pst.setString(1, email);
-		pst.setString(2, aString);
-		pst.registerOutParameter(3, Types.INTEGER);
-		pst.executeQuery();
-
-		return pst.getInt(3);
+		csSql.setString(1, email);
+		csSql.setString(2, aString);
+		csSql.registerOutParameter(3, Types.INTEGER);
+		csSql.executeQuery();
+		int rtnTemp=csSql.getInt(3);
+		csSql.close();
+		return rtnTemp;
+	}
+	
+	public boolean userLogin(String email, String password) throws SQLException, ClassNotFoundException{
+		this.open();
+		CallableStatement csSql = CON.prepareCall("{call UserLogin(?,?,?)}");
+		csSql.setString(1, email);
+		csSql.setString(2, password);
+		csSql.registerOutParameter(3, Types.BOOLEAN);
+		ResultSet rs = csSql.executeQuery();
+		if (rs.next()) {
+			objUser = new CampusTalkUsers();
+			objUser.setId(rs.getInt("id"));
+			objUser.setEmail(email);
+			objUser.setPassword(password);
+			objUser.setStatus(rs.getString("status"));
+			objUser.setAuthString(rs.getString("authstring"));
+			objUser.setAuthDate(rs.getTimestamp("authdate"));
+			objUser.setRegisterDate(rs.getTimestamp("registerdate"));
+			objUser.setFirstName(rs.getString("firstname"));
+			objUser.setLastName(rs.getString("lastname"));
+			objUser.setBirthDate(rs.getTimestamp("birthdate"));
+			objUser.setGender(rs.getString("gender"));
+			objUser.setCityId(rs.getInt("cityid"));
+			objUser.setBranchId(rs.getInt("branchid"));
+			objUser.setYear(rs.getInt("year"));
+			objUser.setPictureUrl(rs.getString("pictureurl"));
+		} 
+		boolean rtnFlag=csSql.getBoolean(3);
+		csSql.close();
+		return rtnFlag;
 	}
 }
