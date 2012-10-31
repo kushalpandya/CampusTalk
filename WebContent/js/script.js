@@ -78,6 +78,22 @@ $("a[href='#CreateUser']").on("click", function(e) {
 		$("#CreateUser").modal('hide');
 });
 
+$(".account-tray #showMessages").on("click", function(e) {
+	e.preventDefault();
+	$(".account-tray").fadeOut(100, function() {
+		$("#avgmodal").avgrund({
+			width: 300,
+			height: 200,
+			showClose: true,
+			showCloseText: '&times;',
+			holderClass: 'page-wrap',
+			showClose: true,
+			template: $("#avgmodal").html()
+		}).click();
+	});
+});
+
+
 //Model Windows Show Function 
 
 function showPopup(templateHTML){
