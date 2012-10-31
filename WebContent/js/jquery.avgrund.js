@@ -18,7 +18,9 @@
 			overlayClass: '',
 			enableStackAnimation: false,
 			onBlurContainer: '',
-			template: '<p>This is test popin content!</p>'
+			template: '<p>This is test popin content!</p>',
+			onLoad: function() {}, //Callback to execute something before dialog is loaded.
+			onUnload: function() {} //Callback to execute something after dialog is closed.
 		};
 		var options = $.extend(defaults, options);
 
@@ -74,6 +76,9 @@
 
 			// show popup
 			function activate() {
+				if(typeof options.onLoad == 'function') //Check if callback is a function
+					options.onLoad.call(this); //Call the function before dialog is loaded
+				
 				body.bind('keyup', onDocumentKeyup);
 				body.bind('click', onDocumentClick);
 
@@ -86,6 +91,9 @@
 				body.unbind('click', onDocumentClick);
 
 				body.removeClass('avgrund-active');
+				
+				if(typeof options.onUnload == 'function')
+					options.onUnload.call(this);
 			}
 
 			// init on click
@@ -95,6 +103,5 @@
 				activate();
 			});
 		});
-
-	}
-})(jQuery)
+	};
+})(jQuery);
