@@ -1,6 +1,7 @@
 html, body {
 	height: 100%;
-	overflow: auto; /* TIP: set it to 'auto' if you have long content pages */
+	overflow-y: auto; /* TIP: set it to 'auto' if you have long content pages */
+	overflow-x: hidden;
 }
 
 .avgrund-popin {
