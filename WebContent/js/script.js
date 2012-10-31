@@ -80,17 +80,23 @@ $("a[href='#CreateUser']").on("click", function(e) {
 
 $(".account-tray #showMessages").on("click", function(e) {
 	e.preventDefault();
-	$(".account-tray").fadeOut(100, function() {
-		$("#avgmodal").avgrund({
-			width: 300,
-			height: 200,
-			showClose: true,
-			showCloseText: '&times;',
-			holderClass: 'page-wrap',
-			showClose: true,
-			template: $("#avgmodal").html()
-		}).click();
-	});
+	
+	$("#avgmodal").avgrund({
+		width: 300,
+		height: 200,
+		showClose: true,
+		showCloseText: '&times;',
+		holderClass: 'page-wrap',
+		showClose: true,
+		template: $("#avgmodal").html(),
+		onLoad: function() {
+			$(".account-tray").hide();
+			$("#avgmodal p").css("fontSize", "20px");
+		},
+		onUnload: function() {
+			$(".account-tray").fadeIn(50);
+		}
+	}).click();
 });
 
 
