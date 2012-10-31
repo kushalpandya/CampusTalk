@@ -289,7 +289,11 @@
 /******** controlpanel.html Styles ********/
 
 .panels-block {
-	width: 60%;
+	width: 75%;
+	
+	.tabbable {
+		width: 95%;
+	}
 	
 	.tab-content .tab-pane .input-append {
 		margin: auto;
@@ -695,6 +699,11 @@ textarea.txt-flat {
 		background: darken(@linkedin_color, 5%);
 		.box-shadow-inset(0px, 0px, 5px, darken(@linkedin_color, 20%));
 	}
+}
+
+#avgmodal{
+	display: none;
+	overflow: hidden;
 }
 
 .modal {
