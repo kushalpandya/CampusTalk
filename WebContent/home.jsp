@@ -18,6 +18,7 @@
 	media="all" />
 <link rel="stylesheet/less" type="text/css" href="less/style.less"
 	media="all" />
+<link href="css/cssemoticons.css" media="screen" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/less-1.3.0.min.js"></script>
@@ -152,7 +153,7 @@
 	<script type="text/javascript" src="js/script.js"></script>
 	<script type="text/javascript" src="js/handlebars.js"></script>
 	<script type="text/javascript" src="js/home.js"></script>
-	
+	<script src="js/cssemoticons.min.js" type="text/javascript"></script>
 	
 </body>
 </html>
