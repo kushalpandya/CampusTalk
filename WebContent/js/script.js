@@ -72,20 +72,9 @@ $(".account-tray #showMessages").on("click", function(e) {
 
 /********************** controlpanel.html script ***********************/
 
-$("#groups td a[href='#EditGroup']").on("click", function(e) {
-	var groupId = parseInt($(this).parents().eq(1).find("td:nth-child(1)").text());
-	var groupName = $(this).parents().eq(1).find("td:nth-child(2)").text();
-	
-	$("#EditGroup #dlgLabel").text("Edit Group - "+groupName);
-	$("#EditGroup").find("input[name='txtGroupName']").val(groupName);
-});
-
-$("#users td a[href='#EditUser']").on("click", function(e) {
-	var userId = parseInt($(this).parents().eq(1).find("td:nth-child(1)").text());
-	var userEmail = $(this).parents().eq(1).find("td:nth-child(2)").text();
-	
-	$("#EditUser #dlgLabel").text("Edit User - "+userEmail);
-	$("#EditUser").find("input[name='txtUserEmail']").val(userEmail);
+$("#ViewGroup").on("shown", function(e) {
+	var modal = $(this);
+	modal.css("margin-left", (modal.outerWidth() / 2) * -1);
 });
 
 $(".input-append input").on("keyup", function() {
@@ -107,12 +96,56 @@ $("a[href='#CreateGroup']").on("click", function(e) {
 		$("#CreateGroup").modal('hide');
 });
 
+$("a[href='#EditGroup']").on("click", function(e) {
+	var groupId = parseInt($(this).parents().eq(1).find("td:nth-child(1)").text());
+	var groupName = $(this).parents().eq(1).find("td:nth-child(2)").text();
+	
+	$("#EditGroup #dlgLabel").text("Edit Group - "+groupName);
+	$("#EditGroup").find("input[name='txtGroupName']").val(groupName);
+});
+
+$("a[href='#ViewGroup']").on("click", function(e) {
+	var groupId = parseInt($(this).parents().eq(1).find("td:nth-child(1)").text());
+	var groupName = $(this).parents().eq(1).find("td:nth-child(2)").text();
+	
+	$("#ViewGroup #dlgLabel").text(groupName);
+	$("#ViewGroup").css("margin-left", ($("#ViewGroup").outerWidth() / 2) * -1);
+});
+
+$("a[href='#EditGroupUser']").on("click", function(e) {
+	e.preventDefault();
+	$(".modal-disable-overlay").show();
+	var dropform = $(".modal-dropform");
+	dropform.css("height", "295");
+	dropform.slideDown(250).find("form.form-edit-member").show();
+});
+
+$("#btnAddGroupMembers").on("click", function(e) {
+	$(".modal-disable-overlay").show();
+	var dropform = $(".modal-dropform");
+	dropform.css("height", "315");
+	dropform.slideDown(250).find("form.form-add-member").show();
+});
+
+$("#btnCancelEdit, #btnCancelAdd").on("click", function(e) {
+	$(".modal-disable-overlay").hide();
+	$(".modal-dropform").slideUp(250).find("form").hide();
+});
+
 $("a[href='#CreateUser']").on("click", function(e) {
 	e.preventDefault();
 	if(!$(this).hasClass("disabled"))
 		$("#CreateUser").modal('show');
 	else
 		$("#CreateUser").modal('hide');
+});
+
+$("a[href='#EditUser']").on("click", function(e) {
+	var userId = parseInt($(this).parents().eq(1).find("td:nth-child(1)").text());
+	var userEmail = $(this).parents().eq(1).find("td:nth-child(2)").text();
+	
+	$("#EditUser #dlgLabel").text("Edit User - "+userEmail);
+	$("#EditUser").find("input[name='txtUserEmail']").val(userEmail);
 });
 
 /********************** General methods ***********************/
