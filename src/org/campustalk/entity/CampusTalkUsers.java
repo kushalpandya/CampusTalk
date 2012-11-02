@@ -171,7 +171,7 @@ public class CampusTalkUsers
 	 * 
 	 * @return firstname
 	 */
-	public String getFirstName()
+	public String getFirstname()
 	{
 		return this.firstname;
 	}
@@ -187,7 +187,7 @@ public class CampusTalkUsers
 	 * 
 	 * @return lastname
 	 */
-	public String getLastName()
+	public String getLastname()
 	{
 		return this.lastname;
 	}
