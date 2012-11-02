@@ -69,6 +69,11 @@ function getNewPost(resetFlag){
 				$("#feeds-list").append(html);
 				if(data.posts.length>0)
 					skipRow += data.posts.length;
+				$('.feed-content p').emoticonize({
+					//delay: 800,
+					animate: true,
+					//exclude: 'pre, code, .no-emoticons'
+				});
 			} else {
 				// Failed
 				showPopup(data.message);
