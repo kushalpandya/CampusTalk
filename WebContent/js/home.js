@@ -1,6 +1,20 @@
 Handlebars.registerHelper('getPictureUrl', function() {
 	return objMyData.pictureUrl;
 });
+Handlebars.registerHelper('isPostOwner', function(userid,block) {
+	if(userid == objMyData.userid)
+		return block.fn(this);
+});
+Handlebars.registerHelper('notAlreadyAdded', function(postid,block) {
+	if($("#divPost" + postid).length==0)
+		return block.fn(this);
+});
+//getuserurl
+
+Handlebars.registerHelper('getuserurl', function(userid) {
+	return "javascript::alert('" + userid+ "')";
+	
+});
 $("#btnPost").click(function(){
 	var postData=$.trim($("#postBox").val());
 	var postType=$("#selectPostType").val();
@@ -30,4 +44,45 @@ $("#btnPost").click(function(){
 			showPopup('Some Error Occured, Please Refresh page');
 		}
 	});
+});
+var skipRow=0;
+function getNewPost(resetFlag){
+	
+	if(resetFlag== undefined){
+		resetFlag=false;
+	}
+	
+	$.ajax({
+		url : 'Post/Get',
+		type : 'post',
+		data : {
+			"skip" :skipRow,
+			"row" :10
+		},
+		success:function(data) {
+			if (data.status === 'success') {
+				// Success
+				console.log(data);
+				var source   = $("#tmpltPostList").html();
+				var template = Handlebars.compile(source);
+				var html    = template(data);
+				$("#feeds-list").append(html);
+				if(data.posts.length>0)
+					skipRow += data.posts.length;
+			} else {
+				// Failed
+				showPopup(data.message);
+			}
+		},
+		error : function() {
+			showPopup('Some Error Occured, Please Refresh page');
+		}
+	});
+}
+getNewPost();
+$(".feeds-block").scroll(function(){
+	
+    if($(this).scrollTop() == $(this).height() - $(window).height()){
+    	getNewPost();
+    }
 });
