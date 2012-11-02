@@ -95,92 +95,8 @@
 				</div>
 			</div>
 		</div>
-		<div class="feeds-list">
-			<div class="feed-card">
-				<div class="feed-user-bar">
-					<a href="#"><img src="assets/user_thumb.jpg"
-						class="feed-user-img" /></a> <span class="feed-user-title"><a
-						href="#">Kushal Pandya </a></span>
-					<div class="dropdown drp-flat feed-card-menu">
-						<a href="#" data-toggle="dropdown" class="dropdown-toggle"><i
-							class="icon-tasks"></i></a>
-						<ul class="dropdown-menu pull-right" role="menu"
-							aria-labelledby="dropdownMenu">
-							<li><a tabindex="-1" href="#">Edit</a></li>
-							<li><a tabindex="-1" href="#">Delete</a></li>
-							<li><a tabindex="-1" href="#">Report as spam/abuse</a></li>
-						</ul>
-					</div>
-				</div>
-				<div class="feed-content">
-					<p>Pellentesque habitant morbi tristique senectus et netus et
-						malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat
-						vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit
-						amet quam egestas semper. Aenean ultricies mi vitae est. Mauris
-						placerat eleifend leo.</p>
-					<div class="feed-comments-block">
-						<a href="#" class="feed-comment-reveal" rel="full">4 comments.
-							&dArr;</a>
-						<ul class="feed-comments">
-							<li><img src="assets/user_thumb.jpg" class="post-user-img"
-								width="30" />Lorem ipsum dolor sit amet, consectetuer
-								adipiscing elit.<a class="comment-action" href="#"><i
-									class="icon-remove" title="Delete"></i></a></li>
-							<li><img src="assets/user_thumb.jpg" class="post-user-img"
-								width="30" />Aliquam tincidunt mauris eu risus.<a
-								class="comment-action" href="#"><i class="icon-warning-sign"
-									title="Report Abuse"></i></a></li>
-							<li><img src="assets/user_thumb.jpg" class="post-user-img"
-								width="30" />Morbi in sem quis dui placerat ornare.
-								Pellentesque odio nisi, euismod in, pharetra a, ultricies in,
-								diam. Sed arcu. Cras consequat. Morbi in sem quis dui placerat
-								ornare. Pellentesque odio nisi, euismod in, pharetra a,
-								ultricies in, diam. Sed arcu. Cras consequat.<a
-								class="comment-action" href="#"><i class="icon-warning-sign"
-									title="Report Abuse"></i></a></li>
-							<li><img src="assets/user_thumb.jpg" class="post-user-img"
-								width="30" />Lorem ipsum dolor sit amet, consectetuer
-								adipiscing elit.<a class="comment-action" href="#"><i
-									class="icon-warning-sign" title="Report Abuse"></i></a></li>
-						</ul>
-						<div class="feed-comment-box">
-							<img src="assets/user_thumb.jpg" class="post-user-img" width="30" />
-							<textarea class="txt-flat" placeholder="Leave comment..."></textarea>
-						</div>
-					</div>
-				</div>
+		<div class="feeds-list" id="feeds-list">
 			</div>
-			<div class="feed-card">
-				<div class="feed-user-bar">
-					<a href="#"><img src="assets/user_thumb.jpg"
-						class="feed-user-img" /></a> <span class="feed-user-title"><a
-						href="#">Kushal Pandya</a></span>
-					<div class="dropdown drp-flat feed-card-menu">
-						<a href="#" data-toggle="dropdown" class="dropdown-toggle"><i
-							class="icon-tasks"></i></a>
-						<ul class="dropdown-menu pull-right" role="menu"
-							aria-labelledby="dropdownMenu">
-							<li><a tabindex="-1" href="#">Edit</a></li>
-							<li><a tabindex="-1" href="#">Delete</a></li>
-							<li><a tabindex="-1" href="#">Report as spam/abuse</a></li>
-						</ul>
-					</div>
-				</div>
-				<div class="feed-content">
-					<p>Pellentesque habitant morbi tristique senectus et netus et
-						malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat
-						vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit
-						amet quam egestas semper. Aenean ultricies mi vitae est. Mauris
-						placerat eleifend leo.</p>
-					<div class="feed-comments-block">
-						<div class="feed-comment-box">
-							<img src="assets/user_thumb.jpg" class="post-user-img" width="30" />
-							<textarea class="txt-flat" placeholder="Leave comment..."></textarea>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
 	</div>
 	<div id="avgmodal">
 		<p>Pellentesque habitant morbi tristique senectus et netus et
@@ -193,40 +109,45 @@
 	<script type="text/x-handlebars-template" id='tmpltPostList'>
  		{{#if posts}}
 			{{#each posts}}
-					<div class="feed-card">
+				{{#notAlreadyAdded postid}}
+					<div class="feed-card" id='divPost{{postid}}'>
 						<div class="feed-user-bar">
-							<a href="#"><img src="{{user.pictureUrl}}"
+							<a href="#"><img src="{{pictureurl}}"
 								class="feed-user-img" /></a> <span class="feed-user-title"><a
-								href="{{user.url}}">{{user.firstname}} {{user.lastname}}</a></span>
+								href="{{getuserurl id}}">{{firstname}} {{lastname}}</a></span>
 					<div class="dropdown drp-flat feed-card-menu">
 						<a href="#" data-toggle="dropdown" class="dropdown-toggle"><i
 							class="icon-tasks"></i></a>
 						<ul class="dropdown-menu pull-right" role="menu"
 							aria-labelledby="dropdownMenu">
-							{{#if user.owner}}
+							{{#isPostOwner userid}}
 							<li><a tabindex="-1" href="#">Edit</a></li>
 							<li><a tabindex="-1" href="#">Delete</a></li>
-							{{else}}
+							{{/isPostOwner}}
 							<li><a tabindex="-1" href="#">Report as spam/abuse</a></li>
-							{{/if}}
+							
 						</ul>
 					</div>
 				</div>
 				<div class="feed-content">
-					<p>{{postdata}}</p>
+					<p>{{detail}}</p>
 					<div class="feed-comments-block">
-						<a href="#" class="feed-comment-reveal" rel="full">{{nocommrnts}} comments.
+						<a href="#" class="feed-comment-reveal" rel="full">{{nocomment}} comments.
 							&dArr;</a>
 						<ul class="feed-comments">
 							
 						</ul>
 						<div class="feed-comment-box">
-							<img src="{{myPictureUrl}}" class="post-user-img" width="30" />
+							<img src="{{getPictureUrl}}" class="post-user-img" width="30" />
 							<textarea class="txt-flat" placeholder="Leave comment..."></textarea>
 						</div>
 					</div>
 				</div>
 			</div>
+			{{/notAlreadyAdded}}
+		{{/each}}
+
+	{{/if}}
 	</script>
 	<script type="text/javascript" src="js/script.js"></script>
 	<script type="text/javascript" src="js/handlebars.js"></script>
