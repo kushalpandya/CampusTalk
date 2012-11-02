@@ -13,9 +13,10 @@ public class dbUser extends DatabaseManager {
 		super();
 	}
 	public CampusTalkUsers objUser;
-	public CampusTalkUsers getUserDetailFromEmail(String email)
-			throws SQLException, ClassNotFoundException {
-		this.open();
+	public CampusTalkUsers getUserDetailFromEmail(String email) {
+		try {
+			this.open();
+		
 		CallableStatement csSql = CON
 				.prepareCall("{call UserDetailFromEmail(?)}");
 		/**
@@ -48,7 +49,15 @@ public class dbUser extends DatabaseManager {
 		} else {
 			objUser.setId(0);
 		}
-		return objUser;
+		
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally{
+		
+		}
+		return objUser;	
 	}
 
 	public void registerNewuserDetail(CampusTalkUsers objUser)
@@ -65,8 +74,8 @@ public class dbUser extends DatabaseManager {
 		 * VARCHAR(20)) BEGIN
 		 */
 		csSql.setInt(1, objUser.getId());
-		csSql.setString(2, objUser.getFirstName());
-		csSql.setString(3, objUser.getLastName());
+		csSql.setString(2, objUser.getFirstname());
+		csSql.setString(3, objUser.getLastname());
 		csSql.setString(4, objUser.getGender());
 		csSql.setString(5, objUser.getPassword());
 		csSql.setString(6, objUser.getAuthString());

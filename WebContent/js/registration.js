@@ -138,16 +138,16 @@ if (getParameterByName("q") != "" && getParameterByName("e") != "") {
 
 $('#frmLogin').submit(function(e) {
 	e.preventDefault();
-	email = $("#txtLoginEmail").val();
-	password = $("#txtLoginPassword").val();
-	rememberMe= $('#chkbRemember').is(':checked');
+	var email = $("#txtLoginEmail").val();
+	var password = $("#txtLoginPassword").val();
+	var rememberMe= ($('#chkbLoginRemember').is(':checked'))?"true" : "false";
 	$.ajax({
-		url : 'User/Login',
+		url : 'Login',
 		type : 'post',
 		data : {
 			'email' : email,
 			'password':password,
-			'rememberMe':rememberMe,
+			'remember':rememberMe,
 			'type': 'login'
 		},
 		success : function(data) {
@@ -167,13 +167,13 @@ $('#frmLogin').submit(function(e) {
 })
 
 function successfullLogin() {
-	window.location = "home.html";
+	window.location = "home.jsp";
 }
 
 
 function doAutoLogin() {
 
-	$("#txtEmail").val(getCookie("CampusTalkEmail"));
+	$("#txtLoginEmail").val(getCookie("CampusTalkEmail"));
 	$.post("User/Login", {
 		type : "sessionlogin"
 	}, function(data) {

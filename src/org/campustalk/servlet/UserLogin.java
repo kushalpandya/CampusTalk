@@ -13,13 +13,14 @@ import javax.servlet.http.HttpSession;
 
 import org.campustalk.entity.CampusTalkUsers;
 import org.campustalk.sql.dbUser;
+import org.campustalk.util.EmailHelper;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
  * Servlet implementation class UserLogin
  */
-@WebServlet("/User/Login")
+@WebServlet("/Login")
 public class UserLogin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -30,11 +31,13 @@ public class UserLogin extends HttpServlet {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	protected void doGet (HttpServletRequest request,
+
+	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
 		System.out.println(session.getAttribute("loggedin"));
 	}
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -54,19 +57,22 @@ public class UserLogin extends HttpServlet {
 			{
 				String email = request.getParameter("email");
 				String password = request.getParameter("password");
-				boolean rememberMe = request.getParameter("rememberMe").equalsIgnoreCase("true");
+				System.out.println(request.getParameter("email"));
+				boolean rememberMe = request.getParameter("remember")
+						.equalsIgnoreCase("true");
+
 				dbUser objdbUser = new dbUser();
 				boolean loginFlag = objdbUser.userLogin(email, password);
 				CampusTalkUsers ctUser = objdbUser.objUser;
 				// Get Model Function call
-				if (ctUser != null){
+				if (ctUser != null) {
 					if (loginFlag) {
-						session.setAttribute("UserId",ctUser.getId());
-						session.setAttribute("UserEmail",ctUser.getEmail());
+						session.setAttribute("UserId", ctUser.getId());
+						session.setAttribute("UserEmail", ctUser.getEmail());
+						session.setAttribute("user", ctUser);
 						System.out.println(session.getAttribute("loggedin"));
 						int time = 60 * 60 * 24 * 30;
-						Cookie d = new Cookie("CampusTalkLogedIn",
-								"true");
+						Cookie d = new Cookie("CampusTalkLogedIn", "true");
 						d.setMaxAge(time);
 						response.addCookie(d);
 						if (rememberMe) {
@@ -81,6 +87,11 @@ public class UserLogin extends HttpServlet {
 							returnMsg = "Email is not registered, Please Register";
 						} else if (ctUser.getStatus().equals("V")) {
 							returnMsg = "Email is not Verified, Please Check Your email inbox";
+							EmailHelper.registrationVerifyEmail(ctUser); // Send
+																			// registration
+																			// verification
+																			// mail
+																			// again
 						} else {
 							returnMsg = "Invalid Password";
 						}
@@ -90,12 +101,12 @@ public class UserLogin extends HttpServlet {
 					returnMsg = "Email does not exits in System";
 				}
 
-			} else if (req_type.equalsIgnoreCase("sessionlogin")){
+			} else if (req_type.equalsIgnoreCase("sessionlogin")) {
 				String useremail = (String) session.getAttribute("UserEmail");
 				if (useremail != null)
 					status = "success";
 			} else if (req_type.equalsIgnoreCase("logout")) // Request for
-															// Logout.
+			// Logout.
 			{
 				session.invalidate();
 				Cookie[] c = request.getCookies();
