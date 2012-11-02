@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.campustalk.Settings;
 import org.campustalk.entity.CampusTalkUsers;
 import org.campustalk.sql.dbUser;
+import org.campustalk.util.EmailHelper;
 import org.campustalk.util.FieldValidator;
 import org.campustalk.util.OtherUtil;
 import org.json.JSONException;
@@ -108,25 +109,7 @@ public class UserNewRegistration extends HttpServlet {
 						objUser.registerNewuserDetail(ctUser);
 						jResponse.put("status", "success");
 						// send Email
-						try {
-							OtherUtil
-									.sendEmail(
-											"saiyedfaishal@gmail.com",
-											"[CampusTalk] New Registration Confirmation",
-											"Hi,"
-													+ ctUser.getFirstName()
-													+ "<br> <a href='"
-													+ Settings.APPURL
-													+ "?q="
-													+ ctUser.getAuthString()
-													+ "&e="
-													+ ctUser.getEmail()
-													+ "' > Click Here</a> to verify yor A/C");
-						} catch (MessagingException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-
+						EmailHelper.registrationVerifyEmail(ctUser);
 						responseMessage = "Please Check Email To Verify";
 
 					} else {
