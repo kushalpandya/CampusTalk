@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 import org.campustalk.Settings;
 import org.campustalk.entity.CampusTalkUsers;
 import org.campustalk.sql.dbUser;
+import org.json.JSONException;
 
 /**
  * Servlet Filter implementation class LoginFilter
@@ -59,7 +60,12 @@ public class LoginFilter implements Filter {
 		dbUser objDbUser= new dbUser();
 		CampusTalkUsers objUser= objDbUser.getUserDetailFromEmail((String)session.getAttribute("UserEmail"));
 		request.setAttribute("User", objUser);
-		
+		try {
+			request.setAttribute("userJSon",objUser.toJSONObject().toString());
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		chain.doFilter(request, response);
 	}
 
