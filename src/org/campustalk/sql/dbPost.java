@@ -6,10 +6,9 @@ import java.sql.SQLException;
 import java.sql.Types;
 
 import org.campustalk.entity.CampusTalkPost;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import com.google.appengine.labs.repackaged.org.json.JSONArray;
 
 public class dbPost extends DatabaseManager {
 
@@ -38,8 +37,8 @@ public class dbPost extends DatabaseManager {
 
 	}
 
-	public JSONObject getPostForUser(String email, int skipRow, int nRow) {
-		JSONObject jResponse = new JSONObject();
+	public JSONArray getPostForUser(String email, int skipRow, int nRow) {
+		
 		JSONArray jArray = new JSONArray();
 		try {
 			this.open();
@@ -57,22 +56,21 @@ public class dbPost extends DatabaseManager {
 				jTemp.put("userid", rs.getInt("userid"));
 				jTemp.put("detail", rs.getString("detail"));
 				jTemp.put("type", rs.getString("type"));
-				jTemp.put("entTime", rs.getDate("entTime"));
+				jTemp.put("entTime", rs.getTimestamp("entTime"));
 				jTemp.put("firstname", rs.getString("firstname"));
 				jTemp.put("lastname", rs.getString("lastname"));
 				jTemp.put("pictureurl", rs.getString("pictureurl"));
 				jTemp.put("nocomment", rs.getInt("nocomment"));
-				jTemp.put("lastmodifytime", rs.getDate("lastmodifytime"));
-
+				jTemp.put("lastmodifytime", rs.getTimestamp("lastmodifytime"));
 				jArray.put(jTemp);
 			}
-			jResponse.put("posts", jArray);
+			
 		} catch (ClassNotFoundException | SQLException | JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		return jResponse;
+		return jArray;
 	}
 
 }
