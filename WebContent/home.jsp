@@ -37,6 +37,8 @@
 			currfeed.hide();
 		});
 	});
+	var objMyData = [];
+	objMyData=${requestScope.userJSon}
 </script>
 </head>
 <body class="page-wrap">
@@ -85,11 +87,11 @@
 				<div class="post-content">
 					<textarea id="postBox" rows="1" cols="30"
 						placeholder="Share something..." class="txt-flat"></textarea>
-					<select class="span2 sel-flat">
-						<option>Private</option>
-						<option>Public</option>
+					<select class="span2 sel-flat" id="selectPostType">
+						<option value="P">Private</option>
+						<option value="A">Public</option>
 					</select>
-					<button class="btn btn-flat">Post</button>
+					<button class="btn btn-flat" id="btnPost">Post</button>
 				</div>
 			</div>
 		</div>
@@ -187,6 +189,49 @@
 			amet quam egestas semper. Aenean ultricies mi vitae est. Mauris
 			placerat eleifend leo.</p>
 	</div>
+	<a id='popupLink' href='' style='display:none'>Show</a>
+	<script type="text/x-handlebars-template" id='tmpltPostList'>
+ 		{{#if posts}}
+			{{#each posts}}
+					<div class="feed-card">
+						<div class="feed-user-bar">
+							<a href="#"><img src="{{user.pictureUrl}}"
+								class="feed-user-img" /></a> <span class="feed-user-title"><a
+								href="{{user.url}}">{{user.firstname}} {{user.lastname}}</a></span>
+					<div class="dropdown drp-flat feed-card-menu">
+						<a href="#" data-toggle="dropdown" class="dropdown-toggle"><i
+							class="icon-tasks"></i></a>
+						<ul class="dropdown-menu pull-right" role="menu"
+							aria-labelledby="dropdownMenu">
+							{{#if user.owner}}
+							<li><a tabindex="-1" href="#">Edit</a></li>
+							<li><a tabindex="-1" href="#">Delete</a></li>
+							{{else}}
+							<li><a tabindex="-1" href="#">Report as spam/abuse</a></li>
+							{{/if}}
+						</ul>
+					</div>
+				</div>
+				<div class="feed-content">
+					<p>{{postdata}}</p>
+					<div class="feed-comments-block">
+						<a href="#" class="feed-comment-reveal" rel="full">{{nocommrnts}} comments.
+							&dArr;</a>
+						<ul class="feed-comments">
+							
+						</ul>
+						<div class="feed-comment-box">
+							<img src="{{myPictureUrl}}" class="post-user-img" width="30" />
+							<textarea class="txt-flat" placeholder="Leave comment..."></textarea>
+						</div>
+					</div>
+				</div>
+			</div>
+	</script>
 	<script type="text/javascript" src="js/script.js"></script>
+	<script type="text/javascript" src="js/handlebars.js"></script>
+	<script type="text/javascript" src="js/home.js"></script>
+	
+	
 </body>
 </html>
