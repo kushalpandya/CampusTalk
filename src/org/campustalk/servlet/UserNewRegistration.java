@@ -109,6 +109,7 @@ public class UserNewRegistration extends HttpServlet {
 						objUser.registerNewuserDetail(ctUser);
 						jResponse.put("status", "success");
 						// send Email
+						
 						EmailHelper.registrationVerifyEmail(ctUser);
 						responseMessage = "Please Check Email To Verify";
 
