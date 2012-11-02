@@ -1,4 +1,18 @@
 var POSTBOX_BOTTOM_MARGIN = 20;
+var LOADER_OVERLAY = $("<div class='loading-overlay'><i class='loader-icon'></i></div>");
+
+/********************** Initializers ***********************/
+
+$.ajaxSetup({
+	beforeSend : function(jqXHR, settings) {
+		$("body").append(LOADER_OVERLAY);
+	},
+	complete : function(jqXHR, settings) {
+		$("body").find(".loading-overlay").remove();
+	}
+});
+
+/********************** home.html script ***********************/
 
 $(".feed-comment-reveal").on("click", function(e){
 	e.preventDefault();
@@ -34,6 +48,29 @@ $(".feed-comments li").on("mouseenter", function() {
 $(".feed-comments li").on("mouseleave", function() {
 	$(this).find(".comment-action").hide();
 });
+
+$(".account-tray #showMessages").on("click", function(e) {
+	e.preventDefault();
+	
+	$("#avgmodal").avgrund({
+		width: 300,
+		height: 200,
+		showClose: true,
+		showCloseText: '&times;',
+		holderClass: 'page-wrap',
+		showClose: true,
+		template: $("#avgmodal").html(),
+		onLoad: function() {
+			$(".account-tray").hide();
+			$("#avgmodal p").css("fontSize", "20px");
+		},
+		onUnload: function() {
+			$(".account-tray").fadeIn(50);
+		}
+	}).click();
+});
+
+/********************** controlpanel.html script ***********************/
 
 $("#groups td a[href='#EditGroup']").on("click", function(e) {
 	var groupId = parseInt($(this).parents().eq(1).find("td:nth-child(1)").text());
@@ -78,31 +115,17 @@ $("a[href='#CreateUser']").on("click", function(e) {
 		$("#CreateUser").modal('hide');
 });
 
-$(".account-tray #showMessages").on("click", function(e) {
-	e.preventDefault();
-	
-	$("#avgmodal").avgrund({
-		width: 300,
-		height: 200,
-		showClose: true,
-		showCloseText: '&times;',
-		holderClass: 'page-wrap',
-		showClose: true,
-		template: $("#avgmodal").html(),
-		onLoad: function() {
-			$(".account-tray").hide();
-			$("#avgmodal p").css("fontSize", "20px");
-		},
-		onUnload: function() {
-			$(".account-tray").fadeIn(50);
-		}
-	}).click();
-});
+/********************** General methods ***********************/
 
+//
+function loadingOverlay(toggle)
+{
+	toggle? $("body").append(LOADER_OVERLAY) :  $("body").find(".loading-overlay").remove();
+}
 
 //Model Windows Show Function 
-
-function showPopup(templateHTML){
+function showPopup(templateHTML)
+{
 	$('#popupLink').avgrund({			
 		width: 380, // max is 640px
 		height: 280, // max is 350px
@@ -117,6 +140,7 @@ function showPopup(templateHTML){
 		template: templateHTML
 	}).click();
 }
+
 //Get Cookie from Browser
 function getCookie( check_name ) {
     // first we'll split this cookie up into name/value pairs
