@@ -10,6 +10,9 @@ package org.campustalk.entity;
 
 import java.util.Date;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 
 
 public class CampusTalkUsers 
@@ -286,5 +289,19 @@ public class CampusTalkUsers
 	public String getPictureUrl()
 	{
 		return this.pictureUrl;
+	}
+	public JSONObject toJSONObject() throws JSONException
+	{
+		JSONObject obj = new JSONObject();
+		obj.put("userid", this.branchid);
+		obj.put("firstname", this.firstname);
+		obj.put("lastname", this.lastname);
+		obj.put("pictureUrl", this.pictureUrl);
+		obj.put("birthdate", this.birthdate);
+		obj.put("brnachid", this.branchid);
+		obj.put("year", this.year);
+		obj.put("gender", this.gender);
+		obj.put("email", this.email);
+		return obj;
 	}
 }
