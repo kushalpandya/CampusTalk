@@ -133,14 +133,13 @@
 				<div class="feed-content">
 					<p>{{detail}}</p>
 					<div class="feed-comments-block">
-						<a href="#" class="feed-comment-reveal" rel="full">{{nocomment}} comments.
-							&dArr;</a>
+						<a href="#" class="feed-comment-reveal" rel="full">{{nocomment}} comments. &dArr;</a>
 						<ul class="feed-comments">
 							
 						</ul>
 						<div class="feed-comment-box">
 							<img src="{{getPictureUrl}}" class="post-user-img" width="30" />
-							<textarea class="txt-flat" placeholder="Leave comment..."></textarea>
+							<textarea data-postid="{{postid}}" class="txt-flat txt-comment" placeholder="Leave comment..."></textarea>
 						</div>
 					</div>
 				</div>
