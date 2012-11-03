@@ -27,16 +27,6 @@
 	$(function() {
 		less.env = "development";
 		less.watch();
-
-		//Iterate over each comment-box and hide comments if they exist.
-		$.each($(".feed-comments"), function(i) {
-			var currfeed = $(this);
-			if (currfeed.find("li").length > 0)
-				currfeed.parent().find(".feed-comment-box").hide();
-			else
-				currfeed.parent().find(".feed-comment-reveal").hide();
-			currfeed.hide();
-		});
 	});
 	var objMyData = [];
 	objMyData=${requestScope.userJSon}
@@ -132,7 +122,7 @@
 				</div>
 				<div class="feed-content">
 					<p>{{detail}}</p>
-					<div class="feed-comments-block">
+					<div class="feed-comments-block" data-comments='{{nocomment}}'>
 						<a href="#" class="feed-comment-reveal comment-load" rel="full" data-postid="{{postid}}" >{{nocomment}} comments. &dArr;</a>
 						<ul class="feed-comments" id="postComments{{postid}}">
 						</ul>
