@@ -1,14 +1,18 @@
 package org.campustalk.sql;
 
 import java.sql.CallableStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 
 import org.campustalk.entity.CampusTalkComment;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class dbComment extends DatabaseManager {
-	
-	public int createCommentOnPost(CampusTalkComment objComment){
+
+	public int createCommentOnPost(CampusTalkComment objComment) {
 		int rCount = 0;
 		try {
 			this.open();
@@ -30,6 +34,39 @@ public class dbComment extends DatabaseManager {
 		}
 		return rCount;
 
+	}
+
+	public JSONArray getCommentForPost(int postid, int skipRow, int nRow) {
+
+		JSONArray jArray = new JSONArray();
+		try {
+			this.open();
+
+			CallableStatement pst = CON
+					.prepareCall("{ call getCommentOnPost(?,?,?)}");
+			pst.setInt(1, postid);
+			pst.setInt(2, skipRow);
+			pst.setInt(3, nRow);
+			ResultSet rs = pst.executeQuery();
+			JSONObject jTemp;
+			while (rs.next()) {
+				jTemp = new JSONObject();
+				jTemp.put("commentid", rs.getInt("postid"));
+				jTemp.put("userid", rs.getInt("userid"));
+				jTemp.put("detail", rs.getString("detail"));
+				jTemp.put("entTime", rs.getTimestamp("entTime"));
+				jTemp.put("firstname", rs.getString("firstname"));
+				jTemp.put("lastname", rs.getString("lastname"));
+				jTemp.put("pictureurl", rs.getString("pictureurl"));
+				jArray.put(jTemp);
+			}
+
+		} catch (ClassNotFoundException | SQLException | JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return jArray;
 	}
 
 }
