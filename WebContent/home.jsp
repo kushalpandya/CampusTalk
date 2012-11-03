@@ -133,9 +133,8 @@
 				<div class="feed-content">
 					<p>{{detail}}</p>
 					<div class="feed-comments-block">
-						<a href="#" class="feed-comment-reveal" rel="full">{{nocomment}} comments. &dArr;</a>
-						<ul class="feed-comments">
-							
+						<a href="#" class="feed-comment-reveal comment-load" rel="full" data-postid="{{postid}}" >{{nocomment}} comments. &dArr;</a>
+						<ul class="feed-comments" id="postComments{{postid}}">
 						</ul>
 						<div class="feed-comment-box">
 							<img src="{{getPictureUrl}}" class="post-user-img" width="30" />
@@ -148,6 +147,13 @@
 		{{/each}}
 
 	{{/if}}
+	</script>
+	<script type="text/x-handlebars-template" id='tmpltCommentList'>
+	{{#each comments}}
+		<li><img src="{{pictureurl}}" class="post-user-img" width="30" />{{detail}}<a class="comment-action" href="#"><i class="icon-remove" title="Delete"></i></a></li>
+
+	{{/each}}
+		
 	</script>
 	<script type="text/javascript" src="js/script.js"></script>
 	<script type="text/javascript" src="js/handlebars.js"></script>
