@@ -63,7 +63,7 @@
 						</label></td>
 					</tr>
 					<tr>
-						<td><label class="user-group-title">MSc. I.T. 2011</label></td>
+						<td><label class="user-group-title">${requestScope.Branch.name} ${requestScope.User.year}</label></td>
 					</tr>
 					<tr>
 						<td style="padding-bottom: 15px;"><a href="#"
