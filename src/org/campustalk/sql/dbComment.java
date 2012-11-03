@@ -1,15 +1,10 @@
 package org.campustalk.sql;
 
 import java.sql.CallableStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 
 import org.campustalk.entity.CampusTalkComment;
-import org.campustalk.entity.CampusTalkPost;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class dbComment extends DatabaseManager {
 	

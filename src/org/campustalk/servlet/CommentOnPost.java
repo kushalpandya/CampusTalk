@@ -11,9 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.campustalk.entity.CampusTalkComment;
-import org.campustalk.entity.CampusTalkPost;
 import org.campustalk.sql.dbComment;
-import org.campustalk.sql.dbPost;
 import org.json.JSONException;
 import org.json.JSONObject;
 
