@@ -47,9 +47,7 @@ public class DatabaseManager
 	public void open() throws SQLException, ClassNotFoundException
 	{
 		Class.forName(DRIVER);
-		System.out.println(DATABASEURL+ " ? " +DbUsername+ " ? " + DbPassword);
-		this.CON = DriverManager.getConnection(DATABASEURL,DbUsername,DbPassword);
-		
+		this.CON = DriverManager.getConnection(DATABASEURL,DbUsername,DbPassword);		
 	}
 	
 	/**
