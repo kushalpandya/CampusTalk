@@ -61,7 +61,7 @@ CREATE TABLE `comment` (
   KEY `cpost_idx` (`postid`),
   CONSTRAINT `cpost` FOREIGN KEY (`postid`) REFERENCES `posts` (`postid`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `cuser` FOREIGN KEY (`userid`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -70,6 +70,7 @@ CREATE TABLE `comment` (
 
 LOCK TABLES `comment` WRITE;
 /*!40000 ALTER TABLE `comment` DISABLE KEYS */;
+INSERT INTO `comment` VALUES (1,3,1,':D :D ;-)','2012-11-03 05:57:57','A'),(2,1,1,'\\m/ <3','2012-11-03 06:00:08','A'),(3,3,1,'Hey.. :)','2012-11-03 06:01:05','A');
 /*!40000 ALTER TABLE `comment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -272,7 +273,7 @@ CREATE TABLE `posts` (
 
 LOCK TABLES `posts` WRITE;
 /*!40000 ALTER TABLE `posts` DISABLE KEYS */;
-INSERT INTO `posts` VALUES (1,1,'First Post... :-)','P','A','2012-11-03 01:22:16','2012-11-03 01:22:16'),(2,1,'Second Post :-)','A','A','2012-11-03 01:29:00','2012-11-03 01:29:00'),(3,1,':-D','A','A','2012-11-03 01:29:43','2012-11-03 01:29:43');
+INSERT INTO `posts` VALUES (1,1,'First Post... :-)','P','A','2012-11-03 01:22:16','2012-11-03 06:00:08'),(2,1,'Second Post :-)','A','A','2012-11-03 01:29:00','2012-11-03 01:29:00'),(3,1,':-D','A','A','2012-11-03 01:29:43','2012-11-03 06:01:05');
 /*!40000 ALTER TABLE `posts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -739,6 +740,41 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `getCommentOnPost` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `getCommentOnPost`(IN postid INT,IN _START INTEGER, 
+IN _LIMIT INTEGER )
+BEGIN
+    
+    /* status = A indicate active comment */
+      
+      DECLARE cstatus CHAR(2);
+      SET cstatus ='A';
+   /*   select * from comment where comment.postid = postid and comment.status ='A' limit 3;*/
+      
+      
+         PREPARE STMT FROM "select c.* from (SELECT `COMMENT`.*,`USERS`.`firstname`,`USERS`.`lastname`,`USERS`.`pictureurl` FROM `COMMENT`,`USERS` WHERE comment.postid = ? AND `comment`.`userid` =`USERS`.`id` AND comment.status =? order by comment.enttime desc LIMIT ?,? ) c order by c.enttime "; 
+         SET @v_postid = postid;
+         SET @v_status = cstatus;
+         
+         SET @START = _START; 
+         SET @LIMIT = _LIMIT; 
+      
+         EXECUTE STMT USING @v_postid, @v_status, @START, @LIMIT;
+    END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `getPostsForUser` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -754,7 +790,7 @@ BEGIN
 SET @s = CONCAT('SELECT `posts`.`postid` AS `postid`,`posts`.`userid` AS `userid`,`posts`.`detail` AS `detail`,`posts`.`type` AS `type`,`posts`.`status` AS `status`,`posts`.`enttime` AS `enttime`,`posts`.`lastmodifytime` AS `lastmodifytime`,`users`.`firstname`,`users`.`lastname`,`users`.`pictureurl`,(select count(`comment`.`userid`) from `comment` where `comment`.`postid`=`posts`.`postid`) as nocomment FROM `posts`,`users`  WHERE `posts`.`userid`=`users`.`id` and  ((`posts`.`type` = \'A\') AND (`posts`.`status` = \'A\')) 
  UNION 
 (SELECT `posts`.`postid` AS `postid`,`posts`.`userid` AS `userid`,`posts`.`detail` AS `detail`,`posts`.`type` AS `type`,`posts`.`status` AS `status`,`posts`.`enttime` AS `enttime`,`posts`.`lastmodifytime` AS `lastmodifytime`,`users`.`firstname`,`users`.`lastname`,`users`.`pictureurl`,(select count(`comment`.`userid`) from `comment` where `comment`.`postid`=`posts`.`postid`) as nocomment FROM `posts`,`users` 
- WHERE (`posts`.`userid` IN (SELECT `users`.`id` FROM `users` WHERE `posts`.`userid`=`users`.`id` and `users`.`branchid` IN (SELECT `users`.`branchid` FROM `users` WHERE (`users`.`email` = "',remail,'"))) AND (`posts`.`type` = \'P\') AND (`posts`.`status` = \'A\'))) order by lastmodifytime limit ', rSkip ,', ', rRows); 
+ WHERE (`posts`.`userid` IN (SELECT `users`.`id` FROM `users` WHERE `posts`.`userid`=`users`.`id` and `users`.`branchid` IN (SELECT `users`.`branchid` FROM `users` WHERE (`users`.`email` = "',remail,'"))) AND (`posts`.`type` = \'P\') AND (`posts`.`status` = \'A\'))) order by lastmodifytime desc limit ', rSkip ,', ', rRows); 
 
 PREPARE stmt1 FROM @s;
 EXECUTE stmt1; 
@@ -924,4 +960,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-11-03  4:53:47
+-- Dump completed on 2012-11-03 17:58:41
