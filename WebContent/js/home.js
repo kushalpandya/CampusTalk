@@ -86,7 +86,7 @@ function getNewPost(resetFlag) {
 				});
 				afterLoadPost();
 				
-				//Iterate over each comment-box and hide comments if they exist.
+				//Iterate over each comment-box and hide comments if they exist, and adjust margin-bottom for each post-card.
 				$.each($(".feed-comments"), function(i) {
 					var currfeed = $(this);
 					if (parseInt(currfeed.parent().data("comments")) > 0)
@@ -94,6 +94,7 @@ function getNewPost(resetFlag) {
 					else
 						currfeed.parent().find(".feed-comment-reveal").hide();
 					currfeed.hide();
+					currfeed.parents().eq(2).css("marginBottom", currfeed.parents().eq(2).height());
 				});
 
 			} else {
