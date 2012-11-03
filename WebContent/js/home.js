@@ -74,6 +74,12 @@ function getNewPost(resetFlag){
 					animate: true,
 					//exclude: 'pre, code, .no-emoticons'
 				});
+				$(".txt-comment").keyup(function(event){
+					if (event.which == 13) {
+					    event.preventDefault();
+					    commentOnPost(this);
+					 }  
+				})
 			} else {
 				// Failed
 				showPopup(data.message);
@@ -85,9 +91,38 @@ function getNewPost(resetFlag){
 	});
 }
 getNewPost();
+
 $(".feeds-block").scroll(function(){
 	
     if($(this).scrollTop() == $(this).height() - $(window).height()){
     	getNewPost();
     }
 });
+function commentOnPost(txtComment){
+	var commentdata=$.trim($(txtComment).val());
+	if(commentdata.length<3){
+		showPopup("Min Comment length is 3");
+		return;
+	}
+	$.ajax({
+		url : 'Comment/New',
+		type : 'post',
+		data : {
+			"commentdata" :commentdata,
+			"postid" :$(txtComment).attr("data-postid")
+		},
+		success:function(data) {
+			if (data.status === 'success') {
+				// Success
+				$(txtComment).val("");
+				console.log(data);
+			} else {
+				// Failed
+				showPopup(data.message);
+			}
+		},
+		error : function() {
+			showPopup('Some Error Occured, Please Refresh page');
+		}
+	});
+}
