@@ -31,6 +31,7 @@ $("#postBox").on("blur", function() {
 		$(".feeds-list").css("marginTop", "20px");
 	}
 });
+
 function afterLoadComments() {
 	$(".feed-comments li").on("mouseenter", function() {
 		$(this).find(".comment-action").show();
@@ -40,6 +41,7 @@ function afterLoadComments() {
 		$(this).find(".comment-action").hide();
 	});
 }
+
 $(".account-tray #showMessages").on("click", function(e) {
 	e.preventDefault();
 
@@ -217,4 +219,4 @@ function getCookie(check_name) {
 $("#btnLogout").click(function(e) {
 	e.preventDefault();
 	window.location = "Logout";
-})
+});
