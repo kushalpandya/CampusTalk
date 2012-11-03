@@ -1,36 +1,40 @@
 Handlebars.registerHelper('getPictureUrl', function() {
 	return objMyData.pictureUrl;
 });
-Handlebars.registerHelper('isPostOwner', function(userid,block) {
-	if(userid == objMyData.userid)
+Handlebars.registerHelper('isPostOwner', function(userid, block) {
+	if (userid == objMyData.userid)
 		return block.fn(this);
 });
-Handlebars.registerHelper('notAlreadyAdded', function(postid,block) {
-	if($("#divPost" + postid).length==0)
+Handlebars.registerHelper('notAlreadyAdded', function(postid, block) {
+	if ($("#divPost" + postid).length == 0)
 		return block.fn(this);
 });
-//getuserurl
+// getuserurl
 
 Handlebars.registerHelper('getuserurl', function(userid) {
-	return "javascript::alert('" + userid+ "')";
-	
+	return "javascript::alert('" + userid + "')";
+
 });
-$("#btnPost").click(function(){
-	var postData=$.trim($("#postBox").val());
-	var postType=$("#selectPostType").val();
-	if(postData.length <3){
+Handlebars.registerHelper('getCommentIcon', function(userid) {
+	return "javascript::alert('" + userid + "')";
+
+});
+$("#btnPost").click(function() {
+	var postData = $.trim($("#postBox").val());
+	var postType = $("#selectPostType").val();
+	if (postData.length < 3) {
 		showPopup("Min Post length is 3");
 		return;
 	}
-	
+
 	$.ajax({
 		url : 'Post/New',
 		type : 'post',
 		data : {
-			"postType" :postType,
-			"postData" :postData
+			"postType" : postType,
+			"postData" : postData
 		},
-		success:function(data) {
+		success : function(data) {
 			if (data.status === 'success') {
 				// Success
 				showPopup(data.message);
@@ -45,41 +49,42 @@ $("#btnPost").click(function(){
 		}
 	});
 });
-var skipRow=0;
-function getNewPost(resetFlag){
-	
-	if(resetFlag== undefined){
-		resetFlag=false;
+var skipRow = 0;
+function getNewPost(resetFlag) {
+
+	if (resetFlag == undefined) {
+		resetFlag = false;
 	}
-	
+
 	$.ajax({
 		url : 'Post/Get',
 		type : 'post',
 		data : {
-			"skip" :skipRow,
-			"row" :10
+			"skip" : skipRow,
+			"row" : 10
 		},
-		success:function(data) {
+		success : function(data) {
 			if (data.status === 'success') {
 				// Success
 				console.log(data);
-				var source   = $("#tmpltPostList").html();
+				var source = $("#tmpltPostList").html();
 				var template = Handlebars.compile(source);
-				var html    = template(data);
+				var html = template(data);
 				$("#feeds-list").append(html);
-				if(data.posts.length>0)
+				if (data.posts.length > 0)
 					skipRow += data.posts.length;
 				$('.feed-content p').emoticonize({
-					//delay: 800,
-					animate: true,
-					//exclude: 'pre, code, .no-emoticons'
+					// delay: 800,
+					animate : true,
+				// exclude: 'pre, code, .no-emoticons'
 				});
-				$(".txt-comment").keyup(function(event){
+				$(".txt-comment").keyup(function(event) {
 					if (event.which == 13) {
-					    event.preventDefault();
-					    commentOnPost(this);
-					 }  
-				})
+						event.preventDefault();
+						commentOnPost(this);
+					}
+				});
+				afterLoadPost();
 			} else {
 				// Failed
 				showPopup(data.message);
@@ -92,15 +97,15 @@ function getNewPost(resetFlag){
 }
 getNewPost();
 
-$(".feeds-block").scroll(function(){
-	
-    if($(this).scrollTop() == $(this).height() - $(window).height()){
-    	getNewPost();
-    }
+$(".feeds-block").scroll(function() {
+
+	if ($(this).scrollTop() == $(this).height() - $(window).height()) {
+		getNewPost();
+	}
 });
-function commentOnPost(txtComment){
-	var commentdata=$.trim($(txtComment).val());
-	if(commentdata.length<3){
+function commentOnPost(txtComment) {
+	var commentdata = $.trim($(txtComment).val());
+	if (commentdata.length < 3) {
 		showPopup("Min Comment length is 3");
 		return;
 	}
@@ -108,10 +113,10 @@ function commentOnPost(txtComment){
 		url : 'Comment/New',
 		type : 'post',
 		data : {
-			"commentdata" :commentdata,
-			"postid" :$(txtComment).attr("data-postid")
+			"commentdata" : commentdata,
+			"postid" : $(txtComment).attr("data-postid")
 		},
-		success:function(data) {
+		success : function(data) {
 			if (data.status === 'success') {
 				// Success
 				$(txtComment).val("");
@@ -124,5 +129,58 @@ function commentOnPost(txtComment){
 		error : function() {
 			showPopup('Some Error Occured, Please Refresh page');
 		}
+	});
+}
+
+function loadCommentForPost(postid) {
+
+	$
+			.ajax({
+				url : 'Comment/Get',
+				type : 'post',
+				data : {
+					"postid" : postid,
+
+				},
+				success : function(data) {
+					if (data.status === 'success') {
+						// Success
+						console.log(data);
+						var source = $("#tmpltCommentList").html();
+						var template = Handlebars.compile(source);
+						var html = template(data);
+						$("#postComments" + postid).append(html);
+						
+						$("#postComments" + postid).emoticonize({
+							// delay: 800,
+							animate : true,
+						// exclude: 'pre, code, .no-emoticons'
+						});
+						
+						var commentCount = $(this).parent().find(
+								".feed-comments li").length;
+
+						$(this).parents().eq(2).css("marginBottom",
+								(commentCount * 7).toString() + "%");
+						$(this).hide();
+						$(".feed-comments, .feed-comment-box").slideDown();
+
+					} else {
+						// Failed
+						showPopup(data.message);
+					}
+				},
+				error : function() {
+					showPopup('Some Error Occured, Please Refresh page');
+				}
+			});
+
+}
+
+function afterLoadPost() {
+	$(".feed-comment-reveal").on("click", function(e) {
+		e.preventDefault();
+		loadCommentForPost($(this).attr("data-postid"));
+
 	});
 }
