@@ -446,7 +446,7 @@ DELIMITER ;;
 BEGIN
       DECLARE cid INT;
       
-      SELECT MAX(comment.commentid) INTO cid FROM COMMENT;
+      SELECT MAX(comment.commentid) INTO cid FROM comment;
       
       RETURN cid;
     END */;;
@@ -727,7 +727,7 @@ DELIMITER ;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `CommentOnPost`(IN postid INT,IN userid INT,IN detail TEXT,OUT commentid INT)
 BEGIN
-     INSERT INTO COMMENT(postid,userid,detail,enttime,STATUS) VALUE(postid,userid,detail,SYSDATE(),'A');
+     INSERT INTO comment(postid,userid,detail,enttime,STATUS) VALUE(postid,userid,detail,SYSDATE(),'A');
      
      SET commentid = getMaxCommentID();
      /* Status: A- indicate active comment :*/
@@ -761,7 +761,7 @@ BEGIN
    /*   select * from comment where comment.postid = postid and comment.status ='A' limit 3;*/
       
       
-         PREPARE STMT FROM "select c.* from (SELECT `COMMENT`.*,`USERS`.`firstname`,`USERS`.`lastname`,`USERS`.`pictureurl` FROM `COMMENT`,`USERS` WHERE comment.postid = ? AND `comment`.`userid` =`USERS`.`id` AND comment.status =? order by comment.enttime desc LIMIT ?,? ) c order by c.enttime "; 
+         PREPARE STMT FROM "select c.* from (SELECT `comment`.*,`users`.`firstnamecomment`,`users`.`lastname`,`users`.`pictureurl` FROM `comment`,`users` WHERE comment.postid = ? AND `comment`.`userid` =`users`.`id` AND comment.status =? order by comment.enttime desc LIMIT ?,? ) c order by c.enttime "; 
          SET @v_postid = postid;
          SET @v_status = cstatus;
          
@@ -960,4 +960,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-11-03 17:58:41
+-- Dump completed on 2012-11-03 18:36:29
