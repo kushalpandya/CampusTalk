@@ -100,7 +100,7 @@
 	<script type="text/x-handlebars-template" id='tmpltPostList'>
  		{{#if posts}}
 			{{#each posts}}
-				{{#notAlreadyAdded postid}}
+				{{#notAlreadyAddedPost postid}}
 					<div class="feed-card" id='divPost{{postid}}'>
 						<div class="feed-user-bar">
 							<a href="#"><img src="{{pictureurl}}"
@@ -123,7 +123,7 @@
 				<div class="feed-content">
 					<p>{{detail}}</p>
 					<div class="feed-comments-block" data-comments='{{nocomment}}'>
-						<a href="#" class="feed-comment-reveal comment-load" rel="full" data-postid="{{postid}}" >{{nocomment}} comments. &dArr;</a>
+						<a href="#" class="feed-comment-reveal comment-load" rel="full" data-postid="{{postid}}" id='href{{postid}}' >{{nocomment}} comments. &dArr;</a>
 						<ul class="feed-comments" id="postComments{{postid}}">
 						</ul>
 						<div class="feed-comment-box">
@@ -133,15 +133,16 @@
 					</div>
 				</div>
 			</div>
-			{{/notAlreadyAdded}}
+			{{/notAlreadyAddedPost}}
 		{{/each}}
 
 	{{/if}}
 	</script>
 	<script type="text/x-handlebars-template" id='tmpltCommentList'>
 	{{#each comments}}
-		<li><img src="{{pictureurl}}" class="post-user-img" width="30" />{{detail}}<a class="comment-action" href="#"><i class="icon-remove" title="Delete"></i></a></li>
-
+		{{#notAlreadyAddedComment commentid}}
+			<li><img src="{{pictureurl}}" class="post-user-img" width="30" />{{detail}}<a class="comment-action" href="#"><i class="icon-remove" title="Delete"></i></a></li>
+		{{/notAlreadyAddedComment}}
 	{{/each}}
 		
 	</script>
