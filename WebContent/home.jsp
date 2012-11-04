@@ -32,7 +32,7 @@
 	objMyData=${requestScope.userJSon}
 </script>
 </head>
-<body class="page-wrap">
+<body>
 	<div class="container header">
 		<img src="assets/logo_small.png" class="campustalk-logo" />
 		<div class="search-block input-append">
@@ -89,12 +89,89 @@
 		<div class="feeds-list" id="feeds-list">
 			</div>
 	</div>
-	<div id="avgmodal">
-		<p>Pellentesque habitant morbi tristique senectus et netus et
-			malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat
-			vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit
-			amet quam egestas semper. Aenean ultricies mi vitae est. Mauris
-			placerat eleifend leo.</p>
+	<div id="dlgMessages" class="modal hide fade modal-flat">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			<h4 class="modal-title">Messages</h4>
+		</div>
+		<div class="modal-drawer">
+			<legend>Compose Message</legend>
+			<form class="form-horizontal form-add-member">
+				<div class="control-group">
+					<label class="control-label">To</label>
+					<div class="controls">
+						<input type="text" placeholder="Name of recepient"/>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">Message</label>
+					<div class="controls">
+						<textarea rows="4" placeholder="Write a message..."></textarea>
+					</div>
+				</div>
+				<div class="control-group drawer-button-group">
+					<button type="button" class="btn btn-flat" id="btnCancelNewMessage">Cancel</button>
+					<button type="button" class="btn btn-green">Send</button>
+				</div>
+			</form>	
+		</div>
+		<div class="modal-body">
+			<ul class="recipient-list">
+				<li><a href="#">Borat</a>
+				<li><a href="#">Bob</a>
+				<li><a href="#">Marley</a>
+				<li><a href="#">Ashton</a>
+				<li><a href="#">George</a>
+				<li><a href="#">Al Ghazi</a>
+				<li><a href="#">Weezy</a>
+				<li><a href="#">Dicky</a>
+				<li><a href="#">Ramesh</a>
+				<li><a href="#">Suresh</a>
+				<li><a href="#">Jignesh</a>
+				<li><a href="#">S. Narayan</a>
+			</ul>
+			<div class="message-thread">
+				<div class="message pull-left">
+					<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas</p>
+				</div>
+				<div class="message pull-right">
+					<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas</p>
+				</div>
+				<div class="message pull-left">
+					<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas</p>
+				</div>
+				<div class="message pull-right">
+					<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas</p>
+				</div>
+				<div class="message pull-left">
+					<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas</p>
+				</div>
+				<div class="message pull-right">
+					<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas</p>
+				</div>
+				<div class="message pull-left">
+					<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas</p>
+				</div>
+				<div class="message pull-right">
+					<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas</p>
+				</div>
+			</div>
+			<div class="message-editor">
+				<textarea placeholder="Write a reply... (press Enter to send message)"></textarea>
+				<!-- <label class="checkbox">
+					Press Enter to Send <input type="checkbox" name="chkEnterSend" />
+				</label> -->
+			</div>
+		</div>
+		<div class="modal-footer">
+			<div class="pull-left">
+				<button class="btn btn-green" id="btnNewMessage">New Message</button>
+			</div>
+			<div class="pull-right">
+				<button class="btn btn-flat" data-dismiss="modal" aria-hidden="true">Close</button>
+			</div>
+		</div>
+		<div class="modal-disable-overlay">&nbsp;</div>
 	</div>
 	<a id='popupLink' href='' style='display:none'>Show</a>
 	<script type="text/x-handlebars-template" id='tmpltPostList'>

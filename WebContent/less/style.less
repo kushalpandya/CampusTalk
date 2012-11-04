@@ -12,6 +12,7 @@
 @footer_bg_color : #262626;
 @tray_bg_color: #6897CC;
 @soft_white : #F8F8F8;
+@soft_blue : #A2C4DD;
 
 @facebook_color : #3B5998; /*Facebook Official Color Code*/
 @google_color : #1B1B1B; /*Google Color Code*/
@@ -278,13 +279,144 @@
 
 .feeds-block {
 	width: 100%;
-	height: 550px;
+	height: 80%;
 	paddin-top: 20px;
 	overflow-y: auto;
 	
 	.feeds-list {
 		position: relative;
 		margin-top: 20px;
+	}
+}
+
+#dlgMessages {
+	.modal-body {
+		padding: 0;
+		padding-top: 3px;
+		.recipient-list {
+			height: 300px;
+			max-height: 300px;
+			float: left;
+			background: @soft_white;				
+			list-style-type: none;
+			padding: 5px 0 5px 0;
+			margin-left: 0;
+			margin-bottom: 0;
+			overflow-y: auto;
+			overflow-x: hidden;
+			
+			li {
+				a {
+					display: block;
+					width: 150px;
+					padding-top: 10px;
+					padding-bottom: 10px;
+					padding-left: 10px;
+					color: @footer_bg_color;
+					.transition();
+					
+					&:hover {
+						text-decoration: none;
+						background: darken(@soft_white, 20%);
+						.transition();
+					}
+				}
+				
+				&:nth-child(odd) a {
+					background: darken(@soft_white, 5%);
+					
+					 &:hover {
+					 	background: darken(@soft_white, 20%);
+					 	.transition();
+					 }
+				}
+				
+				.unread {
+					color: darken(@soft_blue, 50%);
+					background: lighten(@soft_blue, 10%);
+					font-weight: bold;
+				}
+			}
+		}
+		
+		.message-thread {
+			display: block;
+			float: right;
+			width: 390px;
+			height: 245px;
+			padding: 2px 5px 2px 5px;
+			overflow-x: hidden;
+			overflow-y: auto;
+			.box-shadow-inset(0px, 0px, 6px, gray);
+			
+			.message {
+				display: block;
+				width: 230px;
+				margin-bottom: 10px;
+				padding: 5px;
+				box-sizing: border-box;
+				border: 1px solid darken(@soft_white, 10%);
+				.border-radius(3px);
+				.box-shadow(0px, 1px, 2px, rgba(0,0,0,.5));
+				.simple-linear-gradient(@soft_white, darken(@soft_white, 5%));
+				
+				p {
+					font-size: 12px;
+				}
+			}
+			
+			.pull-right {
+				text-align: right;
+				margin-right: 5px;
+				border: 1px solid darken(@soft_blue, 5%);
+				.simple-linear-gradient(lighten(@soft_blue, 10%), @soft_blue);
+				
+				&:after {
+					content: "";
+					height: 4px;
+					width: 4px;
+					.simple-linear-gradient(lighten(@soft_blue, 10%), @soft_blue);
+				}
+			}
+			
+		}
+		
+		.message-editor {
+			float: right;
+			textarea {
+				width: 374px;
+				margin: auto;
+				margin-top: 5px;
+				margin-right: 5px;
+				margin-bottom: 0;
+				resize: none;
+				.border-radius(0);
+			}
+			
+			input[type='button'].btn {
+				display: inline-block;
+				float: right;
+				height: 20px;
+				font-size: 12px;
+				line-height: 12px;
+				margin-top: 2px;
+			}
+			
+			label.checkbox {
+				display: inline-block;
+				float: right;
+				width: 125px;
+				color: lighten(@footer_bg_color, 10%);
+				font-size: 12px;
+				margin-top: 2px;
+				margin-right: 5px;
+				margin-bottom: 0px;
+				
+				input {
+					float: right;
+				}
+			}
+		}
 	}
 }
 
@@ -766,6 +898,79 @@ textarea.txt-flat {
 	&:active {
 		background: darken(@linkedin_color, 5%);
 		.box-shadow-inset(0px, 0px, 5px, darken(@linkedin_color, 20%));
+	}
+}
+
+/*Twitter Bootstrap Modal redesign*/
+.modal-flat {
+	.border-radius(0);
+	
+	.modal-header {
+		height: 25px;
+		background: darken(@soft_white, 15%);
+		.box-shadow(0px, 1px, 4px, #999);
+
+		.modal-title {
+			padding: 2px;
+			margin-top: 0;
+			line-height: 25px;
+		}
+		
+		.close:hover {
+			color: red;
+		}
+	}
+	
+	.modal-body {
+	}
+	
+	.modal-drawer {
+		display: none;
+		position: absolute;
+		left: 12%;
+		right: 12%;
+		top: 45px;
+		max-height: 75%;
+		padding: 0 5px 5px 5px;
+		border-bottom-left-radius: 4px;
+		border-bottom-right-radius: 4px;
+		background: inherit;
+		overflow-y: auto;
+		.box-shadow(0px, 2px, 8px, gray);
+		z-index: 600;
+		
+		legend {
+			font-size: 16px;
+			margin-top: 0;
+		}
+		
+		form {
+			margin-left: -45px;
+		}
+		
+		.drawer-button-group {
+			float: right;
+			margin-right: 5px;
+			margin-bottom: 5px;
+		}
+	}
+	
+	.modal-disable-overlay {
+		display: none;
+		position: absolute;
+		top: 50px;
+		bottom: 0;
+		height: 260px;
+		width: 100%;
+		background: rgba(255,255,255,.4);
+	}
+	
+	.modal-footer {
+		.border-radius(0);
+		margin-bottom: 0;
+		button.btn {
+			.border-radius(0);
+		}
 	}
 }
 
