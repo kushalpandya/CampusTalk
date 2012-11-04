@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 
+import org.apache.catalina.User;
 import org.campustalk.entity.CampusTalkComment;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,17 +37,38 @@ public class dbComment extends DatabaseManager {
 
 	}
 
-	public JSONArray getCommentForPost(int postid, int skipRow, int nRow) {
+	public boolean deleteCommentOfPost(int commentId, int userId) {
+		try {
+			this.open();
+			CallableStatement pst = CON
+					.prepareCall("{call deleteCommentForPost(?,?,?)}");
+			pst.setInt(1, commentId);
+			pst.setInt(2, userId);
+			pst.registerOutParameter(3, Types.BOOLEAN);
+			pst.execute();
+			return pst.getBoolean(3);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	public JSONArray getCommentForPost(int postid, int skipRow, int nRow ,int userid) {
 
 		JSONArray jArray = new JSONArray();
 		try {
 			this.open();
 
 			CallableStatement pst = CON
-					.prepareCall("{ call getCommentOnPost(?,?,?)}");
+					.prepareCall("{ call getCommentOnPost(?,?,?,?)}");
 			pst.setInt(1, postid);
 			pst.setInt(2, skipRow);
 			pst.setInt(3, nRow);
+			pst.setInt(4, userid);
 			ResultSet rs = pst.executeQuery();
 			JSONObject jTemp;
 			while (rs.next()) {
