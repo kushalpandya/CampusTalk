@@ -59,7 +59,7 @@ CREATE TABLE `comment` (
   PRIMARY KEY (`commentid`),
   KEY `user_idx` (`userid`),
   KEY `cpost_idx` (`postid`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -68,7 +68,7 @@ CREATE TABLE `comment` (
 
 LOCK TABLES `comment` WRITE;
 /*!40000 ALTER TABLE `comment` DISABLE KEYS */;
-INSERT INTO `comment` VALUES (1,3,1,':D :D ;-)','2012-11-03 05:57:57','A'),(2,1,1,'\\m/ <3','2012-11-03 06:00:08','A'),(3,3,1,'Hey.. :)','2012-11-03 06:01:05','A'),(4,1,1,'New Comment :-P','2012-11-03 19:36:23','A'),(5,2,1,'Yo Yo ..','2012-11-04 04:21:35','A'),(6,2,2,'Hey  :)','2012-11-04 06:05:08','A'),(7,3,2,'WHat happen ;-)','2012-11-04 06:05:26','A');
+INSERT INTO `comment` VALUES (1,3,1,':D :D ;-)','2012-11-03 05:57:57','A'),(2,1,1,'\\m/ <3','2012-11-03 06:00:08','A'),(3,3,1,'Hey.. :)','2012-11-03 06:01:05','A'),(4,1,1,'New Comment :-P','2012-11-03 19:36:23','A'),(5,2,1,'Yo Yo ..','2012-11-04 04:21:35','A'),(6,2,2,'Hey  :)','2012-11-04 06:05:08','A'),(7,3,2,'WHat happen ;-)','2012-11-04 06:05:26','A'),(8,2,1,'Whats up !!','2012-11-04 14:15:55','A');
 /*!40000 ALTER TABLE `comment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -253,7 +253,7 @@ CREATE TABLE `posts` (
   `lastmodifytime` datetime DEFAULT NULL,
   PRIMARY KEY (`postid`),
   KEY `puserid_idx` (`userid`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -262,7 +262,7 @@ CREATE TABLE `posts` (
 
 LOCK TABLES `posts` WRITE;
 /*!40000 ALTER TABLE `posts` DISABLE KEYS */;
-INSERT INTO `posts` VALUES (1,1,'First Post... :-)','P','A','2012-11-03 01:22:16','2012-11-03 19:36:23'),(2,1,'Second Post :-)','A','A','2012-11-03 01:29:00','2012-11-04 06:05:08'),(3,1,':-D','A','A','2012-11-03 01:29:43','2012-11-04 06:05:26'),(4,1,'New pOst','P','A','2012-11-04 04:21:20','2012-11-04 04:21:20');
+INSERT INTO `posts` VALUES (1,1,'First Post... :-)','P','A','2012-11-03 01:22:16','2012-11-03 19:36:23'),(2,1,'Second Post :-)','A','A','2012-11-03 01:29:00','2012-11-04 14:15:55'),(3,1,':-D','A','A','2012-11-03 01:29:43','2012-11-04 06:05:26'),(4,1,'New pOst','P','A','2012-11-04 04:21:20','2012-11-04 04:21:20'),(5,2,'My Post :-)','P','A','2012-11-04 07:07:42','2012-11-04 07:07:42');
 /*!40000 ALTER TABLE `posts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -381,7 +381,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'saiyedfaishal@gmail.com','7c26dc798bda94a414a866030d530ea1','linkedin','V','979bc2a2e5b64a53956c20f88df987379fbd24b0e30c465bb34a24777e046990','2012-11-12 05:18:15','2012-10-28 05:11:12','Faishal','Saiyed',NULL,NULL,NULL,1,2011,'http://m3.licdn.com/mpr/mprx/0_xrBNYrLmfPC3yjbTAnzbYthDDznSyjbTgN_IYtQt-PCg_MK319bZr--yi49t0VQSY1vElzZL89PN'),(2,'samrocker4rock@gmail.com','7c26dc798bda94a414a866030d530ea1','google','V',NULL,NULL,'2012-11-04 05:38:44','Samir','Patel',NULL,'male',0,1,2010,'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg?sz=50');
+INSERT INTO `users` VALUES (1,'saiyedfaishal@gmail.com','9cb966ff0bb252eeaf8be1b658ec0115','google','V','4ae69bbfed3f4974b6cbbd3d681cec092b8d9266249a47ff93b10e7914b917d6','2012-11-19 14:23:19','2012-10-28 05:11:12','Faishal','Saiyed',NULL,'male',NULL,1,2011,'https://lh3.googleusercontent.com/-XVHns1ycTI0/AAAAAAAAAAI/AAAAAAAAAN0/31SL_TsfpRM/photo.jpg?sz=50'),(2,'samrocker4rock@gmail.com','7c26dc798bda94a414a866030d530ea1','google','V',NULL,NULL,'2012-11-04 05:38:44','Samir','Patel',NULL,'male',0,1,2010,'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg?sz=50');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -999,4 +999,4 @@ ALTER DATABASE `campustalk` CHARACTER SET utf8 COLLATE utf8_general_ci ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-11-04  6:42:34
+-- Dump completed on 2012-11-04 17:56:20
