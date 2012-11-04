@@ -44,23 +44,7 @@ function afterLoadComments() {
 
 $(".account-tray #showMessages").on("click", function(e) {
 	e.preventDefault();
-
-	$("#avgmodal").avgrund({
-		width : 300,
-		height : 200,
-		showClose : true,
-		showCloseText : '&times;',
-		holderClass : 'page-wrap',
-		showClose : true,
-		template : $("#avgmodal").html(),
-		onLoad : function() {
-			$(".account-tray").hide();
-			$("#avgmodal p").css("fontSize", "20px");
-		},
-		onUnload : function() {
-			$(".account-tray").fadeIn(50);
-		}
-	}).click();
+	$("#dlgMessages").modal();
 });
 
 /** ******************** controlpanel.html script ********************** */
@@ -125,6 +109,19 @@ $("#btnAddGroupMembers").on("click", function(e) {
 	var dropform = $(".modal-dropform");
 	dropform.css("height", "315");
 	dropform.slideDown(250).find("form.form-add-member").show();
+});
+
+$("#btnNewMessage").on("click", function(e) {
+	var modal = $(this).parents().eq(2);
+	modal.find(".modal-disable-overlay").css("height",modal.find(".modal-body").height()).show();
+	modal.find(".modal-drawer").slideDown(250);
+});
+
+$("#btnCancelNewMessage").on("click", function(e) {
+	console.log("cancelled");
+	var modal = $(this).parents().eq(3);
+	modal.find(".modal-disable-overlay").hide();
+	modal.find(".modal-drawer").slideUp(250);
 });
 
 $("#btnCancelEdit, #btnCancelAdd").on("click", function(e) {
