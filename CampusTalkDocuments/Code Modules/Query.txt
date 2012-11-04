@@ -1,0 +1,3 @@
+update users set email="", password=md5("") where email="saiyedfaishal@gmail.com";
+
+Perform this query to access user account.
