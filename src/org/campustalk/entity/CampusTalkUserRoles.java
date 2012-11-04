@@ -14,13 +14,16 @@ public class CampusTalkUserRoles
 
 {
 	private Integer userid;
-	private Integer roleid;
+	public CampusTalkRoles role;
 
+	public CampusTalkUserRoles(){
+		this.role=new CampusTalkRoles();
+	}
 	/**
 	 * 
 	 * @param userid to set id 
 	 */
-	public void setUserId(Integer userid)
+	public void setUserid(Integer userid)
 	{
 		this.userid=userid;
 	}
@@ -28,25 +31,9 @@ public class CampusTalkUserRoles
 	 * 
 	 * @return userid
 	 */
-	public Integer getUserId()
+	public Integer getUserid()
 	{
 		return this.userid;
-	}
-	/**
-	 * 
-	 * @param roleid to set roleid
-	 */
-	public void setRoleId(Integer roleid)
-	{
-		this.roleid=roleid;
-	}
-	/**
-	 * 
-	 * @return roleid
-	 */
-	public Integer getRoleId()
-	{
-		return this.roleid;
 	}
 	
 }
