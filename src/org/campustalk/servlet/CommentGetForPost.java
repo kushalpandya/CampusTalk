@@ -54,7 +54,7 @@ public class CommentGetForPost extends HttpServlet {
 		}else{
 			dbComment objDbComment= new dbComment();
 			try {
-				jResponse.put("comments", objDbComment.getCommentForPost(postid,  skipRow, nRow));
+				jResponse.put("comments", objDbComment.getCommentForPost(postid,  skipRow, nRow,(int)session.getAttribute("UserId") ));
 				status="success";
 				errorMsg="Comment Loaded Sucessfully";
 			} catch (JSONException e) {
