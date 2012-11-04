@@ -16,7 +16,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.campustalk.Settings;
+import org.campustalk.entity.CampusTalkBranch;
 import org.campustalk.entity.CampusTalkUsers;
+import org.campustalk.sql.dbBranch;
 import org.campustalk.sql.dbUser;
 import org.json.JSONException;
 
@@ -24,7 +26,8 @@ import org.json.JSONException;
  * Servlet Filter implementation class LoginFilter
  */
 @WebFilter(dispatcherTypes = { DispatcherType.REQUEST, DispatcherType.FORWARD,
-		DispatcherType.INCLUDE, DispatcherType.ERROR }, urlPatterns = { "/home.jsp","/controlpanel.html" })
+		DispatcherType.INCLUDE, DispatcherType.ERROR }, urlPatterns = {
+		"/home.jsp", "/controlpanel.html" })
 public class LoginFilter implements Filter {
 	private FilterConfig config;
 
@@ -56,18 +59,30 @@ public class LoginFilter implements Filter {
 		String logged = (String) session.getAttribute("UserEmail");
 		if (logged == null) {
 			hres.sendRedirect(Settings.APPURL);
+
+		} else {
+			dbUser objDbUser = new dbUser();
+			CampusTalkUsers objUser = objDbUser
+					.getUserDetailFromEmail((String) session
+							.getAttribute("UserEmail"));
+			dbBranch objDbBranch = new dbBranch();
+
+			CampusTalkBranch objBranch = objDbBranch.getBranchById(objUser
+					.getBranchId());
+			request.setAttribute("User", objUser);
+			request.setAttribute("Branch", objBranch);
+
+			try {
+				request.setAttribute("userJSon", objUser.toJSONObject()
+						.toString());
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 		}
-		dbUser objDbUser= new dbUser();
-		CampusTalkUsers objUser= objDbUser.getUserDetailFromEmail((String)session.getAttribute("UserEmail"));
-		request.setAttribute("User", objUser);
-		try {
-			request.setAttribute("userJSon",objUser.toJSONObject().toString());
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		chain.doFilter(request, response);
+
 	}
 
 	/**
