@@ -1,0 +1,26 @@
+-- --------------------------------------------------------------------------------
+-- Routine DDL
+-- Note: comments before and after the routine body will not be stored by the server
+-- --------------------------------------------------------------------------------
+DELIMITER $$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getCommentOnPost`(IN postid INT,IN _START INTEGER, 
+IN _LIMIT INTEGER )
+BEGIN
+    
+    /* status = A indicate active comment */
+      
+      DECLARE cstatus CHAR(2);
+      SET cstatus ='A';
+   /*   select * from comment where comment.postid = postid and comment.status ='A' limit 3;*/
+      
+      
+         PREPARE STMT FROM "select c.* from (SELECT `comment`.*,`users`.`firstname`,`users`.`lastname`,`users`.`pictureurl` FROM `comment`,`users` WHERE comment.postid = ? AND `comment`.`userid` =`users`.`id` AND comment.status =? order by comment.enttime desc LIMIT ?,? ) c order by c.enttime "; 
+         SET @v_postid = postid;
+         SET @v_status = cstatus;
+         
+         SET @START = _START; 
+         SET @LIMIT = _LIMIT; 
+      
+         EXECUTE STMT USING @v_postid, @v_status, @START, @LIMIT;
+    END
