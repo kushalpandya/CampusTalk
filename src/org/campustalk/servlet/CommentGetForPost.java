@@ -18,13 +18,13 @@ import org.json.JSONObject;
  * Servlet implementation class CommnetGetForPost
  */
 @WebServlet("/Comment/Get")
-public class CommnetGetForPost extends HttpServlet {
+public class CommentGetForPost extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CommnetGetForPost() {
+    public CommentGetForPost() {
         super();
         // TODO Auto-generated constructor stub
     }
