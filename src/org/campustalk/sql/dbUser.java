@@ -116,7 +116,7 @@ public class dbUser extends DatabaseManager {
 			objUser.setRegisterDate(rs.getTimestamp("registerdate"));
 			objUser.setFirstName(rs.getString("firstname"));
 			objUser.setLastName(rs.getString("lastname"));
-			objUser.setBirthDate(rs.getTimestamp("birthdate"));
+			objUser.setBirthDate(rs.getDate("birthdate"));
 			objUser.setGender(rs.getString("gender"));
 			objUser.setCityId(rs.getInt("cityid"));
 			objUser.setBranchId(rs.getInt("branchid"));
