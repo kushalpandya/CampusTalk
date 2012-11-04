@@ -15,9 +15,12 @@ import javax.servlet.http.HttpSession;
 
 import org.campustalk.Settings;
 import org.campustalk.entity.CampusTalkBranch;
+import org.campustalk.entity.CampusTalkUserRoles;
 import org.campustalk.entity.CampusTalkUsers;
 import org.campustalk.sql.dbBranch;
+import org.campustalk.sql.dbRoles;
 import org.campustalk.sql.dbUser;
+import org.campustalk.sql.dbUserRole;
 import org.json.JSONException;
 
 /**
@@ -26,12 +29,13 @@ import org.json.JSONException;
 @WebFilter("/controlpanel.jsp")
 public class AdminFilter implements Filter {
 	private FilterConfig config;
-    /**
-     * Default constructor. 
-     */
-    public AdminFilter() {
-        // TODO Auto-generated constructor stub
-    }
+
+	/**
+	 * Default constructor.
+	 */
+	public AdminFilter() {
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see Filter#destroy()
@@ -43,7 +47,8 @@ public class AdminFilter implements Filter {
 	/**
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+	public void doFilter(ServletRequest request, ServletResponse response,
+			FilterChain chain) throws IOException, ServletException {
 		HttpSession session = ((HttpServletRequest) request).getSession();
 		HttpServletResponse hres = (HttpServletResponse) response;
 		String logged = (String) session.getAttribute("UserEmail");
@@ -57,19 +62,26 @@ public class AdminFilter implements Filter {
 							.getAttribute("UserEmail"));
 			dbBranch objDbBranch = new dbBranch();
 
-			CampusTalkBranch objBranch = objDbBranch.getBranchById(objUser
-					.getBranchId());
-			request.setAttribute("User", objUser);
-			request.setAttribute("Branch", objBranch);
+			dbUserRole objDbUserRole = new dbUserRole();
 
-			try {
-				request.setAttribute("userJSon", objUser.toJSONObject()
-						.toString());
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			CampusTalkUserRoles objUserRole = new CampusTalkUserRoles();
+			objUserRole.setUserid(objUser.getId());
+			objDbUserRole.getRoleById(objUserRole);
+
+			if (!objUserRole.role.getName().equalsIgnoreCase("admin")) {
+				hres.sendRedirect(Settings.APPURL);
+			} else {
+				request.setAttribute("User", objUser);
+
+				try {
+					request.setAttribute("userJSon", objUser.toJSONObject()
+							.toString());
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
 			}
-			
 		}
 		chain.doFilter(request, response);
 
