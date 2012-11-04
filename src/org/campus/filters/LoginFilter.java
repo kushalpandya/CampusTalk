@@ -27,7 +27,7 @@ import org.json.JSONException;
  */
 @WebFilter(dispatcherTypes = { DispatcherType.REQUEST, DispatcherType.FORWARD,
 		DispatcherType.INCLUDE, DispatcherType.ERROR }, urlPatterns = {
-		"/home.jsp", "/controlpanel.html" })
+		"/home.jsp" })
 public class LoginFilter implements Filter {
 	private FilterConfig config;
 
