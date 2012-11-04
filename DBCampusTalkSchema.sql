@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `campustalk` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `campustalk`;
--- MySQL dump 10.13  Distrib 5.5.16, for Win32 (x86)
+-- MySQL dump 10.13  Distrib 5.5.28, for debian-linux-gnu (x86_64)
 --
--- Host: localhost    Database: campustalk
+-- Host: 127.0.0.1    Database: campustalk
 -- ------------------------------------------------------
--- Server version	5.5.28
+-- Server version	5.5.28-0ubuntu0.12.04.2
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -58,10 +58,8 @@ CREATE TABLE `comment` (
   `status` char(2) NOT NULL,
   PRIMARY KEY (`commentid`),
   KEY `user_idx` (`userid`),
-  KEY `cpost_idx` (`postid`),
-  CONSTRAINT `cpost` FOREIGN KEY (`postid`) REFERENCES `posts` (`postid`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `cuser` FOREIGN KEY (`userid`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+  KEY `cpost_idx` (`postid`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -70,7 +68,7 @@ CREATE TABLE `comment` (
 
 LOCK TABLES `comment` WRITE;
 /*!40000 ALTER TABLE `comment` DISABLE KEYS */;
-INSERT INTO `comment` VALUES (1,3,1,':D :D ;-)','2012-11-03 05:57:57','A'),(2,1,1,'\\m/ <3','2012-11-03 06:00:08','A'),(3,3,1,'Hey.. :)','2012-11-03 06:01:05','A');
+INSERT INTO `comment` VALUES (1,3,1,':D :D ;-)','2012-11-03 05:57:57','A'),(2,1,1,'\\m/ <3','2012-11-03 06:00:08','A'),(3,3,1,'Hey.. :)','2012-11-03 06:01:05','A'),(4,1,1,'New Comment :-P','2012-11-03 19:36:23','A'),(5,2,1,'Yo Yo ..','2012-11-04 04:21:35','A'),(6,2,2,'Hey  :)','2012-11-04 06:05:08','A'),(7,3,2,'WHat happen ;-)','2012-11-04 06:05:26','A');
 /*!40000 ALTER TABLE `comment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -88,9 +86,7 @@ CREATE TABLE `eventattends` (
   PRIMARY KEY (`eventid`,`userid`),
   KEY `userid` (`userid`),
   KEY `eauser_idx` (`userid`),
-  KEY `eventid_idx` (`eventid`),
-  CONSTRAINT `eauser` FOREIGN KEY (`userid`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `eventid` FOREIGN KEY (`eventid`) REFERENCES `events` (`eventid`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `eventid_idx` (`eventid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -121,8 +117,7 @@ CREATE TABLE `events` (
   PRIMARY KEY (`eventid`),
   KEY `user_idx` (`userid`),
   KEY `user_idx1` (`userid`),
-  KEY `euser_idx` (`userid`),
-  CONSTRAINT `euser` FOREIGN KEY (`userid`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `euser_idx` (`userid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -149,9 +144,7 @@ CREATE TABLE `groupmembers` (
   `status` char(2) NOT NULL,
   `entdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   KEY `gmuser` (`userid`),
-  KEY `gid_idx` (`groupid`),
-  CONSTRAINT `gid` FOREIGN KEY (`groupid`) REFERENCES `groups` (`groupid`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `gmuser` FOREIGN KEY (`userid`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `gid_idx` (`groupid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -204,8 +197,7 @@ CREATE TABLE `messagedetails` (
   `status` char(2) NOT NULL,
   `enttime` datetime NOT NULL,
   PRIMARY KEY (`messageid`),
-  KEY `userid_idx` (`userid`),
-  CONSTRAINT `muser` FOREIGN KEY (`userid`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `userid_idx` (`userid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -231,9 +223,7 @@ CREATE TABLE `messages` (
   `status` char(2) NOT NULL,
   PRIMARY KEY (`messageid`,`touserid`),
   KEY `mmid_idx` (`messageid`),
-  KEY `muser_idx` (`touserid`),
-  CONSTRAINT `mmid` FOREIGN KEY (`messageid`) REFERENCES `messagedetails` (`messageid`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `muserid` FOREIGN KEY (`touserid`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `muser_idx` (`touserid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -262,9 +252,8 @@ CREATE TABLE `posts` (
   `enttime` datetime NOT NULL,
   `lastmodifytime` datetime DEFAULT NULL,
   PRIMARY KEY (`postid`),
-  KEY `puserid_idx` (`userid`),
-  CONSTRAINT `puserid` FOREIGN KEY (`userid`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+  KEY `puserid_idx` (`userid`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -273,7 +262,7 @@ CREATE TABLE `posts` (
 
 LOCK TABLES `posts` WRITE;
 /*!40000 ALTER TABLE `posts` DISABLE KEYS */;
-INSERT INTO `posts` VALUES (1,1,'First Post... :-)','P','A','2012-11-03 01:22:16','2012-11-03 06:00:08'),(2,1,'Second Post :-)','A','A','2012-11-03 01:29:00','2012-11-03 01:29:00'),(3,1,':-D','A','A','2012-11-03 01:29:43','2012-11-03 06:01:05');
+INSERT INTO `posts` VALUES (1,1,'First Post... :-)','P','A','2012-11-03 01:22:16','2012-11-03 19:36:23'),(2,1,'Second Post :-)','A','A','2012-11-03 01:29:00','2012-11-04 06:05:08'),(3,1,':-D','A','A','2012-11-03 01:29:43','2012-11-04 06:05:26'),(4,1,'New pOst','P','A','2012-11-04 04:21:20','2012-11-04 04:21:20');
 /*!40000 ALTER TABLE `posts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -292,9 +281,7 @@ CREATE TABLE `reportabuses` (
   `detail` text NOT NULL,
   PRIMARY KEY (`postid`,`userid`),
   KEY `user_idx` (`userid`),
-  KEY `post_idx` (`postid`),
-  CONSTRAINT `post` FOREIGN KEY (`postid`) REFERENCES `posts` (`postid`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `user` FOREIGN KEY (`userid`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `post_idx` (`postid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -344,9 +331,7 @@ CREATE TABLE `userroles` (
   `roleid` int(11) NOT NULL,
   PRIMARY KEY (`userid`,`roleid`),
   KEY `userid_idx` (`userid`),
-  KEY `role_idx` (`roleid`),
-  CONSTRAINT `role` FOREIGN KEY (`roleid`) REFERENCES `roles` (`roleid`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `userid` FOREIGN KEY (`userid`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `role_idx` (`roleid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -386,9 +371,8 @@ CREATE TABLE `users` (
   `pictureUrl` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`),
-  KEY `branch_idx` (`branchid`),
-  CONSTRAINT `branch` FOREIGN KEY (`branchid`) REFERENCES `branch` (`branchid`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+  KEY `branch_idx` (`branchid`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -397,7 +381,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'saiyedfaishal@gmail.com','7c26dc798bda94a414a866030d530ea1','linkedin','R','979bc2a2e5b64a53956c20f88df987379fbd24b0e30c465bb34a24777e046990','2012-11-12 05:18:15','2012-10-28 05:11:12','Faishal','Saiyed',NULL,NULL,NULL,1,2011,'http://m3.licdn.com/mpr/mprx/0_xrBNYrLmfPC3yjbTAnzbYthDDznSyjbTgN_IYtQt-PCg_MK319bZr--yi49t0VQSY1vElzZL89PN');
+INSERT INTO `users` VALUES (1,'saiyedfaishal@gmail.com','7c26dc798bda94a414a866030d530ea1','linkedin','V','979bc2a2e5b64a53956c20f88df987379fbd24b0e30c465bb34a24777e046990','2012-11-12 05:18:15','2012-10-28 05:11:12','Faishal','Saiyed',NULL,NULL,NULL,1,2011,'http://m3.licdn.com/mpr/mprx/0_xrBNYrLmfPC3yjbTAnzbYthDDznSyjbTgN_IYtQt-PCg_MK319bZr--yi49t0VQSY1vElzZL89PN'),(2,'samrocker4rock@gmail.com','7c26dc798bda94a414a866030d530ea1','google','V',NULL,NULL,'2012-11-04 05:38:44','Samir','Patel',NULL,'male',0,1,2010,'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg?sz=50');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -409,6 +393,7 @@ UNLOCK TABLES;
 -- Dumping routines for database 'campustalk'
 --
 /*!50003 DROP FUNCTION IF EXISTS `getBranchID` */;
+ALTER DATABASE `campustalk` CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -432,7 +417,9 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+ALTER DATABASE `campustalk` CHARACTER SET utf8 COLLATE utf8_general_ci ;
 /*!50003 DROP FUNCTION IF EXISTS `getMaxCommentID` */;
+ALTER DATABASE `campustalk` CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -455,7 +442,9 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+ALTER DATABASE `campustalk` CHARACTER SET utf8 COLLATE utf8_general_ci ;
 /*!50003 DROP FUNCTION IF EXISTS `getMaxPostID` */;
+ALTER DATABASE `campustalk` CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -477,7 +466,9 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+ALTER DATABASE `campustalk` CHARACTER SET utf8 COLLATE utf8_general_ci ;
 /*!50003 DROP FUNCTION IF EXISTS `getMaxUserID` */;
+ALTER DATABASE `campustalk` CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -501,7 +492,9 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+ALTER DATABASE `campustalk` CHARACTER SET utf8 COLLATE utf8_general_ci ;
 /*!50003 DROP FUNCTION IF EXISTS `getUserBranch` */;
+ALTER DATABASE `campustalk` CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -528,7 +521,9 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+ALTER DATABASE `campustalk` CHARACTER SET utf8 COLLATE utf8_general_ci ;
 /*!50003 DROP FUNCTION IF EXISTS `getUserFirstName` */;
+ALTER DATABASE `campustalk` CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -552,7 +547,9 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+ALTER DATABASE `campustalk` CHARACTER SET utf8 COLLATE utf8_general_ci ;
 /*!50003 DROP FUNCTION IF EXISTS `getUserID` */;
+ALTER DATABASE `campustalk` CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -576,7 +573,9 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+ALTER DATABASE `campustalk` CHARACTER SET utf8 COLLATE utf8_general_ci ;
 /*!50003 DROP FUNCTION IF EXISTS `getUserLastName` */;
+ALTER DATABASE `campustalk` CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -600,7 +599,9 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+ALTER DATABASE `campustalk` CHARACTER SET utf8 COLLATE utf8_general_ci ;
 /*!50003 DROP FUNCTION IF EXISTS `getUserName` */;
+ALTER DATABASE `campustalk` CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -623,7 +624,9 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+ALTER DATABASE `campustalk` CHARACTER SET utf8 COLLATE utf8_general_ci ;
 /*!50003 DROP FUNCTION IF EXISTS `getUserYear` */;
+ALTER DATABASE `campustalk` CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -647,7 +650,9 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+ALTER DATABASE `campustalk` CHARACTER SET utf8 COLLATE utf8_general_ci ;
 /*!50003 DROP FUNCTION IF EXISTS `UserGetAuthDate` */;
+ALTER DATABASE `campustalk` CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -671,7 +676,9 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+ALTER DATABASE `campustalk` CHARACTER SET utf8 COLLATE utf8_general_ci ;
 /*!50003 DROP FUNCTION IF EXISTS `UserGetAuthString` */;
+ALTER DATABASE `campustalk` CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -693,7 +700,9 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+ALTER DATABASE `campustalk` CHARACTER SET utf8 COLLATE utf8_general_ci ;
 /*!50003 DROP FUNCTION IF EXISTS `UserGetStatus` */;
+ALTER DATABASE `campustalk` CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -715,7 +724,9 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+ALTER DATABASE `campustalk` CHARACTER SET utf8 COLLATE utf8_general_ci ;
 /*!50003 DROP PROCEDURE IF EXISTS `CommentOnPost` */;
+ALTER DATABASE `campustalk` CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -740,6 +751,26 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+ALTER DATABASE `campustalk` CHARACTER SET utf8 COLLATE utf8_general_ci ;
+/*!50003 DROP PROCEDURE IF EXISTS `getBranchById` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `getBranchById`(IN rbranchid INT)
+BEGIN
+	select `branch`.* from `campustalk`.`branch` where `branch`.`branchid`=rbranchid ;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `getCommentOnPost` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -748,7 +779,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `getCommentOnPost`(IN postid INT,IN _START INTEGER, 
 IN _LIMIT INTEGER )
@@ -761,7 +792,7 @@ BEGIN
    /*   select * from comment where comment.postid = postid and comment.status ='A' limit 3;*/
       
       
-         PREPARE STMT FROM "select c.* from (SELECT `comment`.*,`users`.`firstnamecomment`,`users`.`lastname`,`users`.`pictureurl` FROM `comment`,`users` WHERE comment.postid = ? AND `comment`.`userid` =`users`.`id` AND comment.status =? order by comment.enttime desc LIMIT ?,? ) c order by c.enttime "; 
+         PREPARE STMT FROM "select c.* from (SELECT `comment`.*,`users`.`firstname`,`users`.`lastname`,`users`.`pictureurl` FROM `comment`,`users` WHERE comment.postid = ? AND `comment`.`userid` =`users`.`id` AND comment.status =? order by comment.enttime desc LIMIT ?,? ) c order by c.enttime "; 
          SET @v_postid = postid;
          SET @v_status = cstatus;
          
@@ -783,14 +814,14 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `getPostsForUser`(IN remail VARCHAR(50),IN rSkip INT,in rRows INT )
 BEGIN
 SET @s = CONCAT('SELECT `posts`.`postid` AS `postid`,`posts`.`userid` AS `userid`,`posts`.`detail` AS `detail`,`posts`.`type` AS `type`,`posts`.`status` AS `status`,`posts`.`enttime` AS `enttime`,`posts`.`lastmodifytime` AS `lastmodifytime`,`users`.`firstname`,`users`.`lastname`,`users`.`pictureurl`,(select count(`comment`.`userid`) from `comment` where `comment`.`postid`=`posts`.`postid`) as nocomment FROM `posts`,`users`  WHERE `posts`.`userid`=`users`.`id` and  ((`posts`.`type` = \'A\') AND (`posts`.`status` = \'A\')) 
  UNION 
 (SELECT `posts`.`postid` AS `postid`,`posts`.`userid` AS `userid`,`posts`.`detail` AS `detail`,`posts`.`type` AS `type`,`posts`.`status` AS `status`,`posts`.`enttime` AS `enttime`,`posts`.`lastmodifytime` AS `lastmodifytime`,`users`.`firstname`,`users`.`lastname`,`users`.`pictureurl`,(select count(`comment`.`userid`) from `comment` where `comment`.`postid`=`posts`.`postid`) as nocomment FROM `posts`,`users` 
- WHERE (`posts`.`userid` IN (SELECT `users`.`id` FROM `users` WHERE `posts`.`userid`=`users`.`id` and `users`.`branchid` IN (SELECT `users`.`branchid` FROM `users` WHERE (`users`.`email` = "',remail,'"))) AND (`posts`.`type` = \'P\') AND (`posts`.`status` = \'A\'))) order by lastmodifytime desc limit ', rSkip ,', ', rRows); 
+ WHERE `posts`.`userid`=`users`.`id` and (`posts`.`userid` IN (SELECT `users`.`id` FROM `users` WHERE  `users`.`branchid` IN (SELECT `users`.`branchid` FROM `users` WHERE (`users`.`email` = "',remail,'"))) AND (`posts`.`type` = \'P\') AND (`posts`.`status` = \'A\'))) order by lastmodifytime desc limit ', rSkip ,', ', rRows); 
 
 PREPARE stmt1 FROM @s;
 EXECUTE stmt1; 
@@ -802,6 +833,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `PostInsert` */;
+ALTER DATABASE `campustalk` CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -826,7 +858,9 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+ALTER DATABASE `campustalk` CHARACTER SET utf8 COLLATE utf8_general_ci ;
 /*!50003 DROP PROCEDURE IF EXISTS `UserDetailFromEmail` */;
+ALTER DATABASE `campustalk` CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -848,6 +882,7 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+ALTER DATABASE `campustalk` CHARACTER SET utf8 COLLATE utf8_general_ci ;
 /*!50003 DROP PROCEDURE IF EXISTS `UserLogin` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -856,7 +891,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `UserLogin`(IN uemail VARCHAR(50), IN upassword VARCHAR(100), OUT loginFlag int)
 BEGIN
@@ -867,12 +902,12 @@ BEGIN
     	SET loginFlag =FALSE;
 		IF userid != 0 THEN
 			if tPassword=md5(upassword)	then
-				if(ustatus="R") then
+				if(ustatus="V") then
 					SET loginFlag = TRUE;
 				end if;
 				if(ustatus="P") then
 					SET loginFlag = TRUE;
-					update user set authstring=null,authdate=null,status="R" where email=uemail;
+					update `users` set `users`.`authstring`=null,`users`.`authdate`=null,`users`.`status`="R" where `users`.`email`=uemail;
 				end if;
 			end if;
 			
@@ -886,6 +921,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `UserNewRegisteration` */;
+ALTER DATABASE `campustalk` CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -917,7 +953,9 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+ALTER DATABASE `campustalk` CHARACTER SET utf8 COLLATE utf8_general_ci ;
 /*!50003 DROP PROCEDURE IF EXISTS `UserVerifyRegistration` */;
+ALTER DATABASE `campustalk` CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -950,6 +988,7 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+ALTER DATABASE `campustalk` CHARACTER SET utf8 COLLATE utf8_general_ci ;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -960,4 +999,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-11-03 18:36:29
+-- Dump completed on 2012-11-04  6:42:34
