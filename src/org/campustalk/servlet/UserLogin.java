@@ -32,12 +32,6 @@ public class UserLogin extends HttpServlet {
 		// TODO Auto-generated constructor stub
 	}
 
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession(false);
-		System.out.println(session.getAttribute("loggedin"));
-	}
-
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -85,7 +79,7 @@ public class UserLogin extends HttpServlet {
 					} else {
 						if (ctUser.getStatus().equals("N")) {
 							returnMsg = "Email is not registered, Please Register";
-						} else if (ctUser.getStatus().equals("V")) {
+						} else if (ctUser.getStatus().equals("R")) {
 							returnMsg = "Email is not Verified, Please Check Your email inbox";
 							EmailHelper.registrationVerifyEmail(ctUser); // Send
 																			// registration

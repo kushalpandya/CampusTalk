@@ -18,7 +18,7 @@ public class CampusTalkRoles
 	 * 
 	 * @param roleid set roleid
 	 */
-	public void setRoleId(Integer roleid)
+	public void setRoleid(Integer roleid)
 	{
 		this.roleid=roleid;
 	}
@@ -26,7 +26,7 @@ public class CampusTalkRoles
 	 * 
 	 * @return roleid
 	 */
-	public Integer getRoleId()
+	public Integer getRoleid()
 	{
 		return this.roleid;
 	}
