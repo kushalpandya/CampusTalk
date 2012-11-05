@@ -775,6 +775,15 @@ textarea.txt-flat {
 			}
 		}
 		
+		.feed-timestamp {
+			display: block;
+			float: right;
+			margin-top: -35px;
+			margin-right: 25px;
+			padding: 4px;
+			font-size: 12px;
+		}
+		
 		.feed-card-menu {
 			display: block;
 			float: right;
@@ -830,9 +839,9 @@ textarea.txt-flat {
 				
 				li {
 					position: relative;
-					padding: 0 0 10px 50px;
 					margin-bottom: 5px;
 					min-height: 30px;
+					padding: 0 0 10px 50px;
 					font-size: 12px;
 					line-height: 14px;
 					.border-radius(3px);
@@ -840,11 +849,30 @@ textarea.txt-flat {
 					&:nth-of-type(odd) {
 						background: darken(@soft_white, 10%);
 					}
-															
-					img {
+																				
+					.comment-user-img {
+						position: absolute;
+						top: 3px;
+						left: 3px;
+						width: 30px;
+						height: 30px;
+					}
+					
+					.comment-user {
 						position: absolute;
 						top: 0;
-						left: 0;
+						left: 40px;
+						font-size: 10px;
+						font-weight: bold;
+						color: lighten(@footer_bg_color, 20%);
+					}
+					
+					.comment-timestamp {
+						position: absolute;
+						top: 0;
+						right: 15px;
+						text-align: right;
+						font-size: 10px;
 					}
 					
 					.comment-action {
@@ -857,7 +885,7 @@ textarea.txt-flat {
 							background: darken(@soft_white, 25%);
 							.border-radius(2px);
 						}
-					}
+					}					
 				}
 			}
 			
@@ -1031,8 +1059,9 @@ textarea.txt-flat {
 }
 
 .modal {
+	outline: none;
 	.box-shadow(0px, 0px, 30px, rgba(0, 0, 0, 0.8));
-		
+	
 	button.btn-flat {
 		display: inline-block;
 		width: auto;
@@ -1042,5 +1071,5 @@ textarea.txt-flat {
 }
 
 .modal-backdrop {
-	background: white;
+	background: @soft_white;
 }
