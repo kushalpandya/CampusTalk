@@ -77,7 +77,7 @@ public class UserNewRegistration extends HttpServlet {
 			pictureUrl = request.getParameter("pictureUrl");
 			registerWith = request.getParameter("registerWith");
 			password = request.getParameter("password");
-			if (!objValidation.isPassword(password)) {
+			if (!objValidation.isSimplePassword(password)) {
 				errorFlag = true;
 				responseMessage += errorMsgSep + "Invalid Password";
 				errorMsgSep = ",";

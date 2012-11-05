@@ -4,7 +4,7 @@ USE `campustalk`;
 --
 -- Host: 127.0.0.1    Database: campustalk
 -- ------------------------------------------------------
--- Server version	5.5.28-0ubuntu0.12.04.2
+-- Server version	5.5.28-0ubuntu0.12.10.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -29,7 +29,7 @@ CREATE TABLE `branch` (
   `name` varchar(50) NOT NULL,
   `duration` int(11) NOT NULL,
   PRIMARY KEY (`branchid`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,7 +38,7 @@ CREATE TABLE `branch` (
 
 LOCK TABLES `branch` WRITE;
 /*!40000 ALTER TABLE `branch` DISABLE KEYS */;
-INSERT INTO `branch` VALUES (1,'M.Sc.I.T',2);
+INSERT INTO `branch` VALUES (1,'M.Sc.I.T',2),(2,'B.Tech',4);
 /*!40000 ALTER TABLE `branch` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -59,7 +59,7 @@ CREATE TABLE `comment` (
   PRIMARY KEY (`commentid`),
   KEY `user_idx` (`userid`),
   KEY `cpost_idx` (`postid`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -68,7 +68,7 @@ CREATE TABLE `comment` (
 
 LOCK TABLES `comment` WRITE;
 /*!40000 ALTER TABLE `comment` DISABLE KEYS */;
-INSERT INTO `comment` VALUES (1,3,1,':D :D ;-)','2012-11-03 05:57:57','A'),(2,1,1,'\\m/ <3','2012-11-03 06:00:08','A'),(3,3,1,'Hey.. :)','2012-11-03 06:01:05','A'),(4,1,1,'New Comment :-P','2012-11-03 19:36:23','A'),(5,2,1,'Yo Yo ..','2012-11-04 04:21:35','A'),(6,2,2,'Hey  :)','2012-11-04 06:05:08','A'),(7,3,2,'WHat happen ;-)','2012-11-04 06:05:26','A'),(8,2,1,'Whats up !!','2012-11-04 14:15:55','A');
+INSERT INTO `comment` VALUES (1,3,1,':D :D ;-)','2012-11-03 05:57:57','A'),(2,1,1,'\\m/ <3','2012-11-03 06:00:08','A'),(3,3,1,'Hey.. :)','2012-11-03 06:01:05','A'),(4,1,1,'New Comment :-P','2012-11-03 19:36:23','A'),(5,2,1,'Yo Yo ..','2012-11-04 04:21:35','A'),(6,2,2,'Hey  :)','2012-11-04 06:05:08','A'),(7,3,2,'WHat happen ;-)','2012-11-04 06:05:26','A'),(8,2,1,'Whats up !!','2012-11-04 14:15:55','A'),(9,2,1,'test','2012-11-04 23:23:52','A'),(10,2,1,'new :-','2012-11-04 23:24:47','A'),(11,4,1,'Hey hey','2012-11-04 23:25:47','A'),(12,7,1,'tetetete','2012-11-04 23:26:16','A'),(13,7,1,':-)','2012-11-04 23:29:03','A'),(14,5,2,'New :-)','2012-11-05 04:58:17','A'),(15,2,2,'\\m/','2012-11-05 04:58:33','A');
 /*!40000 ALTER TABLE `comment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -253,7 +253,7 @@ CREATE TABLE `posts` (
   `lastmodifytime` datetime DEFAULT NULL,
   PRIMARY KEY (`postid`),
   KEY `puserid_idx` (`userid`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -262,7 +262,7 @@ CREATE TABLE `posts` (
 
 LOCK TABLES `posts` WRITE;
 /*!40000 ALTER TABLE `posts` DISABLE KEYS */;
-INSERT INTO `posts` VALUES (1,1,'First Post... :-)','P','A','2012-11-03 01:22:16','2012-11-03 19:36:23'),(2,1,'Second Post :-)','A','A','2012-11-03 01:29:00','2012-11-04 14:15:55'),(3,1,':-D','A','A','2012-11-03 01:29:43','2012-11-04 06:05:26'),(4,1,'New pOst','P','A','2012-11-04 04:21:20','2012-11-04 04:21:20'),(5,2,'My Post :-)','P','A','2012-11-04 07:07:42','2012-11-04 07:07:42');
+INSERT INTO `posts` VALUES (1,1,'First Post... :-)','P','A','2012-11-03 01:22:16','2012-11-03 19:36:23'),(2,1,'Second Post :-)','A','A','2012-11-03 01:29:00','2012-11-05 04:58:33'),(3,1,':-D','A','A','2012-11-03 01:29:43','2012-11-04 06:05:26'),(4,1,'New pOst','P','A','2012-11-04 04:21:20','2012-11-04 23:25:47'),(5,2,'My Post :-)','P','A','2012-11-04 07:07:42','2012-11-05 04:58:17'),(6,1,'Test Post :D','A','A','2012-11-04 22:02:29','2012-11-04 22:02:29'),(7,1,'again Test Post','A','A','2012-11-04 22:03:02','2012-11-04 23:29:03'),(8,1,'again Test Post :-)','P','A','2012-11-04 22:03:15','2012-11-04 22:03:15'),(9,1,'yo yo Honey Singh :-)','A','A','2012-11-04 22:05:56','2012-11-04 22:05:56');
 /*!40000 ALTER TABLE `posts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -341,7 +341,7 @@ CREATE TABLE `userroles` (
 
 LOCK TABLES `userroles` WRITE;
 /*!40000 ALTER TABLE `userroles` DISABLE KEYS */;
-INSERT INTO `userroles` VALUES (1,1);
+INSERT INTO `userroles` VALUES (1,2);
 /*!40000 ALTER TABLE `userroles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -381,7 +381,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'saiyedfaishal@gmail.com','9cb966ff0bb252eeaf8be1b658ec0115','google','V','4ae69bbfed3f4974b6cbbd3d681cec092b8d9266249a47ff93b10e7914b917d6','2012-11-19 14:23:19','2012-10-28 05:11:12','Faishal','Saiyed',NULL,'male',NULL,1,2011,'https://lh3.googleusercontent.com/-XVHns1ycTI0/AAAAAAAAAAI/AAAAAAAAAN0/31SL_TsfpRM/photo.jpg?sz=50'),(2,'samrocker4rock@gmail.com','7c26dc798bda94a414a866030d530ea1','google','V',NULL,NULL,'2012-11-04 05:38:44','Samir','Patel',NULL,'male',0,1,2010,'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg?sz=50');
+INSERT INTO `users` VALUES (1,'saiyedfaishal@gmail.com','9cb966ff0bb252eeaf8be1b658ec0115','google','V','4ae69bbfed3f4974b6cbbd3d681cec092b8d9266249a47ff93b10e7914b917d6','2012-11-19 14:23:19','2012-10-28 05:11:12','Faishal','Saiyed',NULL,'male',NULL,1,2011,'https://lh3.googleusercontent.com/-XVHns1ycTI0/AAAAAAAAAAI/AAAAAAAAAN0/31SL_TsfpRM/photo.jpg?sz=50'),(2,'samrocker4rock@gmail.com','7c26dc798bda94a414a866030d530ea1','google','V',NULL,NULL,'2012-11-04 05:38:44','Samir','Patel',NULL,'male',0,2,2010,'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg?sz=50');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -651,6 +651,64 @@ DELIMITER ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
 ALTER DATABASE `campustalk` CHARACTER SET utf8 COLLATE utf8_general_ci ;
+/*!50003 DROP FUNCTION IF EXISTS `isAuthorisedUserForPost` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 FUNCTION `isAuthorisedUserForPost`(rpostid int,userid int) RETURNS tinyint(1)
+BEGIN
+Declare upostid int;
+	SELECT 
+    `posts`.`postid` AS `postid` 
+into upostid 
+FROM
+    `posts`
+WHERE
+    (`posts`.`postid` = rpostid)
+        AND (`posts`.`type` = 'A')
+        AND (`posts`.`status` = 'A') ;
+
+IF upostid IS NULL THEN
+SELECT 
+    `posts`.`postid` AS `postid`
+into upostid 
+FROM
+    `posts`
+WHERE
+    (`posts`.`postid` = rpostid)
+        AND (`posts`.`userid` IN (SELECT 
+            `users`.`id`
+        FROM
+            `users`
+        WHERE
+            `users`.`branchid` IN (SELECT 
+                    `users`.`branchid`
+                FROM
+                    `users`
+                WHERE
+                    (`users`.`id` = userid)))
+        AND (`posts`.`type` = 'P')
+        AND (`posts`.`status` = 'A'));
+
+end if;
+	if upostid is NULL then
+		return true;
+else
+	return false;
+end if;
+	
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP FUNCTION IF EXISTS `UserGetAuthDate` */;
 ALTER DATABASE `campustalk` CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -726,7 +784,6 @@ DELIMITER ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
 ALTER DATABASE `campustalk` CHARACTER SET utf8 COLLATE utf8_general_ci ;
 /*!50003 DROP PROCEDURE IF EXISTS `CommentOnPost` */;
-ALTER DATABASE `campustalk` CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -734,24 +791,59 @@ ALTER DATABASE `campustalk` CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
 /*!50003 SET character_set_results = utf8 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `CommentOnPost`(IN postid INT,IN userid INT,IN detail TEXT,OUT commentid INT)
 BEGIN
+	if isAuthorisedUserForPost(postid,userid) = 0 then
+
      INSERT INTO comment(postid,userid,detail,enttime,STATUS) VALUE(postid,userid,detail,SYSDATE(),'A');
      
      SET commentid = getMaxCommentID();
      /* Status: A- indicate active comment :*/
      
      UPDATE posts SET posts.lastmodifytime = SYSDATE() WHERE posts.postid =postid;
-	
-    END */;;
+end if;	
+END */;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
-ALTER DATABASE `campustalk` CHARACTER SET utf8 COLLATE utf8_general_ci ;
+/*!50003 DROP PROCEDURE IF EXISTS `deleteCommentForPost` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `deleteCommentForPost`(IN dCommentId int, in dUserId int,out flag boolean)
+BEGIN
+	Declare dTest int ;
+	select `comment`.`userid` into dTest from `campustalk`.`comment` where `comment`.`commentid` =dCommentId and `comment`.`userid`= dUserId;
+	if dTest is null then
+		select `comment`.`userid` into dTest from `campustalk`.`comment`,`campustalk`.`posts` where `comment`.`commentid` =dCommentId  and `comment`.`postid`=`posts`.`postid` and `posts`.`userid`=dUserId;
+		if dTest is null then
+			set flag=true;
+		else
+			set flag=false;
+		end if;
+	else
+		set flag=true;
+	end if;
+if flag = true then
+ update `campustalk`.`comment` set `campustalk`.`status`='D' where `campustalk`.`commentid`=dCommentId;
+end if;
+
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `getBranchById` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -782,12 +874,13 @@ DELIMITER ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `getCommentOnPost`(IN postid INT,IN _START INTEGER, 
-IN _LIMIT INTEGER )
+IN _LIMIT INTEGER , in ruserid int)
 BEGIN
-    
+   
     /* status = A indicate active comment */
       
       DECLARE cstatus CHAR(2);
+ if isAuthorisedUserForPost(postid,ruserid) = 0 then
       SET cstatus ='A';
    /*   select * from comment where comment.postid = postid and comment.status ='A' limit 3;*/
       
@@ -800,7 +893,10 @@ BEGIN
          SET @LIMIT = _LIMIT; 
       
          EXECUTE STMT USING @v_postid, @v_status, @START, @LIMIT;
-    END */;;
+else 
+		select `comment`.* from `campustalk`.`comment` where 1!=1;
+	end if;
+END */;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
@@ -826,6 +922,44 @@ SET @s = CONCAT('SELECT `posts`.`postid` AS `postid`,`posts`.`userid` AS `userid
 PREPARE stmt1 FROM @s;
 EXECUTE stmt1; 
 DEALLOCATE PREPARE stmt1;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `getRoleById` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `getRoleById`(in uroleid int)
+BEGIN
+	select `roles`.* from `campustalk`.`roles` where `roles`.`roleid` = uroleid ;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `getUserRoleById` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `getUserRoleById`(IN mroleid INT)
+BEGIN
+	select `userroles`.* from `campustalk`.`userroles` where `userroles`.`userid`= mroleid;
 END */;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -999,4 +1133,4 @@ ALTER DATABASE `campustalk` CHARACTER SET utf8 COLLATE utf8_general_ci ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-11-04 17:56:20
+-- Dump completed on 2012-11-05 15:12:20

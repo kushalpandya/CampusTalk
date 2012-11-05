@@ -5,8 +5,12 @@ Handlebars.registerHelper('isPostOwner', function(userid, block) {
 	if (userid == objMyData.userid)
 		return block.fn(this);
 });
-Handlebars.registerHelper('notAlreadyAdded', function(postid, block) {
+Handlebars.registerHelper('notAlreadyAddedPost', function(postid, block) {
 	if ($("#divPost" + postid).length == 0)
+		return block.fn(this);
+});
+Handlebars.registerHelper('notAlreadyAddedComment', function(commentid, block) {
+	if ($("#liComment" + commentid).length == 0)
 		return block.fn(this);
 });
 // getuserurl
@@ -37,7 +41,7 @@ $("#btnPost").click(function() {
 		success : function(data) {
 			if (data.status === 'success') {
 				// Success
-				showPopup(data.message);
+				getNewPost(true);
 				$("#postBox").val("");
 			} else {
 				// Failed
@@ -52,8 +56,14 @@ $("#btnPost").click(function() {
 var skipRow = 0;
 function getNewPost(resetFlag) {
 
+	
+	
 	if (resetFlag == undefined) {
 		resetFlag = false;
+	}
+	if(resetFlag){
+		skipRow=0;
+		$("#feeds-list").html("");
 	}
 
 	$.ajax({
@@ -70,7 +80,8 @@ function getNewPost(resetFlag) {
 				var source = $("#tmpltPostList").html();
 				var template = Handlebars.compile(source);
 				var html = template(data);
-				$("#feeds-list").append(html);
+				
+					$("#feeds-list").append(html);
 				if (data.posts.length > 0)
 					skipRow += data.posts.length;
 				$('.feed-content p').emoticonize({
@@ -123,13 +134,14 @@ function commentOnPost(txtComment) {
 		type : 'post',
 		data : {
 			"commentdata" : commentdata,
-			"postid" : $(txtComment).attr("data-postid")
+			"postid" : $(txtComment).data("postid")
 		},
 		success : function(data) {
 			if (data.status === 'success') {
 				// Success
+				loadCommentForPost($('#href' + $(txtComment).data("postid")),true)
 				$(txtComment).val("");
-				console.log(data);
+				
 			} else {
 				// Failed
 				showPopup(data.message);
@@ -141,8 +153,13 @@ function commentOnPost(txtComment) {
 	});
 }
 
-function loadCommentForPost(post) {
-	postid = post.data("postid");
+function loadCommentForPost(post,resetFlag) {
+	if (resetFlag == undefined) {
+		resetFlag = false;
+	}
+	if(resetFlag)
+		$("#postComments" + postid).html("");
+		postid = post.data("postid");
 	$.ajax({
 				url : 'Comment/Get',
 				type : 'post',
@@ -158,7 +175,6 @@ function loadCommentForPost(post) {
 						var template = Handlebars.compile(source);
 						var html = template(data);
 						$("#postComments" + postid).append(html);
-						
 						$("#postComments" + postid).emoticonize({
 							animate : true,
 						});
