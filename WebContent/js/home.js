@@ -74,7 +74,7 @@ function getNewPost(resetFlag) {
 				if (data.posts.length > 0)
 					skipRow += data.posts.length;
 				$('.feed-content p').emoticonize({
-					// delay: 800,
+					// delay: 800,1
 					animate : true,
 				// exclude: 'pre, code, .no-emoticons'
 				});
@@ -109,11 +109,8 @@ function getNewPost(resetFlag) {
 }
 getNewPost();
 
-$(".feeds-block").scroll(function() {
-
-	if ($(this).scrollTop() == $(this).height() - $(window).height()) {
-		getNewPost();
-	}
+$(".feeds-more").on("click", function() {
+	getNewPost();
 });
 function commentOnPost(txtComment) {
 	var commentdata = $.trim($(txtComment).val());
