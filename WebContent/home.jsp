@@ -191,48 +191,42 @@
 				{{#notAlreadyAddedPost postid}}
 					<div class="feed-card" id='divPost{{postid}}'>
 						<div class="feed-user-bar">
-							<a href="#"><img src="{{pictureurl}}"
-								class="feed-user-img" /></a> <span class="feed-user-title"><a
-								href="{{getuserurl id}}">{{firstname}} {{lastname}}</a></span>
-					<div class="dropdown drp-flat feed-card-menu">
-						<a href="#" data-toggle="dropdown" class="dropdown-toggle"><i
-							class="icon-tasks"></i></a>
-						<ul class="dropdown-menu pull-right" role="menu"
-							aria-labelledby="dropdownMenu">
-							{{#isPostOwner userid}}
-							<li><a tabindex="-1" href="#">Edit</a></li>
-							<li><a tabindex="-1" href="#">Delete</a></li>
-							{{/isPostOwner}}
-							<li><a tabindex="-1" href="#">Report as spam/abuse</a></li>
-							
-						</ul>
-					</div>
-				</div>
-				<div class="feed-content">
-					<p>{{detail}}</p>
-					<div class="feed-comments-block" data-comments='{{nocomment}}'>
-						<a href="#" class="feed-comment-reveal comment-load" rel="full" data-postid="{{postid}}" id='href{{postid}}' >{{nocomment}} comments. &dArr;</a>
-						<ul class="feed-comments" id="postComments{{postid}}">
-						</ul>
-						<div class="feed-comment-box">
-							<img src="{{getPictureUrl}}" class="post-user-img" width="30" />
-							<textarea data-postid="{{postid}}" class="txt-flat txt-comment" placeholder="Leave comment..."></textarea>
+							<a href="#"><img src="{{pictureurl}}" class="feed-user-img" /></a>
+							<span class="feed-user-title"><a href="{{getuserurl id}}">{{firstname}} {{lastname}}</a></span>
+							<span class="feed-timestamp muted">Monday, 5 November 2012 at 23:32</span>
+							<div class="dropdown drp-flat feed-card-menu">
+								<a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon-tasks"></i></a>
+								<ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu">
+									{{#isPostOwner userid}}
+									<li><a tabindex="-1" href="#">Delete</a></li>
+									{{/isPostOwner}}
+									<li><a tabindex="-1" href="#">Report as spam/abuse</a></li>
+								</ul>
+							</div>
+						</div>
+						<div class="feed-content">
+							<p>{{detail}}</p>
+							<div class="feed-comments-block" data-comments='{{nocomment}}'>
+								<a href="#" class="feed-comment-reveal comment-load" rel="full" data-postid="{{postid}}" id='href{{postid}}'>{{nocomment}} comments. &dArr;</a>
+								<ul class="feed-comments" id="postComments{{postid}}">
+								</ul>
+								<div class="feed-comment-box">
+									<img src="{{getPictureUrl}}" class="post-user-img" width="30" />
+									<textarea data-postid="{{postid}}" class="txt-flat txt-comment" placeholder="Leave comment..."></textarea>
+								</div>
+							</div>
 						</div>
 					</div>
-				</div>
-			</div>
 			{{/notAlreadyAddedPost}}
 		{{/each}}
-
 	{{/if}}
 	</script>
 	<script type="text/x-handlebars-template" id='tmpltCommentList'>
 	{{#each comments}}
 		{{#notAlreadyAddedComment commentid}}
-			<li><img src="{{pictureurl}}" class="post-user-img" width="30" />{{detail}}<a class="comment-action" href="#"><i class="icon-remove" title="Delete"></i></a></li>
+			<li><img src="{{pictureurl}}" class="comment-user-img"/><br/>{{detail}}<span class="comment-user">{{firstname}} {{lastname}}</span><span class="comment-timestamp muted">Monday, 5 November 2012 at 23:32</span><a class="comment-action" href="#"><i class="icon-remove" title="Delete"></i></a></li>
 		{{/notAlreadyAddedComment}}
 	{{/each}}
-		
 	</script>
 	<script type="text/javascript" src="js/script.js"></script>
 	<script type="text/javascript" src="js/handlebars.js"></script>
