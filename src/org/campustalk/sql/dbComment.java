@@ -5,7 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 
-import org.apache.catalina.User;
 import org.campustalk.entity.CampusTalkComment;
 import org.json.JSONArray;
 import org.json.JSONException;
