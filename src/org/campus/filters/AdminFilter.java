@@ -14,11 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.campustalk.Settings;
-import org.campustalk.entity.CampusTalkBranch;
 import org.campustalk.entity.CampusTalkUserRoles;
 import org.campustalk.entity.CampusTalkUsers;
 import org.campustalk.sql.dbBranch;
-import org.campustalk.sql.dbRoles;
 import org.campustalk.sql.dbUser;
 import org.campustalk.sql.dbUserRole;
 import org.json.JSONException;
@@ -28,6 +26,7 @@ import org.json.JSONException;
  */
 @WebFilter("/controlpanel.jsp")
 public class AdminFilter implements Filter {
+	@SuppressWarnings("unused")
 	private FilterConfig config;
 
 	/**
@@ -47,6 +46,7 @@ public class AdminFilter implements Filter {
 	/**
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
+	@SuppressWarnings("unused")
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
 		HttpSession session = ((HttpServletRequest) request).getSession();
