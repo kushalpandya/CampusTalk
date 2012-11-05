@@ -90,9 +90,10 @@ function getNewPost(resetFlag) {
 				// exclude: 'pre, code, .no-emoticons'
 				});
 				$(".txt-comment").keyup(function(event) {
-					if (event.which == 13) {
+					if (event.keyCode == 13) {
 						event.preventDefault();
-						commentOnPost(this);
+						if(!event.shiftKey)
+							commentOnPost(this);
 					}
 				});
 				afterLoadPost();
@@ -139,7 +140,7 @@ function commentOnPost(txtComment) {
 		success : function(data) {
 			if (data.status === 'success') {
 				// Success
-				loadCommentForPost($('#href' + $(txtComment).data("postid")),true)
+				loadCommentForPost($('#href' + $(txtComment).data("postid")),true);
 				$(txtComment).val("");
 				
 			} else {
