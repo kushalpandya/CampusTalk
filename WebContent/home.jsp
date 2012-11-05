@@ -88,6 +88,7 @@
 		</div>
 		<div class="feeds-list" id="feeds-list">
 			</div>
+		<div class="feeds-more">Load More Posts &#9660;</div>
 	</div>
 	<div id="dlgMessages" class="modal hide fade modal-flat">
 		<div class="modal-header">
@@ -132,27 +133,37 @@
 			</ul>
 			<div class="message-thread">
 				<div class="message pull-left">
+					<label class="sender">Borat</label>
+					<label class="timestamp">Sent at 2:37 PM</label>
 					<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas</p>
 				</div>
 				<div class="message pull-right">
+					<label class="sender">Faishal</label>
+					<label class="timestamp">Sent at 2:37 PM</label>
 					<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas</p>
 				</div>
 				<div class="message pull-left">
+					<label class="sender">Borat</label>
 					<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas</p>
 				</div>
 				<div class="message pull-right">
+					<label class="sender">Faishal</label>
 					<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas</p>
 				</div>
 				<div class="message pull-left">
+					<label class="sender">Borat</label>
 					<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas</p>
 				</div>
 				<div class="message pull-right">
+					<label class="sender">Faishal</label>
 					<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas</p>
 				</div>
 				<div class="message pull-left">
+					<label class="sender">Borat</label>
 					<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas</p>
 				</div>
 				<div class="message pull-right">
+					<label class="sender">Faishal</label>
 					<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas</p>
 				</div>
 			</div>
