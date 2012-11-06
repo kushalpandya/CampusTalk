@@ -315,7 +315,7 @@
 				{{#notAlreadyAddedMessage messageid}}
 					<div class="message pull-{{getMsgClass userid}}" id="divMessageThread{{messageid}}" data-messageid="{{messageid}}">
 						<label class="sender">{{firstname}}</label>
-						<label class="timestamp">enttime</label>
+						<label class="timestamp">{{getDateTime enttime}}</label>
 						<p>{{message}}</p>
 					</div>
 				{{/notAlreadyAddedMessage}}
@@ -324,6 +324,7 @@
 		<script type="text/javascript" src="js/script.js"></script>
 		<script type="text/javascript" src="js/bootstrap.datepicker.min.js"></script>
 		<script type="text/javascript" src="js/handlebars.js"></script>
+		<script type="text/javascript" src="js/moment.min.js"></script>
 		<script type="text/javascript" src="js/home.js"></script>
 		<script src="js/cssemoticons.min.js" type="text/javascript"></script>	
 	</body>
