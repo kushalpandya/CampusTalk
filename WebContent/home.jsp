@@ -8,6 +8,7 @@
 		<link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon" />
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"	media="all" />
 		<link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.min.css" media="all" />
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.datepicker.min.css" media="all" />
 		<link rel="stylesheet" type="text/css" href="css/style.css" media="all" />
 		<link rel="stylesheet" type="text/css" href="css/avgrund.css" media="all" />
 		<link rel="stylesheet/less" type="text/css" href="less/style.less" media="all" />
