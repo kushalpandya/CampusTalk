@@ -35,7 +35,7 @@ Handlebars.registerHelper('notAlreadyAddedMessage', function(messageid, block) {
 		return block.fn(this);
 });
 Handlebars.registerHelper('getDateTime', function(enttime) {
-	return moment(enttime, "YYYY-MM-DD hh:mm:ss").calendar()
+	return moment(enttime, "YYYY-MM-DD hh:mm:ss").calendar();
 });
 
 $("#btnPost").click(function() {
@@ -279,6 +279,11 @@ $(".account-tray #showMessages").on("click", function(e) {
 								var html = template(data);
 								$("#divMessageThread").html(html);
 								$("#divMessageThread").emoticonize({animate : true});
+								
+								//Animate scroll to the last message
+								var container = $("#dlgMessages .modal-body .message-thread");
+								var lastmsg = $("#dlgMessages .modal-body .message-thread .message:last-child");
+								container.animate({ scrollTop: lastmsg.offset().top - container.offset().top + container.scrollTop() });
 							} else {
 								// Failed
 								showPopup(data.message);
@@ -288,7 +293,7 @@ $(".account-tray #showMessages").on("click", function(e) {
 							showPopup('Some Error Occured, Please Refresh page');
 						}
 					});
-				})
+				});
 				$("#dlgMessages").modal();
 			} else {
 				// Failed
