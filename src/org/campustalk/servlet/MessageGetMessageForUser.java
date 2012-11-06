@@ -18,13 +18,13 @@ import org.json.JSONObject;
  * Servlet implementation class MessagedGetMessageForUser
  */
 @WebServlet("/Messages/Get")
-public class MessagedGetMessageForUser extends HttpServlet {
+public class MessageGetMessageForUser extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MessagedGetMessageForUser() {
+    public MessageGetMessageForUser() {
         super();
         // TODO Auto-generated constructor stub
     }
