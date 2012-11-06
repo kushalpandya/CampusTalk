@@ -142,7 +142,7 @@ function commentOnPost(txtComment) {
 		success : function(data) {
 			if (data.status === 'success') {
 				// Success
-				loadCommentForPost($('#href' + $(txtComment).data("postid")),true)
+				loadCommentForPost($('#href' + $(txtComment).data("postid")),true);
 				$(txtComment).val("");
 				
 			} else {
@@ -167,7 +167,7 @@ function loadCommentForPost(post,resetFlag) {
 				url : 'Comment/Get',
 				type : 'post',
 				data : {
-					"postid" : postid,
+					"postid" : postid
 
 				},
 				success : function(data) {
@@ -205,3 +205,37 @@ function afterLoadPost() {
 		loadCommentForPost($(this));
 	});
 }
+
+$("#btnSendNewMessage").click(function(e){
+	e.preventDefault();
+	var toEmails,msgDetail;
+	toEmails= $("#txtEmailNewMsg").val();
+	msgDetail= $("#txtNewMsgDetail").val();
+	if(msgDetail.length < 2){
+		showPopup("Min Message length is 2");
+		return;
+	}
+		
+	$.ajax({
+		url : 'Message/New',
+		type : 'post',
+		data : {
+			"tousers" : toEmails,
+			"message" : msgDetail
+		},
+		success : function(data) {
+			if (data.status === 'success') {
+				// Success
+				showPopup(data.message);
+			} else {
+				// Failed
+				showPopup(data.message);
+			}
+		},
+		error : function() {
+			showPopup('Some Error Occured, Please Refresh page');
+		}
+	});
+
+});
+
