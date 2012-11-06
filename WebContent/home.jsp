@@ -218,6 +218,17 @@
 				<li class="MessageUserList" data-userid="{{userid}}" ><a href="#" >{{firstname}} {{lastname}} ({{unreadmsg}}/{{totmsg}}) </a>
 			{{/each}}	
 		</script>
+		<script type="text/x-handlebars-template" id='tmpltMessageThread'>
+			{{#each messages}}
+				{{#notAlreadyAddedMessage messageid}}
+					<div class="message pull-{{getMsgClass userid}}" id="divMessageThread{{messageid}}" data-messageid="{{messageid}}">
+						<label class="sender">{{firstname}}</label>
+						<label class="timestamp">enttime</label>
+						<p>{{message}}</p>
+					</div>
+				{{/notAlreadyAddedMessage}}
+			{{/each}}
+		</script>
 		<script type="text/javascript" src="js/script.js"></script>
 		<script type="text/javascript" src="js/handlebars.js"></script>
 		<script type="text/javascript" src="js/home.js"></script>
