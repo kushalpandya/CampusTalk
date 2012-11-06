@@ -100,18 +100,18 @@
 				<div class="control-group">
 					<label class="control-label">To</label>
 					<div class="controls">
-						<input type="text" placeholder="Name of recepient"/>
+						<input type="text" placeholder="Name of recepient" data-mode="multiple" id="txtEmailNewMsg" />
 					</div>
 				</div>
 				<div class="control-group">
 					<label class="control-label">Message</label>
 					<div class="controls">
-						<textarea rows="4" placeholder="Write a message..."></textarea>
+						<textarea rows="4" placeholder="Write a message..." id="txtNewMsgDetail" ></textarea>
 					</div>
 				</div>
 				<div class="control-group drawer-button-group">
 					<button type="button" class="btn btn-flat" id="btnCancelNewMessage">Cancel</button>
-					<button type="button" class="btn btn-green">Send</button>
+					<a href="#" class="btn btn-green" id="btnSendNewMessage">Send</a>
 				</div>
 			</form>	
 		</div>
@@ -225,6 +225,7 @@
 	</script>
 	<script type="text/javascript" src="js/script.js"></script>
 	<script type="text/javascript" src="js/handlebars.js"></script>
+	<script type="text/javascript" src="js/bootstrap-typeaheadN.js"></script>
 	<script type="text/javascript" src="js/home.js"></script>
 	<script src="js/cssemoticons.min.js" type="text/javascript"></script>
 	
