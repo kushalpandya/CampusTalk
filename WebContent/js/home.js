@@ -233,3 +233,56 @@ $("#btnSendNewMessage").click(function(e){
 
 });
 
+$(".account-tray #showMessages").on("click", function(e) {
+	e.preventDefault();
+	$.ajax({
+		url : 'Messages/UsersList',
+		type : 'post',
+		success : function(data) {
+			if (data.status === 'success') {
+				// Success
+				console.log(data);
+				var source = $("#tmpltRecipientList").html();
+				var template = Handlebars.compile(source);
+				var html = template(data);
+				$("#ulRecipientList").html(html);
+				$(".MessageUserList").click(function(e){
+					e.preventDefault();
+					var userid= parseInt($(this).attr("data-userid")); 
+					$("#divMessageThread").html("");
+					$.ajax({
+						url : 'Messages/Get',
+						type : 'post',
+						data:{
+							'userid' : userid
+						},
+						success : function(data) {
+							if (data.status === 'success') {
+								// Success
+								var source = $("#tmpltRecipientList").html();
+								var template = Handlebars.compile(source);
+								var html = template(data);
+								$("#divMessageThread").html(html);
+								$("#divMessageThread").emoticonize({animate : true});
+							} else {
+								// Failed
+								showPopup(data.message);
+							}
+						},
+						error : function() {
+							showPopup('Some Error Occured, Please Refresh page');
+						}
+					});
+				})
+				$("#dlgMessages").modal();
+			} else {
+				// Failed
+				showPopup(data.message);
+			}
+		},
+		error : function() {
+			showPopup('Some Error Occured, Please Refresh page');
+		}
+	});
+	
+});
