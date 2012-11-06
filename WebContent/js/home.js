@@ -23,6 +23,21 @@ Handlebars.registerHelper('getCommentIcon', function(userid) {
 	return "javascript::alert('" + userid + "')";
 
 });
+Handlebars.registerHelper('getMsgClass', function(userid) {
+	if(objMyData.userid==userid)
+		return "left";
+	else
+		return "right";
+});
+
+Handlebars.registerHelper('notAlreadyAddedMessage', function(messageid, block) {
+	if ($("#divMessageThread" + messageid).length == 0)
+		return block.fn(this);
+});
+Handlebars.registerHelper('getDateTime', function(enttime) {
+	return moment(enttime, "YYYY-MM-DD hh:mm:ss").calendar()
+});
+
 $("#btnPost").click(function() {
 	var postData = $.trim($("#postBox").val());
 	var postType = $("#selectPostType").val();
@@ -259,7 +274,7 @@ $(".account-tray #showMessages").on("click", function(e) {
 						success : function(data) {
 							if (data.status === 'success') {
 								// Success
-								var source = $("#tmpltRecipientList").html();
+								var source = $("#tmpltMessageThread").html();
 								var template = Handlebars.compile(source);
 								var html = template(data);
 								$("#divMessageThread").html(html);
