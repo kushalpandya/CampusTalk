@@ -114,21 +114,9 @@
 				</form>	
 			</div>
 			<div class="modal-body">
-				<ul class="recipient-list">
-					<li><a href="#">Borat</a>
-					<li><a href="#">Bob</a>
-					<li><a href="#">Marley</a>
-					<li><a href="#">Ashton</a>
-					<li><a href="#">George</a>
-					<li><a href="#">Al Ghazi</a>
-					<li><a href="#">Weezy</a>
-					<li><a href="#">Dicky</a>
-					<li><a href="#">Ramesh</a>
-					<li><a href="#">Suresh</a>
-					<li><a href="#">Jignesh</a>
-					<li><a href="#">S. Narayan</a>
+				<ul class="recipient-list" id= "ulRecipientList">
 				</ul>
-				<div class="message-thread">
+				<div class="message-thread" id="divMessageThread" >
 					<div class="message pull-left">
 						<label class="sender">Borat</label>
 						<label class="timestamp">Sent at 2:37 PM</label>
@@ -166,11 +154,9 @@
 				</div>
 				<div class="message-editor">
 					<textarea placeholder="Write a reply... (press Enter to send message)"></textarea>
-					<!--
-					<label class="checkbox">
+					<!-- <label class="checkbox">
 						Press Enter to Send <input type="checkbox" name="chkEnterSend" />
-					</label>
-					-->
+					</label> -->
 				</div>
 			</div>
 			<div class="modal-footer">
@@ -183,69 +169,8 @@
 			</div>
 			<div class="modal-disable-overlay">&nbsp;</div>
 		</div>
-<<<<<<< HEAD
-		<div class="modal-body">
-			<ul class="recipient-list" id= "ulRecipientList">
-			</ul>
-			<div class="message-thread" id="divMessageThread" >
-				<div class="message pull-left">
-					<label class="sender">Borat</label>
-					<label class="timestamp">Sent at 2:37 PM</label>
-					<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas</p>
-				</div>
-				<div class="message pull-right">
-					<label class="sender">Faishal</label>
-					<label class="timestamp">Sent at 2:37 PM</label>
-					<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas</p>
-				</div>
-				<div class="message pull-left">
-					<label class="sender">Borat</label>
-					<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas</p>
-				</div>
-				<div class="message pull-right">
-					<label class="sender">Faishal</label>
-					<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas</p>
-				</div>
-				<div class="message pull-left">
-					<label class="sender">Borat</label>
-					<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas</p>
-				</div>
-				<div class="message pull-right">
-					<label class="sender">Faishal</label>
-					<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas</p>
-				</div>
-				<div class="message pull-left">
-					<label class="sender">Borat</label>
-					<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas</p>
-				</div>
-				<div class="message pull-right">
-					<label class="sender">Faishal</label>
-					<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas</p>
-				</div>
-			</div>
-			<div class="message-editor">
-				<textarea placeholder="Write a reply... (press Enter to send message)"></textarea>
-				<!-- <label class="checkbox">
-					Press Enter to Send <input type="checkbox" name="chkEnterSend" />
-				</label> -->
-			</div>
-		</div>
-		<div class="modal-footer">
-			<div class="pull-left">
-				<button class="btn btn-green" id="btnNewMessage">New Message</button>
-			</div>
-			<div class="pull-right">
-				<button class="btn btn-flat" data-dismiss="modal" aria-hidden="true">Close</button>
-			</div>
-		</div>
-		<div class="modal-disable-overlay">&nbsp;</div>
-	</div>
-	<a id='popupLink' href='' style='display:none'>Show</a>
-	<script type="text/x-handlebars-template" id='tmpltPostList'>
-=======
 		<a id='popupLink' href='' style='display:none'>Show</a>
 		<script type="text/x-handlebars-template" id='tmpltPostList'>
->>>>>>> branch 'master' of https://github.com/kushalpandya/CampusTalk.git
  		{{#if posts}}
 			{{#each posts}}
 				{{#notAlreadyAddedPost postid}}
@@ -287,37 +212,15 @@
 				<li><img src="{{pictureurl}}" class="comment-user-img"/><br/>{{detail}}<span class="comment-user">{{firstname}} {{lastname}}</span><span class="comment-timestamp muted">Monday, 5 November 2012 at 23:32</span><a class="comment-action" href="#"><i class="icon-remove" title="Delete"></i></a></li>
 			{{/notAlreadyAddedComment}}
 		{{/each}}
-<<<<<<< HEAD
-	{{/if}}
-	</script>
-	<script type="text/x-handlebars-template" id='tmpltCommentList'>
-	{{#each comments}}
-		{{#notAlreadyAddedComment commentid}}
-			<li><img src="{{pictureurl}}" class="comment-user-img"/><br/>{{detail}}<span class="comment-user">{{firstname}} {{lastname}}</span><span class="comment-timestamp muted">Monday, 5 November 2012 at 23:32</span><a class="comment-action" href="#"><i class="icon-remove" title="Delete"></i></a></li>
-		{{/notAlreadyAddedComment}}
-	{{/each}}
-	</script>
-	
-	<script type="text/x-handlebars-template" id='tmpltRecipientList'>
-		{{#each userlist}}
-			<li class="MessageUserList" data-userid="{{userid}}" ><a href="#" >{{firstname}} {{lastname}} ({{unreadmsg}}/{{totmsg}}) </a>
-		{{/each}}	
-	</script>
-	
-	<script type="text/javascript" src="js/script.js"></script>
-	<script type="text/javascript" src="js/handlebars.js"></script>
-	<script type="text/javascript" src="js/home.js"></script>
-	<script src="js/cssemoticons.min.js" type="text/javascript"></script>
-	
-</body>
-</html>
-=======
+		</script>
+		<script type="text/x-handlebars-template" id='tmpltRecipientList'>
+			{{#each userlist}}
+				<li class="MessageUserList" data-userid="{{userid}}" ><a href="#" >{{firstname}} {{lastname}} ({{unreadmsg}}/{{totmsg}}) </a>
+			{{/each}}	
 		</script>
 		<script type="text/javascript" src="js/script.js"></script>
 		<script type="text/javascript" src="js/handlebars.js"></script>
-		<script type="text/javascript" src="js/bootstrap-typeaheadN.js"></script>
 		<script type="text/javascript" src="js/home.js"></script>
 		<script src="js/cssemoticons.min.js" type="text/javascript"></script>	
 	</body>
 </html>
->>>>>>> branch 'master' of https://github.com/kushalpandya/CampusTalk.git
