@@ -42,10 +42,6 @@ function afterLoadComments() {
 	});
 }
 
-$(".account-tray #showMessages").on("click", function(e) {
-	e.preventDefault();
-	$("#dlgMessages").modal();
-});
 
 $(".account-tray #btnSettings").on("click", function(e) {
 	$("#dlgAccountSettings").modal();

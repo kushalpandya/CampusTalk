@@ -1,8 +1,13 @@
 package org.campustalk.sql;
 
 import java.sql.CallableStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class dbMessage extends DatabaseManager {
 
@@ -31,4 +36,35 @@ public class dbMessage extends DatabaseManager {
 		return rFlag;
 
 	}
+
+	public JSONArray getAllMessageUsersList(int userId) {
+		JSONArray jArray = new JSONArray();
+		try {
+			this.open();
+
+			CallableStatement pst = CON
+					.prepareCall("{ call getAllMessageUsersList(?)}");
+			pst.setInt(1, userId);
+			ResultSet rs = pst.executeQuery();
+			JSONObject jTemp;
+			while (rs.next()) {
+				jTemp = new JSONObject();
+				jTemp.put("userid", rs.getInt("id"));
+				jTemp.put("firstname", rs.getString("firstname"));
+				jTemp.put("lastname", rs.getString("lastname"));
+				jTemp.put("pictureurl", rs.getString("pictureurl"));
+				jTemp.put("totmsg", rs.getInt("totmsg"));
+				jTemp.put("unreadmsg", rs.getInt("unreadmsg"));
+				jTemp.put("lastmsgtime", rs.getTimestamp("lastmsgtime"));
+				jArray.put(jTemp);
+			}
+
+		} catch (ClassNotFoundException | SQLException | JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return jArray;
+	}
+
 }

@@ -19,13 +19,13 @@ import org.json.JSONObject;
  * Servlet implementation class sendNewMessage
  */
 @WebServlet("/Message/New")
-public class sendNewMessage extends HttpServlet {
+public class MessagesSendNew extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public sendNewMessage() {
+    public MessagesSendNew() {
         super();
         // TODO Auto-generated constructor stub
     }

@@ -8,7 +8,6 @@
 		<link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon" />
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"	media="all" />
 		<link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.min.css" media="all" />
-		<link rel="stylesheet" type="text/css" href="css/bootstrap.datepicker.min.css" media="all" />
 		<link rel="stylesheet" type="text/css" href="css/style.css" media="all" />
 		<link rel="stylesheet" type="text/css" href="css/avgrund.css" media="all" />
 		<link rel="stylesheet/less" type="text/css" href="less/style.less" media="all" />
@@ -115,21 +114,9 @@
 				</form>	
 			</div>
 			<div class="modal-body">
-				<ul class="recipient-list">
-					<li><a href="#">Borat</a>
-					<li><a href="#">Bob</a>
-					<li><a href="#">Marley</a>
-					<li><a href="#">Ashton</a>
-					<li><a href="#">George</a>
-					<li><a href="#">Al Ghazi</a>
-					<li><a href="#">Weezy</a>
-					<li><a href="#">Dicky</a>
-					<li><a href="#">Ramesh</a>
-					<li><a href="#">Suresh</a>
-					<li><a href="#">Jignesh</a>
-					<li><a href="#">S. Narayan</a>
+				<ul class="recipient-list" id= "ulRecipientList">
 				</ul>
-				<div class="message-thread">
+				<div class="message-thread" id="divMessageThread" >
 					<div class="message pull-left">
 						<label class="sender">Borat</label>
 						<label class="timestamp">Sent at 2:37 PM</label>
@@ -167,11 +154,9 @@
 				</div>
 				<div class="message-editor">
 					<textarea placeholder="Write a reply... (press Enter to send message)"></textarea>
-					<!--
-					<label class="checkbox">
+					<!-- <label class="checkbox">
 						Press Enter to Send <input type="checkbox" name="chkEnterSend" />
-					</label>
-					-->
+					</label> -->
 				</div>
 			</div>
 			<div class="modal-footer">
@@ -320,9 +305,14 @@
 			{{/notAlreadyAddedComment}}
 		{{/each}}
 		</script>
+		<script type="text/x-handlebars-template" id='tmpltRecipientList'>
+			{{#each userlist}}
+				<li class="MessageUserList" data-userid="{{userid}}" ><a href="#" >{{firstname}} {{lastname}} ({{unreadmsg}}/{{totmsg}}) </a>
+			{{/each}}	
+		</script>
 		<script type="text/javascript" src="js/script.js"></script>
-		<script type="text/javascript" src="js/handlebars.js"></script>
 		<script type="text/javascript" src="js/bootstrap.datepicker.min.js"></script>
+		<script type="text/javascript" src="js/handlebars.js"></script>
 		<script type="text/javascript" src="js/home.js"></script>
 		<script src="js/cssemoticons.min.js" type="text/javascript"></script>	
 	</body>
