@@ -587,16 +587,19 @@
 	text-shadow: 0px 0px 0px;
 	background: @base_color;
 	border: 1px solid @base_color;
+	.transition();
 	
 	&:hover {
 		color: @soft_white;
 		background: darken(@base_color, 5%);
+		.transition();
 	}
 	
 	&:active {
 		color: @soft_white;
 		background: darken(@base_color, 8%);
 		.box-shadow-inset(0px, 0px, 5px, darken(@base_color, 30%));
+		.transition();
 	}
 }
 
@@ -605,14 +608,55 @@
 	
 	background: @base_color;
 	border: 1px solid @base_color;
+	.transition();
 	
 	&:hover {
 		background: lighten(@base_color, 5%);
+		.transition();
 	}
 	
 	&:active {
 		background: darken(@base_color, 3%);
 		.box-shadow-inset(0px, 0px, 5px, darken(@base_color, 30%));
+		.transition();
+	}
+}
+
+.btn-red {
+	@base_color : #F66C67;
+	
+	background: @base_color;
+	border: 1px solid @base_color;
+	.transition();
+	
+	&:hover {
+		background: lighten(@base_color, 5%);
+		.transition();
+	}
+	
+	&:active {
+		background: darken(@base_color, 3%);
+		.box-shadow-inset(0px, 0px, 5px, darken(@base_color, 30%));
+		.transition();
+	}
+}
+
+.btn-yellow {
+	@base_color : #ECC752;
+	
+	background: @base_color;
+	border: 1px solid @base_color;
+	.transition();
+	
+	&:hover {
+		background: lighten(@base_color, 5%);
+		.transition();
+	}
+	
+	&:active {
+		background: darken(@base_color, 3%);
+		.box-shadow-inset(0px, 0px, 5px, darken(@base_color, 30%));
+		.transition();
 	}
 }
 
@@ -1072,4 +1116,8 @@ textarea.txt-flat {
 
 .modal-backdrop {
 	background: @soft_white;
+}
+
+.datepicker {
+	z-index: 3050;
 }
