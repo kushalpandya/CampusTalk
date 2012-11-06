@@ -198,7 +198,7 @@ CREATE TABLE `messagedetails` (
   `enttime` datetime NOT NULL,
   PRIMARY KEY (`messageid`),
   KEY `userid_idx` (`userid`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -207,6 +207,7 @@ CREATE TABLE `messagedetails` (
 
 LOCK TABLES `messagedetails` WRITE;
 /*!40000 ALTER TABLE `messagedetails` DISABLE KEYS */;
+INSERT INTO `messagedetails` VALUES (8,1,'Test messages','V','2012-11-06 04:01:53'),(9,1,'Test messages :D :D ','V','2012-11-06 04:02:35'),(10,1,'Test setting :-)','V','2012-11-06 05:30:58'),(11,1,'New Test setting','V','2012-11-06 05:31:54'),(12,1,'Hey Hey hey :D :D :D','V','2012-11-06 05:33:47'),(13,1,'Hey Whats up :)','V','2012-11-06 05:37:35'),(14,1,'Yo yo','V','2012-11-06 17:06:39');
 /*!40000 ALTER TABLE `messagedetails` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -220,7 +221,7 @@ DROP TABLE IF EXISTS `messages`;
 CREATE TABLE `messages` (
   `messageid` int(11) NOT NULL,
   `touserid` int(11) NOT NULL,
-  `status` char(2) NOT NULL,
+  `status` char(2) NOT NULL DEFAULT 'N',
   PRIMARY KEY (`messageid`,`touserid`),
   KEY `mmid_idx` (`messageid`),
   KEY `muser_idx` (`touserid`)
@@ -233,6 +234,7 @@ CREATE TABLE `messages` (
 
 LOCK TABLES `messages` WRITE;
 /*!40000 ALTER TABLE `messages` DISABLE KEYS */;
+INSERT INTO `messages` VALUES (1,8,'N'),(2,8,'N'),(3,8,'N'),(4,8,'N'),(5,8,'N'),(9,1,'N'),(9,2,'N'),(9,3,'N'),(9,4,'N'),(9,5,'N'),(10,1,'N'),(11,12,'N'),(12,1,'N'),(12,2,'N'),(13,2,'R'),(14,1,'N');
 /*!40000 ALTER TABLE `messages` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -844,6 +846,60 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `getAllMessageUsersList` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `getAllMessageUsersList`(in muserid INT)
+BEGIN
+select 
+    count(m.messageid) as totmsg,
+    u.firstname,
+    u.lastname,
+    u.pictureurl,
+    u.id,
+    (select 
+            count(sm.messageid)
+        from
+            messages sm
+                join
+            messagedetails smd ON sm.messageid = smd.messageid
+        where
+            sm.touserid = muserid
+                and sm.status = 'N'
+                and smd.userid = u.id) as unreadmsg,
+    (select 
+            cmd.enttime
+        from
+            messages cm
+                join
+            messagedetails cmd ON cm.messageid = cmd.messageid
+        where
+            cm.touserid = muserid
+                and cmd.userid = u.id
+        order by cmd.enttime desc
+        limit 1) as lastmsgtime
+from
+    messages m
+        join
+    messagedetails md ON md.messageid = m.messageid
+        join
+    users u ON u.id = md.userid
+where
+    touserid = muserid
+group by u.firstname , u.lastname , u.pictureurl order by lastmsgtime desc;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `getBranchById` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -947,6 +1003,32 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `getUserIdListFromEmailList` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `getUserIdListFromEmailList`(IN emailList TEXT)
+BEGIN
+		Declare val TEXT;
+		SET @val = REPLACE(emailList, ',', CONCAT('\',\''));
+		SET @val = CONCAT('(\'', @val,'\')'); -- This produces a string like this -> (1, 100),(2, 100),(3, 100)
+		SET @val = CONCAT('select id from  users where email in ', @val, ';'); -- Build INSERT statement like this -> INSERT INTO RolesMenus VALUES(1, 100),(2, 100),(3, 100)
+		-- Execute INSERT statement
+		PREPARE stmt FROM @val;
+		EXECUTE stmt;
+		DEALLOCATE PREPARE stmt;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `getUserRoleById` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -993,6 +1075,61 @@ DELIMITER ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
 ALTER DATABASE `campustalk` CHARACTER SET utf8 COLLATE utf8_general_ci ;
+/*!50003 DROP PROCEDURE IF EXISTS `SearchUserMsgAC` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `SearchUserMsgAC`(IN squery VARCHAR(100))
+BEGIN
+	select id,firstname,lastname,email,pictureurl from users where email like  CONCAT('%',squery ,'%') ;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `sendMessege` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `sendMessege`(IN fromUserid INT,IN toUserid TEXT,IN msgDetail TEXT,out rtnFlag Boolean)
+BEGIN
+	Declare msgId int;
+	Declare val Text;
+	Declare insrt Text;
+	set rtnFlag= false;
+	insert into messagedetails (userid,message,status,enttime) value (fromUserId,msgDetail,'V',SYSDATE());
+	select max(messageid) into msgid from messagedetails; 
+	if NOT msgId is null then 
+		SET @val = REPLACE(toUserid, ',', CONCAT(', ', msgId, '),('));
+		SET @val = CONCAT('(', @val, ', ', msgId, ')'); -- This produces a string like this -> (1, 100),(2, 100),(3, 100)
+		SET @insrt = CONCAT('INSERT INTO messages (touserid,messageid) VALUES ', @val, ';'); -- Build INSERT statement like this -> INSERT INTO RolesMenus VALUES(1, 100),(2, 100),(3, 100)
+		-- Execute INSERT statement
+		PREPARE stmt FROM @insrt;
+		EXECUTE stmt;
+		DEALLOCATE PREPARE stmt;
+		set rtnFlag= true;
+	else
+		set rtnFlag= false;
+	end if;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `UserDetailFromEmail` */;
 ALTER DATABASE `campustalk` CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -1133,4 +1270,4 @@ ALTER DATABASE `campustalk` CHARACTER SET utf8 COLLATE utf8_general_ci ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-11-05 15:12:20
+-- Dump completed on 2012-11-06 17:26:48
