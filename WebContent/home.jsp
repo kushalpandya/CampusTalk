@@ -8,6 +8,7 @@
 		<link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon" />
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"	media="all" />
 		<link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.min.css" media="all" />
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.datepicker.min.css" media="all" />
 		<link rel="stylesheet" type="text/css" href="css/style.css" media="all" />
 		<link rel="stylesheet" type="text/css" href="css/avgrund.css" media="all" />
 		<link rel="stylesheet/less" type="text/css" href="less/style.less" media="all" />
@@ -183,6 +184,98 @@
 			</div>
 			<div class="modal-disable-overlay">&nbsp;</div>
 		</div>
+		<!-- Account Settings Dialog -->
+		<div id="dlgAccountSettings" class="modal hide fade modal-flat">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Settings</h4>
+			</div>
+			<div class="modal-drawer">
+				<legend>Change Password</legend>
+				<form class="form-inline form-add-member">
+					<div class="control-group">
+						<label class="control-label">Current Password</label>
+						<div class="controls">
+							<input type="password" name="txtCurrPass" />
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">New Password</label>
+						<div class="controls">
+							<input type="password" name="txtNewPass" />
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">Confirm Password</label>
+						<div class="controls">
+							<input type="password" name="txtConfirmNewPass" />
+						</div>
+					</div>
+					<div class="control-group drawer-button-group">
+						<button type="button" class="btn btn-flat" id="btnCancelChangePass">Cancel</button>
+						<a href="#" class="btn btn-green" id="btnSaveNewPass">Save</a>
+					</div>
+				</form>	
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal">
+					<div class="control-group">
+						<label class="control-label">First Name</label>
+						<div class="controls">
+							<input type="text" />
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">Last Name</label>
+						<div class="controls">
+							<input type="text" />
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">Birth Date</label>
+						<div class="controls">
+							<input type="text" name="txtBirthDate" />
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">Gender</label>
+						<div class="controls">
+							<label class="radio">
+								<input type="radio" name="rdGender" value="Male" />Male
+							</label>
+							<label class="radio">
+								<input type="radio" name="rdGender" value="Female" />Female
+							</label>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">City</label>
+						<div class="controls">
+							<select name="drpCity">
+								<option value="-1" selected>Select city...</option>
+								<option value="Gandhinagar">Gandhinagar</option>
+								<option value="Ahmedabad">Ahmedabad</option>
+							</select>
+						</div>
+					</div>
+					<div class="control-group">
+						<div class="controls">
+							<button type="button" name="btnChangePassword" class="btn">Change Password</button>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<div class="pull-left">
+					<button class="btn btn-red">Deactivate Account</button>
+				</div>
+				<div class="pull-right">
+					<button class="btn btn-flat" data-dismiss="modal" aria-hidden="true">Close</button>
+					<button class="btn btn-green">Save Changes</button>
+				</div>
+			</div>
+			<div class="modal-disable-overlay">&nbsp;</div>
+		</div>
 		<a id='popupLink' href='' style='display:none'>Show</a>
 		<script type="text/x-handlebars-template" id='tmpltPostList'>
  		{{#if posts}}
@@ -229,7 +322,7 @@
 		</script>
 		<script type="text/javascript" src="js/script.js"></script>
 		<script type="text/javascript" src="js/handlebars.js"></script>
-		<script type="text/javascript" src="js/bootstrap-typeaheadN.js"></script>
+		<script type="text/javascript" src="js/bootstrap.datepicker.min.js"></script>
 		<script type="text/javascript" src="js/home.js"></script>
 		<script src="js/cssemoticons.min.js" type="text/javascript"></script>	
 	</body>
