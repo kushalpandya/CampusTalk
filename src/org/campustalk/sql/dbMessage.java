@@ -66,5 +66,34 @@ public class dbMessage extends DatabaseManager {
 
 		return jArray;
 	}
+	public JSONArray getAllMessageOfUser(int userId,int toUserId) {
+		JSONArray jArray = new JSONArray();
+		try {
+			this.open();
+
+			CallableStatement pst = CON
+					.prepareCall("{ call getAllMessageForUser(?,?)}");
+			pst.setInt(1, userId);
+			pst.setInt(2, toUserId);
+			
+			ResultSet rs = pst.executeQuery();
+			JSONObject jTemp;
+			while (rs.next()) {
+				jTemp = new JSONObject();
+				jTemp.put("userid", rs.getInt("userid"));
+				jTemp.put("messageid", rs.getInt("messageid"));
+				jTemp.put("firstname", rs.getString("firstname"));
+				jTemp.put("message", rs.getString("message"));
+				jTemp.put("enttime", rs.getString("enttime"));
+				jArray.put(jTemp);
+			}
+
+		} catch (ClassNotFoundException | SQLException | JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return jArray;
+	}
 
 }
