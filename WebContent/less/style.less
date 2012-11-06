@@ -285,7 +285,29 @@
 	
 	.feeds-list {
 		position: relative;
-		margin-top: 20px;
+		margin-top: 20px;	
+	}
+	
+	.feeds-more {
+		display: block;
+		position: relative;
+		margin: auto;
+		margin-bottom: 5px;
+		width: 570px;
+		height: 60px;
+		background: darken(@soft_white, 3%);
+		color: lighten(@footer_bg_color, 30%);
+		font-size: 12px;
+		text-align: center;
+		line-height: 60px;
+		.border-radius(4px);
+		.transition();
+		
+		&:hover {
+			cursor: pointer;
+			background: darken(@soft_white, 1%);
+			.transition();
+		}
 	}
 }
 
@@ -351,14 +373,25 @@
 			
 			.message {
 				display: block;
-				width: 230px;
+				max-width: 230px;
 				margin-bottom: 10px;
-				padding: 5px;
+				padding: 2px 5px 2px 5px;
 				box-sizing: border-box;
-				border: 1px solid darken(@soft_white, 10%);
 				.border-radius(3px);
 				.box-shadow(0px, 1px, 2px, rgba(0,0,0,.5));
-				.simple-linear-gradient(@soft_white, darken(@soft_white, 5%));
+				
+				.sender {
+					display: block;
+					margin: auto;
+					padding: 0px;
+					width: auto;
+					font-size: 12px;
+					font-weight: bold;
+				}
+				
+				.timestamp {
+					font-size: 10px;
+				}
 				
 				p {
 					font-size: 12px;
@@ -370,15 +403,33 @@
 				margin-right: 5px;
 				border: 1px solid darken(@soft_blue, 5%);
 				.simple-linear-gradient(lighten(@soft_blue, 10%), @soft_blue);
+								
+				.sender {
+					color: darken(@soft_blue, 50%);
+				}
 				
-				&:after {
-					content: "";
-					height: 4px;
-					width: 4px;
-					.simple-linear-gradient(lighten(@soft_blue, 10%), @soft_blue);
+				.timestamp {
+					float: left;
+					margin-top: -20px;
+					color: darken(@soft_blue, 50%);
 				}
 			}
 			
+			.pull-left {
+				margin-left: 5px;
+				border: 1px solid darken(@soft_white, 10%);
+				.simple-linear-gradient(@soft_white, darken(@soft_white, 5%));
+				
+				.sender {
+					color: darken(@soft_white, 60%);
+				}
+				
+				.timestamp {
+					float: right;
+					margin-top: -20px;
+					color: darken(@soft_white, 60%);
+				}
+			}
 		}
 		
 		.message-editor {
@@ -724,6 +775,15 @@ textarea.txt-flat {
 			}
 		}
 		
+		.feed-timestamp {
+			display: block;
+			float: right;
+			margin-top: -35px;
+			margin-right: 25px;
+			padding: 4px;
+			font-size: 12px;
+		}
+		
 		.feed-card-menu {
 			display: block;
 			float: right;
@@ -779,9 +839,9 @@ textarea.txt-flat {
 				
 				li {
 					position: relative;
-					padding: 0 0 10px 50px;
 					margin-bottom: 5px;
 					min-height: 30px;
+					padding: 0 0 10px 50px;
 					font-size: 12px;
 					line-height: 14px;
 					.border-radius(3px);
@@ -789,11 +849,30 @@ textarea.txt-flat {
 					&:nth-of-type(odd) {
 						background: darken(@soft_white, 10%);
 					}
-															
-					img {
+																				
+					.comment-user-img {
+						position: absolute;
+						top: 3px;
+						left: 3px;
+						width: 30px;
+						height: 30px;
+					}
+					
+					.comment-user {
 						position: absolute;
 						top: 0;
-						left: 0;
+						left: 40px;
+						font-size: 10px;
+						font-weight: bold;
+						color: lighten(@footer_bg_color, 20%);
+					}
+					
+					.comment-timestamp {
+						position: absolute;
+						top: 0;
+						right: 15px;
+						text-align: right;
+						font-size: 10px;
 					}
 					
 					.comment-action {
@@ -806,7 +885,7 @@ textarea.txt-flat {
 							background: darken(@soft_white, 25%);
 							.border-radius(2px);
 						}
-					}
+					}					
 				}
 			}
 			
@@ -980,7 +1059,8 @@ textarea.txt-flat {
 }
 
 .modal {
-	.box-shadow(0px, 0px, 20px, rgba(0, 0, 0, 0.3));
+	outline: none;
+	.box-shadow(0px, 0px, 30px, rgba(0, 0, 0, 0.8));
 	
 	button.btn-flat {
 		display: inline-block;
@@ -988,4 +1068,8 @@ textarea.txt-flat {
 		height: auto;
 		.border-radius(4px);
 	}
+}
+
+.modal-backdrop {
+	background: @soft_white;
 }

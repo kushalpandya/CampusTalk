@@ -25,6 +25,7 @@ import javax.servlet.http.HttpSession;
 		}
 					, urlPatterns = { "/index.html","/" })
 public class HomeFilter implements Filter {
+	@SuppressWarnings("unused")
 	private FilterConfig config;
     /**
      * Default constructor. 

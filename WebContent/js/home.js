@@ -84,15 +84,12 @@ function getNewPost(resetFlag) {
 					$("#feeds-list").append(html);
 				if (data.posts.length > 0)
 					skipRow += data.posts.length;
-				$('.feed-content p').emoticonize({
-					// delay: 800,
-					animate : true,
-				// exclude: 'pre, code, .no-emoticons'
-				});
+				$('.feed-content p, .feed-comments-block .feed-comments li .comment-body').emoticonize({animate : true});
 				$(".txt-comment").keyup(function(event) {
-					if (event.which == 13) {
+					if (event.keyCode == 13) {
 						event.preventDefault();
-						commentOnPost(this);
+						if(!event.shiftKey)
+							commentOnPost(this);
 					}
 				});
 				afterLoadPost();
@@ -120,11 +117,8 @@ function getNewPost(resetFlag) {
 }
 getNewPost();
 
-$(".feeds-block").scroll(function() {
-
-	if ($(this).scrollTop() == $(this).height() - $(window).height()) {
-		getNewPost();
-	}
+$(".feeds-more").on("click", function() {
+	getNewPost();
 });
 function commentOnPost(txtComment) {
 	var commentdata = $.trim($(txtComment).val());

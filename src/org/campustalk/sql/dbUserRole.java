@@ -4,7 +4,6 @@ import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.campustalk.entity.CampusTalkRoles;
 import org.campustalk.entity.CampusTalkUserRoles;
 
 public class dbUserRole extends DatabaseManager {
