@@ -399,6 +399,7 @@
 			}
 			
 			.pull-right {
+				clear: right;
 				text-align: right;
 				margin-right: 5px;
 				border: 1px solid darken(@soft_blue, 5%);
@@ -416,6 +417,7 @@
 			}
 			
 			.pull-left {
+				clear: left;
 				margin-left: 5px;
 				border: 1px solid darken(@soft_white, 10%);
 				.simple-linear-gradient(@soft_white, darken(@soft_white, 5%));
@@ -467,6 +469,15 @@
 					float: right;
 				}
 			}
+		}
+	}
+}
+
+#dlgAccountSettings {
+	.modal-drawer {
+		form {
+			margin: auto;
+			margin-left: 100px;
 		}
 	}
 }
