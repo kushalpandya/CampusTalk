@@ -14,11 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.campustalk.Settings;
-import org.campustalk.entity.CampusTalkBranch;
 import org.campustalk.entity.CampusTalkUserRoles;
 import org.campustalk.entity.CampusTalkUsers;
 import org.campustalk.sql.dbBranch;
-import org.campustalk.sql.dbRoles;
 import org.campustalk.sql.dbUser;
 import org.campustalk.sql.dbUserRole;
 import org.json.JSONException;
