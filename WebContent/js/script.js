@@ -47,6 +47,18 @@ $(".account-tray #showMessages").on("click", function(e) {
 	$("#dlgMessages").modal();
 });
 
+$(".account-tray #btnSettings").on("click", function(e) {
+	$("#dlgAccountSettings").modal();
+	$("input[name='txtBirthDate']").datepicker({
+		format: "mm-dd-yyyy",
+		weekStart: 1
+	});
+});
+
+$("input[name='txtBirthDate']").on("click", function(e) {
+	$(this).datepicker("show");
+});
+
 /** ******************** controlpanel.html script ********************** */
 
 $("#ViewGroup").on("shown", function(e) {
@@ -117,11 +129,21 @@ $("#btnNewMessage").on("click", function(e) {
 	modal.find(".modal-drawer").slideDown(250);
 });
 
+$("form button[name='btnChangePassword']").on("click", function(e) {
+	var modal = $(this).parents().eq(4);
+	modal.find(".modal-disable-overlay").css("height",modal.find(".modal-body").height()).show();
+	modal.find(".modal-drawer").slideDown(250);
+});
+
 $("#btnCancelNewMessage").on("click", function(e) {
-	console.log("cancelled");
 	var modal = $(this).parents().eq(3);
 	modal.find(".modal-disable-overlay").hide();
 	modal.find(".modal-drawer").slideUp(250);
+});
+
+$("#btnCancelChangePass").on("click", function(e) {
+	$("#dlgAccountSettings .modal-disable-overlay").hide();
+	$("#dlgAccountSettings .modal-drawer").slideUp(250);
 });
 
 $("#btnCancelEdit, #btnCancelAdd").on("click", function(e) {
