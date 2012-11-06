@@ -198,7 +198,7 @@ CREATE TABLE `messagedetails` (
   `enttime` datetime NOT NULL,
   PRIMARY KEY (`messageid`),
   KEY `userid_idx` (`userid`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -207,7 +207,7 @@ CREATE TABLE `messagedetails` (
 
 LOCK TABLES `messagedetails` WRITE;
 /*!40000 ALTER TABLE `messagedetails` DISABLE KEYS */;
-INSERT INTO `messagedetails` VALUES (8,1,'Test messages','V','2012-11-06 04:01:53'),(9,1,'Test messages :D :D ','V','2012-11-06 04:02:35'),(10,1,'Test setting :-)','V','2012-11-06 05:30:58'),(11,1,'New Test setting','V','2012-11-06 05:31:54'),(12,1,'Hey Hey hey :D :D :D','V','2012-11-06 05:33:47'),(13,1,'Hey Whats up :)','V','2012-11-06 05:37:35'),(14,1,'Yo yo','V','2012-11-06 17:06:39');
+INSERT INTO `messagedetails` VALUES (8,1,'Test messages','V','2012-11-06 04:01:53'),(9,1,'Test messages :D :D ','V','2012-11-06 04:02:35'),(10,1,'Test setting :-)','V','2012-11-06 05:30:58'),(11,1,'New Test setting','V','2012-11-06 05:31:54'),(12,1,'Hey Hey hey :D :D :D','V','2012-11-06 05:33:47'),(13,1,'Hey Whats up :)','V','2012-11-06 05:37:35'),(14,1,'Yo yo','V','2012-11-06 17:06:39'),(15,2,'Test Message SAM :-)','V','2012-11-06 19:05:19');
 /*!40000 ALTER TABLE `messagedetails` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -234,7 +234,7 @@ CREATE TABLE `messages` (
 
 LOCK TABLES `messages` WRITE;
 /*!40000 ALTER TABLE `messages` DISABLE KEYS */;
-INSERT INTO `messages` VALUES (1,8,'N'),(2,8,'N'),(3,8,'N'),(4,8,'N'),(5,8,'N'),(9,1,'N'),(9,2,'N'),(9,3,'N'),(9,4,'N'),(9,5,'N'),(10,1,'N'),(11,12,'N'),(12,1,'N'),(12,2,'N'),(13,2,'R'),(14,1,'N');
+INSERT INTO `messages` VALUES (1,8,'N'),(2,8,'N'),(3,8,'N'),(4,8,'N'),(5,8,'N'),(9,1,'N'),(9,2,'N'),(9,3,'N'),(9,4,'N'),(9,5,'N'),(10,1,'N'),(11,12,'N'),(12,1,'N'),(12,2,'N'),(13,2,'R'),(14,1,'N'),(15,1,'N');
 /*!40000 ALTER TABLE `messages` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -846,6 +846,25 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `getAllMessageForUser` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `getAllMessageForUser`(in fromUser int, in toUser int )
+BEGIN
+	select md.messageid,md.message,md.userid,md.enttime,u.firstname from messagedetails md left outer join messages m on m.messageid=md.messageid join users u on md.userid=u.id where (m.touserid=fromUser and md.userid=toUser) or(m.touserid=toUser and md.userid=fromUser) order by md.enttime ;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `getAllMessageUsersList` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -1270,4 +1289,4 @@ ALTER DATABASE `campustalk` CHARACTER SET utf8 COLLATE utf8_general_ci ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-11-06 17:26:48
+-- Dump completed on 2012-11-06 19:16:37
