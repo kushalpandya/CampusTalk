@@ -6,6 +6,9 @@ import java.sql.SQLException;
 import java.sql.Types;
 
 import org.campustalk.entity.CampusTalkUsers;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 public class dbUser extends DatabaseManager {
@@ -127,4 +130,61 @@ public class dbUser extends DatabaseManager {
 		csSql.close();
 		return rtnFlag;
 	}
+	public JSONArray serchUserMsgAC(String query){
+		JSONArray jArray = new JSONArray();
+		try {
+			this.open();
+	
+		CallableStatement csSql = CON.prepareCall("{call SearchUserMsgAC(?)}");
+		csSql.setString(1, query);
+		ResultSet rs = csSql.executeQuery();
+		JSONObject jObj ;
+		
+		while (rs.next()) {
+			jObj= new JSONObject();
+			objUser = new CampusTalkUsers();
+			//jObj.put("id",rs.getInt("id"));
+			jObj.put("value",rs.getString("email"));
+			//jObj.put("firstname",rs.getString("firstname"));
+			//jObj.put("lastname",rs.getString("lastname"));
+		//	jObj.put("pictureurl",rs.getString("pictureurl"));
+			jArray.put(jObj);
+		} 
+		csSql.close();
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return jArray;
+	}
+	public String getUserIdListFromEmailList(String emailList){
+		
+		String rtnStr = "";
+		String sep ="";
+		
+		try {
+			this.open();
+	
+		CallableStatement csSql = CON.prepareCall("{call getUserIdListFromEmailList(?)}");
+		csSql.setString(1, emailList);
+		ResultSet rs = csSql.executeQuery();
+		
+		
+		while (rs.next()) {
+			rtnStr += sep +  rs.getString(1);
+			sep=",";
+					
+		} 
+		csSql.close();
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		return rtnStr;
+		
+	}
+	
 }
