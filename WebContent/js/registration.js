@@ -171,7 +171,7 @@ function successfullLogin() {
 
 function doAutoLogin() {
 	$("#txtLoginEmail").val(getCookie("CampusTalkEmail"));
-	$.post("User/Login", {
+	$.post("Login", {
 		type : "sessionlogin"
 	}, function(data) {
 		if (data.status === "success") {
