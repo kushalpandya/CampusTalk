@@ -198,7 +198,7 @@ CREATE TABLE `messagedetails` (
   `enttime` datetime NOT NULL,
   PRIMARY KEY (`messageid`),
   KEY `userid_idx` (`userid`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -207,7 +207,7 @@ CREATE TABLE `messagedetails` (
 
 LOCK TABLES `messagedetails` WRITE;
 /*!40000 ALTER TABLE `messagedetails` DISABLE KEYS */;
-INSERT INTO `messagedetails` VALUES (8,1,'Test messages','V','2012-11-06 04:01:53'),(9,1,'Test messages :D :D ','V','2012-11-06 04:02:35'),(10,1,'Test setting :-)','V','2012-11-06 05:30:58'),(11,1,'New Test setting','V','2012-11-06 05:31:54'),(12,1,'Hey Hey hey :D :D :D','V','2012-11-06 05:33:47'),(13,1,'Hey Whats up :)','V','2012-11-06 05:37:35'),(14,1,'Yo yo','V','2012-11-06 17:06:39'),(15,2,'Test Message SAM :-)','V','2012-11-06 19:05:19');
+INSERT INTO `messagedetails` VALUES (17,2,'Hey !!','V','2012-11-07 11:29:22'),(18,1,'Hi Faishal\nWhats up :)','V','2012-11-07 11:31:21'),(19,2,'Nothing much dude .. :)\ntp .. u say \nwhats going on ?','V','2012-11-07 11:47:13'),(20,2,'Nothing much dude .. :)\ntp .. u say \nwhats going on ?','V','2012-11-07 11:47:15'),(21,1,'Nothing much .. Sen project','V','2012-11-07 11:53:28'),(22,2,'Ohk .. :D','V','2012-11-07 11:54:21');
 /*!40000 ALTER TABLE `messagedetails` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -234,7 +234,7 @@ CREATE TABLE `messages` (
 
 LOCK TABLES `messages` WRITE;
 /*!40000 ALTER TABLE `messages` DISABLE KEYS */;
-INSERT INTO `messages` VALUES (1,8,'N'),(2,8,'N'),(3,8,'N'),(4,8,'N'),(5,8,'N'),(9,1,'N'),(9,2,'N'),(9,3,'N'),(9,4,'N'),(9,5,'N'),(10,1,'N'),(11,12,'N'),(12,1,'N'),(12,2,'N'),(13,2,'R'),(14,1,'N'),(15,1,'N');
+INSERT INTO `messages` VALUES (17,1,'R'),(18,2,'R'),(19,1,'R'),(20,1,'R'),(21,2,'R'),(22,1,'N');
 /*!40000 ALTER TABLE `messages` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -255,7 +255,7 @@ CREATE TABLE `posts` (
   `lastmodifytime` datetime DEFAULT NULL,
   PRIMARY KEY (`postid`),
   KEY `puserid_idx` (`userid`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -264,7 +264,7 @@ CREATE TABLE `posts` (
 
 LOCK TABLES `posts` WRITE;
 /*!40000 ALTER TABLE `posts` DISABLE KEYS */;
-INSERT INTO `posts` VALUES (1,1,'First Post... :-)','P','A','2012-11-03 01:22:16','2012-11-03 19:36:23'),(2,1,'Second Post :-)','A','A','2012-11-03 01:29:00','2012-11-05 04:58:33'),(3,1,':-D','A','A','2012-11-03 01:29:43','2012-11-04 06:05:26'),(4,1,'New pOst','P','A','2012-11-04 04:21:20','2012-11-04 23:25:47'),(5,2,'My Post :-)','P','A','2012-11-04 07:07:42','2012-11-05 04:58:17'),(6,1,'Test Post :D','A','A','2012-11-04 22:02:29','2012-11-04 22:02:29'),(7,1,'again Test Post','A','A','2012-11-04 22:03:02','2012-11-04 23:29:03'),(8,1,'again Test Post :-)','P','A','2012-11-04 22:03:15','2012-11-04 22:03:15'),(9,1,'yo yo Honey Singh :-)','A','A','2012-11-04 22:05:56','2012-11-04 22:05:56');
+INSERT INTO `posts` VALUES (1,1,'First Post... :-)','P','A','2012-11-03 01:22:16','2012-11-03 19:36:23'),(2,1,'Second Post :-)','A','A','2012-11-03 01:29:00','2012-11-05 04:58:33'),(3,1,':-D','A','A','2012-11-03 01:29:43','2012-11-04 06:05:26'),(4,1,'New pOst','P','A','2012-11-04 04:21:20','2012-11-04 23:25:47'),(5,2,'My Post :-)','P','A','2012-11-04 07:07:42','2012-11-05 04:58:17'),(6,1,'Test Post :D','A','A','2012-11-04 22:02:29','2012-11-04 22:02:29'),(7,1,'again Test Post','A','A','2012-11-04 22:03:02','2012-11-04 23:29:03'),(8,1,'again Test Post :-)','P','A','2012-11-04 22:03:15','2012-11-04 22:03:15'),(9,1,'yo yo Honey Singh :-)','A','A','2012-11-04 22:05:56','2012-11-04 22:05:56'),(10,1,'Whats Up Private Post :D','P','A','2012-11-06 20:06:54','2012-11-06 20:06:54'),(11,2,'New Post :)','A','A','2012-11-06 20:07:39','2012-11-06 20:07:39'),(12,2,'Welcome Post','A','A','2012-11-06 20:08:06','2012-11-06 20:08:06'),(13,2,'Yo yo Honey Singh Post\n\n\n\n\nOk :)','A','A','2012-11-06 20:08:24','2012-11-06 20:08:24'),(14,2,'MTV Unpluged','A','A','2012-11-06 20:08:36','2012-11-06 20:08:36');
 /*!40000 ALTER TABLE `posts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -711,6 +711,26 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP FUNCTION IF EXISTS `unreadUserAllMessages` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 FUNCTION `unreadUserAllMessages`(fromUser int, toUser int) RETURNS int(11)
+BEGIN
+	update messages set status='R' where touserid=toUser  and messageid in (select md.messageid from messagedetails md where md.userid=fromUser );
+	RETURN 1;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP FUNCTION IF EXISTS `UserGetAuthDate` */;
 ALTER DATABASE `campustalk` CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -858,7 +878,9 @@ DELIMITER ;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `getAllMessageForUser`(in fromUser int, in toUser int )
 BEGIN
+	Declare rCount int;
 	select md.messageid,md.message,md.userid,md.enttime,u.firstname from messagedetails md left outer join messages m on m.messageid=md.messageid join users u on md.userid=u.id where (m.touserid=fromUser and md.userid=toUser) or(m.touserid=toUser and md.userid=fromUser) order by md.enttime ;
+	set rCount=unreadUserAllMessages(toUser,fromUser);
 END */;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -878,11 +900,25 @@ DELIMITER ;;
 /*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `getAllMessageUsersList`(in muserid INT)
 BEGIN
 select 
-    count(m.messageid) as totmsg,
+    count(m.messageid) as tCount,
     u.firstname,
     u.lastname,
     u.pictureurl,
-    u.id,
+	u.email,
+    u.id,(select 
+            count(sm.messageid)
+        from
+            
+			messagedetails smd
+            left outer join
+			messages sm
+             ON sm.messageid = smd.messageid
+        where
+			sm.status <> 'D' and
+            ((sm.touserid = muserid AND smd.userid = u.id) 
+			or 
+				(sm.touserid = u.id AND smd.userid = muserid)
+                )) as totMsg,
     (select 
             count(sm.messageid)
         from
@@ -1289,4 +1325,4 @@ ALTER DATABASE `campustalk` CHARACTER SET utf8 COLLATE utf8_general_ci ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-11-06 19:16:37
+-- Dump completed on 2012-11-07 12:18:13
