@@ -35,7 +35,11 @@ Handlebars.registerHelper('notAlreadyAddedMessage', function(messageid, block) {
 		return block.fn(this);
 });
 Handlebars.registerHelper('getDateTime', function(enttime) {
-	return moment(enttime, "YYYY-MM-DD hh:mm:ss").calendar()
+	var rtnDate = moment(enttime, "YYYY-MM-DD hh:mm:ss").fromNow();
+	if(rtnDate.indexOf("days") < 0)
+		return rtnDate;
+	else
+		return moment(enttime, "YYYY-MM-DD hh:mm:ss").calendar();
 });
 
 $("#btnPost").click(function() {
