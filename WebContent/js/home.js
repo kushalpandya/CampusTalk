@@ -113,6 +113,7 @@ function getNewPost(resetFlag) {
 				var template = Handlebars.compile(source);
 				var html = template(data);
 				$("#feeds-list").append(html);
+				$(".feeds-block").height($(window).height() * 80/100);
 				if (data.posts.length > 0)
 					skipRow += data.posts.length;
 				$('.feed-content p, .feed-comments-block .feed-comments li .comment-body').emoticonize({animate : true});
