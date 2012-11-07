@@ -12,7 +12,7 @@
 
 body {
 	background: repeat url("../assets/background.png");
-	overflow-x: hidden;
+	overflow: hidden;
 }
 
 body:before {
