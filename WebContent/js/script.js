@@ -1,5 +1,6 @@
 var POSTBOX_BOTTOM_MARGIN = 20;
 var LOADER_OVERLAY = $("<div class='loading-overlay'><i class='loader-icon'></i></div>");
+var ERROR_OVERLAY = $("<div class='error-overlay'><div class='error-box'><span>&#9888;</span><label><label></div></div>");
 
 /** ******************** Initializers ********************** */
 
@@ -169,10 +170,21 @@ $("a[href='#EditUser']").on(
 
 /** ******************** General methods ********************** */
 
-//
+//Loading Animation Overlay
 function loadingOverlay(toggle) {
 	toggle ? $("body").append(LOADER_OVERLAY) : $("body").find(
 			".loading-overlay").remove();
+}
+
+//Error Message Overlay
+function errorOverlay(toggle, message) {
+	if(toggle)
+	{
+		$("body").append(ERROR_OVERLAY);
+		$("body .error-overlay .error-box label").text(message);
+	}
+	else
+		$("body").find(".error-overlay").remove();
 }
 
 // Model Windows Show Function
