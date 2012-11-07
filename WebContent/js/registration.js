@@ -1,3 +1,5 @@
+var LOGIN_STATUS = $("span.login-status");
+
 // LinkedIn registration
 $('.btn-linkedin').click(function() {
 	IN.User.authorize();
@@ -31,7 +33,7 @@ $('.btn-facebook').click(function(){
 			});
 		} else {
 		// User close auth window
-			showPopup('<p>User cancelled login or did not fully authorize.</p>')
+			errorOverlay(true, 'User cancelled login or did not fully authorize his account.');
 		}
 	},{
 		scope : 'email'
@@ -88,19 +90,17 @@ $('#frmRegistration').submit(function(e) {
 		success : function(data) {
 			if (data.status === 'success') {
 				// Success
-				showPopup(data.message);
+				successOverlay(true, data.message);
 				hideEmailDiv();
 			} else {
 				// Failed
-				showPopup(data.message);
-				
+				errorOverlay(true, data.message);
 			}
 		},
 		error : function() {
-			showPopup('Some Error Occured, Please Refresh page');
+			errorOverlay(true, 'Oops! something went wrong. Please refresh the page');
 		}
 	});
-
 });
 function getParameterByName(name) {
 	name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
@@ -114,7 +114,7 @@ function getParameterByName(name) {
 }
 if (getParameterByName("q") != "" && getParameterByName("e") != "") {
 	$.ajax({
-		url : 'User/Registaration/Verify',
+		url : 'User/Registeration/Verify',
 		type : 'post',
 		data : {
 			"q" : getParameterByName("q"),
@@ -123,15 +123,14 @@ if (getParameterByName("q") != "" && getParameterByName("e") != "") {
 		success : function(data) {
 			if (data.status === 'success') {
 				// Success
-				showPopup(data.message);
+				successOverlay(true, data.message);
 			} else {
 				// Failed
-				showPopup(data.message);
-
+				errorOverlay(true, data.message);
 			}
 		},
 		error : function() {
-			showPopup('Some Error Occured, Please Refresh page');
+			errorOverlay(true,'Oops! something went wrong. Please refresh the page');
 		}
 	});
 }
@@ -156,15 +155,14 @@ $('#frmLogin').submit(function(e) {
 				successfullLogin();
 			} else {
 				// Failed
-				showPopup(data.message);
+				LOGIN_STATUS.text(data.message).show();
 			}
 		},
 		error : function() {
-			showPopup('Some Error Occured, Please Refresh page');
+			LOGIN_STATUS.text('Oops! something went wrong while logging you in. Try again.').show();
 		}
 	});
-
-})
+});
 
 function successfullLogin() {
 	window.location = "home.jsp";
@@ -172,7 +170,6 @@ function successfullLogin() {
 
 
 function doAutoLogin() {
-
 	$("#txtLoginEmail").val(getCookie("CampusTalkEmail"));
 	$.post("User/Login", {
 		type : "sessionlogin"
@@ -181,6 +178,5 @@ function doAutoLogin() {
 			successfullLogin();
 		}
 	});
-
 }
 doAutoLogin();
