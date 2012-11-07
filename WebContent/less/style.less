@@ -312,14 +312,16 @@
 }
 
 #dlgMessages {
+	width: 600px;
 	.modal-body {
 		padding: 0;
 		padding-top: 3px;
+		background: @soft_white;
+		
 		.recipient-list {
 			height: 300px;
 			max-height: 300px;
-			float: left;
-			background: @soft_white;				
+			float: left;				
 			list-style-type: none;
 			padding: 5px 0 5px 0;
 			margin-left: 0;
@@ -328,19 +330,37 @@
 			overflow-x: hidden;
 			
 			li {
-				a {
+				.message-recipient {
 					display: block;
-					width: 150px;
-					padding-top: 10px;
-					padding-bottom: 10px;
-					padding-left: 10px;
-					color: @footer_bg_color;
+					width: 185px;
+					height: 50px;
 					.transition();
 					
 					&:hover {
 						text-decoration: none;
 						background: darken(@soft_white, 20%);
 						.transition();
+					}
+					
+					.recipient-img {
+						float: left;
+						height: 42px;
+						width: 42px;
+						margin-top: 4px;
+						margin-left: 4px;
+					}
+					
+					.recipient-title {
+						color: @footer_bg_color;
+						font-size: 12px;
+						margin-top: 3px;
+						margin-left: 5px;
+					}
+					
+					.recipient-mail {
+						color: lighten(@footer_bg_color, 20%);
+						font-size: 10px;
+						margin-left: 5px;
 					}
 				}
 				
@@ -353,7 +373,7 @@
 					 }
 				}
 				
-				.unread {
+				a.unread {
 					color: darken(@soft_blue, 50%);
 					background: lighten(@soft_blue, 10%);
 					font-weight: bold;
@@ -364,11 +384,12 @@
 		.message-thread {
 			display: block;
 			float: right;
-			width: 390px;
+			width: 400px;
 			height: 245px;
 			padding: 5px 5px 10px 5px;
 			overflow-x: hidden;
 			overflow-y: auto;
+			background: white;
 			.box-shadow-inset(0px, 0px, 6px, gray);
 			
 			.message {
@@ -438,11 +459,11 @@
 		.message-editor {
 			float: right;
 			textarea {
-				width: 374px;
+				width: 385px;
 				margin: auto;
 				margin-top: 5px;
 				margin-right: 5px;
-				margin-bottom: 0;
+				margin-bottom: 5px;
 				resize: none;
 				.border-radius(0);
 			}
