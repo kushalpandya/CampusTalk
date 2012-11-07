@@ -271,7 +271,7 @@
 						<div class="feed-user-bar">
 							<a href="#"><img src="{{pictureurl}}" class="feed-user-img" /></a>
 							<span class="feed-user-title"><a href="{{getuserurl id}}">{{firstname}} {{lastname}}</a></span>
-							<span class="feed-timestamp muted">Monday, 5 November 2012 at 23:32</span>
+							<span class="feed-timestamp muted">{{getDateTime entTime}}</span>
 							<div class="dropdown drp-flat feed-card-menu">
 								<a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon-tasks"></i></a>
 								<ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu">
@@ -302,7 +302,7 @@
 		<script type="text/x-handlebars-template" id='tmpltCommentList'>
 		{{#each comments}}
 			{{#notAlreadyAddedComment commentid}}
-				<li><img src="{{pictureurl}}" class="comment-user-img"/><br/>{{detail}}<span class="comment-user">{{firstname}} {{lastname}}</span><span class="comment-timestamp muted">Monday, 5 November 2012 at 23:32</span><a class="comment-action" href="#"><i class="icon-remove" title="Delete"></i></a></li>
+				<li><img src="{{pictureurl}}" class="comment-user-img"/><br/>{{detail}}<span class="comment-user">{{firstname}} {{lastname}}</span><span class="comment-timestamp muted">{{getDateTime entTime}}</span><a class="comment-action" href="#"><i class="icon-remove" title="Delete"></i></a></li>
 			{{/notAlreadyAddedComment}}
 		{{/each}}
 		</script>
