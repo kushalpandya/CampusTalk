@@ -13,8 +13,6 @@ Handlebars.registerHelper('notAlreadyAddedComment', function(commentid, block) {
 	if ($("#liComment" + commentid).length == 0)
 		return block.fn(this);
 });
-// getuserurl
-
 Handlebars.registerHelper('getuserurl', function(userid) {
 	return "javascript::alert('" + userid + "')";
 
@@ -34,8 +32,6 @@ Handlebars.registerHelper('isUnreadMessage', function(rCount) {
 		return "unread";
 	
 });
-
-
 Handlebars.registerHelper('notAlreadyAddedMessage', function(messageid, block) {
 	if ($("#divMessageThread" + messageid).length == 0)
 		return block.fn(this);
@@ -52,7 +48,7 @@ $("#btnPost").click(function() {
 	var postData = $.trim($("#postBox").val());
 	var postType = $("#selectPostType").val();
 	if (postData.length < 3) {
-		showPopup("Min Post length is 3");
+		errorOverlay(true, "Post must have 3 or more characters!");
 		return;
 	}
 
@@ -70,22 +66,21 @@ $("#btnPost").click(function() {
 				$("#postBox").val("");
 			} else {
 				// Failed
-				showPopup(data.message);
+				errorOverlay(true, data.message);
 			}
 		},
 		error : function() {
-			showPopup('Some Error Occured, Please Refresh page');
+			errorOverlay(true, 'Oops! something went wrong. Please refresh the page');
 		}
 	});
 });
 var skipRow = 0;
 function getNewPost(resetFlag) {
-
-	
 	
 	if (resetFlag == undefined) {
 		resetFlag = false;
 	}
+	
 	if(resetFlag){
 		skipRow=0;
 		$("#feeds-list").html("");
@@ -132,11 +127,11 @@ function getNewPost(resetFlag) {
 
 			} else {
 				// Failed
-				showPopup(data.message);
+				errorOverlay(true, data.message);
 			}
 		},
 		error : function() {
-			showPopup('Some Error Occured, Please Refresh page');
+			errorOverlay(true, 'Oops! something went wrong. Please refresh the page');
 		}
 	});
 }
@@ -145,10 +140,11 @@ getNewPost();
 $(".feeds-more").on("click", function() {
 	getNewPost();
 });
+
 function commentOnPost(txtComment) {
 	var commentdata = $.trim($(txtComment).val());
 	if (commentdata.length < 3) {
-		showPopup("Min Comment length is 3");
+		alert("Comment must have at least 2 or more characters!");
 		return;
 	}
 	$.ajax({
@@ -166,11 +162,11 @@ function commentOnPost(txtComment) {
 				
 			} else {
 				// Failed
-				showPopup(data.message);
+				errorOverlay(true, data.message);
 			}
 		},
 		error : function() {
-			showPopup('Some Error Occured, Please Refresh page');
+			errorOverlay(true, 'Oops! something went wrong. Please refresh the page');
 		}
 	});
 }
@@ -208,11 +204,11 @@ function loadCommentForPost(post,resetFlag) {
 
 					} else {
 						// Failed
-						showPopup(data.message);
+						errorOverlay(true, data.message);
 					}
 				},
 				error : function() {
-					showPopup('Some Error Occured, Please Refresh page');
+					errorOverlay(true, 'Oops! something went wrong. Please refresh the page');
 				}
 			});
 
@@ -231,13 +227,12 @@ $("#btnSendNewMessage").click(function(e){
 	toEmails= $("#txtEmailNewMsg").val();
 	msgDetail= $("#txtNewMsgDetail").val();
 	if(msgDetail.length < 2){
-		showPopup("Min Message length is 2");
+		alert("Message must have at least 2 or more characters!");
 		return;
 	}
 	sendNewMessage(toEmails,msgDetail,"bulk");
-	
-
 });
+
 function sendNewMessage(toUsers,msgDetail,type,objTxt){
 	$.ajax({
 		url : 'Message/New',
@@ -249,13 +244,12 @@ function sendNewMessage(toUsers,msgDetail,type,objTxt){
 		success : function(data) {
 			if (data.status === 'success') {
 				// Success
-				//showPopup(data.message);
 				if(type === "bulk"){
 					$("#btnCancelNewMessage").click();
 				} 
 			} else {
 				// Failed
-				showPopup(data.message);
+				errorOverlay(true, data.message);
 				if(type === "bulk"){
 					$("#btnCancelNewMessage").click();
 				} else {
@@ -264,7 +258,7 @@ function sendNewMessage(toUsers,msgDetail,type,objTxt){
 			}
 		},
 		error : function() {
-			showPopup('Some Error Occured, Please Refresh page');
+			errorOverlay(true, 'Oops! something went wrong. Please refresh the page');
 			if(type === "bulk"){
 				$("#btnCancelNewMessage").click();
 			} else {
@@ -274,6 +268,7 @@ function sendNewMessage(toUsers,msgDetail,type,objTxt){
 	});
 	
 }
+
 var lastUserEmail;
 $(".account-tray #showMessages").on("click", function(e) {
 	e.preventDefault();
@@ -309,33 +304,34 @@ $(".account-tray #showMessages").on("click", function(e) {
 								$("#divMessageThread").emoticonize({animate : true});
 							} else {
 								// Failed
-								showPopup(data.message);
+								errorOverlay(true, data.message);
 							}
 						},
 						error : function() {
-							showPopup('Some Error Occured, Please Refresh page');
+							errorOverlay(true, 'Oops! something went wrong. Please refresh the page');
 						}
 					});
-				})
+				});
 				$("#dlgMessages").modal();
 			} else {
 				// Failed
-				showPopup(data.message);
+				errorOverlay(true, data.message);
 			}
 		},
 		error : function() {
-			showPopup('Some Error Occured, Please Refresh page');
+			errorOverlay(true, 'Oops! something went wrong. Please refresh the page');
 		}
 	});
 	
 });
+
 $("#txtAreaThreadNewMsg").keyup(function(e){
 	if (event.keyCode == 13 && !event.shiftKey) {
 		event.preventDefault();
 		var msgDetail= $(this).val();
 		$(this).val("");
 		if(msgDetail.length < 2){
-			showPopup("Min Message length is 2");
+			alert("Message must have at least 2 or more characters!");
 			$(this).val(msgDetail);
 			return;
 		}
