@@ -154,7 +154,7 @@
 					</div>
 				</div>
 				<div class="message-editor">
-					<textarea placeholder="Write a reply... (press Enter to send message)"></textarea>
+					<textarea placeholder="Write a reply... (press Enter to send message)" id="txtAreaThreadNewMsg"></textarea>
 					<!-- <label class="checkbox">
 						Press Enter to Send <input type="checkbox" name="chkEnterSend" />
 					</label> -->
@@ -308,7 +308,7 @@
 		</script>
 		<script type="text/x-handlebars-template" id='tmpltRecipientList'>
 			{{#each userlist}}
-				<li class="MessageUserList" data-userid="{{userid}}" ><a href="#" >{{firstname}} {{lastname}} ({{unreadmsg}}/{{totmsg}}) </a>
+				<li class="MessageUserList {{isUnreadMessage unreadmsg}}" data-userid="{{userid}}" data-email="{{email}}" ><a href="#" >{{firstname}} {{lastname}} ({{unreadmsg}}/{{totmsg}}) </a>
 			{{/each}}	
 		</script>
 		<script type="text/x-handlebars-template" id='tmpltMessageThread'>
