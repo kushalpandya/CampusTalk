@@ -1,6 +1,11 @@
+/** ******************** Globals ********************** */
+
 var POSTBOX_BOTTOM_MARGIN = 20;
+
+/** ******************** Builders ********************** */
 var LOADER_OVERLAY = $("<div class='loading-overlay'><i class='loader-icon'></i></div>");
-var ERROR_OVERLAY = $("<div class='error-overlay'><div class='error-box'><span>&#9888;</span><label><label></div></div>");
+var ERROR_OVERLAY = $("<div class='error-overlay'><div class='error-box'><div class='error-close'>&times;</div><span>&#9888;</span><label><label></div></div>");
+var SUCCESS_OVERLAY = $("<div class='success-overlay'><div class='success-box'><div class='success-close'>&times;</div><span>&#10004;</span><label><label></div></div>");
 
 /** ******************** Initializers ********************** */
 
@@ -12,6 +17,45 @@ $.ajaxSetup({
 		$("body").find(".loading-overlay").remove();
 	}
 });
+
+/** ******************** Account tray script ********************** */
+
+$(".account-tray #btnLogout").click(function(e) {
+	e.preventDefault();
+	window.location = "Logout";
+});
+
+$(".account-tray #btnSettings").on("click", function(e) {
+	$("#dlgAccountSettings").modal();
+	$("input[name='txtBirthDate']").datepicker({
+		format: "mm-dd-yyyy",
+		weekStart: 1
+	});
+});
+
+$("form button[name='btnChangePassword']").on("click", function(e) {
+	var modal = $(this).parents().eq(4);
+	modal.find(".modal-disable-overlay").css("height",modal.find(".modal-body").height()).show();
+	modal.find(".modal-drawer").slideDown(250);
+});
+
+$("#btnCancelNewMessage").on("click", function(e) {
+	var modal = $(this).parents().eq(3);
+	modal.find(".modal-disable-overlay").hide();
+	modal.find(".modal-drawer").slideUp(250);
+});
+
+$("#btnCancelChangePass").on("click", function(e) {
+	$("#dlgAccountSettings .modal-disable-overlay").hide();
+	$("#dlgAccountSettings .modal-drawer").slideUp(250);
+});
+
+$("#btnNewMessage").on("click", function(e) {
+	var modal = $(this).parents().eq(2);
+	modal.find(".modal-disable-overlay").css("height",modal.find(".modal-body").height()).show();
+	modal.find(".modal-drawer").slideDown(250);
+});
+
 
 /** ******************** home.html script ********************** */
 $("#postBox").on(
@@ -42,15 +86,6 @@ function afterLoadComments() {
 		$(this).find(".comment-action").hide();
 	});
 }
-
-
-$(".account-tray #btnSettings").on("click", function(e) {
-	$("#dlgAccountSettings").modal();
-	$("input[name='txtBirthDate']").datepicker({
-		format: "mm-dd-yyyy",
-		weekStart: 1
-	});
-});
 
 $("input[name='txtBirthDate']").on("click", function(e) {
 	$(this).datepicker("show");
@@ -120,29 +155,6 @@ $("#btnAddGroupMembers").on("click", function(e) {
 	dropform.slideDown(250).find("form.form-add-member").show();
 });
 
-$("#btnNewMessage").on("click", function(e) {
-	var modal = $(this).parents().eq(2);
-	modal.find(".modal-disable-overlay").css("height",modal.find(".modal-body").height()).show();
-	modal.find(".modal-drawer").slideDown(250);
-});
-
-$("form button[name='btnChangePassword']").on("click", function(e) {
-	var modal = $(this).parents().eq(4);
-	modal.find(".modal-disable-overlay").css("height",modal.find(".modal-body").height()).show();
-	modal.find(".modal-drawer").slideDown(250);
-});
-
-$("#btnCancelNewMessage").on("click", function(e) {
-	var modal = $(this).parents().eq(3);
-	modal.find(".modal-disable-overlay").hide();
-	modal.find(".modal-drawer").slideUp(250);
-});
-
-$("#btnCancelChangePass").on("click", function(e) {
-	$("#dlgAccountSettings .modal-disable-overlay").hide();
-	$("#dlgAccountSettings .modal-drawer").slideUp(250);
-});
-
 $("#btnCancelEdit, #btnCancelAdd").on("click", function(e) {
 	$(".modal-disable-overlay").hide();
 	$(".modal-dropform").slideUp(250).find("form").hide();
@@ -172,8 +184,7 @@ $("a[href='#EditUser']").on(
 
 //Loading Animation Overlay
 function loadingOverlay(toggle) {
-	toggle ? $("body").append(LOADER_OVERLAY) : $("body").find(
-			".loading-overlay").remove();
+	toggle ? $("body").append(LOADER_OVERLAY) : $("body").find(".loading-overlay").remove();
 }
 
 //Error Message Overlay
@@ -182,26 +193,34 @@ function errorOverlay(toggle, message) {
 	{
 		$("body").append(ERROR_OVERLAY);
 		$("body .error-overlay .error-box label").text(message);
+		
+		$("body .error-overlay .error-box .error-close").bind("click", function(e) {
+			$("body").find(".error-overlay").remove();
+		});
 	}
 	else
+	{
+		$("body .error-overlay .error-box .error-close").unbind("click");
 		$("body").find(".error-overlay").remove();
+	}
 }
 
-// Model Windows Show Function
-function showPopup(templateHTML) {
-	$('#popupLink').avgrund({
-		width : 380, // max is 640px
-		height : 280, // max is 350px
-		showClose : true, // switch to 'true' for enabling close button
-		showCloseText : 'Close', // type your text for close button
-		closeByEscape : true, // enables closing popup by 'Esc'..
-		closeByDocument : true, // ..and by clicking document itself
-		holderClass : '', // lets you name custom class for popin holder..
-		overlayClass : '', // ..and overlay block
-		enableStackAnimation : false, // another animation type
-		onBlurContainer : '', // enables blur filter for specified block
-		template : templateHTML
-	}).click();
+//Success Message Overlay
+function successOverlay(toggle, message) {
+	if(toggle)
+	{
+		$("body").append(SUCCESS_OVERLAY);
+		$("body .success-overlay .success-box label").text(message);
+		
+		$("body .success-overlay .success-box .success-close").bind("click", function(e) {
+			$("body").find(".success-overlay").remove();
+		});
+	}
+	else
+	{
+		$("body .success-overlay .success-box .success-close").unbind("click");
+		$("body").find(".success-overlay").remove();
+	}
 }
 
 // Get Cookie from Browser
@@ -242,8 +261,3 @@ function getCookie(check_name) {
 		return null;
 	}
 }
-
-$("#btnLogout").click(function(e) {
-	e.preventDefault();
-	window.location = "Logout";
-});
