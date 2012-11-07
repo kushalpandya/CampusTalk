@@ -777,7 +777,7 @@ textarea.txt-flat {
 	}
 }
 
-.error-overlay {
+.error-overlay, .success-overlay {
 	display: block;
 	position: fixed;
 	top: 0;
@@ -787,7 +787,7 @@ textarea.txt-flat {
 	background: rgba(255,255,255,.7);
 	z-index: 4000;
 	
-	.error-box {
+	[class$="-box"] {
 		display: block;
 		position: relative;
 		margin: auto;
@@ -799,6 +799,22 @@ textarea.txt-flat {
 		background: white;
 		.border-radius(8px);
 		.box-shadow(0px,0px,8px,#717171);
+		
+		[class$="-close"] {
+			position: absolute;
+			top: 10px;
+			right: 10px;
+			font-size: 25px;
+			font-weight: bold;
+			color: gray;
+			.transition();
+			
+			&:hover {
+				cursor: pointer;
+				color: #FE4F4F;
+				.transition();
+			}
+		}
 		
 		span {
 			display: block;
@@ -820,6 +836,17 @@ textarea.txt-flat {
 			margin-bottom: 10px;
 		}
 	}
+}
+
+.login-status {
+	display: none;
+	color: #FF0000;
+	font-size: 12px;
+	padding: 3px;
+	background: #F3E372;
+	border: 1px solid #D9C013;
+	.border-radius(5px);
+	.box-shadow(0px,1px,3px,#8C8C8C);
 }
 
 .feed-card {
