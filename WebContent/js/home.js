@@ -29,6 +29,12 @@ Handlebars.registerHelper('getMsgClass', function(userid) {
 	else
 		return "right";
 });
+Handlebars.registerHelper('isUnreadMessage', function(rCount) {
+	if(rCount > 0 )
+		return "unread";
+	
+});
+
 
 Handlebars.registerHelper('notAlreadyAddedMessage', function(messageid, block) {
 	if ($("#divMessageThread" + messageid).length == 0)
@@ -228,30 +234,47 @@ $("#btnSendNewMessage").click(function(e){
 		showPopup("Min Message length is 2");
 		return;
 	}
-		
+	sendNewMessage(toEmails,msgDetail,"bulk");
+	
+
+});
+function sendNewMessage(toUsers,msgDetail,type,objTxt){
 	$.ajax({
 		url : 'Message/New',
 		type : 'post',
 		data : {
-			"tousers" : toEmails,
-			"message" : msgDetail
+			"tousers" : toUsers,
+			"message" : msgDetail			
 		},
 		success : function(data) {
 			if (data.status === 'success') {
 				// Success
-				showPopup(data.message);
+				//showPopup(data.message);
+				if(type === "bulk"){
+					$("#btnCancelNewMessage").click();
+				} 
 			} else {
 				// Failed
 				showPopup(data.message);
+				if(type === "bulk"){
+					$("#btnCancelNewMessage").click();
+				} else {
+					$(objTxt).val(msgDetail);
+				}
 			}
 		},
 		error : function() {
 			showPopup('Some Error Occured, Please Refresh page');
+			if(type === "bulk"){
+				$("#btnCancelNewMessage").click();
+			} else {
+				$(objTxt).val(msgDetail);
+			}
 		}
 	});
-
-});
-
+	
+}
+var lastUserEmail;
 $(".account-tray #showMessages").on("click", function(e) {
 	e.preventDefault();
 	$.ajax({
@@ -267,7 +290,8 @@ $(".account-tray #showMessages").on("click", function(e) {
 				$("#ulRecipientList").html(html);
 				$(".MessageUserList").click(function(e){
 					e.preventDefault();
-					var userid= parseInt($(this).attr("data-userid")); 
+					var userid= parseInt($(this).attr("data-userid"));
+					lastUserEmail=$(this).attr("data-email"); 
 					$("#divMessageThread").html("");
 					$.ajax({
 						url : 'Messages/Get',
@@ -304,4 +328,17 @@ $(".account-tray #showMessages").on("click", function(e) {
 		}
 	});
 	
+});
+$("#txtAreaThreadNewMsg").keyup(function(e){
+	if (event.keyCode == 13 && !event.shiftKey) {
+		event.preventDefault();
+		var msgDetail= $(this).val();
+		$(this).val("");
+		if(msgDetail.length < 2){
+			showPopup("Min Message length is 2");
+			$(this).val(msgDetail);
+			return;
+		}
+		sendNewMessage(lastUserEmail,msgDetail,"new",this);
+	}
 });
