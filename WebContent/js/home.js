@@ -100,8 +100,7 @@ function getNewPost(resetFlag) {
 				var source = $("#tmpltPostList").html();
 				var template = Handlebars.compile(source);
 				var html = template(data);
-				
-					$("#feeds-list").append(html);
+				$("#feeds-list").append(html);
 				if (data.posts.length > 0)
 					skipRow += data.posts.length;
 				$('.feed-content p, .feed-comments-block .feed-comments li .comment-body').emoticonize({animate : true});
@@ -302,6 +301,9 @@ $(".account-tray #showMessages").on("click", function(e) {
 								var html = template(data);
 								$("#divMessageThread").html(html);
 								$("#divMessageThread").emoticonize({animate : true});
+								var container = $("#dlgMessages .modal-body .message-thread");
+								var lastmsg = $("#dlgMessages .modal-body .message-thread .message:last-child");
+								container.animate({ scrollTop: lastmsg.offset().top - container.offset().top + container.scrollTop() });
 							} else {
 								// Failed
 								errorOverlay(true, data.message);
