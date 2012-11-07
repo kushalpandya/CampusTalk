@@ -18,6 +18,11 @@ $.ajaxSetup({
 	}
 });
 
+//THIS CAN BE A PERFORMANCE BOTTLE-NECK, AVOID UNLESS ABSOLUTELY NECESSARY
+$(window).on("resize", function() {
+	$(".feeds-block").height($(window).height() * 80/100);
+});
+
 /** ******************** Account tray script ********************** */
 
 $(".account-tray #btnLogout").click(function(e) {
