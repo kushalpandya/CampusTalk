@@ -306,7 +306,7 @@
 		</script>
 		<script type="text/x-handlebars-template" id='tmpltRecipientList'>
 			{{#each userlist}}
-				<li class="MessageUserList {{isUnreadMessage unreadmsg}}" data-userid="{{userid}}" data-email="{{email}}" ><a href="#" >{{firstname}} {{lastname}} ({{unreadmsg}}/{{totmsg}}) </a>
+				<li><a href="#" class="message-recipient {{isUnreadMessage unreadmsg}}" title="{{email}}" data-userid="{{userid}}" data-email="{{email}}"><img class="recipient-img" src="{{pictureurl}}"/><span class="recipient-title">{{firstname}} {{lastname}} {{hasUnreadCount unreadmsg}}</span><span class="recipient-mail">{{formatEmail email}}</span></a>
 			{{/each}}	
 		</script>
 		<script type="text/x-handlebars-template" id='tmpltMessageThread'>
