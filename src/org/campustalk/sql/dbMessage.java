@@ -53,6 +53,7 @@ public class dbMessage extends DatabaseManager {
 				jTemp.put("firstname", rs.getString("firstname"));
 				jTemp.put("lastname", rs.getString("lastname"));
 				jTemp.put("pictureurl", rs.getString("pictureurl"));
+				jTemp.put("email", rs.getString("email"));
 				jTemp.put("totmsg", rs.getInt("totmsg"));
 				jTemp.put("unreadmsg", rs.getInt("unreadmsg"));
 				jTemp.put("lastmsgtime", rs.getTimestamp("lastmsgtime"));
