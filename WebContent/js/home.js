@@ -30,8 +30,20 @@ Handlebars.registerHelper('getMsgClass', function(userid) {
 Handlebars.registerHelper('isUnreadMessage', function(rCount) {
 	if(rCount > 0 )
 		return "unread";
-	
 });
+
+Handlebars.registerHelper('hasUnreadCount', function(rCount) {
+	if(rCount > 0)
+		return "("+rCount+")";
+});
+
+Handlebars.registerHelper('formatEmail', function(email) {
+	if(email.length > 25)
+		return email.substr(0,22) + "...";
+	else
+		return email;
+});
+
 Handlebars.registerHelper('notAlreadyAddedMessage', function(messageid, block) {
 	if ($("#divMessageThread" + messageid).length == 0)
 		return block.fn(this);
@@ -271,6 +283,9 @@ function sendNewMessage(toUsers,msgDetail,type,objTxt){
 var lastUserEmail;
 $(".account-tray #showMessages").on("click", function(e) {
 	e.preventDefault();
+	var modal = $("#dlgMessages");
+	modal.css("margin-left", (modal.outerWidth() / 2) * -1);
+	
 	$.ajax({
 		url : 'Messages/UsersList',
 		type : 'post',
@@ -282,7 +297,7 @@ $(".account-tray #showMessages").on("click", function(e) {
 				var template = Handlebars.compile(source);
 				var html = template(data);
 				$("#ulRecipientList").html(html);
-				$(".MessageUserList").click(function(e){
+				$(".message-recipient").click(function(e){
 					e.preventDefault();
 					var userid= parseInt($(this).attr("data-userid"));
 					lastUserEmail=$(this).attr("data-email"); 
