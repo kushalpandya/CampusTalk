@@ -21,46 +21,47 @@ import org.json.JSONObject;
  * Servlet implementation class UserLogin
  */
 @WebServlet("/Login")
-public class UserLogin extends HttpServlet {
+public class UserLogin extends HttpServlet
+{
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public UserLogin() {
+	public UserLogin()
+	{
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
 		PrintWriter out = response.getWriter();
 		HttpSession session = request.getSession(true);
 		JSONObject resp = new JSONObject();
 		String status = "fail";
-		String returnMsg = "Somethin went wrong! Please Try After some time";
-		try {
+		String returnMsg = "Oops! something went wrong. Please try after sometime.";
+		try
+		{
 			String req_type = request.getParameter("type");
 			if (req_type.equalsIgnoreCase("login")) // Request of Login
 			{
 				String email = request.getParameter("email");
 				String password = request.getParameter("password");
-				System.out.println(request.getParameter("email"));
-				boolean rememberMe = request.getParameter("remember")
-						.equalsIgnoreCase("true");
+				boolean rememberMe = request.getParameter("remember").equalsIgnoreCase("true");
 
 				dbUser objdbUser = new dbUser();
 				boolean loginFlag = objdbUser.userLogin(email, password);
 				CampusTalkUsers ctUser = objdbUser.objUser;
+				
 				// Get Model Function call
-				if (ctUser != null) {
-					if (loginFlag) {
+				if (ctUser != null)
+				{
+					if (loginFlag)
+					{
 						session.setAttribute("UserId", ctUser.getId());
 						session.setAttribute("UserEmail", ctUser.getEmail());
 						session.setAttribute("user", ctUser);
@@ -69,46 +70,57 @@ public class UserLogin extends HttpServlet {
 						Cookie d = new Cookie("CampusTalkLogedIn", "true");
 						d.setMaxAge(time);
 						response.addCookie(d);
-						if (rememberMe) {
+						if (rememberMe)
+						{
 							Cookie c = new Cookie("CampusTalkEmail",
 									ctUser.getEmail());
 							c.setMaxAge(time);
 							response.addCookie(c);
 						}
 						status = "success";
-					} else {
-						if (ctUser.getStatus().equals("N")) {
-							returnMsg = "Email is not registered, Please Register";
-						} else if (ctUser.getStatus().equals("R")) {
-							returnMsg = "Email is not Verified, Please Check Your email inbox";
-							EmailHelper.registrationVerifyEmail(ctUser); // Send
-																			// registration
-																			// verification
-																			// mail
-																			// again
-						} else {
-							returnMsg = "Invalid Password";
+					}
+					else
+					{
+						if (ctUser.getStatus().equals("N"))
+						{
+							returnMsg = "Email is not registered, Please Register!";
+						}
+						else if (ctUser.getStatus().equals("R"))
+						{
+							returnMsg = "Email is not Verified, Please check verification mail in your inbox.";
+							EmailHelper.registrationVerifyEmail(ctUser); // Send registration verification mail again.
+						}
+						else
+						{
+							returnMsg = "Invalid Username or Password!";
 						}
 
 					}
-				} else {
-					returnMsg = "Email does not exits in System";
+				}
+				else
+				{
+					returnMsg = "Invalid Username or Password!";
 				}
 
-			} else if (req_type.equalsIgnoreCase("sessionlogin")) {
+			}
+			else if (req_type.equalsIgnoreCase("sessionlogin"))
+			{
 				String useremail = (String) session.getAttribute("UserEmail");
 				if (useremail != null)
 					status = "success";
-			} else if (req_type.equalsIgnoreCase("logout")) // Request for
-			// Logout.
+			}
+			else if (req_type.equalsIgnoreCase("logout")) // Request for Logout.
 			{
 				session.invalidate();
 				Cookie[] c = request.getCookies();
-				if (c != null) {
-					for (int i = 0; i < c.length; i++) {
+				if (c != null)
+				{
+					for (int i = 0; i < c.length; i++)
+					{
 						Cookie curr = c[i];
 						String cnm = curr.getName();
-						if (cnm.equalsIgnoreCase("CampusTalkLogedIn")) {
+						if (cnm.equalsIgnoreCase("CampusTalkLogedIn"))
+						{
 							curr.setMaxAge(0);
 							response.addCookie(curr);
 						}
@@ -116,15 +128,20 @@ public class UserLogin extends HttpServlet {
 				}
 				status = "success";
 			}
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			status = "error";
 			e.printStackTrace();
 		}
 
-		try {
+		try
+		{
 			resp.put("status", status);
 			resp.put("message", returnMsg);
-		} catch (JSONException e) {
+		}
+		catch (JSONException e)
+		{
 			e.printStackTrace();
 		}
 		response.setContentType("application/json");
