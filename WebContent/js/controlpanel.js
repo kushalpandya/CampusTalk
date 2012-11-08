@@ -11,9 +11,9 @@ Handlebars.registerHelper('isNotAleadyAddedUser', function(userid, block) {
 
 Handlebars.registerHelper('getGroupStatus', function(status) {
 	if(status==="V")
-		return "Active"
+		return "Active";
 	else
-		return "Inactive"
+		return "Inactive";
 });
 
 
@@ -35,7 +35,7 @@ var GROUP_ID = 0;
 function insertGroup() {
 	var gname = $("#txtGroupName").val();
 	var gdescription = $("#txtGroupDescription").val();
-	$.post("Group/Create", {
+	$.post("Group/Process", {
 		type : "SaveData",
 		name : gname,
 		description : gdescription,
@@ -47,11 +47,11 @@ function insertGroup() {
 			$("#CreateGroup").modal("hide");
 			$("#txtGroupName").val("");
 			$("#txtGroupDescription").val("");
-			sucessOverlay("Group Added Successfully");
+			successOverlay(true,"Group Added Successfully");
 			showGroup();
 		} else {
 			$("#CreateGroup").modal("hide");
-			errorOverlay("Oops!! Error in adding Group");
+			errorOverlay(true,"Oops!! Error in adding Group");
 		}
 
 	});
@@ -73,35 +73,17 @@ $("a[href='#EditGroup']").live(
 			$("#txtEditGroupName").val(gname);
 			$("#txtEditGroupDescription").val(gdescription);
 			if(gstatus==="Active")
-				gstatus="1"
+				gstatus="1";
 			else
-				gstatus="0"
+				gstatus="0";
 			$("#drpGroupStatus").val(gstatus);
-
-			/*$.post("CreateGroup",{
-				type:"EditData",
-				groupid:EDIT_GROUP_ID,
-				name:gname,
-				description:gdescription,
-				status:gstatus
-			},
-			function(data)
-			{
-				
-			});*/
 		});
 
 function editGroup() {
-
-	console.log("hiral edits");
-
 	var gname = $("#txtEditGroupName").val();
 	var gdescription = $("#txtEditGroupDescription").val();
 	var gstatus = $("#drpGroupStatus").val();
-
-	console.log("edit_groupId= " + EDIT_GROUP_ID + " gname= " + gname
-			+ " gdesc= " + gdescription + " gstatu= " + gstatus);
-	$.post("CreateGroup", {
+	$.post("Group/Process", {
 		type : "EditData",
 		groupid : EDIT_GROUP_ID,
 		name : gname,
@@ -110,7 +92,13 @@ function editGroup() {
 	},
 
 	function(data) {
-		alert(data.status);
+		if (data.status === "success") {
+			$("#EditGroup").modal("hide");
+			successOverlay(true,"Group Updated Successfully");
+			showGroup(true);
+		} else {
+			errorOverlay(true,"Oops!! Error in Updating Group Details");
+		}
 	});
 }
 
@@ -119,34 +107,31 @@ function editGroup() {
 $("a[href='#DeleteGroup']").live(
 		"click",
 		function(e) {
-
 			DELETE_GROUP_ID = parseInt($(this).parents().eq(1).find(
 					"td:nth-child(1)").text());
 
 		});
 
 function DeleteGroup() {
-	console.log("Hiral " + DELETE_GROUP_ID);
-
-	$.post("CreateGroup", { //Requesting to servlet 
+	$.post("Group/Process", { //Requesting to servlet 
 		type : "DeleteData", //Input parameters
 		groupid : DELETE_GROUP_ID
 	}, function(data) { // Return JSON Object
-		console.log(data.status);
-		console.log(data.err);
-		//console.log(data);
-
 		if (data.status === "success") {
-			alert("Data is successfully deleted...");
+			$("#DeleteGroup").modal("hide");
+			successOverlay(true,"Group Deleted Successfully");
+			showGroup(true);
 		} else {
-			alert("Data is not delete....");
+			errorOverlay(true,"Oops!! Error in Deleting Group");
 		}
 	});
 
 }
 
-function showGroup(){
-	$.post("CreateGroup", { //Requesting to servlet 
+function showGroup(flag){
+	if(flag != undefined)
+		$("#tblGroup tbody").html("");
+	$.post("Group/Process", { //Requesting to servlet 
 		type : "GetData", //Input parameters		
 	}, function(data) { // Return JSON Object
 		if (data.status === "success") {
