@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.sql.Types;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class dbGroupMember extends DatabaseManager
@@ -17,28 +18,28 @@ public class dbGroupMember extends DatabaseManager
 		super();
 	}
 
-	public boolean AddGroupMember(String groupname, String email,
-			String position) throws SQLException, ClassNotFoundException
+	public boolean AddGroupMember(int groupname, String email,
+			String position) 
 	{
-
+		boolean rflag=false;
+		try{
 		this.open();
-		CallableStatement csSql = CON.prepareCall("{call insertGroup(?,?,?)}");
-
-		/**
-		 * CREATE PROCEDURE `campustalk`.`insertGroupMember`( IN name
-		 * VARCHAR(100), IN email VARCHAR(50),IN position VARCHAR(100), IN
-		 * status CHAR(2))
-		 */
-		csSql.setString(1, groupname);
+		System.out.println(groupname + " " +  email + " " + position);
+		CallableStatement csSql = CON.prepareCall("{call insertGroupMember(?,?,?,?)}");
+		csSql.setInt(1, groupname);
 		csSql.setString(2, email);
 		csSql.setString(3, position);
 		csSql.registerOutParameter(4, Types.BOOLEAN);
-
+		
 		csSql.executeUpdate();
-
-		boolean rtnFlag = csSql.getBoolean(3);
+		rflag= csSql.getBoolean(4);
 		csSql.close();
-		return rtnFlag;
+		}
+		catch (Exception e){
+			e.printStackTrace();
+				
+		}
+		return rflag;
 	}
 
 	public void EditGroupMember(int groupid, int userid, String position,
@@ -64,49 +65,41 @@ public class dbGroupMember extends DatabaseManager
 
 		this.open();
 		CallableStatement csSql = CON
-				.prepareCall("{call deleteGroupMembers(?,?)}");
-		csSql.setInt(1, groupid);
-		csSql.setInt(2, userid);
-
+				.prepareCall("{call deleteGroupMember(?,?)}");
+		csSql.setInt(1, groupid);		
+		csSql.setInt(2,userid);
+		
 		csSql.executeQuery();
 	}
 
 	public JSONArray getGroupMemberData(int groupid) throws SQLException,
-			ClassNotFoundException
+			ClassNotFoundException, JSONException
 	{
-		JSONArray groupmember_arr = new JSONArray();
-		try
-		{
+		JSONArray jArray = new JSONArray();
+		try {
 			this.open();
-			CallableStatement csSql = CON
-					.prepareCall("{call getGroupMemberData(?)}");
 
-			csSql.setInt(1, groupid);
-			ResultSet rs = csSql.executeQuery();
-
-			JSONObject temp;
-			System.out.println("error before while ++++++");
-
-			while (rs.next())
-			{
-
-				System.out.println("in servletncjxjhvjv");
-				temp = new JSONObject();
-
-				temp.put("userid", rs.getInt("userid"));
-				temp.put("email", rs.getString("email"));
-				temp.put("name", rs.getString("name"));
-				temp.put("role", rs.getString("rname"));
-
-				System.out.print("gmember data=" + rs.getString("rname"));
-				groupmember_arr.put(temp);
+			CallableStatement pst = CON
+					.prepareCall("{ call getGroupMemberData(?)}");
+			pst.setInt(1, groupid);
+			
+			ResultSet rs = pst.executeQuery();
+			JSONObject jTemp;
+			while (rs.next()) {
+				jTemp = new JSONObject();
+				jTemp.put("userid",rs.getInt("userid"));
+				jTemp.put("email", rs.getString("email"));
+				jTemp.put("name", rs.getString("name"));
+				jTemp.put("role", rs.getString("position"));
+				jArray.put(jTemp);
 			}
-		}
-		catch (Exception e)
-		{
+			
+		} catch (ClassNotFoundException | SQLException | JSONException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return groupmember_arr;
+
+		return jArray;
 	}
 
 }
