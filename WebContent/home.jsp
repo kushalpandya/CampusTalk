@@ -28,7 +28,7 @@
 		<div class="container header">
 			<img src="assets/logo_small.png" class="campustalk-logo" />
 			<div class="search-block input-append">
-				<input type="text" placeholder="Search..." class="txt-flat" />
+				<input type="text" placeholder="Search..." class="txt-flat" id="txtSearchBox" />
 				<button class="btn btn-flat">
 					<i class="icon-search"></i>
 				</button>
@@ -227,6 +227,72 @@
 				<div class="pull-right">
 					<button class="btn btn-flat" data-dismiss="modal" aria-hidden="true">Close</button>
 					<button class="btn btn-green">Save Changes</button>
+				</div>
+			</div>
+			<div class="modal-disable-overlay">&nbsp;</div>
+		</div>
+		<!-- User Profile Dialog -->
+		<div id="dlgUserProfile" class="modal hide fade modal-flat">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Details</h4>
+			</div>
+			<div class="modal-drawer">
+				<legend>Compose Message</legend>
+				<form class="form-horizontal form-add-member">
+					<div class="control-group">
+						<label class="control-label">Message</label>
+						<div class="controls">
+							<textarea rows="4" placeholder="Write a message..." id="txtNewMsgDetail" ></textarea>
+						</div>
+					</div>
+					<div class="control-group drawer-button-group">
+						<button type="button" class="btn btn-flat" id="btnCancelNewMessage">Cancel</button>
+						<a href="#" class="btn btn-green" id="btnSendNewMessage">Send</a>
+					</div>
+				</form>	
+			</div>
+			<div class="modal-body">
+				<div class="user-profile">
+					<div class="pull-left">
+						<img src="https://lh3.googleusercontent.com/-XVHns1ycTI0/AAAAAAAAAAI/AAAAAAAAAN0/31SL_TsfpRM/photo.jpg" class="user-img" />
+						<div class="user-activity">
+							<span class="user-posts"><i class="icon-list-alt"></i>&nbsp;6</span>
+							<span class="user-comments"><i class="icon-comment"></i>&nbsp;10</span>
+						</div>
+					</div>
+					<div class="pull-right">
+						<label>Kushal Pandya</label>
+						<label>MSc. I.T. - 2011</label>
+						<table>
+							<tbody>
+								<tr>
+									<td>Email</td><td>kushal.pandya04@gmail.com</td>
+								</tr>
+								<tr>
+									<td>Gender</td><td>Male</td>
+								</tr>
+								<tr>
+									<td>Born</td><td>22 July 1990</td>
+								</tr>
+								<tr>
+									<td>City</td><td>Rajkot</td>
+								</tr>
+								<tr align="left">
+									<td colspan="2"><button class="btn btn-yellow"><i class="icon-user"></i>&nbsp;Make Moderator</button></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<div class="pull-left">
+					<button class="btn btn-green" id="btnNewMessage">Send Private Message</button>
+				</div>
+				<div class="pull-right">
+					<button class="btn btn-blue">Show All Posts</button>
+					<button class="btn btn-flat" data-dismiss="modal" aria-hidden="true">Close</button>
 				</div>
 			</div>
 			<div class="modal-disable-overlay">&nbsp;</div>
