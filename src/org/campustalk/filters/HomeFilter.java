@@ -1,4 +1,4 @@
-package org.campus.filters;
+package org.campustalk.filters;
 
 import java.io.IOException;
 
