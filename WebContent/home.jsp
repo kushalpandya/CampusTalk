@@ -101,6 +101,10 @@
 						</div>
 					</div>
 					<div class="control-group">
+						<label class="control-label">Recipients</label>
+						<div class="controls"></div>
+					</div>
+					<div class="control-group">
 						<label class="control-label">Message</label>
 						<div class="controls">
 							<textarea rows="4" placeholder="Write a message..." id="txtNewMsgDetail" ></textarea>
@@ -289,6 +293,7 @@
 		</script>
 		<script type="text/javascript" src="js/script.js"></script>
 		<script type="text/javascript" src="js/bootstrap.datepicker.min.js"></script>
+		<script type="text/javascript" src="js/bootstrap.typeahead.min.js"></script>
 		<script type="text/javascript" src="js/handlebars.js"></script>
 		<script type="text/javascript" src="js/moment.min.js"></script>
 		<script type="text/javascript" src="js/home.js"></script>
