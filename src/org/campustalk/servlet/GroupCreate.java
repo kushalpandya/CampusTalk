@@ -17,7 +17,7 @@ import org.json.JSONObject;
 /**
  * Servlet implementation class CreateGroup
  */
-@WebServlet("/Group/New")
+@WebServlet("/Group/Process")
 public class GroupCreate extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -68,15 +68,11 @@ public class GroupCreate extends HttpServlet {
 				String statu = request.getParameter("status");
 				String ch;
 				if(Integer.parseInt(statu)==0)
-				{
 					ch="D";
-				}
 				else
 					ch="V";
-				System.out.print("groupid= "+groupid+" name= "+gname+" description= "+description+" status= "+ch);
-				
-				objdbGroup.EditGroup(groupid,gname,description,ch);
-				status="success";
+				if(objdbGroup.EditGroup(groupid,gname,description,ch))
+					status="success";
 			}
 			
 			else if (req_type.equalsIgnoreCase("DeleteData")) // Request for Delete Data
