@@ -59,7 +59,7 @@ CREATE TABLE `comment` (
   PRIMARY KEY (`commentid`),
   KEY `user_idx` (`userid`),
   KEY `cpost_idx` (`postid`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -68,7 +68,7 @@ CREATE TABLE `comment` (
 
 LOCK TABLES `comment` WRITE;
 /*!40000 ALTER TABLE `comment` DISABLE KEYS */;
-INSERT INTO `comment` VALUES (1,3,1,':D :D ;-)','2012-11-03 05:57:57','A'),(2,1,1,'\\m/ <3','2012-11-03 06:00:08','A'),(3,3,1,'Hey.. :)','2012-11-03 06:01:05','A'),(4,1,1,'New Comment :-P','2012-11-03 19:36:23','A'),(5,2,1,'Yo Yo ..','2012-11-04 04:21:35','A'),(6,2,2,'Hey  :)','2012-11-04 06:05:08','A'),(7,3,2,'WHat happen ;-)','2012-11-04 06:05:26','A'),(8,2,1,'Whats up !!','2012-11-04 14:15:55','A'),(9,2,1,'test','2012-11-04 23:23:52','A'),(10,2,1,'new :-','2012-11-04 23:24:47','A'),(11,4,1,'Hey hey','2012-11-04 23:25:47','A'),(12,7,1,'tetetete','2012-11-04 23:26:16','A'),(13,7,1,':-)','2012-11-04 23:29:03','A'),(14,5,2,'New :-)','2012-11-05 04:58:17','A'),(15,2,2,'\\m/','2012-11-05 04:58:33','A');
+INSERT INTO `comment` VALUES (1,3,1,':D :D ;-)','2012-11-03 05:57:57','D'),(2,1,1,'\\m/ <3','2012-11-03 06:00:08','A'),(3,3,1,'Hey.. :)','2012-11-03 06:01:05','A'),(4,1,1,'New Comment :-P','2012-11-03 19:36:23','D'),(5,2,1,'Yo Yo ..','2012-11-04 04:21:35','A'),(6,2,2,'Hey  :)','2012-11-04 06:05:08','A'),(7,3,2,'WHat happen ;-)','2012-11-04 06:05:26','A'),(8,2,1,'Whats up !!','2012-11-04 14:15:55','A'),(9,2,1,'test','2012-11-04 23:23:52','A'),(10,2,1,'new :-','2012-11-04 23:24:47','A'),(11,4,1,'Hey hey','2012-11-04 23:25:47','D'),(12,7,1,'tetetete','2012-11-04 23:26:16','A'),(13,7,1,':-)','2012-11-04 23:29:03','A'),(14,5,2,'New :-)','2012-11-05 04:58:17','A'),(15,2,2,'\\m/','2012-11-05 04:58:33','A'),(16,4,1,'Whats up !!','2012-11-08 15:40:40','D'),(17,14,1,'Whats up !','2012-11-08 16:41:19','A'),(18,14,1,'Ok !!','2012-11-08 16:43:05','A'),(19,14,1,'whts up','2012-11-08 16:45:08','D'),(20,4,1,'Yo yo !!','2012-11-08 16:45:48','A'),(21,4,1,'what ?','2012-11-08 16:46:57','D');
 /*!40000 ALTER TABLE `comment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -212,7 +212,7 @@ CREATE TABLE `messagedetails` (
   `enttime` datetime NOT NULL,
   PRIMARY KEY (`messageid`),
   KEY `userid_idx` (`userid`)
-) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -221,7 +221,7 @@ CREATE TABLE `messagedetails` (
 
 LOCK TABLES `messagedetails` WRITE;
 /*!40000 ALTER TABLE `messagedetails` DISABLE KEYS */;
-INSERT INTO `messagedetails` VALUES (17,2,'Hey !!','V','2012-11-07 11:29:22'),(18,1,'Hi Faishal\nWhats up :)','V','2012-11-07 11:31:21'),(19,2,'Nothing much dude .. :)\ntp .. u say \nwhats going on ?','V','2012-11-07 11:47:13'),(20,2,'Nothing much dude .. :)\ntp .. u say \nwhats going on ?','V','2012-11-07 11:47:15'),(21,1,'Nothing much .. Sen project','V','2012-11-07 11:53:28'),(22,2,'Ohk .. :D','V','2012-11-07 11:54:21'),(23,2,'test BroadCast','V','2012-11-07 15:09:37'),(24,2,'You got that :(','V','2012-11-07 15:11:24'),(25,2,'Ellow !! u der ?','V','2012-11-07 15:12:27'),(26,2,'??','V','2012-11-07 15:14:08'),(27,2,'??','V','2012-11-07 15:44:23'),(28,1,'what !!','V','2012-11-07 15:59:26'),(29,1,'what !!','V','2012-11-07 16:00:41'),(30,1,'??','V','2012-11-07 18:09:19'),(31,2,'Nothing !!','V','2012-11-07 18:14:29'),(32,1,'?? ??','V','2012-11-07 18:16:24'),(33,1,'??','V','2012-11-07 18:29:15'),(34,1,'??','V','2012-11-07 18:36:49'),(35,1,'1! !','V','2012-11-07 18:38:36'),(36,1,'? ? ?','V','2012-11-07 18:39:31'),(37,1,'! _ 1','V','2012-11-07 18:40:51'),(38,1,'Yo yo','V','2012-11-07 19:57:20');
+INSERT INTO `messagedetails` VALUES (17,2,'Hey !!','V','2012-11-07 11:29:22'),(18,1,'Hi Faishal\nWhats up :)','V','2012-11-07 11:31:21'),(19,2,'Nothing much dude .. :)\ntp .. u say \nwhats going on ?','V','2012-11-07 11:47:13'),(20,2,'Nothing much dude .. :)\ntp .. u say \nwhats going on ?','V','2012-11-07 11:47:15'),(21,1,'Nothing much .. Sen project','V','2012-11-07 11:53:28'),(22,2,'Ohk .. :D','V','2012-11-07 11:54:21'),(23,2,'test BroadCast','V','2012-11-07 15:09:37'),(24,2,'You got that :(','V','2012-11-07 15:11:24'),(25,2,'Ellow !! u der ?','V','2012-11-07 15:12:27'),(26,2,'??','V','2012-11-07 15:14:08'),(27,2,'??','V','2012-11-07 15:44:23'),(28,1,'what !!','V','2012-11-07 15:59:26'),(29,1,'what !!','V','2012-11-07 16:00:41'),(30,1,'??','V','2012-11-07 18:09:19'),(31,2,'Nothing !!','V','2012-11-07 18:14:29'),(32,1,'?? ??','V','2012-11-07 18:16:24'),(33,1,'??','V','2012-11-07 18:29:15'),(34,1,'??','V','2012-11-07 18:36:49'),(35,1,'1! !','V','2012-11-07 18:38:36'),(36,1,'? ? ?','V','2012-11-07 18:39:31'),(37,1,'! _ 1','V','2012-11-07 18:40:51'),(38,1,'Yo yo','V','2012-11-07 19:57:20'),(39,1,'Test message','V','2012-11-08 15:41:40');
 /*!40000 ALTER TABLE `messagedetails` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -248,7 +248,7 @@ CREATE TABLE `messages` (
 
 LOCK TABLES `messages` WRITE;
 /*!40000 ALTER TABLE `messages` DISABLE KEYS */;
-INSERT INTO `messages` VALUES (17,1,'R'),(18,2,'R'),(19,1,'R'),(20,1,'R'),(21,2,'R'),(22,1,'R'),(23,1,'R'),(24,1,'R'),(25,1,'R'),(26,1,'R'),(27,1,'R'),(28,2,'R'),(29,2,'R'),(30,2,'R'),(31,1,'R'),(32,2,'R'),(33,2,'R'),(34,2,'N'),(35,2,'N'),(36,2,'N'),(37,2,'N'),(38,2,'N');
+INSERT INTO `messages` VALUES (17,1,'R'),(18,2,'R'),(19,1,'R'),(20,1,'R'),(21,2,'R'),(22,1,'R'),(23,1,'R'),(24,1,'R'),(25,1,'R'),(26,1,'R'),(27,1,'R'),(28,2,'R'),(29,2,'R'),(30,2,'R'),(31,1,'R'),(32,2,'R'),(33,2,'R'),(34,2,'N'),(35,2,'N'),(36,2,'N'),(37,2,'N'),(38,2,'N'),(39,1,'R');
 /*!40000 ALTER TABLE `messages` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -278,7 +278,7 @@ CREATE TABLE `posts` (
 
 LOCK TABLES `posts` WRITE;
 /*!40000 ALTER TABLE `posts` DISABLE KEYS */;
-INSERT INTO `posts` VALUES (1,1,'First Post... :-)','P','A','2012-11-03 01:22:16','2012-11-03 19:36:23'),(2,1,'Second Post :-)','A','A','2012-11-03 01:29:00','2012-11-05 04:58:33'),(3,1,':-D','A','A','2012-11-03 01:29:43','2012-11-04 06:05:26'),(4,1,'New pOst','P','A','2012-11-04 04:21:20','2012-11-04 23:25:47'),(5,2,'My Post :-)','P','A','2012-11-04 07:07:42','2012-11-05 04:58:17'),(6,1,'Test Post :D','A','A','2012-11-04 22:02:29','2012-11-04 22:02:29'),(7,1,'again Test Post','A','A','2012-11-04 22:03:02','2012-11-04 23:29:03'),(8,1,'again Test Post :-)','P','A','2012-11-04 22:03:15','2012-11-04 22:03:15'),(9,1,'yo yo Honey Singh :-)','A','A','2012-11-04 22:05:56','2012-11-04 22:05:56'),(10,1,'Whats Up Private Post :D','P','A','2012-11-06 20:06:54','2012-11-06 20:06:54'),(11,2,'New Post :)','A','A','2012-11-06 20:07:39','2012-11-06 20:07:39'),(12,2,'Welcome Post','A','A','2012-11-06 20:08:06','2012-11-06 20:08:06'),(13,2,'Yo yo Honey Singh Post\n\n\n\n\nOk :)','A','A','2012-11-06 20:08:24','2012-11-06 20:08:24'),(14,2,'MTV Unpluged','A','A','2012-11-06 20:08:36','2012-11-06 20:08:36');
+INSERT INTO `posts` VALUES (1,1,'First Post... :-)','P','D','2012-11-03 01:22:16','2012-11-03 19:36:23'),(2,1,'Second Post :-)','A','D','2012-11-03 01:29:00','2012-11-05 04:58:33'),(3,1,':-D','A','A','2012-11-03 01:29:43','2012-11-04 06:05:26'),(4,1,'New pOst','P','A','2012-11-04 04:21:20','2012-11-08 16:46:57'),(5,2,'My Post :-)','P','A','2012-11-04 07:07:42','2012-11-05 04:58:17'),(6,1,'Test Post :D','A','D','2012-11-04 22:02:29','2012-11-04 22:02:29'),(7,1,'again Test Post','A','D','2012-11-04 22:03:02','2012-11-04 23:29:03'),(8,1,'again Test Post :-)','P','A','2012-11-04 22:03:15','2012-11-04 22:03:15'),(9,1,'yo yo Honey Singh :-)','A','A','2012-11-04 22:05:56','2012-11-04 22:05:56'),(10,1,'Whats Up Private Post :D','P','D','2012-11-06 20:06:54','2012-11-06 20:06:54'),(11,2,'New Post :)','A','A','2012-11-06 20:07:39','2012-11-06 20:07:39'),(12,2,'Welcome Post','A','A','2012-11-06 20:08:06','2012-11-06 20:08:06'),(13,2,'Yo yo Honey Singh Post\n\n\n\n\nOk :)','A','A','2012-11-06 20:08:24','2012-11-06 20:08:24'),(14,2,'MTV Unpluged','A','A','2012-11-06 20:08:36','2012-11-08 16:45:08');
 /*!40000 ALTER TABLE `posts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -307,7 +307,7 @@ CREATE TABLE `reportabuses` (
 
 LOCK TABLES `reportabuses` WRITE;
 /*!40000 ALTER TABLE `reportabuses` DISABLE KEYS */;
-INSERT INTO `reportabuses` VALUES (10,1,'2012-11-08 03:32:36','N','testing'),(13,1,'2012-11-08 03:30:01','N','yo to !!!'),(14,1,'2012-11-08 03:29:33','N','test report');
+INSERT INTO `reportabuses` VALUES (9,1,'2012-11-08 15:39:59','N','Aise hi :P'),(10,1,'2012-11-08 03:32:36','N','testing'),(13,1,'2012-11-08 03:30:01','N','yo to !!!'),(14,1,'2012-11-08 03:29:33','N','test report');
 /*!40000 ALTER TABLE `reportabuses` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -905,9 +905,24 @@ DELIMITER ;;
 /*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `CommentDeleteOfPost`(IN dCommentId int, in dUserId int,out flag boolean)
 BEGIN
 	Declare dTest int ;
-	select `comment`.`userid` into dTest from `campustalk`.`comment` where `comment`.`commentid` =dCommentId and `comment`.`userid`= dUserId;
+	select 
+    `comment`.`userid`
+		into dTest from
+			`campustalk`.`comment`
+		where
+			`comment`.`commentid` = dCommentId
+				and `comment`.`userid` = dUserId;
 	if dTest is null then
-		select `comment`.`userid` into dTest from `campustalk`.`comment`,`campustalk`.`posts` where `comment`.`commentid` =dCommentId  and `comment`.`postid`=`posts`.`postid` and `posts`.`userid`=dUserId;
+		select 
+			`comment`.`userid`
+			into dTest from
+				`campustalk`.`comment`,
+				`campustalk`.`posts`
+			where
+				`comment`.`commentid` = dCommentId
+					and `comment`.`postid` = `posts`.`postid`
+					and `posts`.`userid` = dUserId;
+
 		if dTest is null then
 			set flag=true;
 		else
@@ -917,7 +932,7 @@ BEGIN
 		set flag=true;
 	end if;
 if flag = true then
- update `campustalk`.`comment` set `campustalk`.`status`='D' where `campustalk`.`commentid`=dCommentId;
+ update `campustalk`.`comment` set `comment`.`status`='D' where `comment`.`commentid`=dCommentId;
 end if;
 
 END */;;
@@ -1112,9 +1127,9 @@ DELIMITER ;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `getPostsForUser`(IN remail VARCHAR(50),IN rSkip INT,in rRows INT )
 BEGIN
-SET @s = CONCAT('SELECT `posts`.`postid` AS `postid`,`posts`.`userid` AS `userid`,`posts`.`detail` AS `detail`,`posts`.`type` AS `type`,`posts`.`status` AS `status`,`posts`.`enttime` AS `enttime`,`posts`.`lastmodifytime` AS `lastmodifytime`,`users`.`firstname`,`users`.`lastname`,`users`.`pictureurl`,(select count(`comment`.`userid`) from `comment` where `comment`.`postid`=`posts`.`postid`) as nocomment FROM `posts`,`users`  WHERE `posts`.`userid`=`users`.`id` and  ((`posts`.`type` = \'A\') AND (`posts`.`status` = \'A\')) 
+SET @s = CONCAT('SELECT `posts`.`postid` AS `postid`,`posts`.`userid` AS `userid`,`posts`.`detail` AS `detail`,`posts`.`type` AS `type`,`posts`.`status` AS `status`,`posts`.`enttime` AS `enttime`,`posts`.`lastmodifytime` AS `lastmodifytime`,`users`.`firstname`,`users`.`lastname`,`users`.`pictureurl`,(select count(`comment`.`userid`) from `comment` where `comment`.`postid`=`posts`.`postid` and `comment`.`status` !=\'D\') as nocomment FROM `posts`,`users`  WHERE `posts`.`userid`=`users`.`id` and  ((`posts`.`type` = \'A\') AND (`posts`.`status` = \'A\')) 
  UNION 
-(SELECT `posts`.`postid` AS `postid`,`posts`.`userid` AS `userid`,`posts`.`detail` AS `detail`,`posts`.`type` AS `type`,`posts`.`status` AS `status`,`posts`.`enttime` AS `enttime`,`posts`.`lastmodifytime` AS `lastmodifytime`,`users`.`firstname`,`users`.`lastname`,`users`.`pictureurl`,(select count(`comment`.`userid`) from `comment` where `comment`.`postid`=`posts`.`postid`) as nocomment FROM `posts`,`users` 
+(SELECT `posts`.`postid` AS `postid`,`posts`.`userid` AS `userid`,`posts`.`detail` AS `detail`,`posts`.`type` AS `type`,`posts`.`status` AS `status`,`posts`.`enttime` AS `enttime`,`posts`.`lastmodifytime` AS `lastmodifytime`,`users`.`firstname`,`users`.`lastname`,`users`.`pictureurl`,(select count(`comment`.`userid`) from `comment` where `comment`.`postid`=`posts`.`postid` and `comment`.`status` !=\'D\') as nocomment FROM `posts`,`users` 
  WHERE `posts`.`userid`=`users`.`id` and (`posts`.`userid` IN (SELECT `users`.`id` FROM `users` WHERE  `users`.`branchid` IN (SELECT `users`.`branchid` FROM `users` WHERE (`users`.`email` = "',remail,'"))) AND (`posts`.`type` = \'P\') AND (`posts`.`status` = \'A\'))) order by lastmodifytime desc limit ', rSkip ,', ', rRows); 
 
 PREPARE stmt1 FROM @s;
@@ -1256,6 +1271,26 @@ BEGIN
         END IF;
                 	
      END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `postdelete` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `postdelete`(in duserid int , in dpostid int)
+BEGIN
+	update posts set status='D' where postid=dpostid and userid=duserid;
+	
+END */;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
@@ -1545,4 +1580,4 @@ ALTER DATABASE `campustalk` CHARACTER SET utf8 COLLATE utf8_general_ci ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-11-08 15:19:45
+-- Dump completed on 2012-11-08 16:56:35
