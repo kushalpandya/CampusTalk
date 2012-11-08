@@ -589,12 +589,14 @@
 				<script id="getRole" type="text/x-handlebars-template">
 					{{#if Roles}}
 						{{#each Roles}}
-								<tr>
+							{{#isNotAleadyAddedRole rolesid}}
+								<tr id="trRole{{rolesid}}">
 									<td>{{rolesid}}</td>									
 									<td>{{name}}</td>
 									<td><a href="#EditRole" data-roleid="{{rolesid}}" data-rolename="{{name}}" name="EditRole" data-toggle="modal"><i class="icon-edit"></i>&nbsp;Edit</a></td>
 									<td><a href="#DeleteRole" data-roleid="{{rolesid}}" name="DeleteRole" "data-toggle="modal"><i class="icon-trash"></i>&nbsp;Delete</a></td>
 								</tr>						
+							{{/isNotAleadyAddedRole}}
 						{{/each}}
 					{{else}}
 						<option value="-1" selected>No Valuse Selected...</option>				
