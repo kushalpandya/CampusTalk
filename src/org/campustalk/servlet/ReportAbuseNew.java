@@ -10,9 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.campustalk.entity.CampusTalkComment;
 import org.campustalk.entity.CampusTalkReportAbuse;
-import org.campustalk.sql.dbComment;
 import org.campustalk.sql.dbReportAbuse;
 import org.json.JSONException;
 import org.json.JSONObject;
