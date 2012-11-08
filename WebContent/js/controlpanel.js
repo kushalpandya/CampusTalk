@@ -34,6 +34,10 @@ Handlebars.registerHelper('isNotAlreadyAddedMember', function(userid, block) {
 		return block.fn(this);
 });
 
+Handlebars.registerHelper('isNotAleadyAddedRole', function(roleid, block) {
+	if ($("#trRole" + roleid).length == 0)
+		return block.fn(this);
+});
 
 // Java script for controlpanel.jsp will here
 var lastRoleid;
@@ -286,7 +290,6 @@ function insertGroupMember() {
 		});*/
 
 function editGroupMember() {
-	console.log("hiralllllll");
 	EDIT_GROUP_ID = parseInt($(this).parents().eq(1).find(
 	"td:nth-child(1)").text());
 	EDIT_GROUP_USER_ID = parseInt($("a[href='#EditGroupUser']").parents().eq(1).find(
@@ -316,7 +319,7 @@ $("a[id='txtNewRole']").on("click", function(e) {
 	if (!$(this).hasClass("disabled")) {
 
 		var roleName = $("#txtRole").val();
-		$.get("CreateRole", { // Requesting to servlet
+		$.post("CreateRole", { // Requesting to servlet
 			type : "SaveData", // Input parameters
 			name : roleName
 
@@ -326,9 +329,10 @@ $("a[id='txtNewRole']").on("click", function(e) {
 			// "+data.branch[1].name+", "+data.branch[2].name);
 
 			if (data.status === "success") {
-				alert("Data is successfully added");
+				loadAllRoles();
+				successOverlay(true,"Role Added Successfully");
 			} else {
-				alert("Data already Exist");
+				erroOverlay(true,"Oppss!! Error in adding new role");
 			}
 		});
 
@@ -342,7 +346,7 @@ $('#btnSave').on("click", function(e) {
 
 	var name = $("input[name='txtRoleName']").val();
 
-	$.get("CreateRole", {
+	$.post("CreateRole", {
 		type : "EditData",
 		rolesid : lastRoleId,
 		name : name
@@ -350,9 +354,11 @@ $('#btnSave').on("click", function(e) {
 	}, function(data) {
 
 		if (data.status === "success") {
-			alert("Data Updated Successfully.");
+			$("#EditRole").modal("hide");
+			loadAllRoles();
+			successOverlay(true,"Role updated Successfully");
 		} else {
-			alert("Data Already Exist");
+			errorOverlay(true,"Oppss!! Error in updating role");
 		}
 	}
 
@@ -361,22 +367,22 @@ $('#btnSave').on("click", function(e) {
 
 // Delete Role, Select Role
 $('a[href="#roles"]').on("click", function(e) {
-	// alert("Shreeji");
+	loadAllRoles();
 
-	$.get("CreateRole", { // Requesting to servlet
+});
+function loadAllRoles(){
+	$.post("CreateRole", { // Requesting to servlet
 		type : "GetData", // Input parameters
 	}, function(data) { // Return JSON Object
-		// console.log(data);
-		// console.log("Branches : "+data.branch[0].name+",
-		// "+data.branch[1].name+", "+data.branch[2].name);
-		// alert(data.status);
 
 		if (data.status === "success") {
+			$("#tblRoles tbody").html("");
 			var src = $("#getRole").html();
 			var template = Handlebars.compile(src);
 			var output = template(data);
 
 			$("#tblRoles tbody").append(output);
+			
 			$("#drpBranch select").add(output);
 			$("a[href='#EditRole']").on("click", function(e) {
 
@@ -390,16 +396,17 @@ $('a[href="#roles"]').on("click", function(e) {
 			$("a[href='#DeleteRole']").on("click", function(e) {
 				lastRoleId = $(this).attr("data-roleid");
 
-				$.get("CreateRole", {
+				$.post("CreateRole", {
 					type : "DeleteData",
 					rolesid : lastRoleId
 
 				}, function(data) {
-
+					
 					if (data.status === "success") {
-						alert("Delete Sucessfully.");
+						loadAllRoles();
+						successOverlay(true,"Role Deleted Successfully");
 					} else {
-						alert("Something Went Wrong");
+						errorOverlay(true,"Oppss!! Error in deleting role.");
 					}
 				}
 
@@ -410,7 +417,7 @@ $('a[href="#roles"]').on("click", function(e) {
 		}
 
 	});
-});
+}
 
 // To Save Branch
 
@@ -429,7 +436,7 @@ $('#btnAdd').on("click", function(e) {
 	var branchName = $("#txtBranchName").val();
 	var duration = $("#txtDuration").val();
 
-	$.get("CreateBranch", { // Requesting to servlet
+	$.post("CreateBranch", { // Requesting to servlet
 		type : "SaveData", // Input parameters
 		branchName : branchName,
 		duration : duration
@@ -453,7 +460,7 @@ $('a[href="#branch"]').on(
 		"click",
 		function(e) {
 
-			$.get("CreateBranch", { // Requesting to servlet
+			$.post("CreateBranch", { // Requesting to servlet
 				type : "GetData", // Input parameters
 			}, function(data) { // Return JSON Object
 				// console.log(data);
@@ -519,7 +526,7 @@ $('#btnSave1').on("click", function(e) {
 	var name1 = $("input[name='txtBranchName1']").val();
 	var duration = $("input[name='txtDuration1']").val();
 
-	$.get("CreateBranch", {
+	$.post("CreateBranch", {
 		type : "EditData",
 		branchid : lastBranchId,
 		duration : duration,
