@@ -263,8 +263,7 @@
 									<td>{{email}}</td>
 									<td>{{name}}</td>
 									<td>{{role}}</td>
-                                   
-									
+                                   							
 									<td><a href="#DeleteGroupUser" data-toggle="modal"><i class="icon-trash"></i>&nbsp;Delete</a></td>
 								</tr>
 								{{/isNotAlreadyAddedMember}}
@@ -373,6 +372,7 @@
 									<td>{{firstname}} {{lastname}}</td>									
 									<td>{{branch}}-{{year}}</td>
 									<td>{{role}}</td>
+									<td>{{getuserstatus status}}</td>
 									<td><a href="#EditUser" name="shreeji" data-toggle="modal"><i class="icon-edit"></i>&nbsp;Edit</a></td>
 									<td><a href="#DeleteUser" data-toggle="modal"><i class="icon-trash"></i>&nbsp;Delete</a></td>
 								</tr>
@@ -394,6 +394,7 @@
 							<th>Name</th>
 							<th>Branch</th>
 							<th>Role</th>
+							<th>Status</th>
 							<th colspan="2">Actions</th>
 						</tr>
 					</thead>
@@ -557,9 +558,13 @@
 								<div class="controls">
 									<select name="txtEUserStatus" id="drpEStatus">
 										<option value="-1" selected>Select status...</option>
-										<option value="In">Inactive</option>
-										<option value="Ac">Active</option>
-										<option value="Di">Disable</option>
+										<option value="Inactive">Inactive</option>
+										<option value="Active">Active</option>
+										<option value="Disable">Disable</option>
+										<option value="Block">Block</option>
+										<option value="Verify">Verify</option>
+										<option value="New">New</option>
+																											
 									</select>
 								</div>
 							</div>
