@@ -136,7 +136,36 @@ function getNewPost(resetFlag) {
 					currfeed.hide();
 					currfeed.parents().eq(2).css("marginBottom", currfeed.parents().eq(2).height());
 				});
-
+				$(".reportAbuse").click(function(i){
+					var postid= parseInt($(this).parent().parent().data("postid"));
+					var strdetail=prompt("Please enter reason for report abuse:","");
+					if(strdetail.length<3){
+						errorOverlay(true, 'Oops! Reason for report abuse is too short, Try again');
+						return ;
+					}
+					$.ajax({
+						url : 'ReportAbuse/New',
+						type : 'post',
+						data:{
+							'postid' : postid,
+							'detail' : strdetail
+						},
+						success : function(data) {
+							if (data.status === 'success') {
+								// Success
+								successOverlay(true,data.message);
+							} else {
+								// Failed
+								errorOverlay(true, data.message);
+							}
+						},
+						error : function() {
+							errorOverlay(true, 'Oops! something went wrong. Please refresh the page');
+						}
+					});
+					
+				});
+				
 			} else {
 				// Failed
 				errorOverlay(true, data.message);

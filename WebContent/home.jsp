@@ -272,11 +272,11 @@
 							<span class="feed-timestamp muted">{{getDateTime entTime}}</span>
 							<div class="dropdown drp-flat feed-card-menu">
 								<a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon-tasks"></i></a>
-								<ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu">
+								<ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu" data-postid={{postid}}>
 									{{#isPostOwner userid}}
-									<li><a tabindex="-1" href="#">Delete</a></li>
+									<li><a tabindex="-1" href="#" class="postdelete">Delete</a></li>
 									{{/isPostOwner}}
-									<li><a tabindex="-1" href="#">Report as spam/abuse</a></li>
+									<li><a tabindex="-1" href="#" class="reportAbuse">Report as spam/abuse</a></li>
 								</ul>
 							</div>
 						</div>
