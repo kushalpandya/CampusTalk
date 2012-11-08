@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.campustalk.sql.dbGroupMember;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -41,14 +40,15 @@ public class CreateGroupMember extends HttpServlet {
 	}
 
 	/**
+	 * @throws IOException 
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
 	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+			HttpServletResponse response) throws IOException {
 		// TODO Auto-generated method stub
 		PrintWriter out = response.getWriter();
-		JSONObject resp = new JSONObject();
+		JSONObject jResponse=new JSONObject();
 		dbGroupMember objdbGroupMember = new dbGroupMember();
 		String status = "fail";
 		try {
@@ -57,12 +57,10 @@ public class CreateGroupMember extends HttpServlet {
 			if (req_type.equalsIgnoreCase("SaveData")) // Request for Save
 														// GroupMember Data
 			{
-				String groupname = request.getParameter("name");
+				int gid = Integer.parseInt(request.getParameter("name"));
 				String email = request.getParameter("email");
 				String position = request.getParameter("position");
-				// String statu = request.getParameter("status");
-
-				if (objdbGroupMember.AddGroupMember(groupname, email, position))
+				if (objdbGroupMember.AddGroupMember(gid, email, position))
 					status = "success";
 				else
 					status = "fail";
@@ -71,11 +69,26 @@ public class CreateGroupMember extends HttpServlet {
 			else if (req_type.equalsIgnoreCase("GetData")) // Request for All
 															// GroupMember Data
 			{
-				int gid = Integer.parseInt(request.getParameter("groupid"));
-				JSONArray groupmember_arr = new JSONArray();
-				groupmember_arr = objdbGroupMember.getGroupMemberData(gid);
-				resp.put("groupmember", groupmember_arr);
-				status = "success";
+				int id=  Integer.parseInt(request.getParameter("groupid"));
+				System.out.println(id);
+				dbGroupMember objGroupMember= new dbGroupMember();
+				try {
+					jResponse.put("groupmember", objGroupMember.getGroupMemberData(id));
+					status="success";
+					
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				try {
+					jResponse.put("status", status);
+				
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			
 			} else if (req_type.equalsIgnoreCase("EditData")) // Request for
 																// Edit
 			{
@@ -94,8 +107,9 @@ public class CreateGroupMember extends HttpServlet {
 			{
 				int groupid = Integer.parseInt(request.getParameter("groupid"));
 				int userid = Integer.parseInt(request.getParameter("userid"));
+				System.out.print("groupid="+groupid+" userid= "+userid);
 				objdbGroupMember.DeleteGroupMember(groupid, userid);
-				status = "success";
+				status="success";
 			} else {
 				status = "fail";
 			}
@@ -105,14 +119,14 @@ public class CreateGroupMember extends HttpServlet {
 			e.printStackTrace();
 		}
 		try {
-			resp.put("status", status);
+			jResponse.put("status", status);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
-		out.println(resp);
+		out.println(jResponse);
 
 	}
 
