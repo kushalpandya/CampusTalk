@@ -28,7 +28,7 @@
 		<div class="container header">
 			<img src="assets/logo_small.png" class="campustalk-logo" />
 			<div class="search-block input-append">
-				<input type="text" placeholder="Search..." class="txt-flat" />
+				<input type="text" placeholder="Search..." class="txt-flat" id="txtSearchBox" />
 				<button class="btn btn-flat">
 					<i class="icon-search"></i>
 				</button>
@@ -322,6 +322,7 @@
 		</script>
 		<script type="text/javascript" src="js/script.js"></script>
 		<script type="text/javascript" src="js/bootstrap.datepicker.min.js"></script>
+		<script type="text/javascript" src="js/bootstrap.typeahead.min.js"></script>
 		<script type="text/javascript" src="js/handlebars.js"></script>
 		<script type="text/javascript" src="js/moment.min.js"></script>
 		<script type="text/javascript" src="js/home.js"></script>
