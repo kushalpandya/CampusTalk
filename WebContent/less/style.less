@@ -501,6 +501,14 @@
 			}
 		}
 	}
+	
+	.modal-drawer {
+		.control-group:nth-child(2) .controls {
+			font-size: 12px;
+			margin-top: 5px;
+			max-width: 250px;
+		}
+	}
 }
 
 #dlgAccountSettings {
@@ -1170,6 +1178,10 @@ textarea.txt-flat {
 	}
 }
 
+.top-most {
+	z-index: 3000;
+}
+
 .typeahead.dropdown-menu.simple-user-search {
 	.border-radius(0);
 	li {
@@ -1198,6 +1210,16 @@ textarea.txt-flat {
 			 	.transition();
 			 }
 		}
+	}
+}
+
+.typeahead.dropdown-menu.message-user-search {
+	.typeahead.dropdown-menu.simple-user-search();
+	li a {
+		width: 180px;
+		height: 20px;
+		font-size: 12px;
+		line-height: 20px;
 	}
 }
 
@@ -1341,7 +1363,7 @@ textarea.txt-flat {
 		left: 12%;
 		right: 12%;
 		top: 45px;
-		max-height: 75%;
+		max-height: 85%;
 		padding: 0 5px 5px 5px;
 		border-bottom-left-radius: 4px;
 		border-bottom-right-radius: 4px;
@@ -1357,6 +1379,10 @@ textarea.txt-flat {
 		
 		form {
 			margin-left: -45px;
+			
+			.control-label {
+				color: #727374;
+			}
 		}
 		
 		.drawer-button-group {
