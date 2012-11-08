@@ -356,3 +356,31 @@ $("#txtAreaThreadNewMsg").keyup(function(e){
 		sendNewMessage(lastUserEmail,msgDetail,"new",this);
 	}
 });
+
+function buildUserList(source) {
+	var new_source = new Array();
+	var temp;
+	for(var i=0; i<source.length; i++)
+	{
+		temp = source[i];
+		new_source.push({id: temp.id, name: temp.firstname + " " + temp.lastname});
+		//new_source.push("<img class='user-img' src='"+temp.pictureurl+"' /><span class='user-title'>"+temp.firstname+" "+temp.lastname+"</span><span class='user-mail'>"+temp.email+"</span>");
+	}
+	return new_source;
+}
+
+$("#txtSearchBox").typeahead({
+	property: "name",
+	menu: '<ul class="typeahead dropdown-menu simple-user-search"></ul>',
+	source: function(typeahead, key) {
+		$.post("User/ACUserListMsg",{
+			query: key
+		},
+		function(data) {
+			typeahead.process(buildUserList(data));
+		});
+	},
+	onselect: function(obj) {
+		console.log("Selected Id = "+obj.id);
+	}
+});
