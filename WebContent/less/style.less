@@ -505,6 +505,81 @@
 	}
 }
 
+#dlgUserProfile {
+	.modal-body {
+		background: lighten(@soft_white, 1%);
+		
+		.user-profile {
+			margin: auto;
+			margin-top: 10px;
+			width: 85%;
+			
+			.pull-left {
+				margin: auto;
+				
+				img {
+					height: 200px;
+					width: 160px;
+					border: 3px solid darken(@soft_white, 10%);
+   					.border-radius(3px);
+   					.box-shadow(0px, 1px, 2px, rgba(0,0,0,.5));
+				}
+				
+				.user-activity {
+					margin: auto;
+					margin-top: 20px;
+					margin-left: 25%;
+					
+					span {
+						padding-right: 5px;
+					}
+				}
+			}
+			
+			.pull-right {
+				label {
+					color: lighten(@footer_bg_color, 20%);
+					margin-left: 15px;
+					
+					&:nth-child(1) {
+						font-weight: bold;
+						font-size: 25px;
+						margin-bottom: 20px;
+					}
+					
+					&:nth-child(2) {
+						font-size: 18px;
+						margin-bottom: 15px;
+					}
+				}
+				table {
+					td {
+						height: 30px;
+						font-size: 14px;
+						color: lighten(@footer_bg_color, 20%);
+						
+						&:first-child {
+							text-align: right;
+							color: lighten(@footer_bg_color, 50%);
+						}
+						
+						&:last-child {
+							padding-left: 10px;
+						}
+					}
+					tr:last-child {
+						td {
+							padding-left: 0;
+							padding-top: 10px;
+							text-align: center;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
 /******** controlpanel.html Styles ********/
 
 .panels-block {
@@ -1007,13 +1082,22 @@ textarea.txt-flat {
 						height: 30px;
 					}
 					
-					.comment-user {
+					.comment-user a {
 						position: absolute;
 						top: 0;
 						left: 40px;
 						font-size: 10px;
 						font-weight: bold;
 						color: lighten(@footer_bg_color, 20%);
+						padding: 1px;
+						.transition();
+						
+						&:hover {
+							background: #CACACA;
+							text-decoration: none;
+							.border-radius(2px);
+							.transition();
+						}
 					}
 					
 					.comment-timestamp {
