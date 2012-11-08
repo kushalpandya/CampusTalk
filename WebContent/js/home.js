@@ -165,6 +165,34 @@ function getNewPost(resetFlag) {
 					});
 					
 				});
+				$(".postdelete").click(function(i){
+					var postid= parseInt($(this).parent().parent().data("postid"));
+					var r=confirm("Are you sure you want to delete this post ?");
+					if (r==false){
+						return ;
+					}
+					$.ajax({
+						url : 'Post/Delete',
+						type : 'post',
+						data:{
+							'postid' : postid
+						},
+						success : function(data) {
+							if (data.status === 'success') {
+								// Success
+								successOverlay(true,data.message);
+								$("#divPost" + postid).fadeOut('slow').remove();
+							} else {
+								// Failed
+								errorOverlay(true, data.message);
+							}
+						},
+						error : function() {
+							errorOverlay(true, 'Oops! something went wrong. Please refresh the page');
+						}
+					});
+					
+				});
 				
 			} else {
 				// Failed
@@ -216,10 +244,12 @@ function loadCommentForPost(post,resetFlag) {
 	if (resetFlag == undefined) {
 		resetFlag = false;
 	}
+	postid = post.data("postid");
 	if(resetFlag)
 		$("#postComments" + postid).html("");
-		postid = post.data("postid");
-	$.ajax({
+		
+	
+		$.ajax({
 				url : 'Comment/Get',
 				type : 'post',
 				data : {
@@ -242,6 +272,35 @@ function loadCommentForPost(post,resetFlag) {
 							post.parents().eq(2).css("marginBottom", post.parents().eq(1).height());
 						});
 						post.hide();
+				
+						$("#postComments" + postid + " .comment-action").click(function(e){
+							var commentid= parseInt($(this).data("commentid"));
+							var r=confirm("Are you sure you want to delete this Comment?");
+							if (r==false){
+								return ;
+							}
+							$.ajax({
+								url : 'Comment/Delete',
+								type : 'post',
+								data:{
+									'commentid' : commentid
+								},
+								success : function(data) {
+									if (data.status === 'success') {
+										// Success
+										$("#liComment"+ commentid).fadeOut("slow").remove();
+										successOverlay(true,data.message);
+									} else {
+										// Failed
+										errorOverlay(true, data.message);
+									}
+								},
+								error : function() {
+									errorOverlay(true, 'Oops! something went wrong. Please refresh the page');
+								}
+							});
+						});
+						
 
 					} else {
 						// Failed
