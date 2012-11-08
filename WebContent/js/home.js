@@ -265,7 +265,8 @@ function afterLoadPost() {
 $("#btnSendNewMessage").click(function(e){
 	e.preventDefault();
 	var toEmails,msgDetail;
-	toEmails= $("#txtEmailNewMsg").val();
+	var modal = $("#dlgMessages");
+	toEmails= modal.find(".modal-drawer .control-group:nth-child(2) .controls").text().trim();
 	msgDetail= $("#txtNewMsgDetail").val();
 	if(msgDetail.length < 2){
 		alert("Message must have at least 2 or more characters!");
@@ -386,18 +387,6 @@ $("#txtAreaThreadNewMsg").keyup(function(e){
 	}
 });
 
-function buildUserList(source) {
-	var new_source = new Array();
-	var temp;
-	for(var i=0; i<source.length; i++)
-	{
-		temp = source[i];
-		new_source.push({id: temp.id, name: temp.firstname + " " + temp.lastname});
-		//new_source.push("<img class='user-img' src='"+temp.pictureurl+"' /><span class='user-title'>"+temp.firstname+" "+temp.lastname+"</span><span class='user-mail'>"+temp.email+"</span>");
-	}
-	return new_source;
-}
-
 $("#txtSearchBox").typeahead({
 	property: "name",
 	menu: '<ul class="typeahead dropdown-menu simple-user-search"></ul>',
@@ -406,11 +395,30 @@ $("#txtSearchBox").typeahead({
 			query: key
 		},
 		function(data) {
-			typeahead.process(buildUserList(data));
+			typeahead.process(data);
 		});
 	},
 	onselect: function(obj) {
 		console.log("Selected Id = "+obj.id);
 		$("#dlgUserProfile").modal();
+	}
+});
+
+$("#dlgMessages #txtEmailNewMsg").typeahead({
+	property: "name",
+	menu: '<ul class="typeahead dropdown-menu message-user-search top-most"></ul>',
+	source: function(typeahead, key) {
+		$.post("User/ACUserListMsg",{
+			query: key
+		},
+		function(data) {
+			typeahead.process(data);
+		});
+	},
+	onselect: function(obj) {
+		console.log("Selected Id = "+obj.id);
+		var modal = $("#dlgMessages");
+		modal.find(".modal-drawer .control-group:nth-child(2) .controls").append(obj.name+", ");
+		modal.find("#txtEmailNewMsg").val("").focus();
 	}
 });
