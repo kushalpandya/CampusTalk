@@ -116,7 +116,7 @@
 				<!-- Create Group Modal -->
 
 
-				<div class="modal hide fade" id="CreateGroup" tabindex="-1"
+				<div class="modal hide fade modal-flat" id="CreateGroup" tabindex="-1"
 					role="dialog" aria-labelledby="dlgLabel" aria-hidden="true">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal"
@@ -153,7 +153,7 @@
 				<!-- Edit Group Modal -->
 
 
-				<div class="modal hide fade" id="EditGroup" tabindex="-1"
+				<div class="modal hide fade modal-flat" id="EditGroup" tabindex="-1"
 					role="dialog" aria-labelledby="dlgLabel" aria-hidden="true">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal"
@@ -195,7 +195,7 @@
 
 				<!-- Delete Group modal -->
 
-				<div class="modal hide fade" id="DeleteGroup" tabindex="-1"
+				<div class="modal hide fade modal-flat" id="DeleteGroup" tabindex="-1"
 					role="dialog" aria-labelledby="dlgLabel" aria-hidden="true">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal"

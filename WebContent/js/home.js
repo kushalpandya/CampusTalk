@@ -324,7 +324,8 @@ function afterLoadPost() {
 $("#btnSendNewMessage").click(function(e){
 	e.preventDefault();
 	var toEmails,msgDetail;
-	toEmails= $("#txtEmailNewMsg").val();
+	var modal = $("#dlgMessages");
+	toEmails= modal.find(".modal-drawer .control-group:nth-child(2) .controls").text().trim();
 	msgDetail= $("#txtNewMsgDetail").val();
 	if(msgDetail.length < 2){
 		alert("Message must have at least 2 or more characters!");
@@ -442,5 +443,41 @@ $("#txtAreaThreadNewMsg").keyup(function(e){
 			return;
 		}
 		sendNewMessage(lastUserEmail,msgDetail,"new",this);
+	}
+});
+
+$("#txtSearchBox").typeahead({
+	property: "name",
+	menu: '<ul class="typeahead dropdown-menu simple-user-search"></ul>',
+	source: function(typeahead, key) {
+		$.post("User/ACUserListMsg",{
+			query: key
+		},
+		function(data) {
+			typeahead.process(data);
+		});
+	},
+	onselect: function(obj) {
+		console.log("Selected Id = "+obj.id);
+		$("#dlgUserProfile").modal();
+	}
+});
+
+$("#dlgMessages #txtEmailNewMsg").typeahead({
+	property: "name",
+	menu: '<ul class="typeahead dropdown-menu message-user-search top-most"></ul>',
+	source: function(typeahead, key) {
+		$.post("User/ACUserListMsg",{
+			query: key
+		},
+		function(data) {
+			typeahead.process(data);
+		});
+	},
+	onselect: function(obj) {
+		console.log("Selected Id = "+obj.id);
+		var modal = $("#dlgMessages");
+		modal.find(".modal-drawer .control-group:nth-child(2) .controls").append(obj.name+", ");
+		modal.find("#txtEmailNewMsg").val("").focus();
 	}
 });

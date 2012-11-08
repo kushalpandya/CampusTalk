@@ -43,12 +43,6 @@ public void EditGroupMember(int groupid,int userid,String position,String status
 		CallableStatement csSql = CON
 				.prepareCall("{call updateGroupMember(?,?,?,?)}");
 
-		/**
-		 * CREATE PROCEDURE `campustalk`.`updateGroupMember`( IN groupid INT,
-		 * IN userid INT,
-		 * IN position VARCHAR(100),
-		 * IN status CHAR(2))
-		 */
 		csSql.setInt(1,groupid);
 		csSql.setInt(2, userid);
 		csSql.setString(3,position);

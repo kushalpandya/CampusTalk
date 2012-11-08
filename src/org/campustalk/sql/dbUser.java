@@ -130,7 +130,7 @@ public class dbUser extends DatabaseManager {
 		csSql.close();
 		return rtnFlag;
 	}
-	public JSONArray serchUserMsgAC(String query){
+	public JSONArray searchUserMsgAC(String query){
 		JSONArray jArray = new JSONArray();
 		try {
 			this.open();
@@ -143,11 +143,12 @@ public class dbUser extends DatabaseManager {
 		while (rs.next()) {
 			jObj= new JSONObject();
 			objUser = new CampusTalkUsers();
-			//jObj.put("id",rs.getInt("id"));
-			jObj.put("value",rs.getString("email"));
-			//jObj.put("firstname",rs.getString("firstname"));
-			//jObj.put("lastname",rs.getString("lastname"));
-		//	jObj.put("pictureurl",rs.getString("pictureurl"));
+			jObj.put("id",rs.getInt("id"));
+			jObj.put("email",rs.getString("email"));
+			jObj.put("firstname",rs.getString("firstname"));
+			jObj.put("lastname",rs.getString("lastname"));
+			jObj.put("pictureurl",rs.getString("pictureurl"));
+			jObj.put("name", rs.getString("firstname")+" "+rs.getString("lastname"));
 			jArray.put(jObj);
 		} 
 		csSql.close();
@@ -258,7 +259,6 @@ public void AddUser(String email, String branch, int year, String role) throws S
 	
 	public Boolean HelloFun(int id, String email, String branch, int year, String role, String st)
 	{
-		Exception err=null;
 		boolean ret=false;
 		try {
 			
@@ -283,8 +283,8 @@ public void AddUser(String email, String branch, int year, String role) throws S
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			//e.printStackTrace();
-			err=e;
+			e.printStackTrace();
+			
 		}
 		return ret;
 	}

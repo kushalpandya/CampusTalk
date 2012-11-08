@@ -38,29 +38,25 @@ $(".account-tray #btnSettings").on("click", function(e) {
 	});
 });
 
-$("form button[name='btnChangePassword']").on("click", function(e) {
+$("#dlgAccountSettings form button[name='btnChangePassword']").on("click", function(e) {
 	var modal = $(this).parents().eq(4);
 	modal.find(".modal-disable-overlay").css("height",modal.find(".modal-body").height()).show();
 	modal.find(".modal-drawer").slideDown(250);
 });
 
-$("#btnCancelNewMessage").on("click", function(e) {
-	var modal = $(this).parents().eq(3);
-	modal.find(".modal-disable-overlay").hide();
-	modal.find(".modal-drawer").slideUp(250);
-});
-
-$("#btnCancelChangePass").on("click", function(e) {
-	$("#dlgAccountSettings .modal-disable-overlay").hide();
-	$("#dlgAccountSettings .modal-drawer").slideUp(250);
-});
-
-$("#btnNewMessage").on("click", function(e) {
+/*Open Drawer on Active Modal*/
+$("#dlgMessages #btnNewMessage, #dlgUserProfile #btnNewMessage").on("click", function(e) {
 	var modal = $(this).parents().eq(2);
 	modal.find(".modal-disable-overlay").css("height",modal.find(".modal-body").height()).show();
 	modal.find(".modal-drawer").slideDown(250);
 });
 
+/*Close Drawer on Active Modal*/
+$(" #dlgAccountSettings #btnCancelChangePass, #dlgMessages #btnCancelNewMessage, #dlgUserProfile #btnCancelNewMessage").on("click", function(e) {
+	var modal = $(this).parents().eq(3);
+	modal.find(".modal-disable-overlay").hide();
+	modal.find(".modal-drawer").slideUp(250);
+});
 
 /** ******************** home.html script ********************** */
 $("#postBox").on(

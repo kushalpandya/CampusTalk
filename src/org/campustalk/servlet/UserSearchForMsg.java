@@ -17,13 +17,15 @@ import org.json.JSONArray;
  * Servlet implementation class UserSeachForMsg
  */
 @WebServlet("/User/ACUserListMsg")
-public class UserSeachForMsg extends HttpServlet {
+public class UserSearchForMsg extends HttpServlet
+{
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public UserSeachForMsg() {
+	public UserSearchForMsg()
+	{
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -32,23 +34,36 @@ public class UserSeachForMsg extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
 		HttpSession session = request.getSession(true);
 		PrintWriter out = response.getWriter();
 		JSONArray jResponse = new JSONArray();
-		if (session.getAttribute("UserId") != null) {
+		if (session.getAttribute("UserId") != null)
+		{
 			dbUser objDbUser = new dbUser();
-			jResponse = objDbUser.serchUserMsgAC(request.getParameter("query"));
+			jResponse = objDbUser.searchUserMsgAC(request.getParameter("query"));
 		}
 
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		out.println(jResponse);
-				
 	}
-	
 
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
+		HttpSession session = request.getSession(true);
+		PrintWriter out = response.getWriter();
+		JSONArray jResponse = new JSONArray();
+		if (session.getAttribute("UserId") != null)
+		{
+			dbUser objDbUser = new dbUser();
+			jResponse = objDbUser.searchUserMsgAC(request.getParameter("q"));
+		}
+
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		out.println(jResponse);
+	}
 }

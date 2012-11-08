@@ -244,6 +244,7 @@
 			
 			button {
 				width: 150px;
+				font-weight: bold;
 			}
 			
 			#btnLogout {
@@ -392,6 +393,13 @@
 			background: white;
 			.box-shadow-inset(0px, 0px, 6px, gray);
 			
+			.info-label {
+				display: block;
+				width: 100%;
+				margin-top: 25%;
+				text-align: center;
+			}
+			
 			.message {
 				display: block;
 				min-width: 190px;
@@ -493,6 +501,14 @@
 			}
 		}
 	}
+	
+	.modal-drawer {
+		.control-group:nth-child(2) .controls {
+			font-size: 12px;
+			margin-top: 5px;
+			max-width: 250px;
+		}
+	}
 }
 
 #dlgAccountSettings {
@@ -500,6 +516,81 @@
 		form {
 			margin: auto;
 			margin-left: 100px;
+		}
+	}
+}
+
+#dlgUserProfile {
+	.modal-body {
+		background: lighten(@soft_white, 1%);
+		
+		.user-profile {
+			margin: auto;
+			margin-top: 10px;
+			width: 85%;
+			
+			.pull-left {
+				margin: auto;
+				
+				img {
+					height: 200px;
+					width: 160px;
+					border: 3px solid darken(@soft_white, 10%);
+   					.border-radius(3px);
+   					.box-shadow(0px, 1px, 2px, rgba(0,0,0,.5));
+				}
+				
+				.user-activity {
+					margin: auto;
+					margin-top: 20px;
+					margin-left: 25%;
+					
+					span {
+						padding-right: 5px;
+					}
+				}
+			}
+			
+			.pull-right {
+				label {
+					color: lighten(@footer_bg_color, 20%);
+					margin-left: 15px;
+					
+					&:nth-child(1) {
+						font-weight: bold;
+						font-size: 25px;
+						margin-bottom: 20px;
+					}
+					
+					&:nth-child(2) {
+						font-size: 18px;
+						margin-bottom: 15px;
+					}
+				}
+				table {
+					td {
+						height: 30px;
+						font-size: 14px;
+						color: lighten(@footer_bg_color, 20%);
+						
+						&:first-child {
+							text-align: right;
+							color: lighten(@footer_bg_color, 50%);
+						}
+						
+						&:last-child {
+							padding-left: 10px;
+						}
+					}
+					tr:last-child {
+						td {
+							padding-left: 0;
+							padding-top: 10px;
+							text-align: center;
+						}
+					}
+				}
+			}
 		}
 	}
 }
@@ -615,22 +706,21 @@
 .btn-blue {
 	@base_color: #2D608F;
 	
-	font-weight: bold;
 	color: @soft_white;
-	text-shadow: 0px 0px 0px;
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 	background: @base_color;
 	border: 1px solid @base_color;
 	.transition();
 	
 	&:hover {
 		color: @soft_white;
-		background: darken(@base_color, 5%);
+		background: lighten(@base_color, 5%);
 		.transition();
 	}
 	
 	&:active {
 		color: @soft_white;
-		background: darken(@base_color, 8%);
+		background: darken(@base_color, 3%);
 		.box-shadow-inset(0px, 0px, 5px, darken(@base_color, 30%));
 		.transition();
 	}
@@ -1007,13 +1097,22 @@ textarea.txt-flat {
 						height: 30px;
 					}
 					
-					.comment-user {
+					.comment-user a {
 						position: absolute;
 						top: 0;
 						left: 40px;
 						font-size: 10px;
 						font-weight: bold;
 						color: lighten(@footer_bg_color, 20%);
+						padding: 1px;
+						.transition();
+						
+						&:hover {
+							background: #CACACA;
+							text-decoration: none;
+							.border-radius(2px);
+							.transition();
+						}
 					}
 					
 					.comment-timestamp {
@@ -1075,6 +1174,108 @@ textarea.txt-flat {
 				background: darken(@soft_white, 20%);
 				.transition();
 			}
+		}
+	}
+}
+
+.top-most {
+	z-index: 3000;
+}
+
+.typeahead.dropdown-menu.simple-user-search {
+	.border-radius(0);
+	li {
+		a {
+			display: block;
+			width: 275px;
+			height: 30px;
+			color: lighten(@footer_bg_color, 20%);
+			font-size: 16px;
+			line-height: 30px;
+			background: @soft_white;
+			.transition();
+			
+			&:hover {
+				text-decoration: none;
+				background: darken(@soft_white, 20%);
+				.transition();
+			}
+		}
+		
+		&:nth-child(odd) a {
+			background: darken(@soft_white, 5%);
+			
+			 &:hover {
+			 	background: darken(@soft_white, 20%);
+			 	.transition();
+			 }
+		}
+	}
+}
+
+.typeahead.dropdown-menu.message-user-search {
+	.typeahead.dropdown-menu.simple-user-search();
+	li a {
+		width: 180px;
+		height: 20px;
+		font-size: 12px;
+		line-height: 20px;
+	}
+}
+
+/*Provisional Styles for Rich Auto-complete*/
+.typeahead.dropdown-menu.user-search {
+	.border-radius(0);
+	li {
+		a {
+			display: block;
+			width: 275px;
+			height: 50px;
+			background: @soft_white;
+			.transition();
+			
+			&:hover {
+				text-decoration: none;
+				background: darken(@soft_white, 20%);
+				.transition();
+			}
+			
+			.user-img {
+				float: left;
+				height: 42px;
+				width: 42px;
+				margin-top: 4px;
+				margin-left: 4px;
+			}
+			
+			.user-title {
+				color: @footer_bg_color;
+				font-size: 16px;
+				margin-top: 5px;
+				margin-left: 20px;
+			}
+			
+			.user-mail {
+				float: left;
+				color: lighten(@footer_bg_color, 20%);
+				font-size: 12px;
+				margin-left: 20px;
+			}
+		}
+	
+		&:nth-child(odd) a {
+			background: darken(@soft_white, 5%);
+			
+			 &:hover {
+			 	background: darken(@soft_white, 20%);
+			 	.transition();
+			 }
+		}
+		
+		a.active {
+			color: darken(@soft_blue, 50%);
+			background: lighten(@soft_blue, 10%);
+			font-weight: bold;
 		}
 	}
 }
@@ -1162,7 +1363,7 @@ textarea.txt-flat {
 		left: 12%;
 		right: 12%;
 		top: 45px;
-		max-height: 75%;
+		max-height: 85%;
 		padding: 0 5px 5px 5px;
 		border-bottom-left-radius: 4px;
 		border-bottom-right-radius: 4px;
@@ -1178,6 +1379,10 @@ textarea.txt-flat {
 		
 		form {
 			margin-left: -45px;
+			
+			.control-label {
+				color: #727374;
+			}
 		}
 		
 		.drawer-button-group {
