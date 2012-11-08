@@ -40,7 +40,7 @@ public class dbComment extends DatabaseManager {
 		try {
 			this.open();
 			CallableStatement pst = CON
-					.prepareCall("{call deleteCommentForPost(?,?,?)}");
+					.prepareCall("{call CommentDeleteOfPost(?,?,?)}");
 			pst.setInt(1, commentId);
 			pst.setInt(2, userId);
 			pst.registerOutParameter(3, Types.BOOLEAN);
@@ -72,7 +72,7 @@ public class dbComment extends DatabaseManager {
 			JSONObject jTemp;
 			while (rs.next()) {
 				jTemp = new JSONObject();
-				jTemp.put("commentid", rs.getInt("postid"));
+				jTemp.put("commentid", rs.getInt("commentid"));
 				jTemp.put("userid", rs.getInt("userid"));
 				jTemp.put("detail", rs.getString("detail"));
 				jTemp.put("entTime", rs.getTimestamp("entTime"));
