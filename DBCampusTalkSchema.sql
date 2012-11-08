@@ -73,6 +73,20 @@ INSERT INTO `comment` VALUES (1,3,1,':D :D ;-)','2012-11-03 05:57:57','A'),(2,1,
 UNLOCK TABLES;
 
 --
+-- Temporary table structure for view `countonreportabuses`
+--
+
+DROP TABLE IF EXISTS `countonreportabuses`;
+/*!50001 DROP VIEW IF EXISTS `countonreportabuses`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `countonreportabuses` (
+  `numberofreport` tinyint NOT NULL,
+  `rpostid` tinyint NOT NULL
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
 -- Table structure for table `eventattends`
 --
 
@@ -198,7 +212,7 @@ CREATE TABLE `messagedetails` (
   `enttime` datetime NOT NULL,
   PRIMARY KEY (`messageid`),
   KEY `userid_idx` (`userid`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -207,7 +221,7 @@ CREATE TABLE `messagedetails` (
 
 LOCK TABLES `messagedetails` WRITE;
 /*!40000 ALTER TABLE `messagedetails` DISABLE KEYS */;
-INSERT INTO `messagedetails` VALUES (17,2,'Hey !!','V','2012-11-07 11:29:22'),(18,1,'Hi Faishal\nWhats up :)','V','2012-11-07 11:31:21'),(19,2,'Nothing much dude .. :)\ntp .. u say \nwhats going on ?','V','2012-11-07 11:47:13'),(20,2,'Nothing much dude .. :)\ntp .. u say \nwhats going on ?','V','2012-11-07 11:47:15'),(21,1,'Nothing much .. Sen project','V','2012-11-07 11:53:28'),(22,2,'Ohk .. :D','V','2012-11-07 11:54:21');
+INSERT INTO `messagedetails` VALUES (17,2,'Hey !!','V','2012-11-07 11:29:22'),(18,1,'Hi Faishal\nWhats up :)','V','2012-11-07 11:31:21'),(19,2,'Nothing much dude .. :)\ntp .. u say \nwhats going on ?','V','2012-11-07 11:47:13'),(20,2,'Nothing much dude .. :)\ntp .. u say \nwhats going on ?','V','2012-11-07 11:47:15'),(21,1,'Nothing much .. Sen project','V','2012-11-07 11:53:28'),(22,2,'Ohk .. :D','V','2012-11-07 11:54:21'),(23,2,'test BroadCast','V','2012-11-07 15:09:37'),(24,2,'You got that :(','V','2012-11-07 15:11:24'),(25,2,'Ellow !! u der ?','V','2012-11-07 15:12:27'),(26,2,'??','V','2012-11-07 15:14:08'),(27,2,'??','V','2012-11-07 15:44:23'),(28,1,'what !!','V','2012-11-07 15:59:26'),(29,1,'what !!','V','2012-11-07 16:00:41'),(30,1,'??','V','2012-11-07 18:09:19'),(31,2,'Nothing !!','V','2012-11-07 18:14:29'),(32,1,'?? ??','V','2012-11-07 18:16:24'),(33,1,'??','V','2012-11-07 18:29:15'),(34,1,'??','V','2012-11-07 18:36:49'),(35,1,'1! !','V','2012-11-07 18:38:36'),(36,1,'? ? ?','V','2012-11-07 18:39:31'),(37,1,'! _ 1','V','2012-11-07 18:40:51'),(38,1,'Yo yo','V','2012-11-07 19:57:20');
 /*!40000 ALTER TABLE `messagedetails` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -234,7 +248,7 @@ CREATE TABLE `messages` (
 
 LOCK TABLES `messages` WRITE;
 /*!40000 ALTER TABLE `messages` DISABLE KEYS */;
-INSERT INTO `messages` VALUES (17,1,'R'),(18,2,'R'),(19,1,'R'),(20,1,'R'),(21,2,'R'),(22,1,'N');
+INSERT INTO `messages` VALUES (17,1,'R'),(18,2,'R'),(19,1,'R'),(20,1,'R'),(21,2,'R'),(22,1,'R'),(23,1,'R'),(24,1,'R'),(25,1,'R'),(26,1,'R'),(27,1,'R'),(28,2,'R'),(29,2,'R'),(30,2,'R'),(31,1,'R'),(32,2,'R'),(33,2,'R'),(34,2,'N'),(35,2,'N'),(36,2,'N'),(37,2,'N'),(38,2,'N');
 /*!40000 ALTER TABLE `messages` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -293,6 +307,7 @@ CREATE TABLE `reportabuses` (
 
 LOCK TABLES `reportabuses` WRITE;
 /*!40000 ALTER TABLE `reportabuses` DISABLE KEYS */;
+INSERT INTO `reportabuses` VALUES (10,1,'2012-11-08 03:32:36','N','testing'),(13,1,'2012-11-08 03:30:01','N','yo to !!!'),(14,1,'2012-11-08 03:29:33','N','test report');
 /*!40000 ALTER TABLE `reportabuses` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -653,6 +668,39 @@ DELIMITER ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
 ALTER DATABASE `campustalk` CHARACTER SET utf8 COLLATE utf8_general_ci ;
+/*!50003 DROP FUNCTION IF EXISTS `isAlreadyReported` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 FUNCTION `isAlreadyReported`(postid INT,userid INT) RETURNS tinyint(1)
+BEGIN
+      DECLARE pid INT;
+      
+      SELECT r.postid INTO pid FROM reportabuses r WHERE  r.postid =postid AND r.userid =userid;
+     
+      IF pid!=0 THEN
+      
+	RETURN TRUE;
+      
+      END IF;
+      
+      RETURN FALSE;
+     
+      
+            
+     
+    END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP FUNCTION IF EXISTS `isAuthorisedUserForPost` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -805,6 +853,79 @@ DELIMITER ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
 ALTER DATABASE `campustalk` CHARACTER SET utf8 COLLATE utf8_general_ci ;
+/*!50003 DROP PROCEDURE IF EXISTS `blockPost` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `blockPost`(IN postid INT)
+BEGIN
+    
+     UPDATE posts SET posts.status = 'B' WHERE posts.postid =postid;
+    END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `blockUser` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `blockUser`(IN userid INT)
+BEGIN
+       UPDATE users u SET u.status ='B' WHERE u.id =userid;
+    END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `CommentDeleteOfPost` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `CommentDeleteOfPost`(IN dCommentId int, in dUserId int,out flag boolean)
+BEGIN
+	Declare dTest int ;
+	select `comment`.`userid` into dTest from `campustalk`.`comment` where `comment`.`commentid` =dCommentId and `comment`.`userid`= dUserId;
+	if dTest is null then
+		select `comment`.`userid` into dTest from `campustalk`.`comment`,`campustalk`.`posts` where `comment`.`commentid` =dCommentId  and `comment`.`postid`=`posts`.`postid` and `posts`.`userid`=dUserId;
+		if dTest is null then
+			set flag=true;
+		else
+			set flag=false;
+		end if;
+	else
+		set flag=true;
+	end if;
+if flag = true then
+ update `campustalk`.`comment` set `campustalk`.`status`='D' where `campustalk`.`commentid`=dCommentId;
+end if;
+
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `CommentOnPost` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -826,40 +947,6 @@ BEGIN
      
      UPDATE posts SET posts.lastmodifytime = SYSDATE() WHERE posts.postid =postid;
 end if;	
-END */;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `deleteCommentForPost` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
-DELIMITER ;;
-/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `deleteCommentForPost`(IN dCommentId int, in dUserId int,out flag boolean)
-BEGIN
-	Declare dTest int ;
-	select `comment`.`userid` into dTest from `campustalk`.`comment` where `comment`.`commentid` =dCommentId and `comment`.`userid`= dUserId;
-	if dTest is null then
-		select `comment`.`userid` into dTest from `campustalk`.`comment`,`campustalk`.`posts` where `comment`.`commentid` =dCommentId  and `comment`.`postid`=`posts`.`postid` and `posts`.`userid`=dUserId;
-		if dTest is null then
-			set flag=true;
-		else
-			set flag=false;
-		end if;
-	else
-		set flag=true;
-	end if;
-if flag = true then
- update `campustalk`.`comment` set `campustalk`.`status`='D' where `campustalk`.`commentid`=dCommentId;
-end if;
-
 END */;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -1039,6 +1126,26 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `getReportReason` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `getReportReason`(IN postid INT)
+BEGIN
+	SELECT r.detail, r.enttime,r.postid,r.userid,u.email,u.firstname,getBranchName(u.branchid) AS branchname, u.year FROM reportabuses r INNER JOIN
+	 users u ON r.userid = u.id WHERE r.postid = postid;
+    END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `getRoleById` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -1053,6 +1160,29 @@ DELIMITER ;;
 BEGIN
 	select `roles`.* from `campustalk`.`roles` where `roles`.`roleid` = uroleid ;
 END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `gettAllReportedPost` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `gettAllReportedPost`()
+BEGIN
+                                                  
+  SELECT posts.*,users.firstname,users.lastname,users.email FROM posts INNER JOIN users ON posts.userid = users.id
+   WHERE posts.postid IN (SELECT cr.rpostid FROM countonreportabuses cr);
+      
+        
+       END */;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
@@ -1103,6 +1233,34 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `insertReportAbuses` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `insertReportAbuses`(IN postid INT , IN userid INT, IN detail TEXT,OUT isReported BOOL)
+BEGIN
+	
+	IF isAlreadyReported(postid,userid) THEN
+		SET isReported  =TRUE; /* if user has alreday reported for the given post, then user not allow to report again*/
+	ELSE
+	
+	INSERT INTO reportabuses(postid,userid,enttime,STATUS,detail) VALUES(postid,userid,SYSDATE(),'N',detail);
+               	SET isReported  =FALSE;/* if not reported then allow  */
+	 
+        END IF;
+                	
+     END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `PostInsert` */;
 ALTER DATABASE `campustalk` CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -1130,6 +1288,27 @@ DELIMITER ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
 ALTER DATABASE `campustalk` CHARACTER SET utf8 COLLATE utf8_general_ci ;
+/*!50003 DROP PROCEDURE IF EXISTS `readReportedPost` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `readReportedPost`(IN postid INT,IN userid INT)
+BEGIN
+
+	   UPDATE reportabuses  r SET r.status = 'R' WHERE r.postid = postid AND r.userid = userid AND r.status ='N';
+   
+    END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `SearchUserMsgAC` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -1180,6 +1359,28 @@ BEGIN
 		set rtnFlag= false;
 	end if;
 END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `updateReportStatusForPost` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `updateReportStatusForPost`(IN postid INT,IN userid INT,IN rstatus CHAR(2))
+BEGIN
+    
+    /* status : R for read*/
+      UPDATE reportabuses  r SET r.status = rstatus WHERE r.postid = postid AND r.userid = userid;
+       
+    END */;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
@@ -1315,6 +1516,25 @@ DELIMITER ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
 ALTER DATABASE `campustalk` CHARACTER SET utf8 COLLATE utf8_general_ci ;
+
+--
+-- Final view structure for view `countonreportabuses`
+--
+
+/*!50001 DROP TABLE IF EXISTS `countonreportabuses`*/;
+/*!50001 DROP VIEW IF EXISTS `countonreportabuses`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `countonreportabuses` AS (select count(`r`.`postid`) AS `numberofreport`,`r`.`postid` AS `rpostid` from `reportabuses` `r` where (`r`.`status` = 'N') group by `r`.`postid` having (`numberofreport` >= 2)) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -1325,4 +1545,4 @@ ALTER DATABASE `campustalk` CHARACTER SET utf8 COLLATE utf8_general_ci ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-11-07 12:18:13
+-- Dump completed on 2012-11-08 15:19:45
