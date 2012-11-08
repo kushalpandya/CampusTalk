@@ -67,8 +67,8 @@ public class AdminFilter implements Filter {
 			CampusTalkUserRoles objUserRole = new CampusTalkUserRoles();
 			objUserRole.setUserid(objUser.getId());
 			objDbUserRole.getRoleById(objUserRole);
-
-			if (!objUserRole.role.getName().equalsIgnoreCase("admin")) {
+			String roleName= objUserRole.role.getName();
+			if (!roleName.equalsIgnoreCase("admin")) {
 				hres.sendRedirect(Settings.APPURL);
 			} else {
 				request.setAttribute("User", objUser);
