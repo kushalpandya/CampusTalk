@@ -738,14 +738,16 @@
 				<script id="getBranch" type="text/x-handlebars-template">
 					{{#if Branch}}
 						{{#each Branch}}
-								<tr>
+							{{#isNotAleadyAddedBranch branchid}}
+								<tr id="trBranch{{branchid}}">
 									<td>{{branchid}}</td>									
 									<td>{{name}}</td>
 									<td>{{duration}}</td>
 						
-									<td><a href="#EditBranch" data-branchid="{{branchid}}" data-branchname="{{branchname}}" data-duration="{{duration}}" name="EditBranch" data-toggle="modal"><i class="icon-edit"></i>&nbsp;Edit</a></td>
+									<td><a href="#EditBranch" data-branchid="{{branchid}}" data-branchname="{{name}}" data-duration="{{duration}}" name="EditBranch" data-toggle="modal"><i class="icon-edit"></i>&nbsp;Edit</a></td>
 									<td><a href="#DeleteBranch" data-branchid="{{branchid}}" name="DeleteBranch" "data-toggle="modal"><i class="icon-trash"></i>&nbsp;Delete</a></td>
-								</tr>						
+								</tr>
+							{{/isNotAleadyAddedBranch}}						
 						{{/each}}
 					{{else}}
 						<option value="-1" selected>No Valuse Selected...</option>				
