@@ -157,24 +157,20 @@ $("a[href='#groups']").live("click", function(e) {
 $("a[href='#ViewGroup']").live(
 		"click",
 		function(e) {
-
-			console.log("hiral");
-			GROUP_ID = parseInt($(this).parents().eq(1).find("td:nth-child(1)")
-					.text());
-
+			var groupName = $(this).parents().eq(1).find("td:nth-child(2)").text();
+			$("#ViewGroup #dlgLabel").text(groupName);
+			$("#ViewGroup").css("margin-left",
+			($("#ViewGroup").outerWidth() / 2) * -1);
+			GROUP_ID = parseInt($(this).parents().eq(1).find("td:nth-child(1)").text());
 			$.post("CreateGroupMember", { //Requesting to servlet 
 				type : "GetData", //Input parameters		
 				groupid : GROUP_ID
 			}, function(data) { // Return JSON Object
-				//console.log(data);
-				//console.log("Branches : "+data.branch[0].name+", "+data.branch[1].name+", "+data.branch[2].name);	
-				alert(data.status);
 				if (data.status === "success") {
 					var src = $("#getGroupMemberData").html();
 					var template = Handlebars.compile(src);
 					var output = template(data);
 					$("#tblGroupUser tbody").append(output);
-					//$("#drpBranch select").add(output);
 				}
 			});
 
