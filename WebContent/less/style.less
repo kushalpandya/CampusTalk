@@ -244,6 +244,7 @@
 			
 			button {
 				width: 150px;
+				font-weight: bold;
 			}
 			
 			#btnLogout {
@@ -615,22 +616,21 @@
 .btn-blue {
 	@base_color: #2D608F;
 	
-	font-weight: bold;
 	color: @soft_white;
-	text-shadow: 0px 0px 0px;
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 	background: @base_color;
 	border: 1px solid @base_color;
 	.transition();
 	
 	&:hover {
 		color: @soft_white;
-		background: darken(@base_color, 5%);
+		background: lighten(@base_color, 5%);
 		.transition();
 	}
 	
 	&:active {
 		color: @soft_white;
-		background: darken(@base_color, 8%);
+		background: darken(@base_color, 3%);
 		.box-shadow-inset(0px, 0px, 5px, darken(@base_color, 30%));
 		.transition();
 	}
