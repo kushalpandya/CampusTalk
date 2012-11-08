@@ -93,7 +93,7 @@
 			</div>
 			<div class="modal-drawer">
 				<legend>Compose Message</legend>
-				<form class="form-horizontal form-add-member">
+				<form class="form-horizontal">
 					<div class="control-group">
 						<label class="control-label">To</label>
 						<div class="controls">
@@ -176,7 +176,7 @@
 			</div>
 			<div class="modal-drawer">
 				<legend>Change Password</legend>
-				<form class="form-inline form-add-member">
+				<form class="form-inline">
 					<div class="control-group">
 						<label class="control-label">Current Password</label>
 						<div class="controls">
@@ -260,6 +260,72 @@
 			</div>
 			<div class="modal-disable-overlay">&nbsp;</div>
 		</div>
+		<!-- User Profile Dialog -->
+		<div id="dlgUserProfile" class="modal hide fade modal-flat">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Details</h4>
+			</div>
+			<div class="modal-drawer">
+				<legend>Compose Message</legend>
+				<form class="form-horizontal form-add-member">
+					<div class="control-group">
+						<label class="control-label">Message</label>
+						<div class="controls">
+							<textarea rows="4" placeholder="Write a message..." id="txtNewMsgDetail" ></textarea>
+						</div>
+					</div>
+					<div class="control-group drawer-button-group">
+						<button type="button" class="btn btn-flat" id="btnCancelNewMessage">Cancel</button>
+						<a href="#" class="btn btn-green" id="btnSendNewMessage">Send</a>
+					</div>
+				</form>	
+			</div>
+			<div class="modal-body">
+				<div class="user-profile">
+					<div class="pull-left">
+						<img src="https://lh3.googleusercontent.com/-XVHns1ycTI0/AAAAAAAAAAI/AAAAAAAAAN0/31SL_TsfpRM/photo.jpg" class="user-img" />
+						<div class="user-activity">
+							<span class="user-posts"><i class="icon-list-alt"></i>&nbsp;6</span>
+							<span class="user-comments"><i class="icon-comment"></i>&nbsp;10</span>
+						</div>
+					</div>
+					<div class="pull-right">
+						<label>Kushal Pandya</label>
+						<label>MSc. I.T. - 2011</label>
+						<table>
+							<tbody>
+								<tr>
+									<td>Email</td><td>kushal.pandya04@gmail.com</td>
+								</tr>
+								<tr>
+									<td>Gender</td><td>Male</td>
+								</tr>
+								<tr>
+									<td>Born</td><td>22 July 1990</td>
+								</tr>
+								<tr>
+									<td>City</td><td>Rajkot</td>
+								</tr>
+								<tr align="left">
+									<td colspan="2"><button class="btn btn-yellow"><i class="icon-user"></i>&nbsp;Make Moderator</button></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<div class="pull-left">
+					<button class="btn btn-green" id="btnNewMessage">Send Private Message</button>
+				</div>
+				<div class="pull-right">
+					<button class="btn btn-blue">Show All Posts</button>
+					<button class="btn btn-flat" data-dismiss="modal" aria-hidden="true">Close</button>
+				</div>
+			</div>
+			<div class="modal-disable-overlay">&nbsp;</div>
+		</div>
 		<a id='popupLink' href='' style='display:none'>Show</a>
 		<script type="text/x-handlebars-template" id='tmpltPostList'>
  		{{#if posts}}
@@ -300,7 +366,7 @@
 		<script type="text/x-handlebars-template" id='tmpltCommentList'>
 		{{#each comments}}
 			{{#notAlreadyAddedComment commentid}}
-				<li><img src="{{pictureurl}}" class="comment-user-img"/><br/>{{detail}}<span class="comment-user">{{firstname}} {{lastname}}</span><span class="comment-timestamp muted">{{getDateTime entTime}}</span><a class="comment-action" href="#"><i class="icon-remove" title="Delete"></i></a></li>
+				<li><img src="{{pictureurl}}" class="comment-user-img"/><br/>{{detail}}<span class="comment-user"><a href="#">{{firstname}} {{lastname}}</a></span><span class="comment-timestamp muted">{{getDateTime entTime}}</span><a class="comment-action" href="#"><i class="icon-remove" title="Delete"></i></a></li>
 			{{/notAlreadyAddedComment}}
 		{{/each}}
 		</script>
