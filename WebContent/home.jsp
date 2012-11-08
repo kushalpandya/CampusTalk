@@ -116,40 +116,7 @@
 				<ul class="recipient-list" id= "ulRecipientList">
 				</ul>
 				<div class="message-thread" id="divMessageThread" >
-					<div class="message pull-left">
-						<label class="sender">Borat</label>
-						<label class="timestamp">Sent at 2:37 PM</label>
-						<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas</p>
-					</div>
-					<div class="message pull-right">
-						<label class="sender">Faishal</label>
-						<label class="timestamp">Sent at 2:37 PM</label>
-						<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas</p>
-					</div>
-					<div class="message pull-left">
-						<label class="sender">Borat</label>
-						<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas</p>
-					</div>
-					<div class="message pull-right">
-						<label class="sender">Faishal</label>
-						<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas</p>
-					</div>
-					<div class="message pull-left">
-						<label class="sender">Borat</label>
-						<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas</p>
-					</div>
-					<div class="message pull-right">
-						<label class="sender">Faishal</label>
-						<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas</p>
-					</div>
-					<div class="message pull-left">
-						<label class="sender">Borat</label>
-						<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas</p>
-					</div>
-					<div class="message pull-right">
-						<label class="sender">Faishal</label>
-						<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas</p>
-					</div>
+					<span class="info-label muted">No Conversation Selected</span>
 				</div>
 				<div class="message-editor">
 					<textarea placeholder="Write a reply... (press Enter to send message)" id="txtAreaThreadNewMsg"></textarea>
