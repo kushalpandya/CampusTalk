@@ -4,7 +4,9 @@ import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
-import java.util.ArrayList;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 //import org.campustalk.entity.CampusTalkGroup;
 
@@ -74,14 +76,32 @@ public void DeleteGroup(int id) throws SQLException, ClassNotFoundException{
 	csSql.executeQuery();
 }
 
-public ResultSet getGroupData()throws SQLException, ClassNotFoundException 
+public JSONArray getGroupData() 
 {
-	
+	JSONArray group_arr = new JSONArray();
+	try{
 	this.open();
 	CallableStatement csSql = CON
 			.prepareCall("{call getGroupData()}");
 	ResultSet rs = csSql.executeQuery();
-	return rs;		
+	
+	
+	JSONObject temp;
+	while(rs.next())
+	{
+		temp = new JSONObject();
+		temp.put("groupid", rs.getInt("groupid"));
+		temp.put("name", rs.getString("name"));
+		temp.put("description", rs.getString("description"));
+		temp.put("status", rs.getString("status"));
+	
+		group_arr.put(temp);					
+	}
+	} catch (Exception e){
+		e.printStackTrace();
+		
+	}	
+	return group_arr;
 	
 }	
 
