@@ -8,6 +8,9 @@
  */
 package org.campustalk.entity;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 
 public class CampusTalkRoles 
 {
@@ -46,5 +49,11 @@ public class CampusTalkRoles
 	{
 		return this.name;
 	}
-	
+	public JSONObject toJSONObject() throws JSONException
+	{
+		JSONObject obj = new JSONObject();
+		obj.put("roleid", this.roleid);
+		obj.put("name", this.name);		
+		return obj;
+	}	
 }
