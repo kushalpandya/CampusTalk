@@ -101,6 +101,11 @@
 						</div>
 					</div>
 					<div class="control-group">
+						<label class="control-label">Recipients</label>
+						<div class="controls">
+						</div>
+					</div>
+					<div class="control-group">
 						<label class="control-label">Message</label>
 						<div class="controls">
 							<textarea rows="4" placeholder="Write a message..." id="txtNewMsgDetail" ></textarea>
