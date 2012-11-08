@@ -38,7 +38,7 @@ public class dbPost extends DatabaseManager {
 	}
 
 	public JSONArray getPostForUser(String email, int skipRow, int nRow) {
-		
+
 		JSONArray jArray = new JSONArray();
 		try {
 			this.open();
@@ -64,13 +64,32 @@ public class dbPost extends DatabaseManager {
 				jTemp.put("lastmodifytime", rs.getTimestamp("lastmodifytime"));
 				jArray.put(jTemp);
 			}
-			
+
 		} catch (ClassNotFoundException | SQLException | JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		return jArray;
+	}
+
+	public boolean deletePost(CampusTalkPost objPost) {
+		boolean rtnFlag = false;
+		try {
+			this.open();
+			CallableStatement pst = CON.prepareCall("{call postdelete(?,?)}");
+			pst.setInt(1, objPost.getUserid());
+			pst.setInt(2, objPost.getPostid());
+			pst.execute();
+			rtnFlag = true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return rtnFlag;
 	}
 
 }
