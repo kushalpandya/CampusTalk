@@ -411,5 +411,6 @@ $("#txtSearchBox").typeahead({
 	},
 	onselect: function(obj) {
 		console.log("Selected Id = "+obj.id);
+		$("#dlgUserProfile").modal();
 	}
 });
