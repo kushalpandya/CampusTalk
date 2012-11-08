@@ -186,5 +186,110 @@ public class dbUser extends DatabaseManager {
 		return rtnStr;
 		
 	}
+	/**
+	 * Admin Module
+	 */
+public void AddUser(String email, String branch, int year, String role) throws SQLException, ClassNotFoundException{
+		
+		
+		this.open();
+		CallableStatement csSql = CON
+				.prepareCall("{call openRegistration(?,?,?,?)}");
+		csSql.setString(1, email);
+		csSql.setString(2, branch);
+		csSql.setInt(3, year);		
+		csSql.setString(4, role);
+			
+		csSql.executeQuery();		
+	}
+	
+	public ResultSet getUserData()throws SQLException, ClassNotFoundException 
+	{
+		
+		this.open();
+		CallableStatement csSql = CON
+				.prepareCall("{call getAllUser()}");
+		ResultSet rs = csSql.executeQuery();
+		//ArrayList<CampusTalkBranch> branch = new ArrayList<>();
+		//CampusTalkBranch temp_branch;
+		
+		/*while(rs.next())
+		{
+			temp_branch = new CampusTalkBranch();
+			temp_branch.setBranchId(rs.getInt("branchid"));
+			temp_branch.setName(rs.getString("name"));
+			temp_branch.setDuration(rs.getInt("duration"));
+			
+			branch.add(temp_branch);
+		}*/
+		
+		//return branch.toArray(new CampusTalkBranch[branch.size()]);
+		return rs;		
+	}	
+	
+	public void EditUser(int id, String email, String branch, int year, String role, String status) throws SQLException, ClassNotFoundException{
+//, 
+		
+		this.open();
+		CallableStatement csSql = CON
+				.prepareCall("{call editUser(?,?,?,?,?)}");
+		csSql.setInt(1, id);		
+		csSql.setString(2, email);
+		csSql.setString(3, branch);
+		csSql.setInt(4, year);		
+		csSql.setString(5, role);
+		csSql.setString(6, status);
+			
+		csSql.executeQuery();
+	}
+	
+	public void DeleteUser(int id) throws SQLException, ClassNotFoundException{
+
+		String status="D";
+		this.open();
+		CallableStatement csSql = CON
+				.prepareCall("{call updateUserStatus(?,?)}");
+		csSql.setInt(1, id);		
+		csSql.setString(2, status);		
+		
+		csSql.executeQuery();
+	}
+	
+	
+	public Boolean HelloFun(int id, String email, String branch, int year, String role, String st)
+	{
+		Exception err=null;
+		boolean ret=false;
+		try {
+			
+			//String st1="s";
+			
+			
+			this.open();
+
+			CallableStatement csSql = CON
+					.prepareCall("{call editUser(?,?,?,?,?,?)}");
+			csSql.setInt(1, id);		
+			csSql.setString(2, email);
+			csSql.setString(3, branch);
+			csSql.setInt(4, year);		
+			csSql.setString(5, role);
+			csSql.setString(6, st);
+				
+			if(csSql.executeQuery() != null)
+			{ ret= true;}
+			else
+			{	ret=false;}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			err=e;
+		}
+		return ret;
+	}
+	/**
+	 * End Admin Module
+	 */
 	
 }
