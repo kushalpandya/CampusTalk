@@ -316,7 +316,7 @@
 	width: 600px;
 	.modal-body {
 		padding: 0;
-		padding-top: 3px;
+		padding-top: 0px;
 		background: @soft_white;
 		
 		.recipient-list {
@@ -374,6 +374,10 @@
 					 }
 				}
 				
+				a.selected {
+					background: lighten(@soft_blue, 10%);
+				}
+				
 				a.unread {
 					color: darken(@soft_blue, 50%);
 					background: lighten(@soft_blue, 10%);
@@ -386,13 +390,14 @@
 			display: block;
 			float: right;
 			width: 400px;
-			height: 245px;
+			height: 250px;
 			padding: 5px 5px 10px 5px;
 			overflow-x: hidden;
 			overflow-y: auto;
-			background: white;
+			background: inherit;
+ 			background: white;
 			.box-shadow-inset(0px, 0px, 6px, gray);
-			
+						
 			.info-label {
 				display: block;
 				width: 100%;

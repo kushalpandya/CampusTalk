@@ -389,8 +389,10 @@ $(".account-tray #showMessages").on("click", function(e) {
 				$("#ulRecipientList").html(html);
 				$(".message-recipient").click(function(e){
 					e.preventDefault();
-					var userid= parseInt($(this).attr("data-userid"));
-					lastUserEmail=$(this).attr("data-email"); 
+					var selected_user = $(this);
+					selected_user.parents().eq(1).find("li>a.selected").removeClass("selected"); //Go to parent UL, find which element has class .selected and remove it.
+					var userid= parseInt(selected_user.attr("data-userid"));
+					lastUserEmail=selected_user.attr("data-email"); 
 					$("#divMessageThread").html("");
 					$.ajax({
 						url : 'Messages/Get',
@@ -401,6 +403,7 @@ $(".account-tray #showMessages").on("click", function(e) {
 						success : function(data) {
 							if (data.status === 'success') {
 								// Success
+								selected_user.addClass("selected"); //Highlight currently selected user.
 								var source = $("#tmpltMessageThread").html();
 								var template = Handlebars.compile(source);
 								var html = template(data);

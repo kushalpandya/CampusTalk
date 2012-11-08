@@ -28,7 +28,7 @@
 		<div class="container header">
 			<img src="assets/logo_small.png" class="campustalk-logo" />
 			<div class="search-block input-append">
-				<input type="text" placeholder="Search..." class="txt-flat" />
+				<input type="text" placeholder="Search..." class="txt-flat" id="txtSearchBox" />
 				<button class="btn btn-flat">
 					<i class="icon-search"></i>
 				</button>
@@ -101,6 +101,10 @@
 						</div>
 					</div>
 					<div class="control-group">
+						<label class="control-label">Recipients</label>
+						<div class="controls"></div>
+					</div>
+					<div class="control-group">
 						<label class="control-label">Message</label>
 						<div class="controls">
 							<textarea rows="4" placeholder="Write a message..." id="txtNewMsgDetail" ></textarea>
@@ -116,40 +120,7 @@
 				<ul class="recipient-list" id= "ulRecipientList">
 				</ul>
 				<div class="message-thread" id="divMessageThread" >
-					<div class="message pull-left">
-						<label class="sender">Borat</label>
-						<label class="timestamp">Sent at 2:37 PM</label>
-						<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas</p>
-					</div>
-					<div class="message pull-right">
-						<label class="sender">Faishal</label>
-						<label class="timestamp">Sent at 2:37 PM</label>
-						<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas</p>
-					</div>
-					<div class="message pull-left">
-						<label class="sender">Borat</label>
-						<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas</p>
-					</div>
-					<div class="message pull-right">
-						<label class="sender">Faishal</label>
-						<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas</p>
-					</div>
-					<div class="message pull-left">
-						<label class="sender">Borat</label>
-						<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas</p>
-					</div>
-					<div class="message pull-right">
-						<label class="sender">Faishal</label>
-						<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas</p>
-					</div>
-					<div class="message pull-left">
-						<label class="sender">Borat</label>
-						<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas</p>
-					</div>
-					<div class="message pull-right">
-						<label class="sender">Faishal</label>
-						<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas</p>
-					</div>
+					<span class="info-label muted">No Conversation Selected</span>
 				</div>
 				<div class="message-editor">
 					<textarea placeholder="Write a reply... (press Enter to send message)" id="txtAreaThreadNewMsg"></textarea>
@@ -260,6 +231,72 @@
 			</div>
 			<div class="modal-disable-overlay">&nbsp;</div>
 		</div>
+		<!-- User Profile Dialog -->
+		<div id="dlgUserProfile" class="modal hide fade modal-flat">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Details</h4>
+			</div>
+			<div class="modal-drawer">
+				<legend>Compose Message</legend>
+				<form class="form-horizontal form-add-member">
+					<div class="control-group">
+						<label class="control-label">Message</label>
+						<div class="controls">
+							<textarea rows="4" placeholder="Write a message..." id="txtNewMsgDetail" ></textarea>
+						</div>
+					</div>
+					<div class="control-group drawer-button-group">
+						<button type="button" class="btn btn-flat" id="btnCancelNewMessage">Cancel</button>
+						<a href="#" class="btn btn-green" id="btnSendNewMessage">Send</a>
+					</div>
+				</form>	
+			</div>
+			<div class="modal-body">
+				<div class="user-profile">
+					<div class="pull-left">
+						<img src="https://lh3.googleusercontent.com/-XVHns1ycTI0/AAAAAAAAAAI/AAAAAAAAAN0/31SL_TsfpRM/photo.jpg" class="user-img" />
+						<div class="user-activity">
+							<span class="user-posts"><i class="icon-list-alt"></i>&nbsp;6</span>
+							<span class="user-comments"><i class="icon-comment"></i>&nbsp;10</span>
+						</div>
+					</div>
+					<div class="pull-right">
+						<label>Kushal Pandya</label>
+						<label>MSc. I.T. - 2011</label>
+						<table>
+							<tbody>
+								<tr>
+									<td>Email</td><td>kushal.pandya04@gmail.com</td>
+								</tr>
+								<tr>
+									<td>Gender</td><td>Male</td>
+								</tr>
+								<tr>
+									<td>Born</td><td>22 July 1990</td>
+								</tr>
+								<tr>
+									<td>City</td><td>Rajkot</td>
+								</tr>
+								<tr align="left">
+									<td colspan="2"><button class="btn btn-yellow"><i class="icon-user"></i>&nbsp;Make Moderator</button></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<div class="pull-left">
+					<button class="btn btn-green" id="btnNewMessage">Send Private Message</button>
+				</div>
+				<div class="pull-right">
+					<button class="btn btn-blue">Show All Posts</button>
+					<button class="btn btn-flat" data-dismiss="modal" aria-hidden="true">Close</button>
+				</div>
+			</div>
+			<div class="modal-disable-overlay">&nbsp;</div>
+		</div>
 		<a id='popupLink' href='' style='display:none'>Show</a>
 		<script type="text/x-handlebars-template" id='tmpltPostList'>
  		{{#if posts}}
@@ -322,6 +359,7 @@
 		</script>
 		<script type="text/javascript" src="js/script.js"></script>
 		<script type="text/javascript" src="js/bootstrap.datepicker.min.js"></script>
+		<script type="text/javascript" src="js/bootstrap.typeahead.min.js"></script>
 		<script type="text/javascript" src="js/handlebars.js"></script>
 		<script type="text/javascript" src="js/moment.min.js"></script>
 		<script type="text/javascript" src="js/home.js"></script>
