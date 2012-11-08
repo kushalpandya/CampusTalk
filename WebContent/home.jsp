@@ -265,7 +265,7 @@
  		{{#if posts}}
 			{{#each posts}}
 				{{#notAlreadyAddedPost postid}}
-					<div class="feed-card" id='divPost{{postid}}'>
+					<div class="feed-card" id='divPost{{postid}}' data-userid="{{id}}">
 						<div class="feed-user-bar">
 							<a href="#"><img src="{{pictureurl}}" class="feed-user-img" /></a>
 							<span class="feed-user-title"><a href="{{getuserurl id}}">{{firstname}} {{lastname}}</a></span>
@@ -300,7 +300,7 @@
 		<script type="text/x-handlebars-template" id='tmpltCommentList'>
 		{{#each comments}}
 			{{#notAlreadyAddedComment commentid}}
-				<li><img src="{{pictureurl}}" class="comment-user-img"/><br/>{{detail}}<span class="comment-user">{{firstname}} {{lastname}}</span><span class="comment-timestamp muted">{{getDateTime entTime}}</span><a class="comment-action" href="#"><i class="icon-remove" title="Delete"></i></a></li>
+				<li id='liComment{{commentid}}'><img src="{{pictureurl}}" class="comment-user-img"/><br/>{{detail}}<span class="comment-user">{{firstname}} {{lastname}}</span><span class="comment-timestamp muted">{{getDateTime entTime}}</span><a class="comment-action" data-commentid="{{commentid}}" href="#"><i class="icon-remove" title="Delete"></i></a></li>
 			{{/notAlreadyAddedComment}}
 		{{/each}}
 		</script>
