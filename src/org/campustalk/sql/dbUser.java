@@ -130,7 +130,7 @@ public class dbUser extends DatabaseManager {
 		csSql.close();
 		return rtnFlag;
 	}
-	public JSONArray serchUserMsgAC(String query){
+	public JSONArray searchUserMsgAC(String query){
 		JSONArray jArray = new JSONArray();
 		try {
 			this.open();
@@ -148,6 +148,7 @@ public class dbUser extends DatabaseManager {
 			jObj.put("firstname",rs.getString("firstname"));
 			jObj.put("lastname",rs.getString("lastname"));
 			jObj.put("pictureurl",rs.getString("pictureurl"));
+			jObj.put("name", rs.getString("firstname")+" "+rs.getString("lastname"));
 			jArray.put(jObj);
 		} 
 		csSql.close();
