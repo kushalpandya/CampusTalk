@@ -10,14 +10,20 @@ Handlebars.registerHelper('isNotAleadyAddedUser', function(userid, block) {
 });
 
 Handlebars.registerHelper('getGroupStatus', function(status) {
-	if(status==="V")
+	if (status === "V")
 		return "Active";
 	else
 		return "Inactive";
 });
 
 
-// Java script for controlpanel.jsp will here 
+Handlebars.registerHelper('isNotAlreadyAddedMember', function(userid, block) {
+	if ($("#trMember" + userid).length == 0)
+		return block.fn(this);
+});
+
+
+// Java script for controlpanel.jsp will here
 var lastRoleid;
 var EDITUSER_ID = 0;
 var DELETEUSER_ID = 0;
@@ -29,9 +35,9 @@ var DELETE_GROUP_ID = 0;
 var DELETE_GROUP_USER_ID = 0;
 var GROUP_ID = 0;
 
-/** ********************************Group*****************************************  */
+/** ********************************Group***************************************** */
 
-//To Save Group
+// To Save Group
 function insertGroup() {
 	var gname = $("#txtGroupName").val();
 	var gdescription = $("#txtGroupDescription").val();
@@ -39,7 +45,7 @@ function insertGroup() {
 		type : "SaveData",
 		name : gname,
 		description : gdescription,
-	//status:gstatus
+	// status:gstatus
 	},
 
 	function(data) {
@@ -47,35 +53,37 @@ function insertGroup() {
 			$("#CreateGroup").modal("hide");
 			$("#txtGroupName").val("");
 			$("#txtGroupDescription").val("");
-			successOverlay(true,"Group Added Successfully");
+			successOverlay(true, "Group Added Successfully");
 			showGroup();
 		} else {
 			$("#CreateGroup").modal("hide");
-			errorOverlay(true,"Oops!! Error in adding Group");
+			errorOverlay(true, "Oops!! Error in adding Group");
 		}
 
 	});
 
 }
 
-//To edit group data
+// To edit group data
 $("a[href='#EditGroup']").live(
 		"click",
 		function(e) {
 			EDIT_GROUP_ID = parseInt($(this).parents().eq(1).find(
 					"td:nth-child(1)").text());
 			var gname = $(this).parents().eq(1).find("td:nth-child(2)").text();
-			var gdescription = $(this).parents().eq(1).find("td:nth-child(3)").text();
-			var gstatus = $(this).parents().eq(1).find("td:nth-child(4)").text();
-			
+			var gdescription = $(this).parents().eq(1).find("td:nth-child(3)")
+					.text();
+			var gstatus = $(this).parents().eq(1).find("td:nth-child(4)")
+					.text();
+
 			console.log("edit_groupId= " + EDIT_GROUP_ID + " gname= " + gname
 					+ " gdesc= " + gdescription + " gstatu= " + gstatus);
 			$("#txtEditGroupName").val(gname);
 			$("#txtEditGroupDescription").val(gdescription);
-			if(gstatus==="Active")
-				gstatus="1";
+			if (gstatus === "Active")
+				gstatus = "1";
 			else
-				gstatus="0";
+				gstatus = "0";
 			$("#drpGroupStatus").val(gstatus);
 		});
 
@@ -94,15 +102,15 @@ function editGroup() {
 	function(data) {
 		if (data.status === "success") {
 			$("#EditGroup").modal("hide");
-			successOverlay(true,"Group Updated Successfully");
+			successOverlay(true, "Group Updated Successfully");
 			showGroup(true);
 		} else {
-			errorOverlay(true,"Oops!! Error in Updating Group Details");
+			errorOverlay(true, "Oops!! Error in Updating Group Details");
 		}
 	});
 }
 
-//to delete group
+// to delete group
 
 $("a[href='#DeleteGroup']").live(
 		"click",
@@ -113,82 +121,197 @@ $("a[href='#DeleteGroup']").live(
 		});
 
 function DeleteGroup() {
-	$.post("Group/Process", { //Requesting to servlet 
-		type : "DeleteData", //Input parameters
+	$.post("Group/Process", { // Requesting to servlet
+		type : "DeleteData", // Input parameters
 		groupid : DELETE_GROUP_ID
 	}, function(data) { // Return JSON Object
 		if (data.status === "success") {
 			$("#DeleteGroup").modal("hide");
-			successOverlay(true,"Group Deleted Successfully");
+			successOverlay(true, "Group Deleted Successfully");
 			showGroup(true);
 		} else {
-			errorOverlay(true,"Oops!! Error in Deleting Group");
+			errorOverlay(true, "Oops!! Error in Deleting Group");
 		}
 	});
 
 }
 
-function showGroup(flag){
-	if(flag != undefined)
+function showGroup(flag) {
+	if (flag != undefined)
 		$("#tblGroup tbody").html("");
-	$.post("Group/Process", { //Requesting to servlet 
-		type : "GetData", //Input parameters		
+	$.post("Group/Process", { // Requesting to servlet
+		type : "GetData", // Input parameters
 	}, function(data) { // Return JSON Object
 		if (data.status === "success") {
 			var src = $("#getGroupData").html();
 			var template = Handlebars.compile(src);
 			var output = template(data);
 			$("#tblGroup tbody").append(output);
-			//$("#drpBranch select").add(output);
+			// $("#drpBranch select").add(output);
 		}
 	});
 }
 
-
-//Load Group data at page load 
+// Load Group data at page load
 showGroup();
 
 $("a[href='#groups']").live("click", function(e) {
 	showGroup();
 });
 
-/** ********************************GroupMember*****************************************  */
+/** ********************************GroupMember***************************************** */
 
-$("a[href='#ViewGroup']").live(
+$("a[href='#ViewGroup']").live("click", function(e) {
+	
+	GROUP_ID=parseInt($(this).parents().eq(1).find("td:nth-child(1)").text());
+	var groupId = parseInt($(this).parents().eq(1).find(
+	"td:nth-child(1)").text());
+	var groupName = $(this).parents().eq(1).find("td:nth-child(2)")
+		.text();
+
+	$("#ViewGroup #dlgLabel").text(groupName);
+	$("#ViewGroup").css("margin-left",
+	($("#ViewGroup").outerWidth() / 2) * -1);
+	showGroupMembers(true);
+		
+});
+
+function showGroupMembers(flag){
+	if(flag != undefined){
+		$("#tblGroupUser tbody").html("");
+	}
+	$.post("CreateGroupMember", {		//Requesting to servlet 
+		type : "GetData",		//Input parameters		
+		groupid : GROUP_ID
+	    },
+	function(data) {				// Return JSON Object
+		
+			if(data.status==="success") {
+				var src = $("#getGroupMemberData").html();
+				var template = Handlebars.compile(src);
+				var output = template(data);			
+				$("#tblGroupUser tbody").append(output);
+			}
+	});
+
+}
+$("a[href='#DeleteGroupUser']").live("click", function(e) {
+	
+	DELETE_GROUP_USER_ID = parseInt($(this).parents().eq(1).find("td:nth-child(1)").text());
+		
+});
+
+function DeleteGroupUser(){
+	$.post("CreateGroupMember", {		//Requesting to servlet 
+		type : "DeleteData",		//Input parameters
+		groupid:GROUP_ID,
+		userid:DELETE_GROUP_USER_ID
+		},
+		
+	function(data) {				// Return JSON Object
+			if(data.status==="success"){ 
+				$("#DeleteGroupUser").modal("hide");
+				showGroupMembers(true);
+				 successOverlay(true,"Member is removed from groupe");
+			}
+			  else {
+				  errorOverlay("Opss!! Error while removing member from group");
+				  }
+			});		
+		
+
+}
+
+function insertGroupMember() {
+	var uemail = $("#txtInsertUserEmail").val();
+	var position = $("select[name='txtUserPosition']").val();
+
+	
+	$.post("CreateGroupMember", {
+		type : "SaveData",
+		name : GROUP_ID,
+		email : uemail,
+		position : position
+	// status:gstatus
+	},
+
+	function(data) {
+		if (data.status === "success") {
+			$("#btnCancelAdd").click()
+			showGroupMembers();
+			successOverlay(true,"Member Added");
+			
+		} else {
+			errorOverlay(true,"Opps! Error in adding new Member");
+		}
+
+	});
+	/*
+	 * alert("email = "+email); alert("branch = "+branch); alert("role =
+	 * "+role); alert("year = "+year);
+	 */
+
+}
+
+/*$("a[href='#EditGroupUser']").live(
 		"click",
 		function(e) {
-			var groupName = $(this).parents().eq(1).find("td:nth-child(2)").text();
-			$("#ViewGroup #dlgLabel").text(groupName);
-			$("#ViewGroup").css("margin-left",
-			($("#ViewGroup").outerWidth() / 2) * -1);
-			GROUP_ID = parseInt($(this).parents().eq(1).find("td:nth-child(1)").text());
-			$.post("CreateGroupMember", { //Requesting to servlet 
-				type : "GetData", //Input parameters		
-				groupid : GROUP_ID
-			}, function(data) { // Return JSON Object
-				if (data.status === "success") {
-					var src = $("#getGroupMemberData").html();
-					var template = Handlebars.compile(src);
-					var output = template(data);
-					$("#tblGroupUser tbody").append(output);
-				}
-			});
+			EDIT_GROUP_USER_ID = parseInt($(a[href='#EditGroupUser']).parents().eq(1).find(
+					"td:nth-child(1)").text());
+			// var
+			// gposition=$(this).parents().eq(1).find("td:nth-child(2)").text();
+			// var gstatus=$("select [name='txtEditGroupStatus']").val();
 
-		});
+			console.log("edit_group_User_Id= " + EDIT_GROUP_USER_ID);
 
-/** ********************************Role*****************************************  */
-//To Save Role 
+			/*
+			 * $.post("CreateGroupMember",{ type:"EditData",
+			 * groupid:EDIT_GROUP_ID, position:gposition, status:gstatus },
+			 * function(data) {
+			 * 
+			 * });
+			 
+		});*/
+
+function editGroupMember() {
+	console.log("hiralllllll");
+	EDIT_GROUP_ID = parseInt($(this).parents().eq(1).find(
+	"td:nth-child(1)").text());
+	EDIT_GROUP_USER_ID = parseInt($("a[href='#EditGroupUser']").parents().eq(1).find(
+	"td:nth-child(1)").text());
+	console.log("edit_group_User_Id= " + EDIT_GROUP_USER_ID);
+	var gposition = $("#txtEditGroupPosition").val();
+	var gstatus = $("#txtEditGroupStatus").val();
+
+	console.log("edit_groupId= " + GROUP_ID + "edit_group_user_Id= "
+			+ EDIT_GROUP_USER_ID + " gposition= " + gposition + " gstatus= "
+			+ gstatus);
+	$.post("CreateGroup", {
+		type : "EditData",
+		groupid : EDIT_GROUP_ID,
+		position : gposition,
+		status : gstatus
+	},
+
+	function(data) {
+
+	});
+}
+
+/** ********************************Role***************************************** */
+// To Save Role
 $("a[id='txtNewRole']").on("click", function(e) {
 	if (!$(this).hasClass("disabled")) {
 
 		var roleName = $("#txtRole").val();
-		$.get("CreateRole", { //Requesting to servlet 
-			type : "SaveData", //Input parameters
+		$.get("CreateRole", { // Requesting to servlet
+			type : "SaveData", // Input parameters
 			name : roleName
 
 		}, function(data) { // Return JSON Object
-			//console.log(data);
-			//console.log("Branches : "+data.branch[0].name+", "+data.branch[1].name+", "+data.branch[2].name);
+			// console.log(data);
+			// console.log("Branches : "+data.branch[0].name+",
+			// "+data.branch[1].name+", "+data.branch[2].name);
 
 			if (data.status === "success") {
 				alert("Data is successfully added");
@@ -202,7 +325,7 @@ $("a[id='txtNewRole']").on("click", function(e) {
 	}
 });
 
-//Edit Role
+// Edit Role
 $('#btnSave').on("click", function(e) {
 
 	var name = $("input[name='txtRoleName']").val();
@@ -226,14 +349,15 @@ $('#btnSave').on("click", function(e) {
 
 // Delete Role, Select Role
 $('a[href="#roles"]').on("click", function(e) {
-	//alert("Shreeji");
+	// alert("Shreeji");
 
-	$.get("CreateRole", { //Requesting to servlet 
-		type : "GetData", //Input parameters		
+	$.get("CreateRole", { // Requesting to servlet
+		type : "GetData", // Input parameters
 	}, function(data) { // Return JSON Object
-		//console.log(data);
-		//console.log("Branches : "+data.branch[0].name+", "+data.branch[1].name+", "+data.branch[2].name);
-		//alert(data.status);
+		// console.log(data);
+		// console.log("Branches : "+data.branch[0].name+",
+		// "+data.branch[1].name+", "+data.branch[2].name);
+		// alert(data.status);
 
 		if (data.status === "success") {
 			var src = $("#getRole").html();
@@ -276,7 +400,7 @@ $('a[href="#roles"]').on("click", function(e) {
 	});
 });
 
-//To Save Branch 
+// To Save Branch
 
 $("a[id='txtNewBranch']").on("click", function(e) {
 	if (!$(this).hasClass("disabled")) {
@@ -293,14 +417,15 @@ $('#btnAdd').on("click", function(e) {
 	var branchName = $("#txtBranchName").val();
 	var duration = $("#txtDuration").val();
 
-	$.get("CreateBranch", { //Requesting to servlet 
-		type : "SaveData", //Input parameters
+	$.get("CreateBranch", { // Requesting to servlet
+		type : "SaveData", // Input parameters
 		branchName : branchName,
 		duration : duration
 
 	}, function(data) { // Return JSON Object
-		//console.log(data);
-		//console.log("Branches : "+data.branch[0].name+", "+data.branch[1].name+", "+data.branch[2].name);
+		// console.log(data);
+		// console.log("Branches : "+data.branch[0].name+",
+		// "+data.branch[1].name+", "+data.branch[2].name);
 
 		if (data.status === "success") {
 			alert("Data is successfully added");
@@ -311,17 +436,18 @@ $('#btnAdd').on("click", function(e) {
 
 });
 
-//Get Data
+// Get Data
 $('a[href="#branch"]').on(
 		"click",
 		function(e) {
 
-			$.get("CreateBranch", { //Requesting to servlet 
-				type : "GetData", //Input parameters		
+			$.get("CreateBranch", { // Requesting to servlet
+				type : "GetData", // Input parameters
 			}, function(data) { // Return JSON Object
-				//console.log(data);
-				//console.log("Branches : "+data.branch[0].name+", "+data.branch[1].name+", "+data.branch[2].name);
-				//alert(data.status);
+				// console.log(data);
+				// console.log("Branches : "+data.branch[0].name+",
+				// "+data.branch[1].name+", "+data.branch[2].name);
+				// alert(data.status);
 
 				if (data.status === "success") {
 					var src = $("#getBranch").html();
@@ -400,34 +526,35 @@ $('#btnSave1').on("click", function(e) {
 	);
 });
 
-/******** start script for User *****/
+/** ****** start script for User **** */
 
 $("#btnSaveCreateUser").on("click", function(e) {
 
 	var uemail = $("textarea[name='txtAUserEmail']").val();
 
 	var ubranch = $("#drpABranch").val();
-	//alert($("select[name='txtUserGroup']").val());
+	// alert($("select[name='txtUserGroup']").val());
 	var urole = $("#drpARole").val();
 	var uyear = $("input[name='txtUserYear']").val();
 
-	//alert("email = "+email);
-	//alert("branch = "+branch);
-	///alert("role = "+role);
-	//alert("year = "+year);
+	// alert("email = "+email);
+	// alert("branch = "+branch);
+	// /alert("role = "+role);
+	// alert("year = "+year);
 
-	$.post("CreateUser", { //Requesting to servlet 
-		type : "SaveData", //Input parameters
+	$.post("CreateUser", { // Requesting to servlet
+		type : "SaveData", // Input parameters
 		email : uemail,
 		branch : ubranch,
 		year : uyear,
 		role : urole
 	}, function(data) { // Return JSON Object
-		//console.log(data);
-		//console.log("Branches : "+data.branch[0].name+", "+data.branch[1].name+", "+data.branch[2].name);	
+		// console.log(data);
+		// console.log("Branches : "+data.branch[0].name+",
+		// "+data.branch[1].name+", "+data.branch[2].name);
 		if (data.status === "success") {
-			//			showPopup("Data is successfully added");		
-		} else {//showPopup("Data is not added");
+			// showPopup("Data is successfully added");
+		} else {// showPopup("Data is not added");
 		}
 	});
 
@@ -436,11 +563,12 @@ $("#btnSaveCreateUser").on("click", function(e) {
 $("a[href='#CreateUser']").on("click", function(e) {
 	e.preventDefault();
 
-	$.post("CreateUser", { //Requesting to servlet 
-		type : "BranchData", //Input parameters
+	$.post("CreateUser", { // Requesting to servlet
+		type : "BranchData", // Input parameters
 	}, function(data) { // Return JSON Object
-		//console.log(data);
-		//console.log("Branches : "+data.branch[0].name+", "+data.branch[1].name+", "+data.branch[2].name);
+		// console.log(data);
+		// console.log("Branches : "+data.branch[0].name+",
+		// "+data.branch[1].name+", "+data.branch[2].name);
 
 		if (data.status === "success") {
 			var src = $("#getBranches").html();
@@ -450,17 +578,18 @@ $("a[href='#CreateUser']").on("click", function(e) {
 		}
 	});
 
-	$.post("CreateUser", { //Requesting to servlet 
-		type : "RoleData", //Input parameters
+	$.post("CreateUser", { // Requesting to servlet
+		type : "RoleData", // Input parameters
 	}, function(data) { // Return JSON Object
-		//console.log(data);
-		//console.log("Role : "+data.role[0].name+", "+data.role[1].name+", "+data.role[2].name+", "+data.role[3].name);
+		// console.log(data);
+		// console.log("Role : "+data.role[0].name+", "+data.role[1].name+",
+		// "+data.role[2].name+", "+data.role[3].name);
 		if (data.status === "success") {
 			var src = $("#getRoles").html();
 			var template = Handlebars.compile(src);
 			var output = template(data);
 			$("#drpARole").append(output);
-			//$("#drpBranch select").add(output);
+			// $("#drpBranch select").add(output);
 		}
 	});
 
@@ -471,19 +600,20 @@ $("a[href='#CreateUser']").on("click", function(e) {
 });
 
 $("a[href='#users']").on("click", function(e) {
-	//alert("Shreeji");
+	// alert("Shreeji");
 
-	$.post("CreateUser", { //Requesting to servlet 
-		type : "UserData", //Input parameters		
+	$.post("CreateUser", { // Requesting to servlet
+		type : "UserData", // Input parameters
 	}, function(data) { // Return JSON Object
-		//console.log(data);
-		//console.log("Branches : "+data.branch[0].name+", "+data.branch[1].name+", "+data.branch[2].name);	
+		// console.log(data);
+		// console.log("Branches : "+data.branch[0].name+",
+		// "+data.branch[1].name+", "+data.branch[2].name);
 		if (data.status === "success") {
 			var src = $("#getUsers").html();
 			var template = Handlebars.compile(src);
 			var output = template(data);
 			$("#tblUsers tbody").append(output);
-			//$("#drpBranch select").add(output);
+			// $("#drpBranch select").add(output);
 		}
 	});
 
@@ -503,37 +633,31 @@ $("a[href='#EditUser']").live(
 			var bdata = branchYear.split("-");
 			var ustatus = $("select [name='txtUserStatus']").val();
 
-			//	console.log("Id : "+userId+" Email : "+userEmail+ " Branch : "+bdata[0]+" Year : "+bdata[1]+" role : "+role+" status :"+status);
+			// console.log("Id : "+userId+" Email : "+userEmail+ " Branch :
+			// "+bdata[0]+" Year : "+bdata[1]+" role : "+role+" status
+			// :"+status);
 			/*
-			 $.post("CreateUser", {		//Requesting to servlet 
-			 type : "EditData",		//Input parameters
-			 id:EDITUSER_ID,
-			 email:uemail,
-			 bname:bdata[0],
-			 year:bdata[1],
-			 role:role,
-			 stat:""
-			 },
-			 function(data) {				// Return JSON Object
-			 //console.log(data);
-			 //console.log("Branches : "+data.branch[0].name+", "+data.branch[1].name+", "+data.branch[2].name);	
-			 if(data.status==="success") {
-			 showPopup("Data is successfully added");		
-			 }	
-			 else
-			 {showPopup("Data is not added");}
-			 });*/
+			 * $.post("CreateUser", { //Requesting to servlet type : "EditData",
+			 * //Input parameters id:EDITUSER_ID, email:uemail, bname:bdata[0],
+			 * year:bdata[1], role:role, stat:"" }, function(data) { // Return
+			 * JSON Object //console.log(data); //console.log("Branches :
+			 * "+data.branch[0].name+", "+data.branch[1].name+",
+			 * "+data.branch[2].name); if(data.status==="success") {
+			 * showPopup("Data is successfully added"); } else {showPopup("Data
+			 * is not added");} });
+			 */
 
-			//alert("user id : "+userId+ " user email : "+userEmail);
+			// alert("user id : "+userId+ " user email : "+userEmail);
 			$("#EditUser #dlgLabel").text("Edit User - " + userEmail);
 			$("#EditUser").find("input[name='txtUserEmail']").val(userEmail);
 			$("#EditUser").find("input[name='txtUserYear']").val(bdata[1]);
 
-			$.post("CreateUser", { //Requesting to servlet 
-				type : "BranchData", //Input parameters
+			$.post("CreateUser", { // Requesting to servlet
+				type : "BranchData", // Input parameters
 			}, function(data) { // Return JSON Object
-				//console.log(data);
-				//console.log("Branches : "+data.branch[0].name+", "+data.branch[1].name+", "+data.branch[2].name);
+				// console.log(data);
+				// console.log("Branches : "+data.branch[0].name+",
+				// "+data.branch[1].name+", "+data.branch[2].name);
 
 				if (data.status === "success") {
 					var src = $("#getBranches").html();
@@ -543,17 +667,19 @@ $("a[href='#EditUser']").live(
 				}
 			});
 
-			$.post("CreateUser", { //Requesting to servlet 
-				type : "RoleData", //Input parameters
+			$.post("CreateUser", { // Requesting to servlet
+				type : "RoleData", // Input parameters
 			}, function(data) { // Return JSON Object
-				//console.log(data);
-				//console.log("Role : "+data.role[0].name+", "+data.role[1].name+", "+data.role[2].name+", "+data.role[3].name);
+				// console.log(data);
+				// console.log("Role : "+data.role[0].name+",
+				// "+data.role[1].name+", "+data.role[2].name+",
+				// "+data.role[3].name);
 				if (data.status === "success") {
 					var src = $("#getRoles").html();
 					var template = Handlebars.compile(src);
 					var output = template(data);
 					$("#drpERole").append(output);
-					//$("#drpBranch select").add(output);
+					// $("#drpBranch select").add(output);
 				}
 			});
 
@@ -564,13 +690,17 @@ $("a[href='#DeleteUser']").live(
 
 			DELETEUSER_ID = parseInt($(this).parents().eq(1).find(
 					"td:nth-child(1)").text());
-			/*var userEmail = $(this).parents().eq(1).find("td:nth-child(2)").text();
-			var branchYear = $(this).parents().eq(1).find("td:nth-child(4)").text();
-			var role = $(this).parents().eq(1).find("td:nth-child(5)").text();
-			var bdata=branchYear.split("-");
-			var status=$("select [name='txtUserStatus']").val();*/
-			//alert(DELETEUSER_ID);
-			//console.log("$$$$$$ "+DELETEUSER_ID);
+			/*
+			 * var userEmail =
+			 * $(this).parents().eq(1).find("td:nth-child(2)").text(); var
+			 * branchYear =
+			 * $(this).parents().eq(1).find("td:nth-child(4)").text(); var role =
+			 * $(this).parents().eq(1).find("td:nth-child(5)").text(); var
+			 * bdata=branchYear.split("-"); var status=$("select
+			 * [name='txtUserStatus']").val();
+			 */
+			// alert(DELETEUSER_ID);
+			// console.log("$$$$$$ "+DELETEUSER_ID);
 		});
 
 $("#btnEditCreateUser").on(
@@ -578,21 +708,21 @@ $("#btnEditCreateUser").on(
 		function(e) {
 			var uemail = $("input[name='txtEUserEmail']").val();
 			var ubranch = $("#drpEBranch").val();
-			//alert($("select[name='txtUserGroup']").val());
+			// alert($("select[name='txtUserGroup']").val());
 			var urole = $("#drpERole").val();
 			var uyear = $("input[name='txtEUserYear']").val();
 			var ustatus = $("#drpEStatus").val();
-			//var ustatus=ustatus.substr(0,2);
-			/*alert("email = "+email);
-			alert("branch = "+branch);
-			alert("role = "+role);
-			alert("year = "+year);*/
+			// var ustatus=ustatus.substr(0,2);
+			/*
+			 * alert("email = "+email); alert("branch = "+branch); alert("role =
+			 * "+role); alert("year = "+year);
+			 */
 
 			console.log("Console : " + uemail + ubranch + urole + uyear
 					+ ustatus + EDITUSER_ID);
 
-			$.post("CreateUser", { //Requesting to servlet 
-				type : "EditData", //Input parameters
+			$.post("CreateUser", { // Requesting to servlet
+				type : "EditData", // Input parameters
 				id : EDITUSER_ID,
 				email : uemail,
 				branch : ubranch,
@@ -600,17 +730,16 @@ $("#btnEditCreateUser").on(
 				role : urole,
 				stat : ustatus
 			}, function(data) { // Return JSON Object
-				//console.log(data);
-				//console.log("Branches : "+data.branch[0].name+", "+data.branch[1].name+", "+data.branch[2].name);	
-				/*if(data.status==="success") {
-					
-				//		showPopup("Data is successfully added");		
-				}	
-				else
-					{//showPopup("Data is not added");
-					
-					}*/
-				//	console.log(data);
+				// console.log(data);
+				// console.log("Branches : "+data.branch[0].name+",
+				// "+data.branch[1].name+", "+data.branch[2].name);
+				/*
+				 * if(data.status==="success") {
+				 *  // showPopup("Data is successfully added"); } else
+				 * {//showPopup("Data is not added");
+				 *  }
+				 */
+				// console.log(data);
 				console.log(data.status);
 				console.log(data);
 			});
@@ -619,8 +748,8 @@ $("#btnEditCreateUser").on(
 $("#btnDeleteCreateUser").on("click", function(e) {
 	console.log("Shreeji " + DELETEUSER_ID);
 
-	$.post("CreateUser", { //Requesting to servlet 
-		type : "DeleteData", //Input parameters
+	$.post("CreateUser", { // Requesting to servlet
+		type : "DeleteData", // Input parameters
 		id : DELETEUSER_ID,
 	}, function(data) { // Return JSON Object
 		console.log(data.status);
