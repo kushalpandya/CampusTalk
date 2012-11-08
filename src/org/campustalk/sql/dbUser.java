@@ -143,11 +143,11 @@ public class dbUser extends DatabaseManager {
 		while (rs.next()) {
 			jObj= new JSONObject();
 			objUser = new CampusTalkUsers();
-			//jObj.put("id",rs.getInt("id"));
-			jObj.put("value",rs.getString("email"));
-			//jObj.put("firstname",rs.getString("firstname"));
-			//jObj.put("lastname",rs.getString("lastname"));
-		//	jObj.put("pictureurl",rs.getString("pictureurl"));
+			jObj.put("id",rs.getInt("id"));
+			jObj.put("email",rs.getString("email"));
+			jObj.put("firstname",rs.getString("firstname"));
+			jObj.put("lastname",rs.getString("lastname"));
+			jObj.put("pictureurl",rs.getString("pictureurl"));
 			jArray.put(jObj);
 		} 
 		csSql.close();
