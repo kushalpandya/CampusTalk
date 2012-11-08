@@ -7,10 +7,14 @@ import java.sql.Types;
 import java.util.ArrayList;
 
 import org.campustalk.entity.CampusTalkRoles;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
-public class dbRoles extends DatabaseManager {
+public class dbRoles extends DatabaseManager
+{
 
-	public dbRoles() {
+	public dbRoles()
+	{
 		super();
 	}
 
@@ -26,28 +30,37 @@ public class dbRoles extends DatabaseManager {
 	 * @throws ClassNotFoundException
 	 */
 
-	public boolean AddRoles(String rolesname) throws SQLException,
-			ClassNotFoundException {
+	public boolean AddRoles(String rolesname)
+	{
+		boolean rtnTemp = false;
+		try
+		{
+			this.open();
+			CallableStatement csSql = CON
+					.prepareCall("{call insertRoles(?,?)}");
 
-		this.open();
-		CallableStatement csSql = CON.prepareCall("{call insertRoles(?,?)}");
+			/**
+			 * CREATE PROCEDURE `campustalk`.`insertRoles`( IN name VARCHAR(20),
+			 * IN duration TEXT, IN status CHAR(2))
+			 */
+			csSql.setString(1, rolesname);
+			csSql.registerOutParameter(2, Types.BOOLEAN);
 
-		/**
-		 * CREATE PROCEDURE `campustalk`.`insertRoles`( IN name VARCHAR(20), IN
-		 * duration TEXT, IN status CHAR(2))
-		 */
-		csSql.setString(1, rolesname);
-		csSql.registerOutParameter(2, Types.BOOLEAN);
+			csSql.executeUpdate();
 
-		csSql.executeUpdate();
-
-		boolean rtnTemp = csSql.getBoolean(2);
-		csSql.close();
+			rtnTemp = csSql.getBoolean(2);
+			csSql.close();
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
 		return rtnTemp;
 	}
 
 	public Boolean EditRoles(int rolesid, String rolesname)
-			throws SQLException, ClassNotFoundException {
+			throws SQLException, ClassNotFoundException
+	{
 
 		this.open();
 		CallableStatement csSql = CON
@@ -63,7 +76,8 @@ public class dbRoles extends DatabaseManager {
 	}
 
 	public void DeleteRoles(int rolesid) throws SQLException,
-			ClassNotFoundException {
+			ClassNotFoundException
+	{
 
 		this.open();
 		CallableStatement csSql = CON.prepareCall("{call deleteRoles(?)}");
@@ -72,35 +86,67 @@ public class dbRoles extends DatabaseManager {
 		csSql.executeQuery();
 	}
 
-	public ResultSet getRolesData() throws SQLException, ClassNotFoundException {
+	public JSONArray getRolesData()
+	{
+		JSONArray roles_arr = new JSONArray();
+		try
+		{
+			this.open();
 
-		this.open();
+			CallableStatement csSql = CON.prepareCall("{call getRolesData()}");
+			ResultSet rs = csSql.executeQuery();
 
-		CallableStatement csSql = CON.prepareCall("{call getRolesData()}");
-		ResultSet rs = csSql.executeQuery();
-		return rs;
+			JSONObject temp;
+
+			while (rs.next())
+			{
+				temp = new JSONObject();
+
+				temp.put("rolesid", rs.getInt("roleid"));
+				temp.put("name", rs.getString("name"));
+
+				roles_arr.put(temp);
+			}
+
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		return roles_arr;
 	}
 
 	public CampusTalkRoles objrole[] = new CampusTalkRoles[10];
 
-	public CampusTalkRoles[] getRoleData() throws SQLException,
-			ClassNotFoundException {
-		this.open();
-		CallableStatement csSql = CON.prepareCall("{call getAllRole()}");
-		ResultSet rs = csSql.executeQuery();
+	public CampusTalkRoles[] getRoleData()
+	{
 		ArrayList<CampusTalkRoles> role = new ArrayList<>();
-		CampusTalkRoles temp_role;
+		try
+		{
+			this.open();
+			CallableStatement csSql = CON.prepareCall("{call getAllRole()}");
+			ResultSet rs = csSql.executeQuery();
 
-		while (rs.next()) {
-			temp_role = new CampusTalkRoles();
-			// temp_role.setroleId(rs.getInt("roleid"));
-			temp_role.setRoleid(rs.getInt("roleid"));
-			temp_role.setName(rs.getString("name"));
+			CampusTalkRoles temp_role;
 
-			role.add(temp_role);
+			while (rs.next())
+			{
+				temp_role = new CampusTalkRoles();
+				// temp_role.setroleId(rs.getInt("roleid"));
+				temp_role.setRoleid(rs.getInt("roleid"));
+				temp_role.setName(rs.getString("name"));
+
+				role.add(temp_role);
+			}
+
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
 		}
 		return role.toArray(new CampusTalkRoles[role.size()]);
 	}
+
 	/**
 	 * End Admin Module
 	 */
@@ -111,19 +157,24 @@ public class dbRoles extends DatabaseManager {
 	 * @param objRole
 	 * @return
 	 */
-	public CampusTalkRoles getRoleById(CampusTalkRoles objRole) {
+	public CampusTalkRoles getRoleById(CampusTalkRoles objRole)
+	{
 
-		try {
+		try
+		{
 			this.open();
 			CallableStatement pst = CON.prepareCall("{ call getRoleById(?)}");
 			pst.setInt(1, objRole.getRoleid());
 			ResultSet rs = pst.executeQuery();
-			if (rs.next()) {
+			if (rs.next())
+			{
 				objRole.setRoleid(rs.getInt("roleid"));
 				objRole.setName(rs.getString("name"));
 			}
 
-		} catch (ClassNotFoundException | SQLException e) {
+		}
+		catch (ClassNotFoundException | SQLException e)
+		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -131,6 +182,5 @@ public class dbRoles extends DatabaseManager {
 		return objRole;
 
 	}
-	
 
 }
