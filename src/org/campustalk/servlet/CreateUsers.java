@@ -2,7 +2,6 @@ package org.campustalk.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.ResultSet;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -60,7 +59,6 @@ public class CreateUsers extends HttpServlet
 		JSONObject resp = new JSONObject();
 		String status = "fail";
 		Exception err = null;
-		Boolean a;
 		try
 		{
 			String req_type = request.getParameter("type");
