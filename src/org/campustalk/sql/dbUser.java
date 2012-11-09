@@ -323,46 +323,38 @@ public class dbUser extends DatabaseManager
 		}
 	}
 
-	public Boolean HelloFun(int id, String email, String branch, int year,
-			String role, String st)
-	{
-		boolean ret = false;
-		try
-		{
 
-			//String st1="s";
-
-			this.open();
-
-			CallableStatement csSql = CON
-					.prepareCall("{call editUser(?,?,?,?,?,?)}");
-			csSql.setInt(1, id);
-			csSql.setString(2, email);
-			csSql.setString(3, branch);
-			csSql.setInt(4, year);
-			csSql.setString(5, role);
-			csSql.setString(6, st);
-
-			if (csSql.executeQuery() != null)
-			{
-				ret = true;
-			}
-			else
-			{
-				ret = false;
-			}
-
-		}
-		catch (Exception e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-
-		}
-		return ret;
-	}
 	/**
 	 * End Admin Module
 	 */
+	
+	public JSONObject UserProfileByEmail(String email){
+		JSONObject jResponse = new JSONObject();
+
+		this.open();
+		CallableStatement csSql = CON.prepareCall("{call getAllUser()}");
+		ResultSet rs = csSql.executeQuery();
+
+		JSONObject temp;
+
+		while (rs.next())
+		{
+			temp = new JSONObject();
+
+			jResponse.put("id", rs.getInt("id"));
+			jResponse.put("email", rs.getString("email"));
+			jResponse.put("firstname", rs.getString("firstname"));
+			jResponse.put("lastname", rs.getString("lastname"));
+			jResponse.put("branch", rs.getString("branch"));
+			jResponse.put("year", rs.getInt("year"));
+			jResponse.put("role", rs.getString("role"));
+			jResponse.put("status", rs.getString("status"));
+
+			user_arr.put(temp);
+		}
+
+		
+		return jResponse ;
+	}
 
 }
