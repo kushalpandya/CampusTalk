@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 09, 2012 at 06:22 PM
+-- Generation Time: Nov 09, 2012 at 07:49 PM
 -- Server version: 5.5.28
 -- PHP Version: 5.4.6-1ubuntu1
 
@@ -38,6 +38,31 @@ BEGIN
        UPDATE users u SET u.status ='B' WHERE u.id =userid;
 call updateReportStatusForPost(pid,'R');
     END$$
+
+DROP PROCEDURE IF EXISTS `ChangePass`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ChangePass`(in userid int,in opass varchar(100),in npass varchar(100),out querystatus bool)
+BEGIN
+
+
+declare uid int;
+
+if(isPasswordExist(userid,opass)!=0) then
+
+   update users u set u.password = md5(npass) where u.id = userid;
+
+    set querystatus = true;
+    
+else
+
+  set querystatus = false;
+  
+end if;
+
+    
+
+
+  
+END$$
 
 DROP PROCEDURE IF EXISTS `CommentDeleteOfPost`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `CommentDeleteOfPost`(IN dCommentId int, in dUserId int,out flag boolean)
@@ -115,6 +140,23 @@ DROP PROCEDURE IF EXISTS `deleteRoles`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteRoles`(id int)
 BEGIN
 delete FROM roles WHERE roleid=id;
+END$$
+
+DROP PROCEDURE IF EXISTS `EditProfile`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `EditProfile`(
+IN uid INT(11),
+in firstname varchar(50),
+in lastname varchar(50),
+in birthdate date,
+in gender varchar(7)
+
+)
+BEGIN 
+        
+update users u set u.firstname =firstname,u.lastname=lastname,
+u.birthdate=birthdate,u.gender=gender where u.id=uid;
+	
+		
 END$$
 
 DROP PROCEDURE IF EXISTS `editUser`$$
@@ -384,14 +426,14 @@ END$$
 DROP PROCEDURE IF EXISTS `getuserProfileDataByEmail`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getuserProfileDataByEmail`(in uemail varchar(100))
 BEGIN
-select u.firstname, u.lastname, u.pictureurl, u.email,(select getUserBranch(u.email)) as branch,u.year,u.gender,u.birthdate," " as city,(select count(*) from posts p where p.userid=u.id ) as nopost,(select count(*) from comment c where c.userid=u.id ) as nocomment
+select u.firstname, u.lastname, u.pictureurl, u.email,(select getUserBranch(u.email)) as branch,u.year,u.gender,DATE_FORMAT(u.birthdate,'%d-%m-%Y') as birthdate," " as city,(select count(*) from posts p where p.userid=u.id ) as nopost,(select count(*) from comment c where c.userid=u.id ) as nocomment
 from users u  where u.email like uemail;
 END$$
 
 DROP PROCEDURE IF EXISTS `getuserProfileDataById`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getuserProfileDataById`(in userid INT)
 BEGIN
-	select u.firstname, u.lastname, u.pictureurl, u.email,(select getUserBranch(u.email)) as branch,u.year,u.gender,u.birthdate," " as city,(select count(*) from posts p where p.userid=u.id ) as nopost,(select count(*) from comment c where c.userid=u.id ) as nocomment
+	select u.firstname, u.lastname, u.pictureurl, u.email,(select getUserBranch(u.email)) as branch,u.year,u.gender,DATE_FORMAT(u.birthdate,'%d-%m-%Y') as birthdate," " as city,(select count(*) from posts p where p.userid=u.id ) as nopost,(select count(*) from comment c where c.userid=u.id ) as nocomment
 	from users u  where u.id=userid;
 END$$
 
@@ -746,7 +788,7 @@ BEGIN
 		
         IF UserGetStatus(email) = 'R' THEN
 			IF UserGetAuthString(email) = aString THEN
-				IF SYSDATE() <=UsergetAuthDate(email)  THEN
+				IF SYSDATE() < UsergetAuthDate(email)  THEN
 					UPDATE  users  u SET u.status ='V' ,u.registerdate = SYSDATE(),u.authstring=null,u.authdate=null WHERE u.email LIKE email ; 
 					SET  errorcode = 0;
 				ELSE
@@ -1042,6 +1084,24 @@ BEGIN
     END IF;
     
     END$$
+
+DROP FUNCTION IF EXISTS `isPasswordExist`$$
+CREATE DEFINER=`root`@`localhost` FUNCTION `isPasswordExist`( userid int,opass varchar(100)) RETURNS int(11)
+BEGIN
+
+  declare uid int;
+  
+  select id into uid from users u where u.id = userid and u.password = md5(opass);
+  
+  if(uid!=0) then
+  
+     return 1;
+  end if;
+  
+  return 0;
+  
+
+END$$
 
 DROP FUNCTION IF EXISTS `isRoleExist`$$
 CREATE DEFINER=`root`@`localhost` FUNCTION `isRoleExist`( rname VARCHAR(50)) RETURNS tinyint(1)
@@ -1515,11 +1575,11 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `password`, `registerwith`, `status`, `authstring`, `authdate`, `registerdate`, `firstname`, `lastname`, `birthdate`, `gender`, `cityid`, `branchid`, `year`, `pictureUrl`) VALUES
-(1, 'saiyedfaishal@gmail.com', '9cb966ff0bb252eeaf8be1b658ec0115', 'google', 'V', '4ae69bbfed3f4974b6cbbd3d681cec092b8d9266249a47ff93b10e7914b917d6', '2012-11-19 14:23:19', '2012-10-28 05:11:12', 'Faishal', 'Saiyed', NULL, 'male', NULL, 1, 2011, 'https://lh3.googleusercontent.com/-XVHns1ycTI0/AAAAAAAAAAI/AAAAAAAAAN0/31SL_TsfpRM/photo.jpg?sz=50'),
+(1, 'saiyedfaishal@gmail.com', '9cb966ff0bb252eeaf8be1b658ec0115', 'google', 'V', '4ae69bbfed3f4974b6cbbd3d681cec092b8d9266249a47ff93b10e7914b917d6', '2012-11-19 14:23:19', '2012-10-28 05:11:12', '$triKer', '$trike#', '1990-01-07', 'Male', NULL, 1, 2011, 'https://lh3.googleusercontent.com/-XVHns1ycTI0/AAAAAAAAAAI/AAAAAAAAAN0/31SL_TsfpRM/photo.jpg?sz=50'),
 (2, 'samrocker4rock@gmail.com', '7c26dc798bda94a414a866030d530ea1', 'google', 'V', NULL, NULL, '2012-11-04 05:38:44', 'Samir', 'Patel', NULL, 'male', 0, 2, 2010, 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg?sz=50'),
-(3, '201112071@daiict.ac.in', NULL, NULL, 'N', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 2011, NULL),
+(3, '201112071@daiict.ac.in', '9cb966ff0bb252eeaf8be1b658ec0115', 'linkedin', 'V', NULL, NULL, '2012-11-10 01:13:00', 'Faishal', 'Saiyed', NULL, NULL, NULL, 1, 2011, 'http://m3.licdn.com/mpr/mprx/0_xrBNYrLmfPC3yjbTAnzbYthDDznSyjbTgN_IYtQt-PCg_MK319bZr--yi49t0VQSY1vElzZL89PN'),
 (5, '201112001@daiict.ac.in', NULL, NULL, 'V', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 2011, NULL),
-(7, '201112072@daiict.ac.in', NULL, NULL, 'N', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 2011, NULL),
+(7, '201112072@daiict.ac.in', '9cb966ff0bb252eeaf8be1b658ec0115', 'linkedin', 'R', '53f87cc1b43e4a35a222d103b76b856bfd260c0dd4774db1a51704fb3ffb5d7c', '2012-11-25 01:06:46', NULL, 'Faishal', 'Saiyed', NULL, NULL, NULL, 1, 2011, 'http://m3.licdn.com/mpr/mprx/0_xrBNYrLmfPC3yjbTAnzbYthDDznSyjbTgN_IYtQt-PCg_MK319bZr--yi49t0VQSY1vElzZL89PN'),
 (8, '201112070@daiict.ac.in', NULL, NULL, 'N', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 2011, NULL),
 (9, '201112073@daiict.ac.in', NULL, NULL, 'V', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 2011, NULL);
 
