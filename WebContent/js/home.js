@@ -561,8 +561,93 @@ function loadProfile(type,detail){
 	
 		}
 	});
-	
-	
-	
-	
 }
+
+/***************** Start Account Settings ********************/
+
+$("#btnSaveChanges").on("click",function(e){
+	var fname=$("#txtFname").val();
+	var lname=$("#txtLname").val();
+	var bdate=$("#txtBirthDate").val();
+	var genM=$('input:radio[name=rdGender]:checked').val();
+	var city="";
+	$.post("AccountSettings", {		//Requesting to servlet 
+		type : "EditProfile",		//Input parameters
+		firstname : fname,
+		lastname : lname,
+		birthdate : bdate,
+		gender : genM,
+		city : city
+	},
+	function(data) {				// Return JSON Object
+		if (data.status === 'success') {
+			$("#dlgAccountSettings").modal("hide");
+			successOverlay(true, "Profile Updated successfully");
+		} else {
+			errorOverlay(true, "Oppss!! Error in updating user profile");
+		}
+	});
+});
+
+
+$("#btnDAct").on("click",function(e){
+	var r=confirm("Are you sure you want to delete this post ?");
+	if (r==false){
+		return ;
+	}
+	$("#btnDAct").text("Logout");
+	$.post("AccountSettings", {		//Requesting to servlet
+		type : "DeactivateAccount",		//Input parameters
+		},
+	function(data) {				// Return JSON Object
+			
+			window.location="Logout";
+			
+		});
+	
+});
+
+/***************** End Account Settings ********************/
+
+$("#btnSaveNewPass").on("click",function(e){
+	var currpass=$("#txtCurrPass").val();
+	var newpass=$("#txtNewPass").val();
+	var conpass=$("#txtConfirmNewPass").val();
+	
+	if(newpass===conpass)
+		{
+
+		$.post("AccountSettings", {		//Requesting to servlet 
+			type : "ChangePassword",		//Input parameters
+			newpassword : newpass,
+			currpassword : currpass,
+			
+			},
+		function(data) {				// Return JSON Object
+				console.log("AccountSettings: ");
+				console.log(data);
+				if(data.status === 'success'){
+					$("#txtCurrPass").val("");
+					$("#txtNewPass").val("");
+					$("#txtConfirmNewPass").val("");
+					$("#btnCancelChangePass").click()
+					successOverlay(true,"Your Password Change Successfuly");	
+					
+				}
+				else
+					{
+                     
+					errorOverlay(true,"Invalid Password...");	
+					
+				
+					}
+				
+				});
+		}
+	
+	else
+		errorOverlay(true,"Your confirm password not match...");
+	});
+
+
+

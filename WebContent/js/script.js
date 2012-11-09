@@ -31,7 +31,29 @@ $(".account-tray #btnLogout").click(function(e) {
 });
 
 $(".account-tray #btnSettings").on("click", function(e) {
-	$("#dlgAccountSettings").modal();
+
+	$.ajax({
+		url : 'User/Profile',
+		type : 'post',
+		data : {
+			"type" : "email",
+			"data" : objMyData.email		
+		},
+		success : function(data) {
+			$("#txtFname").val(data.firstname);
+			$("#txtLname").val(data.lastname);
+			$("#txtBirthDate").val(data.birthdate);
+			$("#rd" + data.gender.toLowerCase()).attr("checked","checked");
+			$("#dlgAccountSettings").modal();
+		},
+		error : function() {
+			errorOverlay(true, 'Oops! something went wrong. Please refresh the page');
+	
+		}
+
+	});		
+	
+	
 });
 
 $("#dlgAccountSettings, #dlgEvents").on("shown", function(e) {
