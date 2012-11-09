@@ -528,6 +528,7 @@
 		<script type="text/javascript" src="js/bootstrap.typeahead.min.js"></script>
 		<script type="text/javascript" src="js/bootstrap.datepicker.min.js"></script>
 		<script type="text/javascript" src="js/bootstrap.timepicker.min.js"></script>
+		<script type="text/javascript" src="js/jquery.jsonify-0.2.min.js"></script>
 		<script type="text/javascript" src="js/cssemoticons.min.js"></script>	
 		<script type="text/javascript" src="js/script.js"></script>
 		<script type="text/javascript" src="js/home.js"></script>
