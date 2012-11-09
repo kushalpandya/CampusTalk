@@ -24,7 +24,7 @@ Handlebars.registerHelper('getuserstatus', function(status) {
 	else if(status === "R")
 		return "Verify";
 	else if(status === "B")
-		return "Block"
+		return "Block";
 	else
 		return "InActive";
 });
