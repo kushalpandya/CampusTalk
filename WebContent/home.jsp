@@ -253,7 +253,7 @@
 					</div>
 				</form>	
 			</div>
-			<div class="modal-body">
+			<div class="modal-body" id="divProfile">
 				<div class="user-profile">
 					<div class="pull-left">
 						<img src="https://lh3.googleusercontent.com/-XVHns1ycTI0/AAAAAAAAAAI/AAAAAAAAAN0/31SL_TsfpRM/photo.jpg" class="user-img" />
@@ -445,7 +445,7 @@
 					</div>
 					<div class="pull-right">
 						<label>{{firstname}} {{lastname}}</label>
-						<label>{{branchname}} - {{year}}</label>
+						<label>{{branch}} - {{year}}</label>
 						<table>
 							<tbody>
 								<tr>
@@ -474,10 +474,10 @@
  		{{#if posts}}
 			{{#each posts}}
 				{{#notAlreadyAddedPost postid}}
-					<div class="feed-card" id='divPost{{postid}}' data-userid="{{id}}">
+					<div class="feed-card" id='divPost{{postid}}' data-userid="{{userid}}">
 						<div class="feed-user-bar">
-							<a href="#"><img src="{{pictureurl}}" class="feed-user-img" /></a>
-							<span class="feed-user-title"><a href="{{getuserurl id}}">{{firstname}} {{lastname}}</a></span>
+							<a href="#profile" data-userid="{{userid}}"><img src="{{pictureurl}}" class="feed-user-img" /></a>
+							<span class="feed-user-title"><a href="#profile" data-userid="{{userid}}" >{{firstname}} {{lastname}}</a></span>
 							<span class="feed-timestamp muted">{{getDateTime entTime}}</span>
 							<div class="dropdown drp-flat feed-card-menu">
 								<a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon-tasks"></i></a>
@@ -509,7 +509,7 @@
 		<script type="text/x-handlebars-template" id='tmpltCommentList'>
 		{{#each comments}}
 			{{#notAlreadyAddedComment commentid}}
-				<li id='liComment{{commentid}}'><img src="{{pictureurl}}" class="comment-user-img"/><br/>{{detail}}<span class="comment-user"><a href="#">{{firstname}} {{lastname}}</a></span><span class="comment-timestamp muted">{{getDateTime entTime}}</span><a class="comment-action" href="#"><i class="icon-remove" title="Delete"></i></a></li>
+				<li id='liComment{{commentid}}'><img src="{{pictureurl}}" class="comment-user-img"/><br/>{{detail}}<span class="comment-user"><a href="#profile" data-userid="{{userid}}" >{{firstname}} {{lastname}}</a></span><span class="comment-timestamp muted">{{getDateTime entTime}}</span><a class="comment-action" href="#"><i class="icon-remove" title="Delete"></i></a></li>
 			{{/notAlreadyAddedComment}}
 		{{/each}}
 		</script>
