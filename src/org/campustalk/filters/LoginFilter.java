@@ -21,6 +21,7 @@ import org.campustalk.entity.CampusTalkUsers;
 import org.campustalk.sql.dbBranch;
 import org.campustalk.sql.dbUser;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Servlet Filter implementation class LoginFilter
@@ -73,8 +74,11 @@ public class LoginFilter implements Filter {
 			request.setAttribute("Branch", objBranch);
 
 			try {
-				request.setAttribute("userJSon", objUser.toJSONObject()
-						.toString());
+				JSONObject rObj = objUser.toJSONObject();
+				rObj.put("role",objDbUser.getUserRole((int) session
+						.getAttribute("UserId")));
+				
+				request.setAttribute("userJSon",rObj.toString());
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

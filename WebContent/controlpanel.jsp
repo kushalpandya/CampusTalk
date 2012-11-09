@@ -560,44 +560,133 @@
 							</form>
 						</div>
 						<div class="modal-footer">
-							<button class="btn btn-flat" data-dismiss="modal"
-								aria-hidden="true">Close</button>
-						<button class="btn btn-green" id="btnAdd">Save</button>
+							<button class="btn btn-flat" data-dismiss="modal" aria-hidden="true">Close</button>
+							<button class="btn btn-green" id="btnAdd">Save</button>
+						</div>
+					</div>
+					<!-- Edit Branch Modal -->
+					<div class="modal hide fade modal-flat" id="EditBranch" tabindex="-1" role="dialog" aria-labelledby="dlgLabel" aria-hidden="true">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h3 id="dlgLabel">Edit Group</h3>
+						</div>
+						<div class="modal-body">
+							<form class="form-horizontal">
+								<div class="control-group">
+									<label class="control-label">Name</label>
+									<div class="controls">
+										<input type="text" name="txtBranchName1" />
+									</div>
+								</div>
+								<div class="control-group">
+									<label class="control-label">Duration</label>
+									<div class="controls">
+										<input type="text" name="txtDuration1" />
+									</div>
+								</div>
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button class="btn btn-flat" data-dismiss="modal" aria-hidden="true">Cancel</button>
+							<button class="btn btn-green" id="btnSave1">Save</button>
+						</div>
 					</div>
 				</div>
-				<!-- Edit Branch Modal -->
-				<div class="modal hide fade modal-flat" id="EditBranch" tabindex="-1"
-					role="dialog" aria-labelledby="dlgLabel" aria-hidden="true">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal"
-							aria-hidden="true">&times;</button>
-						<h3 id="dlgLabel">Edit Group</h3>
-					</div>
-					<div class="modal-body">
-						<form class="form-horizontal">
-							<div class="control-group">
-								<label class="control-label">Name</label>
-								<div class="controls">
-									<input type="text" name="txtBranchName1" />
-								</div>
-							</div>
-							<div class="control-group">
-								<label class="control-label">Duration</label>
-								<div class="controls">
-									<input type="text" name="txtDuration1" />
-								</div>
-							</div>
-						</form>
-					</div>
-					<div class="modal-footer">
-						<button class="btn btn-flat" data-dismiss="modal" aria-hidden="true">Cancel</button>
-						<button class="btn btn-green" id="btnSave1">Save</button>
-					</div>
-				</div>
-			</div>
 				<!-- Abuse Reports Pill -->
 				<div class="tab-pane" id="reports">
-					<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>
+					<table class="table table-stripped table-hover">
+						<thead>
+							<tr>
+								<th>User</th>
+								<th>Report Count</th>
+								<th>New Report Count</th>
+								<th colspan="3">Actions</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td><a href="#dlgUserProfile" data-toggle="modal">Kushal Pandya</a></td>
+								<td><i class="icon-warning-sign"></i>&nbsp;10</td>
+								<td><i class="icon-signal"></i>&nbsp;5</td>
+								<td><a href="#CheckPost" class="btn btn-yellow" data-toggle="modal"><i class="icon-ok"></i>&nbsp;Check Post</a></td>
+								<td><button class="btn btn-red" data-toggle="button"><i class="icon-ban-circle"></i>&nbsp;Block Post</button></td>
+								<td><button class="btn btn-red" data-toggle="button"><i class="icon-ban-circle"></i>&nbsp;Block User</button></td>
+							</tr>
+						</tbody>
+					</table>
+					<!-- Check Post Modal -->
+					<div class="modal hide fade modal-flat" id="CheckPost" tabindex="-1" role="dialog" aria-labelledby="dlgLabel" aria-hidden="true">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h3 id="dlgLabel">Post Details</h3>
+						</div>
+						<div class="modal-body">
+							<legend>Posted on 12-10-2012 12:00 AM</legend>
+							<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+						</div>
+						<div class="modal-footer">
+							<button class="btn btn-flat" data-dismiss="modal" aria-hidden="true">Close</button>
+						</div>
+					</div>
+					<!-- User Profile Dialog -->
+					<div id="dlgUserProfile" class="modal hide fade modal-flat" tabindex="-1" role="dialog" aria-labelledby="dlgLabel" aria-hidden="true">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h4 class="modal-title">Details</h4>
+						</div>
+						<div class="modal-drawer">
+							<legend>Compose Message</legend>
+							<form class="form-horizontal">
+								<div class="control-group">
+									<label class="control-label">Message</label>
+									<div class="controls">
+										<textarea rows="4" placeholder="Write a message..." id="txtNewMsgDetail" ></textarea>
+									</div>
+								</div>
+								<div class="control-group drawer-button-group">
+									<button type="button" class="btn btn-flat" id="btnCancelNewMessage">Cancel</button>
+									<a href="#" class="btn btn-green" id="btnSendNewMessage">Send</a>
+								</div>
+							</form>	
+						</div>
+						<div class="modal-body" id="divProfile">
+							<div class="user-profile">
+								<div class="pull-left">
+									<img src="https://lh3.googleusercontent.com/-XVHns1ycTI0/AAAAAAAAAAI/AAAAAAAAAN0/31SL_TsfpRM/photo.jpg" class="user-img" />
+									<div class="user-activity">
+										<span class="user-posts"><i class="icon-list-alt"></i>&nbsp;6</span>
+										<span class="user-comments"><i class="icon-comment"></i>&nbsp;10</span>
+									</div>
+								</div>
+								<div class="pull-right">
+									<label>Kushal Pandya</label>
+									<label>MSc. I.T. - 2011</label>
+									<table>
+										<tbody>
+											<tr>
+												<td>Email</td><td>kushal.pandya04@gmail.com</td>
+											</tr>
+											<tr>
+												<td>Gender</td><td>Male</td>
+											</tr>
+											<tr>
+												<td>Born</td><td>22 July 1990</td>
+											</tr>
+											<tr>
+												<td>City</td><td>Rajkot</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<div class="pull-right">
+								<button class="btn btn-flat" data-dismiss="modal" aria-hidden="true">Close</button>
+							</div>
+						</div>
+						<div class="modal-disable-overlay">&nbsp;</div>
+					</div>
 				</div>
 			</div>
 		</div>

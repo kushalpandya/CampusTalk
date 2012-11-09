@@ -54,7 +54,7 @@ public class dbUser extends DatabaseManager
 				objUser.setBranchId(rs.getInt("branchid"));
 				objUser.setYear(rs.getInt("year"));
 				objUser.setPictureUrl(rs.getString("pictureurl"));
-
+				
 			}
 			else
 			{
@@ -404,6 +404,48 @@ public class dbUser extends DatabaseManager
 		}
 		return jResponse;
 	}
+	
+	public String getUserRole(int userid){
+		try
+		{
+			this.open();
+			CallableStatement csSql = CON.prepareCall("{call getUserRoleNameById(?)}");
+			csSql.setInt(1, userid);
+			ResultSet rs = csSql.executeQuery();
+			if (rs.next())
+			{
+				return rs.getString("name");
+			}
+
+		}
+		catch (ClassNotFoundException | SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "";
+				
+	}
+	
+	public boolean MakeModerator(String email){
+		boolean rfalg=false;
+		try
+		{
+			this.open();
+			CallableStatement csSql = CON.prepareCall("{call userMakeModerator(?,?)}");
+			csSql.setString(1, email);
+			csSql.registerOutParameter(2, Types.BOOLEAN);
+			csSql.executeUpdate();
+			rfalg=csSql.getBoolean(2);			
+		}
+		catch (ClassNotFoundException | SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return rfalg;
+	}
 
 }
+
 

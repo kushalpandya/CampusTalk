@@ -434,8 +434,6 @@
 							<td>12:00 PM</td>
 							<td><a href="#EventDetails"><i class="icon-eye-open"></i>&nbsp;Details</a></td>
 						</tr>
-						
-						
 					</tbody>
 				</table>
 			</div>
@@ -479,7 +477,7 @@
 								</tr>
 								{{#isModerator id}}
 								<tr align="left">
-									<td colspan="2"><button class="btn btn-yellow"><i class="icon-user"></i>&nbsp;Make Moderator</button></td>
+									<td colspan="2"><button class="btn btn-yellow" id='btnModrate' data-email="{{email}}"><i class="icon-user"></i>&nbsp;Make Moderator</button></td>
 								</tr>
 								{{/isModerator}}
 							</tbody>
@@ -551,6 +549,7 @@
 		<script type="text/javascript" src="js/bootstrap.typeahead.min.js"></script>
 		<script type="text/javascript" src="js/bootstrap.datepicker.min.js"></script>
 		<script type="text/javascript" src="js/bootstrap.timepicker.min.js"></script>
+		<script type="text/javascript" src="js/jquery.jsonify-0.2.min.js"></script>
 		<script type="text/javascript" src="js/cssemoticons.min.js"></script>	
 		<script type="text/javascript" src="js/script.js"></script>
 		<script type="text/javascript" src="js/home.js"></script>

@@ -3,7 +3,6 @@ package org.campustalk.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -14,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.campustalk.sql.dbEvent;
-import org.campustalk.sql.dbRoles;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -104,11 +102,12 @@ public class CreateEvent extends HttpServlet {
 				JSONArray event_arr = new JSONArray();
 				
 				String eDate = request.getParameter("eventDate");
-				event_arr = objdbEvent.getEventData(eDate);
 				//System.out.println(eDate);
-			    //DateFormat formatter = new SimpleDateFormat("MM-dd-yyyy");
-			    //Date oldDate = (Date)formatter .parse(eDate);
-			    			
+			    DateFormat formatter = new SimpleDateFormat("MM-dd-yyyy");
+			    Date oldDate = formatter .parse(eDate);
+
+			    event_arr = objdbEvent.getEventData(oldDate);
+			    System.out.println(event_arr);
 				
 				
 				//event_arr =objdbEvent.getEventData(eDate);
@@ -120,7 +119,7 @@ public class CreateEvent extends HttpServlet {
 			{
 				
 				JSONArray event_arr = new JSONArray();
-				event_arr =objdbEvent.getEventDetails(Integer.parseInt(request.getParameter("id")));
+				// -- // event_arr =objdbEvent.getEventDetails(Integer.parseInt(request.getParameter("id")));
 				
 				resp.put("Event", event_arr);
 				status="success";			

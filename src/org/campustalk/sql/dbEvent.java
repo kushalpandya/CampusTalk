@@ -4,8 +4,6 @@ import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.json.JSONArray;
@@ -55,18 +53,14 @@ public class dbEvent extends DatabaseManager {
 		return rtnTemp;
 	}
 
-	public JSONArray getEventData(String eDate) {
-		JSONArray event_arr = new JSONArray();
+	public JSONArray getEventData(Date eDate) {
+	JSONArray event_arr = new JSONArray();
 		try {
 			this.open();
-			System.out.println(eDate);
-
-			DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-			Date oldDate = formatter.parse(eDate);
-
+			
 			CallableStatement csSql = CON
 					.prepareCall("{call getEventByDate(?)}");
-			csSql.setDate(1, new java.sql.Date(oldDate.getTime()));
+			csSql.setDate(1, new java.sql.Date(eDate.getTime()));
 
 			ResultSet rs = csSql.executeQuery();
 
@@ -90,34 +84,34 @@ public class dbEvent extends DatabaseManager {
 		return event_arr;
 	}
 
-	public JSONArray getEventDetails(int id) {
-		JSONArray event_arr = new JSONArray();
-		try {
-			this.open();
-
-			CallableStatement csSql = CON
-					.prepareCall("{call getEventDetails(?)}");
-			csSql.setInt(1, id);
-			ResultSet rs = csSql.executeQuery();
-
-			JSONObject temp;
-
-			while (rs.next()) {
-				temp = new JSONObject();
-
-				temp.put("eid", rs.getInt("eventid"));
-				temp.put("title", rs.getString("title"));
-				temp.put("desc", rs.getString("description"));
-				temp.put("place", rs.getString("place"));
-				temp.put("fdate", rs.getDate("fromdate"));
-				temp.put("tdate", rs.getDate("todate"));
-				event_arr.put(temp);
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return event_arr;
-	}
-
+//	public JSONArray getEventDetails(int id) {
+//		JSONArray event_arr = new JSONArray();
+//		try {
+//			this.open();
+//
+//			CallableStatement csSql = CON
+//					.prepareCall("{call getEventDetails(?)}");
+//			csSql.setInt(1, id);
+//			ResultSet rs = csSql.executeQuery();
+//
+//			JSONObject temp;
+//
+//			while (rs.next()) {
+//				temp = new JSONObject();
+//
+//				temp.put("eid", rs.getInt("eventid"));
+//				temp.put("title", rs.getString("title"));
+//				temp.put("desc", rs.getString("description"));
+//				temp.put("place", rs.getString("place"));
+//				temp.put("fdate", rs.getDate("fromdate"));
+//				temp.put("tdate", rs.getDate("todate"));
+//				event_arr.put(temp);
+//			}
+//
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		return event_arr;
+//	}
+//*/
 }
