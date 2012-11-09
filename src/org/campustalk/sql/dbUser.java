@@ -323,38 +323,46 @@ public class dbUser extends DatabaseManager
 		}
 	}
 
-
 	/**
 	 * End Admin Module
 	 */
-	
-	public JSONObject UserProfileByEmail(String email){
+
+	public JSONObject UserProfileByEmail(String email)
+	{
 		JSONObject jResponse = new JSONObject();
 
-		this.open();
-		CallableStatement csSql = CON.prepareCall("{call getAllUser()}");
-		ResultSet rs = csSql.executeQuery();
-
-		JSONObject temp;
-
-		while (rs.next())
+		try
 		{
-			temp = new JSONObject();
+			this.open();
 
-			jResponse.put("id", rs.getInt("id"));
-			jResponse.put("email", rs.getString("email"));
-			jResponse.put("firstname", rs.getString("firstname"));
-			jResponse.put("lastname", rs.getString("lastname"));
-			jResponse.put("branch", rs.getString("branch"));
-			jResponse.put("year", rs.getInt("year"));
-			jResponse.put("role", rs.getString("role"));
-			jResponse.put("status", rs.getString("status"));
+			CallableStatement csSql = CON.prepareCall("{call getAllUser()}");
+			ResultSet rs = csSql.executeQuery();
+			while (rs.next())
+			{
+				jResponse.put("email", rs.getString("email"));
+				jResponse.put("firstname", rs.getString("firstname"));
+				jResponse.put("lastname", rs.getString("lastname"));
+				jResponse.put("branch", rs.getString("branch"));
+				jResponse.put("year", rs.getInt("year"));
+				jResponse.put("nopost", rs.getInt("nopost"));
+				jResponse.put("nocomment", rs.getInt("nocomment"));
+				jResponse.put("gender", rs.getInt("gender"));
+				jResponse.put("birthdate", rs.getInt("birthdate"));
+				jResponse.put("city", rs.getInt("city"));
+			}
 
-			user_arr.put(temp);
 		}
-
-		
-		return jResponse ;
+		catch (ClassNotFoundException | SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		catch (JSONException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return jResponse;
 	}
 
 }
