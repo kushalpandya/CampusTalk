@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" import="org.campustalk.entity.CampusTalkUsers"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -61,6 +62,13 @@
 								<a href="#" id="showEvents" class="user-option">Events</a>
 							</td>
 						</tr>
+						<c:if test="${requestScope.isAdmin eq 1}"> 
+							<tr>
+								<td style="padding-bottom: 15px;">
+									<a href="controlpanel.jsp" id="showControlpanel" class="user-option">ControlPanel</a>
+								</td>
+							</tr>
+						</c:if>
 					</table>
 				</div>
 				<div class="profile-actions">
@@ -478,11 +486,13 @@
 								<tr>
 									<td>City</td><td>{{city}}</td>
 								</tr>
+								<c:if test="${isAllow eq 1}" >
 								{{#isModerator id}}
 								<tr align="left">
 									<td colspan="2"><button class="btn btn-yellow" id='btnModrate' data-email="{{email}}"><i class="icon-user"></i>&nbsp;Make Moderator</button></td>
 								</tr>
 								{{/isModerator}}
+								</c:if>
 							</tbody>
 						</table>
 					</div>
