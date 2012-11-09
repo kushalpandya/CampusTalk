@@ -619,6 +619,7 @@ function loaduser(flag){
 					var template = Handlebars.compile(src);
 					var output = template(data);
 					$("#drpEBranch").html(output);
+					$("#drpABranch").html(output);
 				}
 			});
 
@@ -634,6 +635,7 @@ function loaduser(flag){
 					var template = Handlebars.compile(src);
 					var output = template(data);
 					$("#drpERole").html(output);
+					$("#drpARole").html(output);
 					// $("#drpBranch select").add(output);
 				}
 			});
