@@ -347,9 +347,10 @@ public class dbUser extends DatabaseManager
 				jResponse.put("year", rs.getInt("year"));
 				jResponse.put("nopost", rs.getInt("nopost"));
 				jResponse.put("nocomment", rs.getInt("nocomment"));
-				jResponse.put("gender", rs.getInt("gender"));
-				jResponse.put("birthdate", rs.getInt("birthdate"));
-				jResponse.put("city", rs.getInt("city"));
+				jResponse.put("gender", rs.getString("gender"));
+				jResponse.put("birthdate", rs.getDate("birthdate"));
+				jResponse.put("city", rs.getString("city"));
+				jResponse.put("pictureurl", rs.getString("pictureurl"));
 			}
 
 		}
