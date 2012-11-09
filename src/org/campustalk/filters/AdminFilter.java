@@ -20,6 +20,7 @@ import org.campustalk.sql.dbBranch;
 import org.campustalk.sql.dbUser;
 import org.campustalk.sql.dbUserRole;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Servlet Filter implementation class AdminFilter
@@ -74,8 +75,11 @@ public class AdminFilter implements Filter {
 				request.setAttribute("User", objUser);
 
 				try {
-					request.setAttribute("userJSon", objUser.toJSONObject()
-							.toString());
+					JSONObject rObj = objUser.toJSONObject();
+					rObj.put("role",objDbUser.getUserRole((int) session
+							.getAttribute("UserId")));
+					
+					request.setAttribute("userJSon",rObj.toString());
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
