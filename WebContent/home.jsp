@@ -307,22 +307,40 @@
 			<div class="modal-drawer">
 				<legend class="form-create-event">Create New Event</legend>
 				<form class="form-horizontal form-create-event">
-					<div class="control-group">
-						<label class="control-label">Date</label>
+					<div class="control-group datetime-picker">
+						<label class="control-label">Start Date/Time</label>
 						<div class="controls">
 							<div class="input-append date">
-								<input type="text" name="txtEventDate" class="input-medium"/>
+								<input type="text" name="txtEventStartDate" class="input-small"/>
 								<span class="add-on"><i class="icon-calendar"></i></span>
+							</div>
+						</div>
+						<div class="controls">
+							<div class="input-append bootstrap-timepicker-components">
+								<input type="text" name="txtEventStartTime" class="input-mini"/>
+								<span class="add-on"><i class="icon-time"></i></span>
+							</div>
+						</div>
+					</div>
+					<div class="control-group datetime-picker">
+						<label class="control-label">End Date/Time</label>
+						<div class="controls">
+							<div class="input-append date">
+								<input type="text" name="txtEventEndDate" class="input-small"/>
+								<span class="add-on"><i class="icon-calendar"></i></span>
+							</div>
+						</div>
+						<div class="controls">
+							<div class="input-append bootstrap-timepicker-components">
+								<input type="text" name="txtEventEndTime" class="input-mini"/>
+								<span class="add-on"><i class="icon-time"></i></span>
 							</div>
 						</div>
 					</div>
 					<div class="control-group">
-						<label class="control-label">Time</label>
+						<label class="control-label">Place</label>
 						<div class="controls">
-							<div class="input-append bootstrap-timepicker-components">
-								<input type="text" name="txtEventTime" class="input-small"/>
-								<span class="add-on"><i class="icon-time"></i></span>
-							</div>
+							<input type="text" name="txtEventPlace">
 						</div>
 					</div>
 					<div class="control-group">
@@ -334,7 +352,7 @@
 					<div class="control-group">
 						<label class="control-label">Description</label>
 						<div class="controls">
-							<textarea rows="3" placeholder="Detailed description of event..." id="txtEventDesc" ></textarea>
+							<textarea rows="2" placeholder="Detailed description of event..." id="txtEventDesc" ></textarea>
 						</div>
 					</div>
 					<div class="control-group drawer-button-group">
@@ -345,15 +363,15 @@
 				<legend class="form-view-event">Event Details</legend>
 				<form class="form-horizontal form-view-event">
 					<div class="control-group">
-						<label class="control-label">Date</label>
+						<label class="control-label">Duration</label>
 						<div class="controls">
-							<label>11-09-2012</label>
+							<label>11-09-2012 12:00 PM to 11-09-2012 2:00 PM</label> 
 						</div>
 					</div>
 					<div class="control-group">
-						<label class="control-label">Time</label>
+						<label class="control-label">Venue</label>
 						<div class="controls">
-							<label>12:00 PM</label>
+							<label>Gandhinagar</label>
 						</div>
 					</div>
 					<div class="control-group">
