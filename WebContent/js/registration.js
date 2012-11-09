@@ -114,7 +114,7 @@ function getParameterByName(name) {
 }
 if (getParameterByName("q") != "" && getParameterByName("e") != "") {
 	$.ajax({
-		url : 'User/Registeration/Verify',
+		url : 'User/Registration/Verify',
 		type : 'post',
 		data : {
 			"q" : getParameterByName("q"),
