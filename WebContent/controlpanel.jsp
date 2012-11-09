@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -38,7 +39,7 @@
 							<td><label class="user-title">${requestScope.User.firstname} ${requestScope.User.lastname}</label></td>
 						</tr>
 						<tr>
-							<td><label class="user-group-title">Administrator</label></td>
+							<td><label class="user-group-title">${requestScope.role}</label></td>
 						</tr>
 							<tr>
 							<td style="padding-bottom: 15px;">
@@ -55,13 +56,16 @@
 		</div>
 		<div class="container panels-block">
 			<ul class="nav nav-pills" id="panel-tabs">
+			<c:if test="${not (requestScope.isModerator eq 1)}"> 
 				<li class="active"><a href="#groups" data-toggle="pill">Groups</a></li>
 				<li><a href="#users" data-toggle="pill">Users</a></li>
 				<li><a href="#roles" data-toggle="pill">Roles</a></li>
 				<li><a href="#branch" data-toggle="pill">Branch</a></li>
+			</c:if>	
 				<li><a href="#reports" data-toggle="pill">Abuse Reports</a></li>
 			</ul>
 			<div class="tab-content">
+				<c:if test="${not (requestScope.isModerator eq 1)}"> 
 				<!-- Groups Pill -->
 				<div class="tab-pane active" id="groups">
 					<div class="input-append">
@@ -598,6 +602,7 @@
 					</div>
 				</div>
 				<!-- Abuse Reports Pill -->
+		   		</c:if>	
 				<div class="tab-pane" id="reports">
 					<table class="table table-stripped table-hover" id="tblReport">
 						<thead>
