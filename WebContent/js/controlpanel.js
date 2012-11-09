@@ -28,6 +28,11 @@ Handlebars.registerHelper('getuserstatus', function(status) {
 	else
 		return "InActive";
 });
+Handlebars.registerHelper('isModerator', function(messageid, block) {
+	if (!(objMyData.role.toLowerCase() === "student" || objMyData.role.toLowerCase() === "moderator"))
+			return block.fn(this);
+});
+
 
 Handlebars.registerHelper('isNotAlreadyAddedMember', function(userid, block) {
 	if ($("#trMember" + userid).length == 0)
@@ -178,6 +183,8 @@ showGroup();
 $("a[href='#groups']").live("click", function(e) {
 	showGroup();
 });
+
+
 
 /** ********************************GroupMember***************************************** */
 
@@ -751,3 +758,282 @@ $("#btnDeleteCreateUser").on("click", function(e) {
 
 
 /******** End script for User *****/
+
+
+
+//Get Data
+function startReportAbuse() {
+	$("#tblReport tbody").html("");
+	$.get("ReportAbuses", {		//Requesting to servlet 
+		type : "GetData",		//Input parameters		
+		},
+	function(data) {				// Return JSON Object
+	
+			if(data.status==="success") {
+				var src = $("#getReportAbuses").html();
+				var template = Handlebars.compile(src);
+				var output = template(data);
+				
+				$("#tblReport tbody").append(output);
+				
+				$("a[href='#dlgUserProfile']").on(
+						"click",
+						function() {
+							loadProfile("email",$(this).data("email"))
+							
+						});
+				
+				
+				
+				//$("#drpBranch select").add(output);
+				$("a[href='#BlockPost']").on(
+						"click",
+						function() {
+						
+							var pId = $(this).attr("data-pid");
+							
+							$.get("ReportAbuses",
+									{
+										type : "BlockPost",
+										pid : pId
+										
+										
+									},
+									function(data)
+									{
+										
+										if(data.status==="success")
+											{
+											successOverlay(true,"Post Blocked Sucessfully.");
+											startReportAbuse()
+											}
+										else
+											{
+											errorOverlay(true,"Opps!! Error in Block Post");
+											}
+									}
+							
+							);
+						});
+				$("a[href='#BlockUser']").on(
+						"click",
+						function() {
+						
+							var id = $(this).attr("data-id");
+							var pid = $(this).attr("data-pid");
+							$.get("ReportAbuses",
+									{
+										type : "BlockUser",
+										id : id,
+										pid : pid
+										
+										
+									},
+									function(data)
+									{
+										
+										if(data.status==="success")
+											{
+											startReportAbuse();
+											successOverlay(true,"User Blocked Sucessfully.");
+											}
+										else
+											{
+											errorOverlay(true,"Opps!! Error in BlockUser");
+											}
+									}
+							
+							);
+						});
+
+				$("a[href='#Check']").on(
+						"click",
+						function() {
+						
+							//var id = $(this).attr("data-id");
+							var pid = $(this).attr("data-pid");
+							
+							$.get("ReportAbuses",
+									{
+										type : "Check",
+										pid : pid,
+										rstatus : "R"
+										
+									},
+									function(data)
+									{
+										
+										if(data.status==="success")
+										{
+											startReportAbuse();
+											successOverlay(true,"Check Sucessfully.");
+											}
+										else
+											{
+											errorOverlay(true,"Opps!! Error in Check");
+											}
+									}
+							
+							);
+						});
+				$("a[href='#ViewUser']").on(
+						"click",
+						function() {
+						
+							var id = $(this).attr("data-pid");
+							$.get("ReportAbuses",
+									{
+										type : "ViewUser",
+										pid : id,
+																			
+									},
+									function(data)
+									{
+										
+										if(data.status==="success")
+											{
+												var src = $("#getReport").html();
+												var template = Handlebars.compile(src);
+												var output = template(data);
+												$("#tblReport1 tbody").append(output);
+												//$("#drpBranch select").add(output);
+												
+											}
+										else
+											{
+											errorOverlay(true,"Opps!! Error in View user");
+											}
+									}
+							
+							);
+						});
+
+				$("a[href='#ViewBlockUser']").on(
+						"click",
+						function() {
+						
+							var id = $(this).attr("data-id");
+							$.get("ReportAbuses",
+									{
+										type : "ViewBlock",
+										id : id														
+									},
+									function(data)
+									{
+										
+										if(data.status==="success")
+											{
+												//alert("Check Sucessfully.");
+												var src = $("#getBlockUser").html();
+												var template = Handlebars.compile(src);
+												var output = template(data);
+												
+												$("#tblBlockUser tbody").append(output);
+												//$("#drpBranch select").add(output);
+												$("a[href='#UnblockUser']").on(
+														"click",
+														function() {
+														
+															var id = $(this).attr("data-id");
+															
+															$.get("ReportAbuses",
+																	{
+																		type : "UnblockUser",
+																		id : id
+																																					
+																	},
+																	function(data)
+																	{
+																		
+																		if(data.status==="success")
+																			{
+																			successOverlay(true,"Unblock Sucessfully.");
+																				
+																			}
+																		else
+																			{
+																			errorOverlay(true,"Opps!! Error in Unblock User");
+																			}
+																	}
+															
+															);
+														});
+											}
+										else
+											{
+											errorOverlay(true,"Opps!! Error ");
+											}
+									}
+							
+							);
+						});
+				
+			}
+			
+	});
+};
+
+$("a[href='#reports']").live("click", function(e) {
+	startReportAbuse();
+});
+
+
+function loadProfile(type,detail){
+	$.ajax({
+		url : 'User/Profile',
+		type : 'post',
+		data : {
+			"type" : type,
+			"data" : detail			
+		},
+		success : function(data) {
+			if (data.status === 'success') {
+				//
+				var source = $("#tmpltuserProfile").html();
+				var template = Handlebars.compile(source);
+				var html = template(data);
+				$("#divProfile").html(html);
+				$("#dlgUserProfile").modal();
+				$("#btnModrate").click(function(e){
+					var uEmail= $(this).data("email");
+				
+					$.ajax({
+						url : 'User/Profile',
+						type : 'post',
+						data : {
+							"type" : "m",
+							"data" : uEmail			
+						},
+						success : function(data) {
+							if (data.status === 'success') {
+								successOverlay(true, data.message);
+							} else {
+								// Failed
+								errorOverlay(true, data.message);
+								
+							}
+						},
+						error : function() {
+							errorOverlay(true, 'Oops! something went wrong. Please refresh the page');
+					
+						}
+
+					});		
+				});
+					
+			} else {
+				// Failed
+				errorOverlay(true, data.message);
+				
+			}
+		},
+		error : function() {
+			errorOverlay(true, 'Oops! something went wrong. Please refresh the page');
+	
+		}
+	});
+	
+	
+	
+	
+}
