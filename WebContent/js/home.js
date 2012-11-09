@@ -55,6 +55,11 @@ Handlebars.registerHelper('getDateTime', function(enttime) {
 	else
 		return moment(enttime, "YYYY-MM-DD hh:mm:ss").calendar();
 });
+Handlebars.registerHelper('isModerator', function(messageid, block) {
+	if (objMyData.role != "student")
+			return block.fn(this);
+});
+
 
 $("#btnPost").click(function() {
 	var postData = $.trim($("#postBox").val());
