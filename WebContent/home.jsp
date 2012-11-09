@@ -155,24 +155,26 @@
 				<h4 class="modal-title">Settings</h4>
 			</div>
 			<div class="modal-drawer">
+			
 				<legend>Change Password</legend>
+				
 				<form class="form-inline">
 					<div class="control-group">
 						<label class="control-label">Current Password</label>
 						<div class="controls">
-							<input type="password" name="txtCurrPass" />
+							<input type="password" name="txtCurrPass" id="txtCurrPass"/>
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label">New Password</label>
 						<div class="controls">
-							<input type="password" name="txtNewPass" />
+							<input type="password" name="txtNewPass" id="txtNewPass"/>
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label">Confirm Password</label>
 						<div class="controls">
-							<input type="password" name="txtConfirmNewPass" />
+							<input type="password" name="txtConfirmNewPass" id="txtConfirmNewPass"/>
 						</div>
 					</div>
 					<div class="control-group drawer-button-group">
@@ -184,42 +186,32 @@
 			<div class="modal-body">
 				<form class="form-horizontal">
 					<div class="control-group">
-						<label class="control-label">First Name</label>
+						<label class="control-label" >First Name</label>
 						<div class="controls">
-							<input type="text" />
+							<input type="text" id="txtFname"/>
 						</div>
 					</div>
 					<div class="control-group">
-						<label class="control-label">Last Name</label>
+						<label class="control-label" >Last Name</label>
 						<div class="controls">
-							<input type="text" />
+							<input type="text" id="txtLname"/>
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label">Birth Date</label>
 						<div class="controls">
-							<input type="text" name="txtBirthDate" />
+							<input type="text" id="txtBirthDate" placeholder="DD-MM-YYYY" />
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label">Gender</label>
 						<div class="controls">
 							<label class="radio">
-								<input type="radio" name="rdGender" value="Male" />Male
+								<input type="radio" name="rdGender"  id="rdmale" value="Male" />Male
 							</label>
 							<label class="radio">
-								<input type="radio" name="rdGender" value="Female" />Female
+								<input type="radio"  name="rdGender" id="rdfemale" value="Female" />Female
 							</label>
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label">City</label>
-						<div class="controls">
-							<select name="drpCity">
-								<option value="-1" selected>Select city...</option>
-								<option value="Gandhinagar">Gandhinagar</option>
-								<option value="Ahmedabad">Ahmedabad</option>
-							</select>
 						</div>
 					</div>
 					<div class="control-group">
@@ -231,11 +223,11 @@
 			</div>
 			<div class="modal-footer">
 				<div class="pull-left">
-					<button class="btn btn-red">Deactivate Account</button>
+					<button class="btn btn-red" id="btnDAct">Deactivate Account</button>
 				</div>
 				<div class="pull-right">
 					<button class="btn btn-flat" data-dismiss="modal" aria-hidden="true">Close</button>
-					<button class="btn btn-green">Save Changes</button>
+					<button class="btn btn-green" id="btnSaveChanges">Save Changes</button>
 				</div>
 			</div>
 			<div class="modal-disable-overlay">&nbsp;</div>
