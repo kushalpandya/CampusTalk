@@ -335,9 +335,10 @@ public class dbUser extends DatabaseManager
 		{
 			this.open();
 
-			CallableStatement csSql = CON.prepareCall("{call getAllUser()}");
+			CallableStatement csSql = CON.prepareCall("{call getuserProfileDataByEmail(?)}");
+			csSql.setString(1, email);
 			ResultSet rs = csSql.executeQuery();
-			while (rs.next())
+			if (rs.next())
 			{
 				jResponse.put("email", rs.getString("email"));
 				jResponse.put("firstname", rs.getString("firstname"));
@@ -364,5 +365,45 @@ public class dbUser extends DatabaseManager
 		}
 		return jResponse;
 	}
+	public JSONObject UserProfileById(int id)
+	{
+		JSONObject jResponse = new JSONObject();
+
+		try
+		{
+			this.open();
+
+			CallableStatement csSql = CON.prepareCall("{call getuserProfileDataById(?)}");
+			csSql.setInt(1, id);
+			ResultSet rs = csSql.executeQuery();
+			if (rs.next())
+			{
+				jResponse.put("email", rs.getString("email"));
+				jResponse.put("firstname", rs.getString("firstname"));
+				jResponse.put("lastname", rs.getString("lastname"));
+				jResponse.put("branch", rs.getString("branch"));
+				jResponse.put("year", rs.getInt("year"));
+				jResponse.put("nopost", rs.getInt("nopost"));
+				jResponse.put("nocomment", rs.getInt("nocomment"));
+				jResponse.put("gender", rs.getString("gender"));
+				jResponse.put("birthdate", rs.getDate("birthdate"));
+				jResponse.put("city", rs.getString("city"));
+				jResponse.put("pictureurl", rs.getString("pictureurl"));
+			}
+
+		}
+		catch (ClassNotFoundException | SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		catch (JSONException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return jResponse;
+	}
 
 }
+
