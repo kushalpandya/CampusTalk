@@ -9,12 +9,13 @@
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"	media="all" />
 		<link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.min.css" media="all" />
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.datepicker.min.css" media="all" />
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.timepicker.min.css" media="all" />
 		<link rel="stylesheet" type="text/css" href="css/style.css" media="all" />
 		<link rel="stylesheet/less" type="text/css" href="less/style.less" media="all" />
 		<link href="css/cssemoticons.css" media="screen" rel="stylesheet" type="text/css" />
 		<script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
 		<script type="text/javascript" src="js/bootstrap.min.js"></script>
-		<script type="text/javascript" src="js/less-1.3.0.min.js"></script>
+		<script type="text/javascript" src="js/less-1.3.1.min.js"></script>
 		<script type="text/javascript">
 			$(function() {
 				less.env = "development";
@@ -93,7 +94,7 @@
 			</div>
 			<div class="modal-drawer">
 				<legend>Compose Message</legend>
-				<form class="form-horizontal form-add-member">
+				<form class="form-horizontal">
 					<div class="control-group">
 						<label class="control-label">To</label>
 						<div class="controls">
@@ -147,7 +148,7 @@
 			</div>
 			<div class="modal-drawer">
 				<legend>Change Password</legend>
-				<form class="form-inline form-add-member">
+				<form class="form-inline">
 					<div class="control-group">
 						<label class="control-label">Current Password</label>
 						<div class="controls">
@@ -239,7 +240,7 @@
 			</div>
 			<div class="modal-drawer">
 				<legend>Compose Message</legend>
-				<form class="form-horizontal form-add-member">
+				<form class="form-horizontal">
 					<div class="control-group">
 						<label class="control-label">Message</label>
 						<div class="controls">
@@ -292,6 +293,140 @@
 				</div>
 				<div class="pull-right">
 					<button class="btn btn-blue">Show All Posts</button>
+					<button class="btn btn-flat" data-dismiss="modal" aria-hidden="true">Close</button>
+				</div>
+			</div>
+			<div class="modal-disable-overlay">&nbsp;</div>
+		</div>
+		<!-- Events Dialog -->
+		<div id="dlgEvents" class="modal hide fade modal-flat">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Events</h4>
+			</div>
+			<div class="modal-drawer">
+				<legend class="form-create-event">Create New Event</legend>
+				<form class="form-horizontal form-create-event">
+					<div class="control-group">
+						<label class="control-label">Date</label>
+						<div class="controls">
+							<div class="input-append date">
+								<input type="text" name="txtEventDate" class="input-medium"/>
+								<span class="add-on"><i class="icon-calendar"></i></span>
+							</div>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">Time</label>
+						<div class="controls">
+							<div class="input-append bootstrap-timepicker-components">
+								<input type="text" name="txtEventTime" class="input-small"/>
+								<span class="add-on"><i class="icon-time"></i></span>
+							</div>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">Subject</label>
+						<div class="controls">
+							<input type="text" name="txtEventSubject">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">Description</label>
+						<div class="controls">
+							<textarea rows="3" placeholder="Detailed description of event..." id="txtEventDesc" ></textarea>
+						</div>
+					</div>
+					<div class="control-group drawer-button-group">
+						<button type="button" class="btn btn-flat" id="btnCancelNewEvent">Cancel</button>
+						<a href="#" class="btn btn-green" id="btnSaveNewEvent">Save</a>
+					</div>
+				</form>
+				<legend class="form-view-event">Event Details</legend>
+				<form class="form-horizontal form-view-event">
+					<div class="control-group">
+						<label class="control-label">Date</label>
+						<div class="controls">
+							<label>11-09-2012</label>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">Time</label>
+						<div class="controls">
+							<label>12:00 PM</label>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">Subject</label>
+						<div class="controls">
+							<label>SEN Project Submission</label>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">Description</label>
+						<div class="controls">
+							<p>If asked for, the team should be able to bring up and show any work product that they have created as a part of the project.</p>
+						</div>
+					</div>
+					<div class="control-group drawer-button-group pull-right">
+						<button type="button" class="btn btn-blue" id="btnJoinEvent" data-toggle="button"><i class="icon-thumbs-up icon-white"></i>&nbsp;Join</button>
+						<button type="button" class="btn btn-flat" id="btnCancelNewEvent">Cancel</button>
+					</div>
+				</form>
+			</div>
+			<div class="modal-body">
+				<div class="input-append">
+					<input type="text" name="txtEventOnDate" class="input-medium">
+					<span class="add-on"><i class="icon-calendar"></i></span>
+				</div>
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>Sr. No.</th>
+							<th>Subject</th>
+							<th>Time</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>1</td>
+							<td>SEN Project Submission</td>
+							<td>12:00 PM</td>
+							<td><a href="#EventDetails"><i class="icon-eye-open"></i>&nbsp;Details</a></td>
+						</tr>
+						<tr>
+							<td>2</td>
+							<td>Farewell Party</td>
+							<td>7:00 PM</td>
+							<td><a href="#EventDetails"><i class="icon-eye-open"></i>&nbsp;Details</a></td>
+						</tr>
+						<tr>
+							<td>3</td>
+							<td>SEN Project Submission</td>
+							<td>12:00 AM</td>
+							<td><a href="#EventDetails"><i class="icon-eye-open"></i>&nbsp;Details</a></td>
+						</tr>
+						<tr>
+							<td>4</td>
+							<td>ISS Submission</td>
+							<td>10:00 AM</td>
+							<td><a href="#EventDetails"><i class="icon-eye-open"></i>&nbsp;Details</a></td>
+						</tr>
+						<tr>
+							<td>5</td>
+							<td>End of MSc. I.T. 2011</td>
+							<td>12:00 AM</td>
+							<td><a href="#"><i class="icon-eye-open"></i>&nbsp;Details</a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="modal-footer">
+				<div class="pull-left">
+					<button class="btn btn-green" id="btnNewEvent">New Event</button>
+				</div>
+				<div class="pull-right">
 					<button class="btn btn-flat" data-dismiss="modal" aria-hidden="true">Close</button>
 				</div>
 			</div>
@@ -380,7 +515,7 @@
 		</script>
 		<script type="text/x-handlebars-template" id='tmpltRecipientList'>
 			{{#each userlist}}
-				<li><a href="#" class="message-recipient {{isUnreadMessage unreadmsg}}" title="{{email}}" data-userid="{{userid}}" data-email="{{email}}"><img class="recipient-img" src="{{pictureurl}}"/><span class="recipient-title">{{firstname}} {{lastname}} {{hasUnreadCount unreadmsg}}</span><span class="recipient-mail">{{formatEmail email}}</span></a>
+				<li><a href="#" class="message-recipient {{isUnreadMessage unreadmsg}}" title="{{email}}" data-userid="{{userid}}" data-email="{{email}}"><img class="recipient-img" src="{{pictureurl}}"/><span class="recipient-title">{{firstname}} {{lastname}} </span><span class="recipient-mail">{{formatEmail email}}</span></a>
 			{{/each}}	
 		</script>
 		<script type="text/x-handlebars-template" id='tmpltMessageThread'>
@@ -394,12 +529,13 @@
 				{{/notAlreadyAddedMessage}}
 			{{/each}}
 		</script>
-		<script type="text/javascript" src="js/script.js"></script>
-		<script type="text/javascript" src="js/bootstrap.datepicker.min.js"></script>
-		<script type="text/javascript" src="js/bootstrap.typeahead.min.js"></script>
 		<script type="text/javascript" src="js/handlebars.js"></script>
 		<script type="text/javascript" src="js/moment.min.js"></script>
-		<script type="text/javascript" src="js/home.js"></script>
+		<script type="text/javascript" src="js/bootstrap.typeahead.min.js"></script>
+		<script type="text/javascript" src="js/bootstrap.datepicker.min.js"></script>
+		<script type="text/javascript" src="js/bootstrap.timepicker.min.js"></script>
 		<script type="text/javascript" src="js/cssemoticons.min.js"></script>	
+		<script type="text/javascript" src="js/script.js"></script>
+		<script type="text/javascript" src="js/home.js"></script>
 	</body>
 </html>

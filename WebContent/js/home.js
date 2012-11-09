@@ -408,6 +408,7 @@ $(".account-tray #showMessages").on("click", function(e) {
 						success : function(data) {
 							if (data.status === 'success') {
 								// Success
+								selected_user.removeClass("unread");
 								selected_user.addClass("selected"); //Highlight currently selected user.
 								var source = $("#tmpltMessageThread").html();
 								var template = Handlebars.compile(source);
@@ -440,9 +441,14 @@ $(".account-tray #showMessages").on("click", function(e) {
 	
 });
 
+$("#showEvents").on("click", function(e) {
+	e.preventDefault();
+	$("#dlgEvents").modal();
+});
+
 $("#txtAreaThreadNewMsg").keyup(function(e){
-	if (event.keyCode == 13 && !event.shiftKey) {
-		event.preventDefault();
+	if (e.keyCode == 13 && !e.shiftKey) {
+		e.preventDefault();
 		var msgDetail= $(this).val();
 		$(this).val("");
 		if(msgDetail.length < 2){

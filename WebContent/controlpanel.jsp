@@ -16,7 +16,7 @@
 	media="all" />
 <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/less-1.3.0.min.js"></script>
+<script type="text/javascript" src="js/less-1.3.1.min.js"></script>
 <script type="text/javascript" src="js/handlebars.js"></script>
 
 <script type="text/javascript">

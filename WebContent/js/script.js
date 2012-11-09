@@ -32,10 +32,16 @@ $(".account-tray #btnLogout").click(function(e) {
 
 $(".account-tray #btnSettings").on("click", function(e) {
 	$("#dlgAccountSettings").modal();
-	$("input[name='txtBirthDate']").datepicker({
+});
+
+$("#dlgAccountSettings, #dlgEvents").on("shown", function(e) {
+	var modal = $(this);
+	modal.find("input[name$='Date']").datepicker({
 		format: "mm-dd-yyyy",
 		weekStart: 1
 	});
+	
+	modal.find("input[name$='Time']").timepicker();
 });
 
 $("#dlgAccountSettings form button[name='btnChangePassword']").on("click", function(e) {
@@ -46,6 +52,7 @@ $("#dlgAccountSettings form button[name='btnChangePassword']").on("click", funct
 
 /*Open Drawer on Active Modal*/
 $("#dlgMessages #btnNewMessage, #dlgUserProfile #btnNewMessage").on("click", function(e) {
+	e.preventDefault();
 	var modal = $(this).parents().eq(2);
 	modal.find(".modal-disable-overlay").css("height",modal.find(".modal-body").height()).show();
 	modal.find(".modal-drawer").slideDown(250);
@@ -56,6 +63,28 @@ $(" #dlgAccountSettings #btnCancelChangePass, #dlgMessages #btnCancelNewMessage,
 	var modal = $(this).parents().eq(3);
 	modal.find(".modal-disable-overlay").hide();
 	modal.find(".modal-drawer").slideUp(250);
+});
+
+/* Show Event New Event Form in Drawer */
+$("#dlgEvents #btnNewEvent").on("click", function() {
+	var modal = $(this).parents().eq(2);
+	modal.find(".modal-disable-overlay").css("height",modal.find(".modal-body").height()).show();
+	modal.find(".modal-drawer, .form-create-event").slideDown(250);
+});
+
+/* Show Event Event Details in Drawer */
+$("#dlgEvents a[href='#EventDetails']").on("click", function(e) {
+	e.preventDefault();
+	var modal = $(this).parents().eq(5);
+	modal.find(".modal-disable-overlay").css("height",modal.find(".modal-body").height()).show();
+	modal.find(".modal-drawer, .form-view-event").slideDown(250).find(".form-view-event").show();
+});
+
+/* Close the Event Drawer */
+$("#dlgEvents #btnCancelNewEvent").on("click", function() {
+	var modal = $(this).parents().eq(3);
+	modal.find(".modal-disable-overlay").hide();
+	modal.find(".modal-drawer, [class^='form']").slideUp(250);
 });
 
 /** ******************** home.html script ********************** */
