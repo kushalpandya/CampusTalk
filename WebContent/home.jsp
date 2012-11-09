@@ -413,30 +413,6 @@
 							<td>12:00 PM</td>
 							<td><a href="#EventDetails"><i class="icon-eye-open"></i>&nbsp;Details</a></td>
 						</tr>
-						<tr>
-							<td>2</td>
-							<td>Farewell Party</td>
-							<td>7:00 PM</td>
-							<td><a href="#EventDetails"><i class="icon-eye-open"></i>&nbsp;Details</a></td>
-						</tr>
-						<tr>
-							<td>3</td>
-							<td>SEN Project Submission</td>
-							<td>12:00 AM</td>
-							<td><a href="#EventDetails"><i class="icon-eye-open"></i>&nbsp;Details</a></td>
-						</tr>
-						<tr>
-							<td>4</td>
-							<td>ISS Submission</td>
-							<td>10:00 AM</td>
-							<td><a href="#EventDetails"><i class="icon-eye-open"></i>&nbsp;Details</a></td>
-						</tr>
-						<tr>
-							<td>5</td>
-							<td>End of MSc. I.T. 2011</td>
-							<td>12:00 AM</td>
-							<td><a href="#"><i class="icon-eye-open"></i>&nbsp;Details</a></td>
-						</tr>
 					</tbody>
 				</table>
 			</div>
