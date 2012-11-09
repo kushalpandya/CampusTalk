@@ -434,7 +434,6 @@
 		</div>
 		<a id='popupLink' href='' style='display:none'>Show</a>
 		<script type="text/x-handlebars-template" id='tmpltPostList'>
-			
 				<div class="user-profile">
 					<div class="pull-left">
 						<img src="{{pictureurl}}" class="user-img" />
