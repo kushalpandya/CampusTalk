@@ -395,9 +395,29 @@
 			</div>
 			<div class="modal-body">
 				<div class="input-append">
-					<input type="text" name="txtEventOnDate" class="input-medium">
+					<input type="text" id="txtEventDate" name="txtEventOnDate" class="input-medium">
 					<span class="add-on"><i class="icon-calendar"></i></span>
 				</div>
+				<script id="getEventData" type="text/x-handlebars-template">
+					{{#if Event}}
+						{{#each Event}}
+							
+								<tr>
+									<td>{{eid}}</td>									
+									<td>{{title}}</td>
+									<td>{{fdate}}</td>
+									<td><a href="#EventDetails" data-id="{{eid}}"  ><i class="icon-eye-open"></i>&nbsp;Details</a></td>
+								</tr>
+							
+						{{/each}}
+					{{else}}
+
+						<option value="-1" selected>No Valuse Selected...</option>				
+							
+					{{/if}}	
+				</script>
+				
+				
 								<table class="table table-hover" id="tblEventData">
 					<thead>
 						<tr>
