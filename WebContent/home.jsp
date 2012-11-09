@@ -433,12 +433,8 @@
 			<div class="modal-disable-overlay">&nbsp;</div>
 		</div>
 		<a id='popupLink' href='' style='display:none'>Show</a>
-<<<<<<< HEAD
 		<script type="text/x-handlebars-template" id='tmpltuserProfile'>
-			
-=======
-		<script type="text/x-handlebars-template" id='tmpltPostList'>
->>>>>>> branch 'master' of https://github.com/kushalpandya/CampusTalk.git
+		
 				<div class="user-profile">
 					<div class="pull-left">
 						<img src="{{pictureurl}}" class="user-img" />
