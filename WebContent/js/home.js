@@ -56,7 +56,7 @@ Handlebars.registerHelper('getDateTime', function(enttime) {
 		return moment(enttime, "YYYY-MM-DD hh:mm:ss").calendar();
 });
 Handlebars.registerHelper('isModerator', function(messageid, block) {
-	if (objMyData.role != "student")
+	if (!(objMyData.role.toLowerCase() === "student" || objMyData.role.toLowerCase() === "moderator"))
 			return block.fn(this);
 });
 
@@ -522,7 +522,34 @@ function loadProfile(type,detail){
 				var template = Handlebars.compile(source);
 				var html = template(data);
 				$("#divProfile").html(html);
-				$("#dlgUserProfile").modal(); 
+				$("#dlgUserProfile").modal();
+				$("#btnModrate").click(function(e){
+					var uEmail= $(this).data("email");
+				
+					$.ajax({
+						url : 'User/Profile',
+						type : 'post',
+						data : {
+							"type" : "m",
+							"data" : uEmail			
+						},
+						success : function(data) {
+							if (data.status === 'success') {
+								successOverlay(true, data.message);
+							} else {
+								// Failed
+								errorOverlay(true, data.message);
+								
+							}
+						},
+						error : function() {
+							errorOverlay(true, 'Oops! something went wrong. Please refresh the page');
+					
+						}
+
+					});		
+				});
+					
 			} else {
 				// Failed
 				errorOverlay(true, data.message);

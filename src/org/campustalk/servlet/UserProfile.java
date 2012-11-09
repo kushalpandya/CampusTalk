@@ -49,10 +49,20 @@ public class UserProfile extends HttpServlet {
 			dbUser objUser= new dbUser();
 			if(type.equalsIgnoreCase("email")){
 				jResponse = objUser.UserProfileByEmail(request.getParameter("data"));
+				status="success";
+			}else if(type.equalsIgnoreCase("m")){
+				if(objUser.MakeModerator(request.getParameter("data"))){
+					status="success";
+					errormsg="This user is now Moderator";
+				}else{
+					errormsg="Cant Make this user as Moderator";
+				}
+				
 			}else{
 				jResponse = objUser.UserProfileById(Integer.parseInt(request.getParameter("data")));
+				status="success";
 			}
-			status="success";
+			
 			
 		}
 		try {

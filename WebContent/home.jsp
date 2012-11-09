@@ -456,7 +456,7 @@
 								</tr>
 								{{#isModerator id}}
 								<tr align="left">
-									<td colspan="2"><button class="btn btn-yellow"><i class="icon-user"></i>&nbsp;Make Moderator</button></td>
+									<td colspan="2"><button class="btn btn-yellow" id='btnModrate' data-email="{{email}}"><i class="icon-user"></i>&nbsp;Make Moderator</button></td>
 								</tr>
 								{{/isModerator}}
 							</tbody>
