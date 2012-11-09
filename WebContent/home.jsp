@@ -433,7 +433,7 @@
 			<div class="modal-disable-overlay">&nbsp;</div>
 		</div>
 		<a id='popupLink' href='' style='display:none'>Show</a>
-		<script type="text/x-handlebars-template" id='tmpltPostList'>
+		<script type="text/x-handlebars-template" id='tmpltuserProfile'>
 			
 				<div class="user-profile">
 					<div class="pull-left">
