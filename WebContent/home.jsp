@@ -299,6 +299,43 @@
 		</div>
 		<a id='popupLink' href='' style='display:none'>Show</a>
 		<script type="text/x-handlebars-template" id='tmpltPostList'>
+			
+				<div class="user-profile">
+					<div class="pull-left">
+						<img src="{{pictureurl}}" class="user-img" />
+						<div class="user-activity">
+							<span class="user-posts"><i class="icon-list-alt"></i>&nbsp;{{nopost}}</span>
+							<span class="user-comments"><i class="icon-comment"></i>&nbsp;{{nocomment}}</span>
+						</div>
+					</div>
+					<div class="pull-right">
+						<label>{{firstname}} {{lastname}}</label>
+						<label>{{branchname}} - {{year}}</label>
+						<table>
+							<tbody>
+								<tr>
+									<td>Email</td><td>{{email}}</td>
+								</tr>
+								<tr>
+									<td>Gender</td><td>{{gender}}</td>
+								</tr>
+								<tr>
+									<td>Born</td><td>{{birthdate}}</td>
+								</tr>
+								<tr>
+									<td>City</td><td>{{city}}</td>
+								</tr>
+								{{#isModerator id}}
+								<tr align="left">
+									<td colspan="2"><button class="btn btn-yellow"><i class="icon-user"></i>&nbsp;Make Moderator</button></td>
+								</tr>
+								{{/isModerator}}
+							</tbody>
+						</table>
+					</div>
+				</div>
+		</script>
+		<script type="text/x-handlebars-template" id='tmpltPostList'>
  		{{#if posts}}
 			{{#each posts}}
 				{{#notAlreadyAddedPost postid}}
