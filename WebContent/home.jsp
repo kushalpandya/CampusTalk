@@ -353,7 +353,7 @@
 					<div class="control-group">
 						<label class="control-label">Description</label>
 						<div class="controls">
-							<textarea rows="2" placeholder="Detailed description of event..." id="txtEventDesc" ></textarea>
+							<textarea rows="2" placeholder="Detailed description of event..." name="txtEventDesc" id="txtEventDesc" ></textarea>
 						</div>
 					</div>
 					<div class="control-group drawer-button-group">
@@ -361,37 +361,66 @@
 						<a href="#" class="btn btn-green" id="btnSaveNewEvent">Save</a>
 					</div>
 				</form>
-				<legend class="form-view-event">Event Details</legend>
-				<form class="form-horizontal form-view-event">
-					<div class="control-group">
+				
+				<legend id="legEventDetails" class="form-view-event">Event Details</legend>
+				
+				<script id="getEventDataDetails" type="text/x-handlebars-template">
+					{{#if EventDetails}}
+						{{#each EventDetails}}
+							
+						
+				
+				<div class="control-group">
 						<label class="control-label">Duration</label>
 						<div class="controls">
-							<label>11-09-2012 12:00 PM to 11-09-2012 2:00 PM</label> 
+							<label>{{fdate}} to {{tdate}}</label> 
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label">Venue</label>
 						<div class="controls">
-							<label>Gandhinagar</label>
+							<label>{{place}}</label>
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label">Subject</label>
 						<div class="controls">
-							<label>SEN Project Submission</label>
+							<label>{{title}}</label>
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label">Description</label>
 						<div class="controls">
-							<p>If asked for, the team should be able to bring up and show any work product that they have created as a part of the project.</p>
+							<p>{{desc}}</p>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">Members</label>
+						<div class="controls">
+							<p>{{numofattempt}} Attending</p>
 						</div>
 					</div>
 					<div class="control-group drawer-button-group pull-right">
-						<button type="button" class="btn btn-blue" id="btnJoinEvent" data-toggle="button"><i class="icon-thumbs-up icon-white"></i>&nbsp;Join</button>
+						<button type="button" class="btn btn-blue" id="btnJoinEvent" data-toggle="button" data-eid="{{eid}}" ><i class="icon-thumbs-up icon-white"></i>&nbsp;Join</button>
 						<button type="button" class="btn btn-flat" id="btnCancelNewEvent">Cancel</button>
 					</div>
-				</form>
+
+				
+				
+				
+
+
+		{{/each}}
+					{{else}}
+
+						<option value="-1" selected>No Valuse Selected...</option>				
+							
+					{{/if}}	
+				</script>
+
+									<form class="form-horizontal form-view-event" id="frmEventDetails" >
+									</form>
+					
 			</div>
 			<div class="modal-body">
 				<div class="input-append">
@@ -406,7 +435,7 @@
 									<td>{{eid}}</td>									
 									<td>{{title}}</td>
 									<td>{{fdate}}</td>
-									<td><a href="#EventDetails" data-id="{{eid}}"  ><i class="icon-eye-open"></i>&nbsp;Details</a></td>
+									<td><a href="#EventDetails" data-id="{{eid}}" > <i class="icon-eye-open"></i>&nbsp;Details</a></td>
 								</tr>
 							
 						{{/each}}
@@ -429,7 +458,7 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td>1</td>
+							<td>2</td>
 							<td>SEN Project Submission</td>
 							<td>12:00 PM</td>
 							<td><a href="#EventDetails"><i class="icon-eye-open"></i>&nbsp;Details</a></td>

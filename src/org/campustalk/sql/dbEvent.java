@@ -21,36 +21,61 @@ public class dbEvent extends DatabaseManager {
 
 	// public CampusTalkGroup objEvent;
 
-	public boolean AddEvent(Date eDate, Date eTime, String eName, String eDesc) {
+	public boolean AddEvent(Date fDate, Date tDate, String eName, String eDesc,String ePlace,int userId) {
 		boolean rtnTemp = false;
 		try {
 
-			System.out.println(eDate);
-			java.sql.Date sqlDate = new java.sql.Date(eDate.getTime());
-			System.out.println("DbEvent");
-			System.out.println(sqlDate);
+	
 			this.open();
 			CallableStatement csSql = CON
-					.prepareCall("{call insertEvent(?,?,?,?)}");
+					.prepareCall("{call insertEvents(?,?,?,?,?,?,?)}");
 
 			/**
 			 * CREATE PROCEDURE `campustalk`.`insertGroup`( IN name
 			 * VARCHAR(100), IN duration TEXT)
 			 */
 
-			csSql.setDate(1, sqlDate);
-			csSql.setString(2, eName);
-			csSql.setString(3, eDesc);
-			csSql.registerOutParameter(4, Types.BOOLEAN);
+			csSql.setDate(1, new java.sql.Date(fDate.getTime()));
+			csSql.setDate(2, new java.sql.Date(tDate.getTime()));
+			csSql.setString(3, eName);
+			csSql.setString(4, eDesc);
+			csSql.setString(5, ePlace);
+			csSql.setInt(6, userId);
+			
+			csSql.registerOutParameter(7, Types.BOOLEAN);
 			csSql.executeUpdate();
 
-			boolean rtnFlag = csSql.getBoolean(5);
+			rtnTemp= csSql.getBoolean(7);
 			csSql.close();
 			return rtnTemp;
 		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 		return rtnTemp;
+	}
+
+	public void JoinEvent(int eId, int userId) {
+		boolean rtnTemp = false;
+		try {
+
+	
+			this.open();
+			CallableStatement csSql = CON
+					.prepareCall("{call joinEvents(?,?)}");
+
+			/**
+			 * CREATE PROCEDURE `campustalk`.`insertGroup`( IN name
+			 * VARCHAR(100), IN duration TEXT)
+			 */
+
+			csSql.setInt(1, eId);
+			csSql.setInt(2, userId);
+			csSql.executeUpdate();
+
+		} catch (SQLException | ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	public JSONArray getEventData(Date eDate) {
@@ -84,34 +109,36 @@ public class dbEvent extends DatabaseManager {
 		return event_arr;
 	}
 
-//	public JSONArray getEventDetails(int id) {
-//		JSONArray event_arr = new JSONArray();
-//		try {
-//			this.open();
-//
-//			CallableStatement csSql = CON
-//					.prepareCall("{call getEventDetails(?)}");
-//			csSql.setInt(1, id);
-//			ResultSet rs = csSql.executeQuery();
-//
-//			JSONObject temp;
-//
-//			while (rs.next()) {
-//				temp = new JSONObject();
-//
-//				temp.put("eid", rs.getInt("eventid"));
-//				temp.put("title", rs.getString("title"));
-//				temp.put("desc", rs.getString("description"));
-//				temp.put("place", rs.getString("place"));
-//				temp.put("fdate", rs.getDate("fromdate"));
-//				temp.put("tdate", rs.getDate("todate"));
-//				event_arr.put(temp);
-//			}
-//
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return event_arr;
-//	}
-//*/
+public JSONArray getEventDetails(int id) {
+		JSONArray event_arr = new JSONArray();
+		try {
+			this.open();
+
+			CallableStatement csSql = CON
+					.prepareCall("{call getEventDetails(?)}");
+			csSql.setInt(1, id);
+			ResultSet rs = csSql.executeQuery();
+
+			JSONObject temp;
+
+			while (rs.next()) {
+				temp = new JSONObject();
+
+				temp.put("eid", rs.getInt("eventid"));
+				temp.put("title", rs.getString("title"));
+				temp.put("desc", rs.getString("description"));
+				temp.put("place", rs.getString("place"));
+				temp.put("numofattempt", rs.getInt("num_attend"));
+				temp.put("status", rs.getString("status"));
+				temp.put("fdate", rs.getDate("fromdate"));
+				temp.put("tdate", rs.getDate("todate"));
+				event_arr.put(temp);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return event_arr;
+	}
+
 }

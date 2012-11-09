@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.campustalk.sql.dbEvent;
 import org.json.JSONArray;
@@ -44,14 +45,13 @@ public class CreateEvent extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		
+		HttpSession session = request.getSession(true);
 		PrintWriter out=response.getWriter();
 		JSONObject resp = new JSONObject();
 		
 		
 		
 		dbEvent objdbEvent=new dbEvent();
-		System.out.println(request.getParameter("type"));
 		
 		String status="fail";		
 		try
@@ -62,39 +62,28 @@ public class CreateEvent extends HttpServlet {
 			{
 				
 				
-				String eventDate = request.getParameter("eDate");
-				String eventTime = request.getParameter("eTime");
-				String eventDateTime = eventDate + " " + eventTime;
-				System.out.print(eventDateTime);
+				JSONObject eventData = new JSONObject();
 				
-				//String oldScheduledDate = "16-05-2011";
+			
+				String fDate = request.getParameter("txtEventStartDate") + " " + request.getParameter("txtEventStartTime");
+				String tDate = request.getParameter("txtEventEndDate") + " " + request.getParameter("txtEventEndTime");
+				
+				
 		        //DateFormat oldFormatter = new SimpleDateFormat("dd-MM-yyyy");
 		        DateFormat formatter = new SimpleDateFormat("MM-dd-yyyy hh:mm a");
-		        Date oldDate = (Date)formatter .parse(eventDateTime);
+				
+		        Date dtFrom = formatter .parse(fDate);
+		        Date dtTo = formatter .parse(tDate);
 		       
-		        System.out.println(formatter.format(oldDate));
-		        
-		        
-				
-				DateFormat timeFormatter = new SimpleDateFormat("hh:mm a");
-				Date oldTime = timeFormatter.parse(eventTime);
-				//System.out.print(timeFormatter.format(oldTime));
-				
-				String eventName = request.getParameter("eName");
-				
-				String eventDesc = request.getParameter("eDesc");
-				
-				
-				
-				if(objdbEvent.AddEvent(oldDate, oldTime, eventName, eventDesc))
-				{
-					status="success";
+		     	String eventName = request.getParameter("txtEventDesc");
+				String eventDesc = request.getParameter("txtEventSubject");
+				String eventPlace = request.getParameter("txtEventPlace");
+				if(session.getAttribute("UserId")==null){
 				}
-				
-				//if(objdbEvent.AddEvent( description))
-				
-				//objdbRoles.AddRoles(rolesname);
-				//status="success";
+				else {			
+					dbEvent objDbEvent= new dbEvent();
+					objDbEvent.AddEvent(dtFrom, dtTo, eventName, eventDesc,eventPlace,(int)session.getAttribute("UserId"));
+				}
 			}
 			
 			else if (req_type.equalsIgnoreCase("GetData")) // Request for All Roles Data
@@ -115,13 +104,23 @@ public class CreateEvent extends HttpServlet {
 				resp.put("Event", event_arr);
 				status="success";			
 			}
+			else if(req_type.equalsIgnoreCase("joinEvent"))
+			{
+				int eId = Integer.parseInt(request.getParameter("eventId"));
+				objdbEvent.JoinEvent(eId,(int)session.getAttribute("UserId"));
+				status="success";
+				System.out.println(eId);
+				
+				
+			}
 			else if (req_type.equalsIgnoreCase("GetDetails")) // Request for All Roles Data
 			{
-				
-				JSONArray event_arr = new JSONArray();
+				int id=Integer.parseInt(request.getParameter("eId"));
+				JSONArray eventDetails_arr = new JSONArray();
+				eventDetails_arr = objdbEvent.getEventDetails(id);
 				// -- // event_arr =objdbEvent.getEventDetails(Integer.parseInt(request.getParameter("id")));
 				
-				resp.put("Event", event_arr);
+				resp.put("EventDetails", eventDetails_arr);
 				status="success";			
 			}
 			/*else if (req_type.equalsIgnoreCase("EditData")) // Request for Edit Data
