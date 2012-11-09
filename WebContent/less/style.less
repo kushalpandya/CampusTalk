@@ -601,11 +601,9 @@
 }
 
 #dlgEvents {
-	height: 450px;
 	.modal-drawer {
 		.form-create-event, .form-view-event {
 			display: none;
-			
 			.controls {
 				label {
 					margin-top: 5px;
@@ -630,8 +628,6 @@
 	}
 	
 	.modal-body {
-		overflow-y: hidden;
-		
 		.input-append {
 			text-align: center;
 			.control-label {
@@ -639,15 +635,7 @@
 				margin-right: 10px;
 			}
 		}
-		
-		table {
-			overflow-y: auto;
-		}
 	}
-	
-	.modal-footer {
-		margin-top: 188px;
-	}	
 }
 
 /******** controlpanel.html Styles ********/
@@ -1487,6 +1475,6 @@ textarea.txt-flat {
 	background: @soft_white;
 }
 
-.datepicker {
-	z-index: 3050;
+div.datepicker.dropdown-menu {
+  z-index: 3050 !important;
 }

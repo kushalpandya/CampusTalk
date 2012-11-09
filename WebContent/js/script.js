@@ -37,8 +37,10 @@ $(".account-tray #btnSettings").on("click", function(e) {
 $("#dlgAccountSettings, #dlgEvents").on("shown", function(e) {
 	var modal = $(this);
 	modal.find("input[name$='Date']").datepicker({
-		format: "mm-dd-yyyy",
-		weekStart: 1
+		format: "dd-mm-yyyy",
+		weekStart: 1,
+		autoclose: true,
+		todayHighlight: true
 	});
 	
 	modal.find("input[name$='Time']").timepicker();
