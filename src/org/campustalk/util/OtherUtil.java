@@ -10,10 +10,13 @@ import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import org.apache.commons.mail.SimpleEmail;
 
-public class OtherUtil {
+public class OtherUtil
+{
 
-	final static public String getRandomeString() {
+	final static public String getRandomeString()
+	{
 		String uuid = (UUID.randomUUID().toString() + UUID.randomUUID()
 				.toString());
 		uuid = uuid.replace("-", "").replace(" ", "");
@@ -22,7 +25,8 @@ public class OtherUtil {
 	}
 
 	final static public boolean sendEmail(String toEmail, String emailSubject,
-			String emailMessage) throws AddressException, MessagingException {
+			String emailMessage) throws AddressException, MessagingException
+	{
 		String[] to = new String[1];
 		to[0] = toEmail;
 		return sendEmail(to, emailMessage, emailMessage);
@@ -30,7 +34,8 @@ public class OtherUtil {
 
 	final static public boolean sendEmail(String[] toEmail,
 			String emailSubject, String emailMessage) throws AddressException,
-			MessagingException {
+			MessagingException
+	{
 
 		String host = "smtp.gmail.com";
 		String from = "betacampustalk";
@@ -50,13 +55,15 @@ public class OtherUtil {
 		InternetAddress[] toAddress = new InternetAddress[toEmail.length];
 
 		// To get the array of addresses
-		for (int i = 0; i < toEmail.length; i++) { // changed from a while loop
+		for (int i = 0; i < toEmail.length; i++)
+		{ // changed from a while loop
 			toAddress[i] = new InternetAddress(toEmail[i]);
 		}
 		System.out.println(Message.RecipientType.TO);
 
-		for (int i = 0; i < toAddress.length; i++) { // changed from a while
-														// loop
+		for (int i = 0; i < toAddress.length; i++)
+		{ // changed from a while
+			// loop
 			message.addRecipient(Message.RecipientType.TO, toAddress[i]);
 		}
 		message.setSubject(emailSubject);
@@ -66,6 +73,34 @@ public class OtherUtil {
 		transport.sendMessage(message, message.getAllRecipients());
 		transport.close();
 		return true;
+	}
+
+	public static boolean SendEmailNew(String toAddress, String subject,
+			String msgBody)
+	{
+		boolean result;
+
+		try
+		{
+			SimpleEmail email = new SimpleEmail();
+			email.setAuthentication("betacampustalk@gmail.com",
+					"campustalk123a!");
+			email.setHostName("smtp.gmail.com");
+			email.setSmtpPort(465);
+			email.setSSL(true);
+			email.addTo(toAddress, "");
+			email.setFrom("betacampustalk@gmail.com", "noreply");
+			email.setSubject(subject);
+			email.setMsg(msgBody);
+			email.send();
+			result = true;
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			result = false;
+		}
+		return result;
 	}
 
 }

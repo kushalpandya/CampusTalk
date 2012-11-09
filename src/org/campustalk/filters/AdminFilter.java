@@ -69,16 +69,24 @@ public class AdminFilter implements Filter {
 			objUserRole.setUserid(objUser.getId());
 			objDbUserRole.getRoleById(objUserRole);
 			String roleName= objUserRole.role.getName();
-			if (!roleName.equalsIgnoreCase("admin")) {
+			if (!(roleName.equalsIgnoreCase("admin") || roleName.equalsIgnoreCase("moderator") )) {
 				hres.sendRedirect(Settings.APPURL);
 			} else {
 				request.setAttribute("User", objUser);
 
 				try {
 					JSONObject rObj = objUser.toJSONObject();
-					rObj.put("role",objDbUser.getUserRole((int) session
-							.getAttribute("UserId")));
+					String rolename = objDbUser.getUserRole((int) session
+							.getAttribute("UserId"));
 					
+					rObj.put("role",rolename );
+			
+					request.setAttribute("role", rolename );
+					if(rolename.equalsIgnoreCase("moderator") )
+						request.setAttribute("isModerator", 1);
+					else
+						request.setAttribute("isModerator",0);
+									
 					request.setAttribute("userJSon",rObj.toString());
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block

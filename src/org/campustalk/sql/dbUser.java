@@ -4,6 +4,9 @@ import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.campustalk.entity.CampusTalkUsers;
 import org.json.JSONArray;
@@ -54,7 +57,7 @@ public class dbUser extends DatabaseManager
 				objUser.setBranchId(rs.getInt("branchid"));
 				objUser.setYear(rs.getInt("year"));
 				objUser.setPictureUrl(rs.getString("pictureurl"));
-				
+
 			}
 			else
 			{
@@ -335,7 +338,8 @@ public class dbUser extends DatabaseManager
 		{
 			this.open();
 
-			CallableStatement csSql = CON.prepareCall("{call getuserProfileDataByEmail(?)}");
+			CallableStatement csSql = CON
+					.prepareCall("{call getuserProfileDataByEmail(?)}");
 			csSql.setString(1, email);
 			ResultSet rs = csSql.executeQuery();
 			if (rs.next())
@@ -347,46 +351,8 @@ public class dbUser extends DatabaseManager
 				jResponse.put("year", rs.getInt("year"));
 				jResponse.put("nopost", rs.getInt("nopost"));
 				jResponse.put("nocomment", rs.getInt("nocomment"));
-				jResponse.put("gender", rs.getInt("gender"));
-				jResponse.put("birthdate", rs.getInt("birthdate"));
-				jResponse.put("city", rs.getInt("city"));
-			}
-
-		}
-		catch (ClassNotFoundException | SQLException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		catch (JSONException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return jResponse;
-	}
-	public JSONObject UserProfileById(int id)
-	{
-		JSONObject jResponse = new JSONObject();
-
-		try
-		{
-			this.open();
-
-			CallableStatement csSql = CON.prepareCall("{call getuserProfileDataById(?)}");
-			csSql.setInt(1, id);
-			ResultSet rs = csSql.executeQuery();
-			if (rs.next())
-			{
-				jResponse.put("email", rs.getString("email"));
-				jResponse.put("firstname", rs.getString("firstname"));
-				jResponse.put("lastname", rs.getString("lastname"));
-				jResponse.put("branch", rs.getString("branch"));
-				jResponse.put("year", rs.getInt("year"));
-				jResponse.put("nopost", rs.getInt("nopost"));
-				jResponse.put("nocomment", rs.getInt("nocomment"));
 				jResponse.put("gender", rs.getString("gender"));
-				jResponse.put("birthdate", rs.getDate("birthdate"));
+				jResponse.put("birthdate", rs.getString("birthdate"));
 				jResponse.put("city", rs.getString("city"));
 				jResponse.put("pictureurl", rs.getString("pictureurl"));
 			}
@@ -404,12 +370,55 @@ public class dbUser extends DatabaseManager
 		}
 		return jResponse;
 	}
-	
-	public String getUserRole(int userid){
+
+	public JSONObject UserProfileById(int id)
+	{
+		JSONObject jResponse = new JSONObject();
+
 		try
 		{
 			this.open();
-			CallableStatement csSql = CON.prepareCall("{call getUserRoleNameById(?)}");
+
+			CallableStatement csSql = CON
+					.prepareCall("{call getuserProfileDataById(?)}");
+			csSql.setInt(1, id);
+			ResultSet rs = csSql.executeQuery();
+			if (rs.next())
+			{
+				jResponse.put("email", rs.getString("email"));
+				jResponse.put("firstname", rs.getString("firstname"));
+				jResponse.put("lastname", rs.getString("lastname"));
+				jResponse.put("branch", rs.getString("branch"));
+				jResponse.put("year", rs.getInt("year"));
+				jResponse.put("nopost", rs.getInt("nopost"));
+				jResponse.put("nocomment", rs.getInt("nocomment"));
+				jResponse.put("gender", rs.getString("gender"));
+				jResponse.put("birthdate", rs.getString("birthdate"));
+				jResponse.put("city", rs.getString("city"));
+				jResponse.put("pictureurl", rs.getString("pictureurl"));
+			}
+
+		}
+		catch (ClassNotFoundException | SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		catch (JSONException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return jResponse;
+	}
+
+	public String getUserRole(int userid)
+	{
+		try
+		{
+			this.open();
+			CallableStatement csSql = CON
+					.prepareCall("{call getUserRoleNameById(?)}");
 			csSql.setInt(1, userid);
 			ResultSet rs = csSql.executeQuery();
 			if (rs.next())
@@ -424,19 +433,21 @@ public class dbUser extends DatabaseManager
 			e.printStackTrace();
 		}
 		return "";
-				
+
 	}
-	
-	public boolean MakeModerator(String email){
-		boolean rfalg=false;
+
+	public boolean MakeModerator(String email)
+	{
+		boolean rfalg = false;
 		try
 		{
 			this.open();
-			CallableStatement csSql = CON.prepareCall("{call userMakeModerator(?,?)}");
+			CallableStatement csSql = CON
+					.prepareCall("{call userMakeModerator(?,?)}");
 			csSql.setString(1, email);
 			csSql.registerOutParameter(2, Types.BOOLEAN);
 			csSql.executeUpdate();
-			rfalg=csSql.getBoolean(2);			
+			rfalg = csSql.getBoolean(2);
 		}
 		catch (ClassNotFoundException | SQLException e)
 		{
@@ -446,6 +457,96 @@ public class dbUser extends DatabaseManager
 		return rfalg;
 	}
 
+	public Boolean EditUserProfile(int userId, String fname, String lname,
+			String bdate, String gender, String city)
+	{
+		// TODO Auto-generated method stub
+
+		try
+		{
+			
+			  SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+			 Date theDate = dateFormat.parse(bdate); 
+		     
+		        
+			
+			this.open();
+			CallableStatement csSql = CON.prepareCall("{call EditProfile(?,?,?,?,?)}");
+			csSql.setInt(1, userId);
+			csSql.setString(2, fname);
+			csSql.setString(3, lname);
+			csSql.setDate(4, new java.sql.Date(theDate.getTime()));
+			csSql.setString(5, gender);
+			//csSql.setString(6, city);
+
+			csSql.executeQuery();
+
+		}
+		catch (ClassNotFoundException | SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		catch (ParseException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return true;
+	}
+
+	public Boolean DeactivateAccount(int userId)
+	{
+		// TODO Auto-generated method stub
+		try
+		{
+			this.open();
+
+			String sts = "Z";
+			CallableStatement csSql = CON
+					.prepareCall("{call updateUserStatus(?,?)}");
+			csSql.setInt(1, userId);
+			csSql.setString(2, sts);
+
+			csSql.executeQuery();
+
+		}
+		catch (ClassNotFoundException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return true;
+	}
+
+	public boolean changePassword(int userId, String opass,
+			String npass) throws ClassNotFoundException, SQLException {
+		// TODO Auto-generated method stub
+		boolean rtnFlag = false;
+			this.open();
+			CallableStatement csSql = CON
+					.prepareCall("{call ChangePass(?,?,?,?)}");
+			csSql.setInt(1, userId);		
+			csSql.setString(2, opass);
+			csSql.setString(3, npass);
+	
+			csSql.registerOutParameter(4, Types.BOOLEAN);
+			
+			
+	
+			
+			csSql.executeUpdate();
+
+		    rtnFlag	=csSql.getBoolean(4);
+			csSql.close();
+			
+		
+			return rtnFlag;
+
+	}
 }
-
-

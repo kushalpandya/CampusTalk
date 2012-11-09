@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" import="org.campustalk.entity.CampusTalkUsers"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -61,6 +62,13 @@
 								<a href="#" id="showEvents" class="user-option">Events</a>
 							</td>
 						</tr>
+						<c:if test="${requestScope.isAdmin eq 1}"> 
+							<tr>
+								<td style="padding-bottom: 15px;">
+									<a href="controlpanel.jsp" id="showControlpanel" class="user-option">ControlPanel</a>
+								</td>
+							</tr>
+						</c:if>
 					</table>
 				</div>
 				<div class="profile-actions">
@@ -147,24 +155,26 @@
 				<h4 class="modal-title">Settings</h4>
 			</div>
 			<div class="modal-drawer">
+			
 				<legend>Change Password</legend>
+				
 				<form class="form-inline">
 					<div class="control-group">
 						<label class="control-label">Current Password</label>
 						<div class="controls">
-							<input type="password" name="txtCurrPass" />
+							<input type="password" name="txtCurrPass" id="txtCurrPass"/>
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label">New Password</label>
 						<div class="controls">
-							<input type="password" name="txtNewPass" />
+							<input type="password" name="txtNewPass" id="txtNewPass"/>
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label">Confirm Password</label>
 						<div class="controls">
-							<input type="password" name="txtConfirmNewPass" />
+							<input type="password" name="txtConfirmNewPass" id="txtConfirmNewPass"/>
 						</div>
 					</div>
 					<div class="control-group drawer-button-group">
@@ -176,42 +186,32 @@
 			<div class="modal-body">
 				<form class="form-horizontal">
 					<div class="control-group">
-						<label class="control-label">First Name</label>
+						<label class="control-label" >First Name</label>
 						<div class="controls">
-							<input type="text" />
+							<input type="text" id="txtFname"/>
 						</div>
 					</div>
 					<div class="control-group">
-						<label class="control-label">Last Name</label>
+						<label class="control-label" >Last Name</label>
 						<div class="controls">
-							<input type="text" />
+							<input type="text" id="txtLname"/>
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label">Birth Date</label>
 						<div class="controls">
-							<input type="text" name="txtBirthDate" />
+							<input type="text" id="txtBirthDate" placeholder="DD-MM-YYYY" />
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label">Gender</label>
 						<div class="controls">
 							<label class="radio">
-								<input type="radio" name="rdGender" value="Male" />Male
+								<input type="radio" name="rdGender"  id="rdmale" value="Male" />Male
 							</label>
 							<label class="radio">
-								<input type="radio" name="rdGender" value="Female" />Female
+								<input type="radio"  name="rdGender" id="rdfemale" value="Female" />Female
 							</label>
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label">City</label>
-						<div class="controls">
-							<select name="drpCity">
-								<option value="-1" selected>Select city...</option>
-								<option value="Gandhinagar">Gandhinagar</option>
-								<option value="Ahmedabad">Ahmedabad</option>
-							</select>
 						</div>
 					</div>
 					<div class="control-group">
@@ -223,11 +223,11 @@
 			</div>
 			<div class="modal-footer">
 				<div class="pull-left">
-					<button class="btn btn-red">Deactivate Account</button>
+					<button class="btn btn-red" id="btnDAct">Deactivate Account</button>
 				</div>
 				<div class="pull-right">
 					<button class="btn btn-flat" data-dismiss="modal" aria-hidden="true">Close</button>
-					<button class="btn btn-green">Save Changes</button>
+					<button class="btn btn-green" id="btnSaveChanges">Save Changes</button>
 				</div>
 			</div>
 			<div class="modal-disable-overlay">&nbsp;</div>
@@ -504,11 +504,13 @@
 								<tr>
 									<td>City</td><td>{{city}}</td>
 								</tr>
+								<c:if test="${isAllow eq 1}" >
 								{{#isModerator id}}
 								<tr align="left">
 									<td colspan="2"><button class="btn btn-yellow" id='btnModrate' data-email="{{email}}"><i class="icon-user"></i>&nbsp;Make Moderator</button></td>
 								</tr>
 								{{/isModerator}}
+								</c:if>
 							</tbody>
 						</table>
 					</div>

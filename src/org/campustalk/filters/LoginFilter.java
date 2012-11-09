@@ -75,9 +75,20 @@ public class LoginFilter implements Filter {
 
 			try {
 				JSONObject rObj = objUser.toJSONObject();
-				rObj.put("role",objDbUser.getUserRole((int) session
-						.getAttribute("UserId")));
+				String rolename = objDbUser.getUserRole((int) session
+						.getAttribute("UserId"));
 				
+				rObj.put("role",rolename );
+				if(rolename.equalsIgnoreCase("admin") || rolename.equalsIgnoreCase("professor"))
+					request.setAttribute("isAllow",1);
+				else
+					request.setAttribute("isAllow",0);
+				
+				if(rolename.equalsIgnoreCase("admin") || rolename.equalsIgnoreCase("moderator") )
+					request.setAttribute("isAdmin",1);
+				else
+					request.setAttribute("isAdmin",0);
+								
 				request.setAttribute("userJSon",rObj.toString());
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block

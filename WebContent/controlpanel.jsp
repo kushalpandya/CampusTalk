@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -38,7 +39,12 @@
 							<td><label class="user-title">${requestScope.User.firstname} ${requestScope.User.lastname}</label></td>
 						</tr>
 						<tr>
-							<td><label class="user-group-title">Administrator</label></td>
+							<td><label class="user-group-title">${requestScope.role}</label></td>
+						</tr>
+							<tr>
+							<td style="padding-bottom: 15px;">
+								<a href="home.jsp"  class="user-option">Home</a>
+							</td>
 						</tr>
 					</table>
 				</div>
@@ -50,13 +56,16 @@
 		</div>
 		<div class="container panels-block">
 			<ul class="nav nav-pills" id="panel-tabs">
+			<c:if test="${not (requestScope.isModerator eq 1)}"> 
 				<li class="active"><a href="#groups" data-toggle="pill">Groups</a></li>
 				<li><a href="#users" data-toggle="pill">Users</a></li>
 				<li><a href="#roles" data-toggle="pill">Roles</a></li>
 				<li><a href="#branch" data-toggle="pill">Branch</a></li>
+			</c:if>	
 				<li><a href="#reports" data-toggle="pill">Abuse Reports</a></li>
 			</ul>
 			<div class="tab-content">
+				<c:if test="${not (requestScope.isModerator eq 1)}"> 
 				<!-- Groups Pill -->
 				<div class="tab-pane active" id="groups">
 					<div class="input-append">
@@ -593,8 +602,9 @@
 					</div>
 				</div>
 				<!-- Abuse Reports Pill -->
+		   		</c:if>	
 				<div class="tab-pane" id="reports">
-					<table class="table table-stripped table-hover">
+					<table class="table table-stripped table-hover" id="tblReport">
 						<thead>
 							<tr>
 								<th>User</th>
@@ -690,6 +700,62 @@
 				</div>
 			</div>
 		</div>
+		<script id="getReportAbuses" type="text/x-handlebars-template">
+					{{#if Report}}
+						{{#each Report}}
+							<tr>
+								<td><a href="#dlgUserProfile" data-toggle="modal" data-email="{{email}}">{{fnm}}</a></td>
+								<td><i class="icon-warning-sign"></i>&nbsp;{{rreport}}</td>
+								<td><i class="icon-signal"></i>&nbsp;{{nreport}}</td>
+								<td><a href="#Check" data-pid="{{pid}}" class="btn btn-yellow" data-toggle="modal"><i class="icon-ok"></i>&nbsp;Check Post</a></td>
+								<td><a href="#BlockPost" data-pid="{{pid}}" name="BlockPost" class="btn btn-red" data-toggle="button"><i class="icon-ban-circle"></i>&nbsp;Block Post</a></td>
+								<td><a href="#BlockUser" data-id="{{id}}" data-pid="{{pid}}"  class="btn btn-red" data-toggle="button"><i class="icon-ban-circle"></i>&nbsp;Block User</a></td>
+							</tr>
+						{{/each}}
+					{{else}}
+						<option value="-1" selected>No Valuse Selected...</option>				
+							
+					{{/if}}	
+			</script>
+			<script type="text/x-handlebars-template" id='tmpltuserProfile'>
+		
+				<div class="user-profile">
+					<div class="pull-left">
+						<img src="{{pictureurl}}" class="user-img" />
+						<div class="user-activity">
+							<span class="user-posts"><i class="icon-list-alt"></i>&nbsp;{{nopost}}</span>
+							<span class="user-comments"><i class="icon-comment"></i>&nbsp;{{nocomment}}</span>
+						</div>
+					</div>
+					<div class="pull-right">
+						<label>{{firstname}} {{lastname}}</label>
+						<label>{{branch}} - {{year}}</label>
+						<table>
+							<tbody>
+								<tr>
+									<td>Email</td><td>{{email}}</td>
+								</tr>
+								<tr>
+									<td>Gender</td><td>{{gender}}</td>
+								</tr>
+								<tr>
+									<td>Born</td><td>{{birthdate}}</td>
+								</tr>
+								<tr>
+									<td>City</td><td>{{city}}</td>
+								</tr>
+								<c:if test="${isAllow eq 1}" >
+								{{#isModerator id}}
+								<tr align="left">
+									<td colspan="2"><button class="btn btn-yellow" id='btnModrate' data-email="{{email}}"><i class="icon-user"></i>&nbsp;Make Moderator</button></td>
+								</tr>
+								{{/isModerator}}
+								</c:if>
+							</tbody>
+						</table>
+					</div>
+				</div>
+		</script>
 		<script type="text/javascript" src="js/script.js"></script>
 		<script type="text/javascript" src="js/controlpanel.js"></script>
 	</body>

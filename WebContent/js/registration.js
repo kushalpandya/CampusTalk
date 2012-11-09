@@ -83,6 +83,28 @@ $('#frmRegistration').submit(function(e) {
 	e.preventDefault();
 	userData['email'] = $("#txtEmail").val();
 	userData['password'] = $("#txtPassword").val();
+	userData['cpassword'] = $("#txtConfirmPassword").val();
+	if(userData['email'].indexOf('@') < 0 ){
+		errorOverlay(true, "Invalid Email address");
+		return;
+	}
+	if(userData['password']==""){
+		errorOverlay(true, "Please Enter Password");
+		return;
+	}
+	if(userData['cpassword']==""){
+		errorOverlay(true, "Please Enter Confirm Password");
+		return;
+	}
+	if(userData['cpassword'] != userData['password']){
+		errorOverlay(true, "Password and Confirm Password not match");
+		return;
+	}
+	if(userData['cpassword'].length < 7){
+		errorOverlay(true, "Minimum Password length is 7");
+		return;
+	}
+	
 	$.ajax({
 		url : 'User/Registration/New',
 		type : 'post',
@@ -114,7 +136,7 @@ function getParameterByName(name) {
 }
 if (getParameterByName("q") != "" && getParameterByName("e") != "") {
 	$.ajax({
-		url : 'User/Registeration/Verify',
+		url : 'User/Registration/Verify',
 		type : 'post',
 		data : {
 			"q" : getParameterByName("q"),

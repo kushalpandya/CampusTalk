@@ -31,14 +31,38 @@ $(".account-tray #btnLogout").click(function(e) {
 });
 
 $(".account-tray #btnSettings").on("click", function(e) {
-	$("#dlgAccountSettings").modal();
+
+	$.ajax({
+		url : 'User/Profile',
+		type : 'post',
+		data : {
+			"type" : "email",
+			"data" : objMyData.email		
+		},
+		success : function(data) {
+			$("#txtFname").val(data.firstname);
+			$("#txtLname").val(data.lastname);
+			$("#txtBirthDate").val(data.birthdate);
+			$("#rd" + data.gender.toLowerCase()).attr("checked","checked");
+			$("#dlgAccountSettings").modal();
+		},
+		error : function() {
+			errorOverlay(true, 'Oops! something went wrong. Please refresh the page');
+	
+		}
+
+	});		
+	
+	
 });
 
 $("#dlgAccountSettings, #dlgEvents").on("shown", function(e) {
 	var modal = $(this);
 	modal.find("input[name$='Date']").datepicker({
-		format: "mm-dd-yyyy",
-		weekStart: 1
+		format: "dd-mm-yyyy",
+		weekStart: 1,
+		autoclose: true,
+		todayHighlight: true
 	});
 	
 	modal.find("input[name$='Time']").timepicker();
