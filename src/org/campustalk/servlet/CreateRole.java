@@ -2,7 +2,6 @@ package org.campustalk.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.ResultSet;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -30,12 +29,6 @@ public class CreateRole extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -64,21 +57,8 @@ public class CreateRole extends HttpServlet {
 			else if (req_type.equalsIgnoreCase("GetData")) // Request for All Roles Data
 			{
 				
-				ResultSet rs=objdbRoles.getRolesData();
-				
-				
 				JSONArray roles_arr = new JSONArray();
-				JSONObject temp;
-				
-				while(rs.next())
-				{
-					temp = new JSONObject();
-								
-					temp.put("rolesid", rs.getInt("rolesid"));
-					temp.put("name", rs.getString("name"));
-										
-					roles_arr.put(temp);					
-				}
+				roles_arr =objdbRoles.getRolesData();
 				
 				resp.put("Roles", roles_arr);
 				status="success";			

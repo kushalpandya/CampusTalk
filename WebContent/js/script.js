@@ -196,6 +196,7 @@ $("a[href='#CreateUser']").on("click", function(e) {
 		$("#CreateUser").modal('show');
 	else
 		$("#CreateUser").modal('hide');
+	$("textarea[name=txtAUserEmail]").val($("input[name=txtNewUser]").val());
 });
 
 $("a[href='#EditUser']").on(

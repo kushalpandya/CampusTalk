@@ -218,176 +218,142 @@
 
 				<!-- View Group Members Modal -->
 
-
-				<div class="modal hide fade" id="ViewGroup" tabindex="-1"
-					role="dialog" aria-labelledby="dlgLabel" aria-hidden="true">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal"
-							aria-hidden="true">&times;</button>
-						<h3 id="dlgLabel"></h3>
-					</div>
-					<div class="modal-dropform">
-						<form class="form-horizontal form-edit-member">
-
-
-							<legend>Edit User</legend>
-
-
-							<div class="control-group">
-								<label class="control-label">Email</label>
-								<div class="controls">
-									<input type="text" name="txtUserEmail" />
-								</div>
-							</div>
-							<div class="control-group">
-								<label class="control-label">Group</label>
-								<div class="controls">
-									<select name="txtUserGroup">
-										<option value="-1" selected>Select group...</option>
-										<option value="0">MSc. I.T.</option>
-										<option value="1">BTech 2009</option>
-									</select>
-								</div>
-							</div>
-							<div class="control-group">
-								<label class="control-label">Privilege</label>
-								<div class="controls">
-									<select name="txtUserPrivilege">
-										<option value="-1" selected>Select level...</option>
-										<option value="0">Student</option>
-										<option value="1">Moderator</option>
-										<option value="2">Professor</option>
-										<option value="3">Administrator</option>
-									</select>
-								</div>
-							</div>
-							<div class="control-group">
-								<label class="control-label">Status</label>
-								<div class="controls">
-									<select name="txtUserStatus">
-										<option value="-1" selected>Select status...</option>
-										<option value="0">Inactive</option>
-										<option value="1">Active</option>
-									</select>
-								</div>
-							</div>
-							<div class="control-group button-group">
-								<button type="button" class="btn btn-flat" id="btnCancelEdit">Cancel</button>
-								<button type="button" class="btn btn-green">Save</button>
-							</div>
-						</form>
-						<form class="form-horizontal form-add-member">
-
-
-							<legend>Add Users</legend>
-
-
-							<div class="control-group">
-								<label class="control-label">Email</label>
-								<div class="controls">
-									<input type="text" name="txtUserEmail" />
-								</div>
-							</div>
-							<div class="control-group">
-								<label class="control-label">Group</label>
-								<div class="controls">
-									<input type="text" name="txtUserGroup" />
-									<!--  		<option value="-1" selected>Select group...</option>
-											<option value="0">MSc. I.T.</option>
-											<option value="1">BTech 2009</option>
-										</select>-->
-								</div>
-							</div>
-							<div class="control-group">
-								<label class="control-label">Position</label>
-								<div class="controls">
-									<input type="text" name="txtUserPosition" />
-									<!--			<option value="-1" selected>Select level...</option>
-											<option value="0">Student</option>
-											<option value="1">Moderator</option>
-											<option value="2">Professor</option>
-											<option value="3">Administrator</option>
-										</select>-->
-								</div>
-							</div>
-							<!--  <div class="control-group">
-									<label class="control-label">Status</label>
+				<div class="modal hide fade" id="ViewGroup" tabindex="-1" role="dialog" aria-labelledby="dlgLabel" aria-hidden="true">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h3 id="dlgLabel"></h3>
+						</div>
+						<div class="modal-dropform">
+							<form class="form-horizontal form-add-member">
+								<legend>Add Users</legend>
+								<div class="control-group">
+									<label class="control-label">Email List</label>
 									<div class="controls">
-										<select name="txtUserStatus">
-											<option value="-1" selected>Select status...</option>
-											<option value="0">Inactive</option>
-											<option value="1">Active</option>
+										<input type="text" id="txtInsertUserEmail" name="txtUserEmail"/>
+									</div>
+								</div>
+								<div class="control-group">
+									<label class="control-label">Level</label>
+									<div class="controls">
+										<select name="txtUserPosition">
+											<option value="-1" selected>Select level...</option>
+											<option value="Convenor">Convenor</option>
+											<option value="Deputy Convenor">Deputy Convenor</option>
+											<option value="Member">Member</option>
+											
 										</select>
 									</div>
-								</div>-->
-							<div class="control-group button-group">
-								<button type="button" class="btn btn-flat" id="btnCancelAdd">Cancel</button>
-								<button type="button" class="btn btn-green">Save</button>
-							</div>
-						</form>
-					</div>
+								</div>
+								
+								<div class="control-group button-group">
+									<button type="button" class="btn btn-flat" id="btnCancelAdd">Cancel</button>
+									<button type="button" class="btn btn-green" onclick="insertGroupMember()">Save</button>
+								</div>
+							</form>
+						</div>
+						
+<!-- 						<td><a href="#EditGroupUser"  data-toggle="modal" ><i class="icon-edit"></i>&nbsp;Edit</a></td> -->
+						<script id="getGroupMemberData" type="text/x-handlebars-template">
+						{{#if groupmember}}
+							{{#each groupmember}}
+								{{#isNotAlreadyAddedMember userid}}
 
-					<script id="getGroupMemberData" type="text/x-handlebars-template">
-					{{#if groupmember}}
-						{{#each groupmember}}
-								<tr>
+								<tr id="trMember{{userid}}">
 									<td>{{userid}}</td>									
 									<td>{{email}}</td>
 									<td>{{name}}</td>
 									<td>{{role}}</td>
-                                   
-									<td><a href="#EditGroupUser"><i class="icon-edit"></i>&nbsp;Edit</a></td>
-									<td><a href="#DeleteGroupUser"><i class="icon-trash"></i>&nbsp;Delete</a></td>
+                                   							
+									<td><a href="#DeleteGroupUser" data-toggle="modal"><i class="icon-trash"></i>&nbsp;Delete</a></td>
 								</tr>
-						{{/each}}
-					{{else}}
+								{{/isNotAlreadyAddedMember}}
+							{{/each}}
+						{{else}}
 						<option value="-1" selected>No Valuse Selected...</option>				
 
 							
-					{{/if}}	
+						{{/if}}	
 				</script>
-
-
-					<div class="modal-body">
-						<table class="table table-stripped table-hover" id="tblGroupUser">
-							<thead>
-								<tr>
-									<th>User ID</th>
-									<th>Email</th>
-									<th>Name</th>
-									<th>Level</th>
-									<th colspan="2">Actions</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>1</td>
-									<td>201112039@daiict.ac.in</td>
-									<td>Kushal Pandya</td>
-									<td>Student</td>
-									<td><a href="#EditGroupUser"><i class="icon-edit"></i>&nbsp;Edit</a></td>
-									<td><a href="#"><i class="icon-trash"></i>&nbsp;Delete</a></td>
-								</tr>
-								<tr>
-									<td>2</td>
-									<td>201112071@daiict.ac.in</td>
-									<td>Faishal Saiyed</td>
-									<td>Student</td>
-									<td><a href="#EditGroupUser"><i class="icon-edit"></i>&nbsp;Edit</a></td>
-									<td><a href="#"><i class="icon-trash"></i>&nbsp;Delete</a></td>
-								</tr>
-							</tbody>
-						</table>
+						<div class="modal-body">
+							<table class="table table-stripped table-hover" id="tblGroupUser">
+								<thead>
+									<tr>
+										<th>User ID</th>
+										<th>Email</th>
+										<th>Name</th>
+										<th>Level</th>
+										<th colspan="2">Actions</th>
+									</tr>
+								</thead>
+								<tbody>
+									
+								</tbody>
+							</table>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-green" id="btnAddGroupMembers">Add Members</button>
+							<button class="btn btn-flat" data-dismiss="modal" aria-hidden="true">Close</button>
+						</div>
+						<div class="modal-disable-overlay">&nbsp;</div>
 					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-green"
-							id="btnAddGroupMembers">Add Members</button>
-						<button class="btn btn-flat" data-dismiss="modal"
-							aria-hidden="true">Close</button>
-					</div>
-					<div class="modal-disable-overlay">&nbsp;</div>
 				</div>
-			</div>
+				
+				<!--  Edit GroupMember Modal -->
+					<div class="modal hide fade" id="EditGroupUser" tabindex="-1" role="dialog" aria-labelledby="dlgLabel" aria-hidden="true">
+							<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h3 id="dlgLabel">Edit Group User</h3>
+						</div>
+						<div class="modal-body">
+							<form class="form-horizontal">
+								<div class="control-group">
+									<label class="control-label">Level</label>
+									<div class="controls">
+										<select name="txtUserPosition" id="txtEditGroupPositionq">
+											<option value="-1" selected>Select level...</option>
+											<option value="Convenor">Convenor</option>
+											<option value="Deputy Convenor">Deputy Convenor</option>
+											<option value="Member">Member</option>
+											
+										</select>
+									</div>
+								</div>				
+								<div class="control-group">
+								<label class="control-label">Status</label>
+								<div   class="controls">
+											 <select name="txtEditStatus"id="txtEditGroupStatusq">
+												<option value="-1" selected>Select Status</option>
+											 	<option value="0">Inactive</option>
+												<option value="1">Active</option>
+											</select> 
+										</div>
+								</div>
+								
+									</form>
+						</div>
+						<div class="modal-footer">
+							<button class="btn btn-flat" data-dismiss="modal" aria-hidden="true">Close</button>
+							<button class="btn btn-green" onclick="editGroupMember()" >Save</button>
+						</div>
+					</div>
+				
+		<!-- Delete GroupMember modal -->
+					
+						<div class="modal hide fade" id="DeleteGroupUser" tabindex="-1" role="dialog" aria-labelledby="dlgLabel" aria-hidden="true">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+								<h3 id="dlgLabel">Delete GroupMember</h3>
+							</div>
+							<div class="modal-body">
+							<h id="dlgLabel">Are you sure you want to delete this GroupMember ?</h2>
+								
+							</div>
+							<div class="modal-footer">
+								<button class="btn btn-flat" data-dismiss="modal" aria-hidden="true">Close</button>
+								<button id="btnDeleteGroup" class="btn btn-green" onclick="DeleteGroupUser()">Delete</button>
+							</div>
+						</div>
+						
 
 			<div class="tab-pane" id="users">
 				<div class="input-append">
@@ -406,6 +372,7 @@
 									<td>{{firstname}} {{lastname}}</td>									
 									<td>{{branch}}-{{year}}</td>
 									<td>{{role}}</td>
+									<td>{{getuserstatus status}}</td>
 									<td><a href="#EditUser" name="shreeji" data-toggle="modal"><i class="icon-edit"></i>&nbsp;Edit</a></td>
 									<td><a href="#DeleteUser" data-toggle="modal"><i class="icon-trash"></i>&nbsp;Delete</a></td>
 								</tr>
@@ -427,6 +394,7 @@
 							<th>Name</th>
 							<th>Branch</th>
 							<th>Role</th>
+							<th>Status</th>
 							<th colspan="2">Actions</th>
 						</tr>
 					</thead>
@@ -590,9 +558,13 @@
 								<div class="controls">
 									<select name="txtEUserStatus" id="drpEStatus">
 										<option value="-1" selected>Select status...</option>
-										<option value="In">Inactive</option>
-										<option value="Ac">Active</option>
-										<option value="Di">Disable</option>
+										<option value="Inactive">Inactive</option>
+										<option value="Active">Active</option>
+										<option value="Disable">Disable</option>
+										<option value="Block">Block</option>
+										<option value="Verify">Verify</option>
+										<option value="New">New</option>
+																											
 									</select>
 								</div>
 							</div>
@@ -617,12 +589,14 @@
 				<script id="getRole" type="text/x-handlebars-template">
 					{{#if Roles}}
 						{{#each Roles}}
-								<tr>
+							{{#isNotAleadyAddedRole rolesid}}
+								<tr id="trRole{{rolesid}}">
 									<td>{{rolesid}}</td>									
 									<td>{{name}}</td>
 									<td><a href="#EditRole" data-roleid="{{rolesid}}" data-rolename="{{name}}" name="EditRole" data-toggle="modal"><i class="icon-edit"></i>&nbsp;Edit</a></td>
 									<td><a href="#DeleteRole" data-roleid="{{rolesid}}" name="DeleteRole" "data-toggle="modal"><i class="icon-trash"></i>&nbsp;Delete</a></td>
 								</tr>						
+							{{/isNotAleadyAddedRole}}
 						{{/each}}
 					{{else}}
 						<option value="-1" selected>No Valuse Selected...</option>				
@@ -764,14 +738,16 @@
 				<script id="getBranch" type="text/x-handlebars-template">
 					{{#if Branch}}
 						{{#each Branch}}
-								<tr>
+							{{#isNotAleadyAddedBranch branchid}}
+								<tr id="trBranch{{branchid}}">
 									<td>{{branchid}}</td>									
 									<td>{{name}}</td>
 									<td>{{duration}}</td>
 						
-									<td><a href="#EditBranch" data-branchid="{{branchid}}" data-branchname="{{branchname}}" data-duration="{{duration}}" name="EditBranch" data-toggle="modal"><i class="icon-edit"></i>&nbsp;Edit</a></td>
+									<td><a href="#EditBranch" data-branchid="{{branchid}}" data-branchname="{{name}}" data-duration="{{duration}}" name="EditBranch" data-toggle="modal"><i class="icon-edit"></i>&nbsp;Edit</a></td>
 									<td><a href="#DeleteBranch" data-branchid="{{branchid}}" name="DeleteBranch" "data-toggle="modal"><i class="icon-trash"></i>&nbsp;Delete</a></td>
-								</tr>						
+								</tr>
+							{{/isNotAleadyAddedBranch}}						
 						{{/each}}
 					{{else}}
 						<option value="-1" selected>No Valuse Selected...</option>				
@@ -865,5 +841,6 @@
 	<script type="text/javascript" src="js/script.js"></script>
 	<script type="text/javascript" src="js/controlpanel.js"></script>
 
+					
 </body>
 </html>

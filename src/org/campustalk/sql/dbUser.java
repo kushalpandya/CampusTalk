@@ -10,62 +10,74 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-
-public class dbUser extends DatabaseManager {
-	public dbUser() {
+public class dbUser extends DatabaseManager
+{
+	public dbUser()
+	{
 		super();
 	}
-	public CampusTalkUsers objUser;
-	public CampusTalkUsers getUserDetailFromEmail(String email) {
-		try {
-			this.open();
-		
-		CallableStatement csSql = CON
-				.prepareCall("{call UserDetailFromEmail(?)}");
-		/**
-		 * UserDetailFromEmail Return Structure
-		 * `id`,`email`,`password`,`registerwith
-		 * `,`status`,`authstring`,`authdate`,`registerdate`,`firstname`,
-		 * `lastname
-		 * `,`birthdate`,`gender`,`cityid`,`branchid`,`year`,`pictureurl`
-		 */
-		csSql.setString(1, email);
-		ResultSet rs = csSql.executeQuery();
-		objUser = new CampusTalkUsers();
-		if (rs.next()) {
-			objUser.setId(rs.getInt("id"));
-			objUser.setEmail(email);
-			objUser.setPassword(rs.getString("password"));
-			objUser.setStatus(rs.getString("status"));
-			objUser.setAuthString(rs.getString("authstring"));
-			objUser.setAuthDate(rs.getTimestamp("authdate"));
-			objUser.setRegisterDate(rs.getTimestamp("registerdate"));
-			objUser.setFirstName(rs.getString("firstname"));
-			objUser.setLastName(rs.getString("lastname"));
-			objUser.setBirthDate(rs.getTimestamp("birthdate"));
-			objUser.setGender(rs.getString("gender"));
-			objUser.setCityId(rs.getInt("cityid"));
-			objUser.setBranchId(rs.getInt("branchid"));
-			objUser.setYear(rs.getInt("year"));
-			objUser.setPictureUrl(rs.getString("pictureurl"));
 
-		} else {
-			objUser.setId(0);
+	public CampusTalkUsers objUser;
+
+	public CampusTalkUsers getUserDetailFromEmail(String email)
+	{
+		try
+		{
+			this.open();
+
+			CallableStatement csSql = CON
+					.prepareCall("{call UserDetailFromEmail(?)}");
+			/**
+			 * UserDetailFromEmail Return Structure
+			 * `id`,`email`,`password`,`registerwith
+			 * `,`status`,`authstring`,`authdate`,`registerdate`,`firstname`,
+			 * `lastname
+			 * `,`birthdate`,`gender`,`cityid`,`branchid`,`year`,`pictureurl`
+			 */
+			csSql.setString(1, email);
+			ResultSet rs = csSql.executeQuery();
+			objUser = new CampusTalkUsers();
+			if (rs.next())
+			{
+				objUser.setId(rs.getInt("id"));
+				objUser.setEmail(email);
+				objUser.setPassword(rs.getString("password"));
+				objUser.setStatus(rs.getString("status"));
+				objUser.setAuthString(rs.getString("authstring"));
+				objUser.setAuthDate(rs.getTimestamp("authdate"));
+				objUser.setRegisterDate(rs.getTimestamp("registerdate"));
+				objUser.setFirstName(rs.getString("firstname"));
+				objUser.setLastName(rs.getString("lastname"));
+				objUser.setBirthDate(rs.getTimestamp("birthdate"));
+				objUser.setGender(rs.getString("gender"));
+				objUser.setCityId(rs.getInt("cityid"));
+				objUser.setBranchId(rs.getInt("branchid"));
+				objUser.setYear(rs.getInt("year"));
+				objUser.setPictureUrl(rs.getString("pictureurl"));
+
+			}
+			else
+			{
+				objUser.setId(0);
+			}
+
 		}
-		
-		} catch (ClassNotFoundException | SQLException e) {
+		catch (ClassNotFoundException | SQLException e)
+		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		finally{
-		
+		finally
+		{
+
 		}
-		return objUser;	
+		return objUser;
 	}
 
 	public void registerNewuserDetail(CampusTalkUsers objUser)
 
-			throws SQLException, ClassNotFoundException {
+	throws SQLException, ClassNotFoundException
+	{
 		this.open();
 		CallableStatement csSql = CON
 				.prepareCall("{call UserNewRegisteration(?,?,?,?,?,?,?,?)}");
@@ -87,8 +99,10 @@ public class dbUser extends DatabaseManager {
 		csSql.executeUpdate();
 		csSql.close();
 	}
-	
-	public int verifyNewUser(String email,String aString) throws ClassNotFoundException, SQLException{
+
+	public int verifyNewUser(String email, String aString)
+			throws ClassNotFoundException, SQLException
+	{
 		this.open();
 		CallableStatement csSql = CON
 				.prepareCall("{call UserVerifyRegistration(?,?,?)}");
@@ -96,19 +110,22 @@ public class dbUser extends DatabaseManager {
 		csSql.setString(2, aString);
 		csSql.registerOutParameter(3, Types.INTEGER);
 		csSql.executeQuery();
-		int rtnTemp=csSql.getInt(3);
+		int rtnTemp = csSql.getInt(3);
 		csSql.close();
 		return rtnTemp;
 	}
-	
-	public boolean userLogin(String email, String password) throws SQLException, ClassNotFoundException{
+
+	public boolean userLogin(String email, String password)
+			throws SQLException, ClassNotFoundException
+	{
 		this.open();
 		CallableStatement csSql = CON.prepareCall("{call UserLogin(?,?,?)}");
 		csSql.setString(1, email);
 		csSql.setString(2, password);
 		csSql.registerOutParameter(3, Types.BOOLEAN);
 		ResultSet rs = csSql.executeQuery();
-		if (rs.next()) {
+		if (rs.next())
+		{
 			objUser = new CampusTalkUsers();
 			objUser.setId(rs.getInt("id"));
 			objUser.setEmail(email);
@@ -125,171 +142,227 @@ public class dbUser extends DatabaseManager {
 			objUser.setBranchId(rs.getInt("branchid"));
 			objUser.setYear(rs.getInt("year"));
 			objUser.setPictureUrl(rs.getString("pictureurl"));
-		} 
-		boolean rtnFlag=csSql.getBoolean(3);
+		}
+		boolean rtnFlag = csSql.getBoolean(3);
 		csSql.close();
 		return rtnFlag;
 	}
-	public JSONArray searchUserMsgAC(String query){
+
+	public JSONArray searchUserMsgAC(String query)
+	{
 		JSONArray jArray = new JSONArray();
-		try {
+		try
+		{
 			this.open();
-	
-		CallableStatement csSql = CON.prepareCall("{call SearchUserMsgAC(?)}");
-		csSql.setString(1, query);
-		ResultSet rs = csSql.executeQuery();
-		JSONObject jObj ;
-		
-		while (rs.next()) {
-			jObj= new JSONObject();
-			objUser = new CampusTalkUsers();
-			jObj.put("id",rs.getInt("id"));
-			jObj.put("email",rs.getString("email"));
-			jObj.put("firstname",rs.getString("firstname"));
-			jObj.put("lastname",rs.getString("lastname"));
-			jObj.put("pictureurl",rs.getString("pictureurl"));
-			jObj.put("name", rs.getString("firstname")+" "+rs.getString("lastname"));
-			jArray.put(jObj);
-		} 
-		csSql.close();
-		} catch (ClassNotFoundException | SQLException e) {
+
+			CallableStatement csSql = CON
+					.prepareCall("{call SearchUserMsgAC(?)}");
+			csSql.setString(1, query);
+			ResultSet rs = csSql.executeQuery();
+			JSONObject jObj;
+
+			while (rs.next())
+			{
+				jObj = new JSONObject();
+				objUser = new CampusTalkUsers();
+				jObj.put("id", rs.getInt("id"));
+				jObj.put("email", rs.getString("email"));
+				jObj.put("firstname", rs.getString("firstname"));
+				jObj.put("lastname", rs.getString("lastname"));
+				jObj.put("pictureurl", rs.getString("pictureurl"));
+				jObj.put(
+						"name",
+						rs.getString("firstname") + " "
+								+ rs.getString("lastname"));
+				jArray.put(jObj);
+			}
+			csSql.close();
+		}
+		catch (ClassNotFoundException | SQLException e)
+		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (JSONException e) {
+		}
+		catch (JSONException e)
+		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return jArray;
 	}
-	public String getUserIdListFromEmailList(String emailList){
-		
+
+	public String getUserIdListFromEmailList(String emailList)
+	{
+
 		String rtnStr = "";
-		String sep ="";
-		
-		try {
+		String sep = "";
+
+		try
+		{
 			this.open();
-	
-		CallableStatement csSql = CON.prepareCall("{call getUserIdListFromEmailList(?)}");
-		csSql.setString(1, emailList);
-		ResultSet rs = csSql.executeQuery();
-		
-		
-		while (rs.next()) {
-			rtnStr += sep +  rs.getString(1);
-			sep=",";
-					
-		} 
-		csSql.close();
-		} catch (ClassNotFoundException | SQLException e) {
+
+			CallableStatement csSql = CON
+					.prepareCall("{call getUserIdListFromEmailList(?)}");
+			csSql.setString(1, emailList);
+			ResultSet rs = csSql.executeQuery();
+
+			while (rs.next())
+			{
+				rtnStr += sep + rs.getString(1);
+				sep = ",";
+
+			}
+			csSql.close();
+		}
+		catch (ClassNotFoundException | SQLException e)
+		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} 
+		}
 		return rtnStr;
-		
+
 	}
+
 	/**
 	 * Admin Module
 	 */
-public void AddUser(String email, String branch, int year, String role) throws SQLException, ClassNotFoundException{
-		
-		
+	public void AddUser(String email, String branch, int year, String role)
+			throws SQLException, ClassNotFoundException
+	{
+
 		this.open();
 		CallableStatement csSql = CON
 				.prepareCall("{call openRegistration(?,?,?,?)}");
 		csSql.setString(1, email);
 		csSql.setString(2, branch);
-		csSql.setInt(3, year);		
+		csSql.setInt(3, year);
 		csSql.setString(4, role);
-			
-		csSql.executeQuery();		
-	}
-	
-	public ResultSet getUserData()throws SQLException, ClassNotFoundException 
-	{
-		
-		this.open();
-		CallableStatement csSql = CON
-				.prepareCall("{call getAllUser()}");
-		ResultSet rs = csSql.executeQuery();
-		//ArrayList<CampusTalkBranch> branch = new ArrayList<>();
-		//CampusTalkBranch temp_branch;
-		
-		/*while(rs.next())
-		{
-			temp_branch = new CampusTalkBranch();
-			temp_branch.setBranchId(rs.getInt("branchid"));
-			temp_branch.setName(rs.getString("name"));
-			temp_branch.setDuration(rs.getInt("duration"));
-			
-			branch.add(temp_branch);
-		}*/
-		
-		//return branch.toArray(new CampusTalkBranch[branch.size()]);
-		return rs;		
-	}	
-	
-	public void EditUser(int id, String email, String branch, int year, String role, String status) throws SQLException, ClassNotFoundException{
-//, 
-		
-		this.open();
-		CallableStatement csSql = CON
-				.prepareCall("{call editUser(?,?,?,?,?)}");
-		csSql.setInt(1, id);		
-		csSql.setString(2, email);
-		csSql.setString(3, branch);
-		csSql.setInt(4, year);		
-		csSql.setString(5, role);
-		csSql.setString(6, status);
-			
-		csSql.executeQuery();
-	}
-	
-	public void DeleteUser(int id) throws SQLException, ClassNotFoundException{
 
-		String status="D";
-		this.open();
-		CallableStatement csSql = CON
-				.prepareCall("{call updateUserStatus(?,?)}");
-		csSql.setInt(1, id);		
-		csSql.setString(2, status);		
-		
 		csSql.executeQuery();
 	}
-	
-	
-	public Boolean HelloFun(int id, String email, String branch, int year, String role, String st)
+
+	public JSONArray getUserData()
 	{
-		boolean ret=false;
-		try {
-			
+
+		JSONArray user_arr = new JSONArray();
+		try
+		{
+			this.open();
+			CallableStatement csSql = CON.prepareCall("{call getAllUser()}");
+			ResultSet rs = csSql.executeQuery();
+
+			JSONObject temp;
+
+			while (rs.next())
+			{
+				temp = new JSONObject();
+
+				temp.put("id", rs.getInt("id"));
+				temp.put("email", rs.getString("email"));
+				temp.put("firstname", rs.getString("firstname"));
+				temp.put("lastname", rs.getString("lastname"));
+				temp.put("branch", rs.getString("branch"));
+				temp.put("year", rs.getInt("year"));
+				temp.put("role", rs.getString("role"));
+				temp.put("status", rs.getString("status"));
+
+				user_arr.put(temp);
+			}
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		return user_arr;
+	}
+
+	public boolean EditUser(int id, String email, String branch, int year,
+			String role, String status)
+	{
+		//, 
+		try
+		{
+			this.open();
+			CallableStatement csSql = CON
+					.prepareCall("{call editUser(?,?,?,?,?,?)}");
+			csSql.setInt(1, id);
+			csSql.setString(2, email);
+			csSql.setString(3, branch);
+			csSql.setInt(4, year);
+			csSql.setString(5, role);
+			csSql.setString(6, status);
+
+			csSql.executeQuery();
+			return true;
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			return false;
+		}
+
+	}
+
+	public void DeleteUser(int id)
+	{
+		String status = "D";
+		try
+		{
+			this.open();
+			CallableStatement csSql = CON
+					.prepareCall("{call updateUserStatus(?,?)}");
+			csSql.setInt(1, id);
+			csSql.setString(2, status);
+
+			csSql.executeQuery();
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+
+		}
+	}
+
+	public Boolean HelloFun(int id, String email, String branch, int year,
+			String role, String st)
+	{
+		boolean ret = false;
+		try
+		{
+
 			//String st1="s";
-			
-			
+
 			this.open();
 
 			CallableStatement csSql = CON
 					.prepareCall("{call editUser(?,?,?,?,?,?)}");
-			csSql.setInt(1, id);		
+			csSql.setInt(1, id);
 			csSql.setString(2, email);
 			csSql.setString(3, branch);
-			csSql.setInt(4, year);		
+			csSql.setInt(4, year);
 			csSql.setString(5, role);
 			csSql.setString(6, st);
-				
-			if(csSql.executeQuery() != null)
-			{ ret= true;}
+
+			if (csSql.executeQuery() != null)
+			{
+				ret = true;
+			}
 			else
-			{	ret=false;}
-			
-		} catch (Exception e) {
+			{
+				ret = false;
+			}
+
+		}
+		catch (Exception e)
+		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			
+
 		}
 		return ret;
 	}
 	/**
 	 * End Admin Module
 	 */
-	
+
 }
