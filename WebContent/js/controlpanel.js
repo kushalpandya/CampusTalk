@@ -178,7 +178,6 @@ function showGroup(flag) {
 }
 
 // Load Group data at page load
-showGroup();
 
 $("a[href='#groups']").live("click", function(e) {
 	showGroup();
@@ -1036,4 +1035,14 @@ function loadProfile(type,detail){
 	
 	
 	
+}
+
+if(objMyData.role.toLowerCase()=="moderator"){
+	
+	startReportAbuse();
+	$("#reports").show();
+	
+
+}else {
+	showGroup();
 }
