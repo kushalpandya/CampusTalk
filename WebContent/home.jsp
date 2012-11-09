@@ -253,7 +253,7 @@
 					</div>
 				</form>	
 			</div>
-			<div class="modal-body">
+			<div class="modal-body" id="divProfile">
 				<div class="user-profile">
 					<div class="pull-left">
 						<img src="https://lh3.googleusercontent.com/-XVHns1ycTI0/AAAAAAAAAAI/AAAAAAAAAN0/31SL_TsfpRM/photo.jpg" class="user-img" />
@@ -308,22 +308,40 @@
 			<div class="modal-drawer">
 				<legend class="form-create-event">Create New Event</legend>
 				<form class="form-horizontal form-create-event">
-					<div class="control-group">
-						<label class="control-label">Date</label>
+					<div class="control-group datetime-picker">
+						<label class="control-label">Start Date/Time</label>
 						<div class="controls">
 							<div class="input-append date">
-								<input type="text" name="txtEventDate" class="input-medium"/>
+								<input type="text" name="txtEventStartDate" class="input-small"/>
 								<span class="add-on"><i class="icon-calendar"></i></span>
+							</div>
+						</div>
+						<div class="controls">
+							<div class="input-append bootstrap-timepicker-components">
+								<input type="text" name="txtEventStartTime" class="input-mini"/>
+								<span class="add-on"><i class="icon-time"></i></span>
+							</div>
+						</div>
+					</div>
+					<div class="control-group datetime-picker">
+						<label class="control-label">End Date/Time</label>
+						<div class="controls">
+							<div class="input-append date">
+								<input type="text" name="txtEventEndDate" class="input-small"/>
+								<span class="add-on"><i class="icon-calendar"></i></span>
+							</div>
+						</div>
+						<div class="controls">
+							<div class="input-append bootstrap-timepicker-components">
+								<input type="text" name="txtEventEndTime" class="input-mini"/>
+								<span class="add-on"><i class="icon-time"></i></span>
 							</div>
 						</div>
 					</div>
 					<div class="control-group">
-						<label class="control-label">Time</label>
+						<label class="control-label">Place</label>
 						<div class="controls">
-							<div class="input-append bootstrap-timepicker-components">
-								<input type="text" name="txtEventTime" class="input-small"/>
-								<span class="add-on"><i class="icon-time"></i></span>
-							</div>
+							<input type="text" name="txtEventPlace">
 						</div>
 					</div>
 					<div class="control-group">
@@ -335,7 +353,7 @@
 					<div class="control-group">
 						<label class="control-label">Description</label>
 						<div class="controls">
-							<textarea rows="3" placeholder="Detailed description of event..." id="txtEventDesc" ></textarea>
+							<textarea rows="2" placeholder="Detailed description of event..." id="txtEventDesc" ></textarea>
 						</div>
 					</div>
 					<div class="control-group drawer-button-group">
@@ -346,15 +364,15 @@
 				<legend class="form-view-event">Event Details</legend>
 				<form class="form-horizontal form-view-event">
 					<div class="control-group">
-						<label class="control-label">Date</label>
+						<label class="control-label">Duration</label>
 						<div class="controls">
-							<label>11-09-2012</label>
+							<label>11-09-2012 12:00 PM to 11-09-2012 2:00 PM</label> 
 						</div>
 					</div>
 					<div class="control-group">
-						<label class="control-label">Time</label>
+						<label class="control-label">Venue</label>
 						<div class="controls">
-							<label>12:00 PM</label>
+							<label>Gandhinagar</label>
 						</div>
 					</div>
 					<div class="control-group">
@@ -412,12 +430,8 @@
 			<div class="modal-disable-overlay">&nbsp;</div>
 		</div>
 		<a id='popupLink' href='' style='display:none'>Show</a>
-<<<<<<< HEAD
 		<script type="text/x-handlebars-template" id='tmpltuserProfile'>
-			
-=======
-		<script type="text/x-handlebars-template" id='tmpltPostList'>
->>>>>>> branch 'master' of https://github.com/kushalpandya/CampusTalk.git
+		
 				<div class="user-profile">
 					<div class="pull-left">
 						<img src="{{pictureurl}}" class="user-img" />
@@ -428,7 +442,7 @@
 					</div>
 					<div class="pull-right">
 						<label>{{firstname}} {{lastname}}</label>
-						<label>{{branchname}} - {{year}}</label>
+						<label>{{branch}} - {{year}}</label>
 						<table>
 							<tbody>
 								<tr>
@@ -457,10 +471,10 @@
  		{{#if posts}}
 			{{#each posts}}
 				{{#notAlreadyAddedPost postid}}
-					<div class="feed-card" id='divPost{{postid}}' data-userid="{{id}}">
+					<div class="feed-card" id='divPost{{postid}}' data-userid="{{userid}}">
 						<div class="feed-user-bar">
-							<a href="#"><img src="{{pictureurl}}" class="feed-user-img" /></a>
-							<span class="feed-user-title"><a href="{{getuserurl id}}">{{firstname}} {{lastname}}</a></span>
+							<a href="#profile" data-userid="{{userid}}"><img src="{{pictureurl}}" class="feed-user-img" /></a>
+							<span class="feed-user-title"><a href="#profile" data-userid="{{userid}}" >{{firstname}} {{lastname}}</a></span>
 							<span class="feed-timestamp muted">{{getDateTime entTime}}</span>
 							<div class="dropdown drp-flat feed-card-menu">
 								<a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon-tasks"></i></a>
@@ -492,7 +506,7 @@
 		<script type="text/x-handlebars-template" id='tmpltCommentList'>
 		{{#each comments}}
 			{{#notAlreadyAddedComment commentid}}
-				<li id='liComment{{commentid}}'><img src="{{pictureurl}}" class="comment-user-img"/><br/>{{detail}}<span class="comment-user"><a href="#">{{firstname}} {{lastname}}</a></span><span class="comment-timestamp muted">{{getDateTime entTime}}</span><a class="comment-action" href="#"><i class="icon-remove" title="Delete"></i></a></li>
+				<li id='liComment{{commentid}}'><img src="{{pictureurl}}" class="comment-user-img"/><br/>{{detail}}<span class="comment-user"><a href="#profile" data-userid="{{userid}}" >{{firstname}} {{lastname}}</a></span><span class="comment-timestamp muted">{{getDateTime entTime}}</span><a class="comment-action" href="#"><i class="icon-remove" title="Delete"></i></a></li>
 			{{/notAlreadyAddedComment}}
 		{{/each}}
 		</script>

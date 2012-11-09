@@ -277,7 +277,7 @@ function loadCommentForPost(post,resetFlag) {
 							post.parents().eq(2).css("marginBottom", post.parents().eq(1).height());
 						});
 						post.hide();
-				
+						assignLoadProfile();
 						$("#postComments" + postid + " .comment-action").click(function(e){
 							var commentid= parseInt($(this).data("commentid"));
 							var r=confirm("Are you sure you want to delete this Comment?");
@@ -324,6 +324,16 @@ function afterLoadPost() {
 		e.preventDefault();
 		loadCommentForPost($(this));
 	});
+	assignLoadProfile();
+	
+}
+function assignLoadProfile(){
+	$("a[href=#profile]").click(function (e){
+		e.preventDefault();
+		loadProfile("id",$(this).data("userid"));
+		
+	});
+	
 }
 
 $("#btnSendNewMessage").click(function(e){
@@ -473,7 +483,7 @@ $("#txtSearchBox").typeahead({
 	},
 	onselect: function(obj) {
 		console.log("Selected Id = "+obj.id);
-		$("#dlgUserProfile").modal();
+		loadProfile("id", obj.id);
 	}
 });
 
@@ -495,3 +505,37 @@ $("#dlgMessages #txtEmailNewMsg").typeahead({
 		modal.find("#txtEmailNewMsg").val("").focus();
 	}
 });
+
+
+function loadProfile(type,detail){
+	$.ajax({
+		url : 'User/Profile',
+		type : 'post',
+		data : {
+			"type" : type,
+			"data" : detail			
+		},
+		success : function(data) {
+			if (data.status === 'success') {
+				//
+				var source = $("#tmpltuserProfile").html();
+				var template = Handlebars.compile(source);
+				var html = template(data);
+				$("#divProfile").html(html);
+				$("#dlgUserProfile").modal(); 
+			} else {
+				// Failed
+				errorOverlay(true, data.message);
+				
+			}
+		},
+		error : function() {
+			errorOverlay(true, 'Oops! something went wrong. Please refresh the page');
+	
+		}
+	});
+	
+	
+	
+	
+}
