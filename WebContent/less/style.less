@@ -600,6 +600,24 @@
 	}
 }
 
+#dlgEvents {
+	max-height: 450px;
+	.modal-drawer {
+		.form-create-event, .form-view-event {
+			display: none;
+		}
+	}
+	.modal-body {
+		.input-append {
+			text-align: center;
+			.control-label {
+				margin-top: 3px;
+				margin-right: 10px;
+			}
+		}
+	}
+}
+
 /******** controlpanel.html Styles ********/
 
 .panels-block {
@@ -701,7 +719,7 @@
 		.transition();
 	}
 	
-	&:active {
+	&:active, &.active {
 		background: darken(@page_bg_color, 15%);
 		.box-shadow-inset(0px, 0px, 5px, lighten(@footer_bg_color, 30%));
 		.transition();
@@ -723,7 +741,7 @@
 		.transition();
 	}
 	
-	&:active {
+	&:active, &.active {
 		color: @soft_white;
 		background: darken(@base_color, 3%);
 		.box-shadow-inset(0px, 0px, 5px, darken(@base_color, 30%));
@@ -743,7 +761,7 @@
 		.transition();
 	}
 	
-	&:active {
+	&:active, &.active {
 		background: darken(@base_color, 3%);
 		.box-shadow-inset(0px, 0px, 5px, darken(@base_color, 30%));
 		.transition();
@@ -762,7 +780,7 @@
 		.transition();
 	}
 	
-	&:active {
+	&:active, &.active {
 		background: darken(@base_color, 3%);
 		.box-shadow-inset(0px, 0px, 5px, darken(@base_color, 30%));
 		.transition();
@@ -781,7 +799,7 @@
 		.transition();
 	}
 	
-	&:active {
+	&:active, &.active {
 		background: darken(@base_color, 3%);
 		.box-shadow-inset(0px, 0px, 5px, darken(@base_color, 30%));
 		.transition();
