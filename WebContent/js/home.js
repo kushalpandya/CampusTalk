@@ -48,6 +48,11 @@ Handlebars.registerHelper('notAlreadyAddedMessage', function(messageid, block) {
 	if ($("#divMessageThread" + messageid).length == 0)
 		return block.fn(this);
 });
+//ifalreadyjoin
+Handlebars.registerHelper('ifalreadyjoin', function(status, block) {
+	if (status != '1')
+		return block.fn(this);
+});
 Handlebars.registerHelper('getDateTime', function(enttime) {
 	var rtnDate = moment(enttime, "YYYY-MM-DD hh:mm:ss").fromNow();
 	if(rtnDate.indexOf("days") < 0)
@@ -60,6 +65,10 @@ Handlebars.registerHelper('isModerator', function(messageid, block) {
 			return block.fn(this);
 });
 
+Handlebars.registerHelper('isalredyaddedevent', function(eventid, block) {
+	if ($("#trevents" + eventid).length == 0)
+		return block.fn(this);
+});
 
 $("#btnPost").click(function() {
 	var postData = $.trim($("#postBox").val());
