@@ -109,14 +109,15 @@ public class dbEvent extends DatabaseManager {
 		return event_arr;
 	}
 
-public JSONArray getEventDetails(int id) {
+public JSONArray getEventDetails(int id, int uId) {
 		JSONArray event_arr = new JSONArray();
 		try {
 			this.open();
 
 			CallableStatement csSql = CON
-					.prepareCall("{call getEventDetails(?)}");
+					.prepareCall("{call getEventDetails(?, ?)}");
 			csSql.setInt(1, id);
+			csSql.setInt(2, uId);
 			ResultSet rs = csSql.executeQuery();
 
 			JSONObject temp;
@@ -132,6 +133,7 @@ public JSONArray getEventDetails(int id) {
 				temp.put("status", rs.getString("status"));
 				temp.put("fdate", rs.getDate("fromdate"));
 				temp.put("tdate", rs.getDate("todate"));
+				temp.put("joinStatus", rs.getBoolean("joinstatus"));
 				event_arr.put(temp);
 			}
 
