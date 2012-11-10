@@ -84,6 +84,7 @@ public class CreateEvent extends HttpServlet {
 					dbEvent objDbEvent= new dbEvent();
 					objDbEvent.AddEvent(dtFrom, dtTo, eventName, eventDesc,eventPlace,(int)session.getAttribute("UserId"));
 				}
+				status="success";
 			}
 			
 			else if (req_type.equalsIgnoreCase("GetData")) // Request for All Roles Data
@@ -117,7 +118,7 @@ public class CreateEvent extends HttpServlet {
 			{
 				int id=Integer.parseInt(request.getParameter("eId"));
 				JSONArray eventDetails_arr = new JSONArray();
-				eventDetails_arr = objdbEvent.getEventDetails(id);
+				eventDetails_arr = objdbEvent.getEventDetails(id,(int)session.getAttribute("UserId"));
 				// -- // event_arr =objdbEvent.getEventDetails(Integer.parseInt(request.getParameter("id")));
 				
 				resp.put("EventDetails", eventDetails_arr);
