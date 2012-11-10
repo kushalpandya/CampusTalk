@@ -601,6 +601,7 @@
 }
 
 #dlgEvents {
+	height: 450px;
 	.modal-drawer {
 		.form-create-event, .form-view-event {
 			display: none;
@@ -610,7 +611,6 @@
 				}
 			}
 		}
-		
 		.datetime-picker {
 			.controls:first-child {
 				float: left;
@@ -626,25 +626,29 @@
 			}
 		}
 	}
-	
 	.modal-body {
 		overflow-y: hidden;
-			.input-append {
+		.input-append {
 			text-align: center;
 			.control-label {
 				margin-top: 3px;
 				margin-right: 10px;
 			}
 		}
-	}
+		table {
+			overflow-y: auto;
+		}
+ 	}
+	.modal-footer {
+		margin-top: 188px;
+	}	
 }
 
 /******** controlpanel.html Styles ********/
 
 .panels-block {
 	width: 75%;
-	
-	.tabbable {
+	.table {
 		width: 95%;
 	}
 	
@@ -1476,12 +1480,6 @@ textarea.txt-flat {
 	background: @soft_white;
 }
 
-<<<<<<< HEAD
-.datepicker {
-	z-index: 3050;
-}
-=======
 div.datepicker.dropdown-menu {
   z-index: 3050 !important;
 }
->>>>>>> branch 'master' of https://github.com/kushalpandya/CampusTalk.git
