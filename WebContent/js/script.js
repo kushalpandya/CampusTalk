@@ -56,17 +56,6 @@ $(".account-tray #btnSettings").on("click", function(e) {
 	
 });
 
-$("#dlgAccountSettings, #dlgEvents").on("shown", function(e) {
-	var modal = $(this);
-	modal.find("input[name$='Date']").datepicker({
-		format: "dd-mm-yyyy",
-		weekStart: 1,
-		autoclose: true,
-		todayHighlight: true
-	});
-	
-	modal.find("input[name$='Time']").timepicker();
-});
 
 $("#dlgAccountSettings form button[name='btnChangePassword']").on("click", function(e) {
 	var modal = $(this).parents().eq(4);
@@ -110,6 +99,10 @@ $("#dlgEvents #btnCancelNewEvent").on("click", function() {
 	modal.find(".modal-disable-overlay").hide();
 	modal.find(".modal-drawer, [class^='form']").slideUp(250);
 });
+
+
+
+
 
 /** ******************** home.html script ********************** */
 $("#postBox").on(
