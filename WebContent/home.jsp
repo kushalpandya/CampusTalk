@@ -401,8 +401,10 @@
 						</div>
 					</div>
 					<div class="control-group drawer-button-group pull-right">
+{{#ifalreadyjoin joinStatus}}
 						<button type="button" class="btn btn-blue" id="btnJoinEvent" data-toggle="button" data-eid="{{eid}}" ><i class="icon-thumbs-up icon-white"></i>&nbsp;Join</button>
-						<button type="button" class="btn btn-flat" id="btnCancelNewEvent">Cancel</button>
+	{{/ifalreadyjoin}}
+					<button type="button" class="btn btn-flat" id="btnCancelNewEvents">Cancel</button>
 					</div>
 
 				
@@ -430,14 +432,14 @@
 				<script id="getEventData" type="text/x-handlebars-template">
 					{{#if Event}}
 						{{#each Event}}
-							
-								<tr>
+							{{#isalredyaddedevent eid}}
+								<tr id="trevents{{eid}}">
 									<td>{{eid}}</td>									
 									<td>{{title}}</td>
 									<td>{{fdate}}</td>
 									<td><a href="#EventDetails" data-id="{{eid}}" > <i class="icon-eye-open"></i>&nbsp;Details</a></td>
 								</tr>
-							
+							{{/isalredyaddedevent}}
 						{{/each}}
 					{{else}}
 
@@ -457,12 +459,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>2</td>
-							<td>SEN Project Submission</td>
-							<td>12:00 PM</td>
-							<td><a href="#EventDetails"><i class="icon-eye-open"></i>&nbsp;Details</a></td>
-						</tr>
+						
 					</tbody>
 				</table>
 			</div>
