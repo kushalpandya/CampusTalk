@@ -15,12 +15,13 @@ The webapp is single-page and thus makes extensive use of Ajax to show content t
 * **IDE** - Eclipse 4.2
 * **Java** - JDK 1.7
 * **Development OS** - Ubuntu 12.04 LTS / Windows 7
-* **Third Party Libs** - [JSON](http://json.org) (for JSON in Java), [CommonUtils 0.1](https://github.com/kushalpandya/CommonUtils), [jQuery](http://jquery.com/), [JSONify](https://github.com/kushalpandya/JSONify), [Backbone](http://backbonejs.org/), [RequireJS](http://requirejs.org/), [Walrus](http://documentup.com/jeremyruppel/walrus/), [Twitter Bootstrap](http://twitter.github.com/bootstrap/), [Less](http://lesscss.org/).
+* **Third Party Libs** - [JSON](http://json.org) (for JSON in Java), [CommonUtils 0.1](https://github.com/kushalpandya/CommonUtils), [jQuery](http://jquery.com/), [JSONify](https://github.com/kushalpandya/JSONify), [Backbone](http://backbonejs.org/), [Underscore](http://underscorejs.org/), [Handlebars](http://handlebarsjs.com/), [Twitter Bootstrap](http://twitter.github.com/bootstrap/), [Less](http://lesscss.org/).
 
 ## Packages
 
 * `org.campustalk` - Main package, contains app configuration and properties.
 * `org.campustalk.entity` - Top-level Entity Classes.
+* `org.campustalk.filters` - URL filter Classes.
 * `org.campustalk.sql` - Database interaction models.
 * `org.campustalk.servlet` - Request handling controllers.
 * `org.campustalk.util` - Utility Classes for general operations.
