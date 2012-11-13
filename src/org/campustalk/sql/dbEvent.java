@@ -54,6 +54,7 @@ public class dbEvent extends DatabaseManager {
 		return rtnTemp;
 	}
 
+	@SuppressWarnings("unused")
 	public void JoinEvent(int eId, int userId) {
 		boolean rtnTemp = false;
 		try {
