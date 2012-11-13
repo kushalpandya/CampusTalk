@@ -778,8 +778,7 @@ function startReportAbuse() {
 				$("a[href='#dlgUserProfile']").on(
 						"click",
 						function() {
-							loadProfile("email",$(this).data("email"))
-							
+							loadProfile("email",$(this).data("email"));
 						});
 				
 				
@@ -802,14 +801,14 @@ function startReportAbuse() {
 									{
 										
 										if(data.status==="success")
-											{
+										{
 											successOverlay(true,"Post Blocked Sucessfully.");
-											startReportAbuse()
-											}
+											startReportAbuse();
+										}
 										else
-											{
+										{
 											errorOverlay(true,"Opps!! Error in Block Post");
-											}
+										}
 									}
 							
 							);

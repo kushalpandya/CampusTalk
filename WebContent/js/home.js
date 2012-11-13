@@ -639,7 +639,7 @@ $("#btnSaveNewPass").on("click",function(e){
 					$("#txtCurrPass").val("");
 					$("#txtNewPass").val("");
 					$("#txtConfirmNewPass").val("");
-					$("#btnCancelChangePass").click()
+					$("#btnCancelChangePass").click();
 					successOverlay(true,"Your Password Change Successfuly");	
 					
 				}
