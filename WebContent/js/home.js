@@ -510,7 +510,7 @@ $("#dlgMessages #txtEmailNewMsg").typeahead({
 	onselect: function(obj) {
 		console.log("Selected Id = "+obj.id);
 		var modal = $("#dlgMessages");
-		modal.find(".modal-drawer .control-group:nth-child(2) .controls").append(obj.name+", ");
+		modal.find(".modal-drawer .control-group:nth-child(2) .controls").append(obj.email+", ");
 		modal.find("#txtEmailNewMsg").val("").focus();
 	}
 });
