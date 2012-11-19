@@ -155,9 +155,7 @@
 				<h4 class="modal-title">Settings</h4>
 			</div>
 			<div class="modal-drawer">
-			
 				<legend>Change Password</legend>
-				
 				<form class="form-inline">
 					<div class="control-group">
 						<label class="control-label">Current Password</label>
@@ -361,16 +359,11 @@
 						<a href="#" class="btn btn-green" id="btnSaveNewEvent">Save</a>
 					</div>
 				</form>
-				
 				<legend id="legEventDetails" class="form-view-event">Event Details</legend>
-				
 				<script id="getEventDataDetails" type="text/x-handlebars-template">
-					{{#if EventDetails}}
-						{{#each EventDetails}}
-							
-						
-				
-				<div class="control-group">
+				{{#if EventDetails}}
+					{{#each EventDetails}}
+					<div class="control-group">
 						<label class="control-label">Duration</label>
 						<div class="controls">
 							<label>{{fdate}} to {{tdate}}</label> 
@@ -401,28 +394,17 @@
 						</div>
 					</div>
 					<div class="control-group drawer-button-group pull-right">
-{{#ifalreadyjoin joinStatus}}
+						{{#ifalreadyjoin joinStatus}}
 						<button type="button" class="btn btn-blue" id="btnJoinEvent" data-toggle="button" data-eid="{{eid}}" ><i class="icon-thumbs-up icon-white"></i>&nbsp;Join</button>
-	{{/ifalreadyjoin}}
-					<button type="button" class="btn btn-flat" id="btnCancelNewEvents">Cancel</button>
+						{{/ifalreadyjoin}}
+						<button type="button" class="btn btn-flat" id="btnCancelNewEvents">Cancel</button>
 					</div>
-
-				
-				
-				
-
-
-		{{/each}}
-					{{else}}
-
-						<option value="-1" selected>No Valuse Selected...</option>				
-							
-					{{/if}}	
+					{{/each}}
+				{{else}}
+					<option value="-1" selected>No Valuse Selected...</option>											
+				{{/if}}
 				</script>
-
-									<form class="form-horizontal form-view-event" id="frmEventDetails" >
-									</form>
-					
+				<form class="form-horizontal form-view-event" id="frmEventDetails" ></form>
 			</div>
 			<div class="modal-body">
 				<div class="input-append">
@@ -430,26 +412,22 @@
 					<span class="add-on"><i class="icon-calendar"></i></span>
 				</div>
 				<script id="getEventData" type="text/x-handlebars-template">
-					{{#if Event}}
-						{{#each Event}}
-							{{#isalredyaddedevent eid}}
-								<tr id="trevents{{eid}}">
-									<td>{{eid}}</td>									
-									<td>{{title}}</td>
-									<td>{{fdate}}</td>
-									<td><a href="#EventDetails" data-id="{{eid}}" > <i class="icon-eye-open"></i>&nbsp;Details</a></td>
-								</tr>
-							{{/isalredyaddedevent}}
-						{{/each}}
-					{{else}}
-
-						<option value="-1" selected>No Valuse Selected...</option>				
-							
-					{{/if}}	
+				{{#if Event}}
+					{{#each Event}}
+						{{#isalredyaddedevent eid}}
+							<tr id="trevents{{eid}}">
+								<td>{{eid}}</td>									
+								<td>{{title}}</td>
+								<td>{{fdate}}</td>
+								<td><a href="#EventDetails" data-id="{{eid}}" > <i class="icon-eye-open"></i>&nbsp;Details</a></td>
+							</tr>
+						{{/isalredyaddedevent}}
+					{{/each}}
+				{{else}}
+					<option value="-1" selected>No Valuse Selected...</option>						
+				{{/if}}	
 				</script>
-				
-				
-								<table class="table table-hover" id="tblEventData">
+				<table class="table table-hover" id="tblEventData">
 					<thead>
 						<tr>
 							<th>Sr. No.</th>
@@ -458,9 +436,7 @@
 							<th>Actions</th>
 						</tr>
 					</thead>
-					<tbody>
-						
-					</tbody>
+					<tbody></tbody>
 				</table>
 			</div>
 			<div class="modal-footer">
@@ -473,45 +449,43 @@
 			</div>
 			<div class="modal-disable-overlay">&nbsp;</div>
 		</div>
-		<a id='popupLink' href='' style='display:none'>Show</a>
 		<script type="text/x-handlebars-template" id='tmpltuserProfile'>
-		
-				<div class="user-profile">
-					<div class="pull-left">
-						<img src="{{pictureurl}}" class="user-img" />
-						<div class="user-activity">
-							<span class="user-posts"><i class="icon-list-alt"></i>&nbsp;{{nopost}}</span>
-							<span class="user-comments"><i class="icon-comment"></i>&nbsp;{{nocomment}}</span>
-						</div>
-					</div>
-					<div class="pull-right">
-						<label>{{firstname}} {{lastname}}</label>
-						<label>{{branch}} - {{year}}</label>
-						<table>
-							<tbody>
-								<tr>
-									<td>Email</td><td>{{email}}</td>
-								</tr>
-								<tr>
-									<td>Gender</td><td>{{gender}}</td>
-								</tr>
-								<tr>
-									<td>Born</td><td>{{birthdate}}</td>
-								</tr>
-								<tr>
-									<td>City</td><td>{{city}}</td>
-								</tr>
-								<c:if test="${isAllow eq 1}" >
-								{{#isModerator id}}
+		<div class="user-profile">
+			<div class="pull-left">
+				<img src="{{pictureurl}}" class="user-img" />
+				<div class="user-activity">
+					<span class="user-posts"><i class="icon-list-alt"></i>&nbsp;{{nopost}}</span>
+					<span class="user-comments"><i class="icon-comment"></i>&nbsp;{{nocomment}}</span>
+				</div>
+			</div>
+			<div class="pull-right">
+				<label>{{firstname}} {{lastname}}</label>
+				<label>{{branch}} - {{year}}</label>
+				<table>
+					<tbody>
+						<tr>
+							<td>Email</td><td>{{email}}</td>
+						</tr>
+						<tr>
+							<td>Gender</td><td>{{gender}}</td>
+						</tr>
+						<tr>
+							<td>Born</td><td>{{birthdate}}</td>
+						</tr>
+						<tr>
+							<td>City</td><td>{{city}}</td>
+						</tr>
+						<c:if test="${isAllow eq 1}" >
+							{{#isModerator id}}
 								<tr align="left">
 									<td colspan="2"><button class="btn btn-yellow" id='btnModrate' data-email="{{email}}"><i class="icon-user"></i>&nbsp;Make Moderator</button></td>
 								</tr>
-								{{/isModerator}}
-								</c:if>
-							</tbody>
-						</table>
-					</div>
-				</div>
+							{{/isModerator}}
+						</c:if>
+					</tbody>
+				</table>
+			</div>
+		</div>
 		</script>
 		<script type="text/x-handlebars-template" id='tmpltPostList'>
  		{{#if posts}}
