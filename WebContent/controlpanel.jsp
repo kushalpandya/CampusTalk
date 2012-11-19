@@ -191,7 +191,7 @@
 							<form class="form-horizontal form-add-member">
 								<legend>Add Users</legend>
 								<div class="control-group">
-									<label class="control-label">Email List</label>
+									<label class="control-label">Email</label>
 									<div class="controls">
 										<input type="text" id="txtInsertUserEmail" name="txtUserEmail"/>
 									</div>
