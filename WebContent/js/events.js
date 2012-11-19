@@ -57,6 +57,7 @@ $("#dlgAccountSettings, #dlgEvents").on("shown", function(e) {
 							"click",
 							
 							function(e) {
+								e.preventDefault();
 								var src = $("#getEventDataDetails").html();	
 								eventId1 = parseInt($(this).parents().eq(1)
 										.find("td:nth-child(1)").text());
