@@ -401,7 +401,7 @@
 					</div>
 					{{/each}}
 				{{else}}
-					<option value="-1" selected>No Valuse Selected...</option>											
+					<option value="-1" selected>No Value Selected...</option>											
 				{{/if}}
 				</script>
 				<form class="form-horizontal form-view-event" id="frmEventDetails" ></form>
