@@ -234,8 +234,12 @@ public class dbUser extends DatabaseManager
 	{
 
 		this.open();
+		//setAllEmail
+		
 		CallableStatement csSql = CON
-				.prepareCall("{call openRegistration(?,?,?,?)}");
+				.prepareCall("{call setAllEmail(?,?,?,?)}");
+		//CallableStatement csSql = CON
+			//	.prepareCall("{call openRegistration(?,?,?,?)}");
 		csSql.setString(1, email);
 		csSql.setString(2, branch);
 		csSql.setInt(3, year);
