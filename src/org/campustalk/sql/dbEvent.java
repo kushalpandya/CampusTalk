@@ -37,8 +37,8 @@ public class dbEvent extends DatabaseManager {
 
 			csSql.setDate(1, new java.sql.Date(fDate.getTime()));
 			csSql.setDate(2, new java.sql.Date(tDate.getTime()));
-			csSql.setString(3, eName);
-			csSql.setString(4, eDesc);
+			csSql.setString(3, eDesc);
+			csSql.setString(4, eName);
 			csSql.setString(5, ePlace);
 			csSql.setInt(6, userId);
 			
