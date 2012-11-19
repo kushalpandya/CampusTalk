@@ -56,7 +56,7 @@ public class dbUser extends DatabaseManager
 				objUser.setCityId(rs.getInt("cityid"));
 				objUser.setBranchId(rs.getInt("branchid"));
 				objUser.setYear(rs.getInt("year"));
-				objUser.setPictureUrl(rs.getString("pictureurl"));
+				objUser.setPictureUrl(rs.getString("pictureurl").replace("?sz=50", ""));
 
 			}
 			else
@@ -98,7 +98,7 @@ public class dbUser extends DatabaseManager
 		csSql.setString(5, objUser.getPassword());
 		csSql.setString(6, objUser.getAuthString());
 		csSql.setString(7, objUser.getRegisterWith());
-		csSql.setString(8, objUser.getPictureUrl());
+		csSql.setString(8, objUser.getPictureUrl().replace("?sz=50", ""));
 		csSql.executeUpdate();
 		csSql.close();
 	}
@@ -144,7 +144,7 @@ public class dbUser extends DatabaseManager
 			objUser.setCityId(rs.getInt("cityid"));
 			objUser.setBranchId(rs.getInt("branchid"));
 			objUser.setYear(rs.getInt("year"));
-			objUser.setPictureUrl(rs.getString("pictureurl"));
+			objUser.setPictureUrl(rs.getString("pictureurl").replace("?sz=50", ""));
 		}
 		boolean rtnFlag = csSql.getBoolean(3);
 		csSql.close();
@@ -172,7 +172,7 @@ public class dbUser extends DatabaseManager
 				jObj.put("email", rs.getString("email"));
 				jObj.put("firstname", rs.getString("firstname"));
 				jObj.put("lastname", rs.getString("lastname"));
-				jObj.put("pictureurl", rs.getString("pictureurl"));
+				jObj.put("pictureurl", rs.getString("pictureurl").replace("?sz=50", ""));
 				jObj.put(
 						"name",
 						rs.getString("firstname") + " "
@@ -354,7 +354,7 @@ public class dbUser extends DatabaseManager
 				jResponse.put("gender", rs.getString("gender"));
 				jResponse.put("birthdate", rs.getString("birthdate"));
 				jResponse.put("city", rs.getString("city"));
-				jResponse.put("pictureurl", rs.getString("pictureurl"));
+				jResponse.put("pictureurl", rs.getString("pictureurl").replace("?sz=50", ""));
 			}
 
 		}
@@ -395,7 +395,7 @@ public class dbUser extends DatabaseManager
 				jResponse.put("gender", rs.getString("gender"));
 				jResponse.put("birthdate", rs.getString("birthdate"));
 				jResponse.put("city", rs.getString("city"));
-				jResponse.put("pictureurl", rs.getString("pictureurl"));
+				jResponse.put("pictureurl", rs.getString("pictureurl").replace("?sz=50", ""));
 			}
 
 		}
