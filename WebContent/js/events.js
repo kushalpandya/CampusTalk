@@ -11,6 +11,9 @@ $("#btnSaveNewEvent").on("click", function(e) {
 		
 				if(data.status==="success")
 					{
+						var modal = $("#dlgEvents");
+						modal.find(".modal-disable-overlay").hide();
+						modal.find(".modal-drawer, [class^='form']").slideUp(250);
 						successOverlay(true, "Event Created Successfully");
 					}
 				else
