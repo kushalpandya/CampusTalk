@@ -526,7 +526,7 @@
 		<script type="text/x-handlebars-template" id='tmpltCommentList'>
 		{{#each comments}}
 			{{#notAlreadyAddedComment commentid}}
-				<li id='liComment{{commentid}}'><img src="{{pictureurl}}" class="comment-user-img"/><br/>{{detail}}<span class="comment-user"><a href="#profile" data-userid="{{userid}}" >{{firstname}} {{lastname}}</a></span><span class="comment-timestamp muted">{{getDateTime entTime}}</span><a class="comment-action" href="#"><i class="icon-remove" title="Delete"></i></a></li>
+				<li id='liComment{{commentid}}'><img src="{{pictureurl}}" class="comment-user-img"/><br/>{{detail}}<span class="comment-user"><a href="#profile" data-userid="{{userid}}" >{{firstname}} {{lastname}}</a></span><span class="comment-timestamp muted">{{getDateTime entTime}}</span><a class="comment-action" href="#" data-commentid={{commentid}}><i class="icon-remove" title="Delete"></i></a></li>
 			{{/notAlreadyAddedComment}}
 		{{/each}}
 		</script>
